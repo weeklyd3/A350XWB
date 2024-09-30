@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <PropertyList>
 
-	<path>flightdeck/flightdeck.ac</path>
+	<path>flightdeck/flightdeck_new.ac</path>
   	
 	<!-- Engine Indications and Crew Alerting System (Upper ECAM) -->
 	<model>
@@ -47,7 +47,7 @@
 	
 	<!-- Primary Flight Displays -->
 	
-	<model>
+	<!--<model>
 		<path>Aircraft/A350XWB/Models/Instruments/PFD/PFD.xml</path>
 		<offsets>
 			<x-m>2.3481</x-m>
@@ -85,8 +85,7 @@
 		<x-offset>1.1</x-offset>
 		<y-offset>1.1</y-offset>
 		<z-offset>1.1</z-offset>
-	</animation>
-	
+	</animation>-->
 	<!-- Navigation Displays -->
 	
 	<model>

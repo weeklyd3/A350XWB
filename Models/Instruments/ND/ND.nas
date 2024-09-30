@@ -3,7 +3,7 @@
 var placement_left = "ND.screenL";
 var placement_right = "ND.screenR";
 var nd_display = {};
-
+print(canvas.NDStyles);
 ##
 # configure aircraft specific cockpit/ND switches here
 # these are to be found in the property branch you specify

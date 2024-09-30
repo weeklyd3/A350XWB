@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 
-<PropertyList>
+<PropertyList include="fcu_text.xml">
 
-	<path>mcp.ac</path>
+	<path>new_mcp.ac</path>
 
 	<effect>
 		<inherits-from>Effects/lightmap</inherits-from>
@@ -40,5 +40,232 @@
 		</parameters>
 		<object-name>not</object-name>
 	</effect>
+<animation>
+  <type>pick</type>
+  <object-name>Cylinder.006</object-name>
+  <action>
+    <button>4</button>
+    <!--  scroll up -->
+    <repeatable>false</repeatable>   
+    <binding>
+      <command>property-cycle</command>
+      <property>/instrumentation/efis/inputs/range-nm</property>
+      <value>10</value>
+      <value>20</value>
+      <value>40</value>
+      <value>80</value>
+      <value>160</value>
+      <value>320</value>
+    </binding>   
+  </action>
+</animation>
 
+<animation>
+  <type>pick</type>
+  <object-name>Cylinder.006</object-name>
+  <action>
+    <button>3</button>
+    <!--  scroll up -->
+    <repeatable>false</repeatable>
+    <binding>
+      <command>property-cycle</command>
+      <property>/instrumentation/efis/inputs/range-nm</property>
+      <value>320</value>
+      <value>160</value>
+      <value>80</value>
+      <value>40</value>
+      <value>20</value>
+      <value>10</value>              
+    </binding>   
+  </action>
+</animation>
+<!-- captain qnh control -->
+<animation>
+  <type>pick</type>
+  <object-name>Cylinder.005</object-name>
+  <action>
+    <button>4</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>    
+      <script>A350XWB.increase_qnh()</script>       
+    </binding>   
+  </action>
+  <action>
+    <button>3</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>    
+      <script>A350XWB.decrease_qnh()</script>       
+    </binding>   
+  </action>
+</animation>
+<animation>
+  <type>pick</type>
+  <object-name>Cylinder.008</object-name>
+  <action>
+    <button>4</button>
+    <!--  scroll up -->
+    <repeatable>false</repeatable>   
+    <binding>
+      <command>property-cycle</command>
+      <property>/instrumentation/efis[1]/inputs/range-nm</property>
+      <value>10</value>
+      <value>20</value>
+      <value>40</value>
+      <value>80</value>
+      <value>160</value>
+      <value>320</value>
+    </binding>   
+  </action>
+</animation>
+
+<animation>
+  <type>pick</type>
+  <object-name>Cylinder.008</object-name>
+  <action>
+    <button>3</button>
+    <!--  scroll up -->
+    <repeatable>false</repeatable>
+    <binding>
+      <command>property-cycle</command>
+      <property>/instrumentation/efis[1]/inputs/range-nm</property>
+      <value>320</value>
+      <value>160</value>
+      <value>80</value>
+      <value>40</value>
+      <value>20</value>
+      <value>10</value>              
+    </binding>   
+  </action>
+</animation>
+<animation>
+  <type>pick</type>
+  <object-name>Cylinder.012</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>property-toggle</command>
+      <property>/it-autoflight/input/kts-mach</property>          
+    </binding>   
+  </action>
+</animation>
+<animation>
+  <type>pick</type>
+  <object-name>Cylinder.013</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>property-toggle</command>
+      <property>/it-autoflight/input/true-course</property>          
+    </binding>   
+  </action>
+</animation>
+<animation>
+  <type>pick</type>
+  <object-name>Cylinder.019</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>property-toggle</command>
+      <property>/it-autoflight/input/trk</property>          
+    </binding>
+  </action>
+</animation>
+<animation>
+  <type>pick</type>
+  <object-name>Btn.A.014</object-name>
+  <visible>true</visible>
+  <action>
+    <button>0</button>
+    <binding>
+      <command>property-toggle</command>
+      <property>/it-autoflight/input/ap1</property>
+    </binding>
+  </action>
+</animation>
+<animation>
+  <type>pick</type>
+  <object-name>Btn.A.015</object-name>
+  <visible>true</visible>
+  <action>
+    <button>0</button>
+    <binding>
+      <command>property-toggle</command>
+      <property>/it-autoflight/input/ap2</property>
+    </binding>
+  </action>
+</animation>
+<animation>
+  <type>pick</type>
+  <object-name>Btn.A.013</object-name>
+  <visible>true</visible>
+  <action>
+    <button>0</button>
+    <binding>
+      <command>property-toggle</command>
+      <property>/it-autoflight/input/athr</property>
+    </binding>
+  </action>
+</animation>
+<animation>
+  <type>pick</type>
+  <object-name>fdtoggle</object-name>
+  <visible>true</visible>
+  <action>
+    <button>0</button>
+    <binding>
+      <command>property-toggle</command>
+      <property>/it-autoflight/input/fd1</property>
+    </binding>
+    <binding>
+      <command>property-toggle</command>
+      <property>/it-autoflight/input/fd2</property>
+    </binding>
+  </action>
+</animation>
+<!-- make stuff light up, yay! -->
+<animation>
+ <type>material</type> 
+ <object-name>fdtogglelight</object-name>
+ <emission>	
+  <red>0</red>	
+  <green>1</green>	
+  <blue>0</blue>
+  <factor-prop>/it-autoflight/input/fd1</factor-prop>
+ </emission>
+</animation>
+<animation>
+ <type>material</type> 
+ <object-name>ap1light</object-name>
+ <emission>	
+  <red>0</red>	
+  <green>1</green>	
+  <blue>0</blue>
+  <factor-prop>/it-autoflight/input/ap1</factor-prop>
+ </emission>
+</animation>
+<animation>
+ <type>material</type> 
+ <object-name>ap2light</object-name>
+ <emission>	
+  <red>0</red>	
+  <green>1</green>	
+  <blue>0</blue>
+  <factor-prop>/it-autoflight/input/ap2</factor-prop>
+ </emission>
+</animation>
+<animation>
+ <type>material</type> 
+ <object-name>athrlight</object-name>
+ <emission>	
+  <red>0</red>	
+  <green>1</green>	
+  <blue>0</blue>
+  <factor-prop>/it-autoflight/input/athr</factor-prop>
+ </emission>
+</animation>
 </PropertyList>
