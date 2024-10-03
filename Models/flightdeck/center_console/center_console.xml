@@ -2,7 +2,7 @@
 
 <PropertyList>
 
-	<path>center_console.ac</path>
+	<path>center_console_new.ac</path>
 
 	<effect>
 		<inherits-from>Effects/lightmap</inherits-from>

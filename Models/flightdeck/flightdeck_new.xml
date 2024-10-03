@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<PropertyList>
+  <path>flightdeck_new.ac</path>
+  <animation>
+ <type>material</type> 
+ <object-name>PFD_L</object-name>
+ <emission>	
+  <red>1</red>	
+  <green>1</green>	
+  <blue>1</blue>
+ </emission>
+</animation>
+</PropertyList>

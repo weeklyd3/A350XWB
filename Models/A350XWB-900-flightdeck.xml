@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <PropertyList>
 
-	<path>flightdeck/flightdeck_new.ac</path>
+	<path>flightdeck/flightdeck_new.xml</path>
   	
 	<!-- Engine Indications and Crew Alerting System (Upper ECAM) -->
 	<model>
@@ -690,7 +690,7 @@
 		<type>rotate</type>
 		<object-name>throttle_left</object-name>
 		<object-name>reverse_left</object-name>
-		<property>controls/engines/engine[0]/throttle</property>
+		<property>controls/engines/engine[0]/angle</property>
 		<factor>50</factor>
 		<axis>
 			<x>0</x>
@@ -698,8 +698,8 @@
 			<z>0</z>
 		</axis>
 		<center>
-			<x-m>2.7534</x-m>
-			<z-m>1.5022</z-m>
+			<x-m>2.75337</x-m>
+			<z-m>1.52479</z-m>
 		</center>
 	</animation>
 
@@ -768,7 +768,7 @@
 		<type>rotate</type>
 		<object-name>throttle_right</object-name>
 		<object-name>reverse_right</object-name>
-		<property>controls/engines/engine[1]/throttle</property>
+		<property>controls/engines/engine[1]/angle</property>
 		<factor>50</factor>
 		<axis>
 			<x>0</x>
@@ -776,8 +776,8 @@
 			<z>0</z>
 		</axis>
 		<center>
-			<x-m>2.7534</x-m>
-			<z-m>1.5022</z-m>
+			<x-m>2.75337</x-m>
+			<z-m>1.52479</z-m>
 		</center>
 	</animation>
 

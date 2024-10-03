@@ -131,3 +131,4 @@ var pfd = {
 	svg_items: {}
 };
 var pfd1 = pfd.new('PFD_L');
+#var pfd2 = pfd.new('PFD_R');

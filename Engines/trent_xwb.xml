@@ -13,7 +13,7 @@
 
 <turbine_engine name="trent_xwb">
   <milthrust> 84000.0 </milthrust>
-  <bypassratio>     1.0 </bypassratio>
+  <bypassratio>     9.6 </bypassratio>
   <tsfc>            0.48 </tsfc>
   <bleed>           0.03</bleed>
   <idlen1>         20.0 </idlen1>
