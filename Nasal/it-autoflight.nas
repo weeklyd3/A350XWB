@@ -493,8 +493,8 @@ setlistener("/autopilot/route-manager/current-wp", func {
 var ap_various = func {
 	# Calculate Roll and Pitch Kp
 	if (getprop("/it-autoflight/settings/disable-final") != 1) {
-		rollKp = getprop("/it-autoflight/config/roll/kp-low") + (getprop("/velocities/airspeed-kt") - 140) * ((getprop("/it-autoflight/config/roll/kp-high") - getprop("/it-autoflight/config/roll/kp-low")) / (360 - 140));
-		pitchKp = getprop("/it-autoflight/config/pitch/kp-low") + (getprop("/velocities/airspeed-kt") - 140) * ((getprop("/it-autoflight/config/pitch/kp-high") - getprop("/it-autoflight/config/pitch/kp-low")) / (360 - 140));
+		rollKp = getprop("/it-autoflight/config/roll/kp-low") + (getprop("/instrumentation/airspeed-indicator/indicated-speed-kt") - 140) * ((getprop("/it-autoflight/config/roll/kp-high") - getprop("/it-autoflight/config/roll/kp-low")) / (360 - 140));
+		pitchKp = getprop("/it-autoflight/config/pitch/kp-low") + (getprop("/instrumentation/airspeed-indicator/indicated-speed-kt") - 140) * ((getprop("/it-autoflight/config/pitch/kp-high") - getprop("/it-autoflight/config/pitch/kp-low")) / (360 - 140));
 		
 		if (getprop("/it-autoflight/config/roll/kp-low") > getprop("/it-autoflight/config/roll/kp-high")) {
 			rollKp = math.clamp(rollKp, getprop("/it-autoflight/config/roll/kp-high"), getprop("/it-autoflight/config/roll/kp-low"));
@@ -515,7 +515,7 @@ var ap_various = func {
 	}
 	
 	# Calculate HDG Kp
-	hdgKp = getprop("/it-autoflight/config/cmd/hdg") + (getprop("/velocities/airspeed-kt") - 140) * ((getprop("/it-autoflight/config/cmd/hdg") + 1.0 - getprop("/it-autoflight/config/cmd/hdg")) / (360 - 140));
+	hdgKp = getprop("/it-autoflight/config/cmd/hdg") + (getprop("/instrumentation/airspeed-indicator/indicated-speed-kt") - 140) * ((getprop("/it-autoflight/config/cmd/hdg") + 1.0 - getprop("/it-autoflight/config/cmd/hdg")) / (360 - 140));
 	
 	hdgKp = math.clamp(hdgKp, getprop("/it-autoflight/config/cmd/hdg"), getprop("/it-autoflight/config/cmd/hdg") + 1.0);
 	

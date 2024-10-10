@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<system name="hydraulic">
+	<channel name="pressure" execrate="8">
+		<switch name="/systems/hydraulic/eng-1-yellow-pump">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/engines/engine/yellow-pump EQ 1
+				/engines/engine/yellow-pump-fault EQ 0
+				/engines/engine/running EQ 1
+			</test>
+		</switch>
+		<switch name="/systems/hydraulic/eng-2-yellow-pump">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/engines/engine[1]/yellow-pump EQ 1
+				/engines/engine[1]/yellow-pump-fault EQ 0
+				/engines/engine[1]/running EQ 1
+			</test>
+		</switch>
+		<switch name="/systems/hydraulic/yellow-pressure-cmd">
+			<default value="0" />
+			<test logic="OR" value="5000">
+				/engines/engine/yellow-pump EQ 1
+				/engines/engine[1]/yellow-pump EQ 1
+			</test>
+		</switch>
+		<actuator name="/systems/hydraulic/yellow-pressure">
+			<input>/systems/hydraulic/yellow-pressure-cmd</input>
+			<rate_limit sense="incr">2000</rate_limit>
+			<rate_limit sense="decr">50</rate_limit>
+		</actuator>
+		<switch name="/systems/hydraulic/eng-1-green-pump">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/engines/engine/green-pump EQ 1
+				/engines/engine/green-pump-fault EQ 0
+				/engines/engine/running EQ 1
+			</test>
+		</switch>
+		<switch name="/systems/hydraulic/eng-2-green-pump">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/engines/engine[1]/green-pump EQ 1
+				/engines/engine[1]/green-pump-fault EQ 0
+				/engines/engine[1]/running EQ 1
+			</test>
+		</switch>
+		<switch name="/systems/hydraulic/green-pressure-cmd">
+			<default value="0" />
+			<test logic="OR" value="5000">
+				/engines/engine/green-pump EQ 1
+				/engines/engine[1]/green-pump EQ 1
+			</test>
+		</switch>
+		<actuator name="/systems/hydraulic/green-pressure">
+			<input>/systems/hydraulic/green-pressure-cmd</input>
+			<rate_limit sense="incr">2000</rate_limit>
+			<rate_limit sense="decr">50</rate_limit>
+		</actuator>
+		<fcs_function name="/systems/hydraulic/green-gain">
+			<function>
+				<product>
+					<property>/systems/hydraulic/green-pressure</property>
+					<value>0.0002</value>
+					<value>0.02</value>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/hydraulic/yellow-gain">
+			<function>
+				<product>
+					<property>/systems/hydraulic/yellow-pressure</property>
+					<value>0.0002</value>
+					<value>0.02</value>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/hydraulic/both-gain">
+			<function>
+				<product>
+					<sum>
+						<property>/systems/hydraulic/yellow-pressure</property>
+						<property>/systems/hydraulic/green-pressure</property>
+					</sum>
+					<value>0.0001</value>
+					<value>0.02</value>
+				</product>
+			</function>
+		</fcs_function>
+	</channel>
+</system>

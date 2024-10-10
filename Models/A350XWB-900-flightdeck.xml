@@ -8,7 +8,7 @@
 		<path>Aircraft/A350XWB/Models/Instruments/Upper-ECAM/Upper-ECAM.xml</path>
 		<offsets>
 			<x-m>2.3591</x-m><!-- 2.3571 more back--><!-- -->
-			<y-m>-0.09</y-m>
+			<y-m>0</y-m>
 			<z-m>1.855</z-m> <!-- 1872 more up -->
     			<pitch-deg>-17</pitch-deg><!-- -17 -->
 		</offsets>
@@ -20,13 +20,13 @@
 		</condition>
 	</model>
 
-	<model>
+	<!--<model>
 		<path>Aircraft/A350XWB/Models/Instruments/Upper-ECAM/Upper-ECAM2.xml</path>
 		<offsets>
-			<x-m>2.3591</x-m><!-- 2.3571 more back--><!-- -->
-			<y-m>.09</y-m>
-			<z-m>1.855</z-m> <!-- 1872 more up -->
-    			<pitch-deg>-17</pitch-deg><!-- -17 -->
+			<x-m>2.3591</x-m>--><!-- 2.3571 more back--><!-- -->
+			<!--<y-m>.09</y-m>
+			<z-m>1.855</z-m> --><!-- 1872 more up -->
+    			<!--<pitch-deg>-17</pitch-deg>--><!-- -17 --><!--
 		</offsets>
 		<condition>
 			<greater-than-equals>
@@ -34,11 +34,11 @@
 				<value>12</value>
 			</greater-than-equals>
 		</condition>
-	</model>
+	</model>-->
   	
 	<animation>
 		<object-name>Upper-ECAM</object-name>
-		<object-name>Upper-ECAM2</object-name>
+		<!--<object-name>Upper-ECAM2</object-name>-->
 		<type>scale</type>
 		<x-offset>1.15</x-offset>
 		<y-offset>1</y-offset>

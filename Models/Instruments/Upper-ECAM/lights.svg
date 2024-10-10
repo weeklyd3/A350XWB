@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="500pt"
+   height="500pt"
+   viewBox="0 0 176.38889 176.38889"
+   version="1.1"
+   id="svg33835"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="lights.svg"
+   inkscape:export-filename="../../flightdeck/overhead/lights.png"
+   inkscape:export-xdpi="216"
+   inkscape:export-ydpi="216"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview33837"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="pt"
+     showgrid="false"
+     inkscape:zoom="5.4662738"
+     inkscape:cx="104.09285"
+     inkscape:cy="52.778183"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs33832" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#000000;stroke:none;stroke-width:0.110888;paint-order:markers stroke fill"
+       id="rect34008"
+       width="17.638889"
+       height="8.8194447"
+       x="0"
+       y="0" />
+    <rect
+       style="fill:#000000;stroke:none;stroke-width:0.110888;paint-order:markers stroke fill"
+       id="rect34008-9"
+       width="17.638889"
+       height="8.8194447"
+       x="0"
+       y="8.8194447" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.176388;paint-order:markers stroke fill"
+       x="8.7673664"
+       y="5.8452992"
+       id="text34137"><tspan
+         sodipodi:role="line"
+         id="tspan34135"
+         style="font-size:4.23333px;fill:#ff7f2a;stroke:none;stroke-width:0.176388"
+         x="8.7673664"
+         y="5.8452992">FAULT</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.176388;paint-order:markers stroke fill"
+       x="8.7673664"
+       y="14.664567"
+       id="text34137-6"><tspan
+         sodipodi:role="line"
+         id="tspan34135-1"
+         style="font-size:4.23333px;fill:#ffffff;stroke:none;stroke-width:0.176388"
+         x="8.7673664"
+         y="14.664567">OFF</tspan></text>
+    <rect
+       style="fill:none;stroke:#ffffff;stroke-width:0.264583;stroke-dasharray:none;paint-order:markers stroke fill"
+       id="rect34450"
+       width="10.479065"
+       height="5.1873984"
+       x="3.5799117"
+       y="10.635468"
+       ry="1.07321" />
+    <rect
+       style="fill:#000000;stroke:none;stroke-width:0.110888;paint-order:markers stroke fill"
+       id="rect34008-3"
+       width="17.638889"
+       height="8.8194447"
+       x="17.638889"
+       y="-3.5527137e-15" />
+    <rect
+       style="fill:#000000;stroke:none;stroke-width:0.110888;paint-order:markers stroke fill"
+       id="rect34008-9-6"
+       width="17.638889"
+       height="8.8194447"
+       x="17.638889"
+       y="8.8194447" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.176388;paint-order:markers stroke fill"
+       x="26.406256"
+       y="5.8452988"
+       id="text34137-7"><tspan
+         sodipodi:role="line"
+         id="tspan34135-5"
+         style="font-size:4.23333px;fill:#ff0000;stroke:none;stroke-width:0.176388"
+         x="26.406256"
+         y="5.8452988">OVHT</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.176388;paint-order:markers stroke fill"
+       x="26.406256"
+       y="14.664566"
+       id="text34137-6-3"><tspan
+         sodipodi:role="line"
+         id="tspan34135-1-5"
+         style="font-size:4.23333px;fill:#ffffff;stroke:none;stroke-width:0.176388"
+         x="26.406256"
+         y="14.664566">ISOL</tspan></text>
+    <rect
+       style="fill:none;stroke:#ffffff;stroke-width:0.264583;stroke-dasharray:none;paint-order:markers stroke fill"
+       id="rect34450-6"
+       width="10.479065"
+       height="5.1873984"
+       x="21.2188"
+       y="10.635467"
+       ry="1.07321" />
+    <rect
+       style="fill:#000000;stroke:none;stroke-width:0.110888;paint-order:markers stroke fill"
+       id="rect34008-3-3"
+       width="17.638889"
+       height="8.8194447"
+       x="35.277779"
+       y="0" />
+    <rect
+       style="fill:#000000;stroke:none;stroke-width:0.110888;paint-order:markers stroke fill"
+       id="rect34008-9-6-6"
+       width="17.638889"
+       height="8.8194447"
+       x="35.277779"
+       y="8.8194447" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.176388;paint-order:markers stroke fill"
+       x="44.045147"
+       y="5.8452988"
+       id="text34137-7-7"><tspan
+         sodipodi:role="line"
+         id="tspan34135-5-5"
+         style="font-size:4.23333px;fill:#00ff00;stroke:none;stroke-width:0.176388"
+         x="44.045147"
+         y="5.8452988">AVAIL</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#006eff;stroke:none;stroke-width:0.176388;paint-order:markers stroke fill;fill-opacity:1"
+       x="44.045147"
+       y="14.664566"
+       id="text34137-6-3-3"><tspan
+         sodipodi:role="line"
+         id="tspan34135-1-5-5"
+         style="font-size:4.23333px;fill:#006eff;stroke:none;stroke-width:0.176388;fill-opacity:1"
+         x="44.045147"
+         y="14.664566">ON</tspan></text>
+    <rect
+       style="fill:none;stroke:#006eff;stroke-width:0.264583;stroke-dasharray:none;paint-order:markers stroke fill;stroke-opacity:1"
+       id="rect34450-6-6"
+       width="10.479065"
+       height="5.1873984"
+       x="38.857689"
+       y="10.635467"
+       ry="1.07321" />
+  </g>
+</svg>

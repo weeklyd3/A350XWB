@@ -366,12 +366,12 @@
     <!-- Systems -->
     <systems>
       <autopilot>
-		<name>IT-AUTOFLIGHT</name>
-        <path>Aircraft/A350XWB/Systems/it-autoflight.xml</path>
-      </autopilot>
-      <autopilot>
-		<name>IT-AUTOTHRUST</name>
-		<path>Aircraft/A350XWB/Systems/it-autothrust.xml</path>
+      <name>IT-AUTOFLIGHT</name>
+          <path>Aircraft/A350XWB/Systems/it-autoflight.xml</path>
+        </autopilot>
+        <autopilot>
+      <name>IT-AUTOTHRUST</name>
+      <path>Aircraft/A350XWB/Systems/it-autothrust.xml</path>
       </autopilot>
 	  <autopilot>
 		<name>Gear AGL FT</name>
@@ -512,27 +512,21 @@
         <name>Left Wing Vent</name>
       </tank>
       <tank n="1">
-        <name>Left Wing Outer</name>
-      </tank>
-      <tank n="2">
         <name>Left Wing Inner</name>
       </tank>
-      <tank n="3">
+      <tank n="2">
         <name>Center</name>
       </tank>
-      <tank n="4">
-        <name>Right Wing Inner</name>
-      </tank>
-      <tank n="5">
+      <tank n="3">
         <name>Right Wing Outer</name>
       </tank>
-      <tank n="6">
+      <tank n="4">
         <name>Right Wing Vent</name>
       </tank>
-      <tank n="7">
+      <tank n="5">
         <name>Left Pipes</name>
       </tank>
-      <tank n="8">
+      <tank n="6">
         <name>Right Pipes</name>
       </tank>
     </fuel>
@@ -571,6 +565,7 @@
 
   <nasal>
     <A350XWB>
+      <file>Aircraft/A350XWB/Nasal/system-init.nas</file>
       <!--<file>Aircraft/A350XWB/Models/Instruments/PFD2/PFD.nas</file>-->
       <file>Aircraft/A350XWB/Nasal/A350XWB-EICAS.nas</file>
       <file>Aircraft/A350XWB/Nasal/A350XWB-engines.nas</file>
@@ -587,6 +582,9 @@
     <PFD>
           <file>Aircraft/A350XWB/Models/Instruments/PFD2/pfd.nas</file>
     </PFD>
+    <ECAM_UPPER>
+          <file>Aircraft/A350XWB/Models/Instruments/Upper-ECAM/ecam.nas</file>
+    </ECAM_UPPER>
     <itaf>
       <file>Aircraft/A350XWB/Nasal/it-autoflight.nas</file>
     </itaf>
@@ -612,6 +610,7 @@
     <dual_control>
       <file>Aircraft/Generic/DualControl/pilot-dual-control.nas</file>
     </dual_control>
+
   </nasal>
 
   <engines>

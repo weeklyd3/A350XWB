@@ -1,5 +1,5 @@
 print("let's make a pfd here");
-var scale_constant = 118.870 / 449;
+var scale_constant = 1 / 3.779528;
 var pitch_to_px = func(degrees) {
 	# YOU STILL HAVE TO MULTIPLY BY scale_constant!
 	if (degrees > 50) {
@@ -59,9 +59,12 @@ var pfd = {
 				me.svg_items.ils_rollout.hide();
 			}
 		}, 0, 1);
+		me.svg_items.radioaltimeter.enableUpdate();
 		setlistener("position/gear-agl-ft", func (altimeter) {
 			var ra = (num(altimeter.getValue()) - 4);
-			me.svg_items.radioaltimeter.setText(sprintf("%d", math.round(ra)));
+			me.svg_items.radioaltimeter.updateText(sprintf("%d", math.round(ra)));
+			if (ra > 2500) me.svg_items.radioaltimeter.hide();
+			else me.svg_items.radioaltimeter.show();
 			if (getprop("/it-autoflight/output/fd1")) {
 				if (ra > 30) {
 					me.svg_items.ils_rollout.hide();
@@ -90,14 +93,15 @@ var pfd = {
 		});
 		setlistener("/fdm/jsbsim/aero/beta-rad", func(prop) {
 			var slip = prop.getValue();
-			me.svg_items.ball.setTranslation(25 * slip * scale_constant, 0);
+			print('beta: ', slip);
+			me.svg_items.ball.setTranslation(100 * slip * scale_constant, 0);
 		});
 		setlistener("/instrumentation/airspeed-indicator/indicated-speed-kt", func(prop) {
 			var speed = prop.getValue();
 			if (speed < 30) speed = 30;
-			me.svg_items.airspeed.setTranslation(0, 2.465 * (speed - 30) * scale_constant);
+			me.svg_items.airspeed.setTranslation(0, 2.645 * (speed - 30) * scale_constant);
 			var maxspeed = 340;
-			var overspeed = (speed - maxspeed) * 2.465;
+			var overspeed = (speed - maxspeed) * 2.645;
 			if (overspeed > 111.5) overspeed = 111.5;
 			me.svg_items.overspeed_barber_poles.setTranslation(0, scale_constant * overspeed);
 		});
@@ -115,18 +119,18 @@ var pfd = {
 			if (!value) return;
 			me.svg_items.ils_rollout.setTranslation(90 * value * scale_constant, 0);
 		});
-		#setlistener("/it-autoflight/fd/roll-bar", me.update_fd_pitch);
-		#setlistener("/it-autoflight/fd/pitch-bar", me.update_fd_roll);
+		setlistener("/it-autoflight/fd/pitch-bar", func(offset) {
+			var pitch_offset = offset.getValue();
+			if (num(getprop("position/altitude-agl-ft")) < 30) pitch_offset = 15 - num(getprop("/orientation/pitch-deg"));
+			if (pitch_offset > 9) pitch_offset = 9;
+			if (pitch_offset < -9) pitch_offset = -9;
+			me.svg_items.fdpitch.setTranslation(0, -pitch_offset * 5 * scale_constant);
+		});
+		setlistener("/it-autoflight/fd/roll-bar", func(offset) {
+			var roll_offset = offset.getValue();
+			me.svg_items.fdroll.setTranslation((roll_offset / 10) * scale_constant, 0);
+		});
 		return {parents: [pfd], canvas: display};
-	},
-	update_fd_pitch: func(offset) {
-		var pitch_offset = offset.getValue();
-		if (num(getprop("position/altitude-agl-ft")) < 30) pitch_offset = 15 - num(getprop("/orientation/pitch-deg"));
-		me.svg_items.fdpitch.setTranslation(145.538 * scale_constant, (208.500 - pitch_offset * 5) * scale_constant)
-	},
-	update_fd_roll: func(offset) {
-		var roll_offset = offset.getValue();
-		me.svg_items.fdroll.setTranslation((197.250 + roll_offset / 10) * scale_constant, 156.827 * scale_constant);
 	},
 	svg_items: {}
 };
