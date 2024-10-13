@@ -586,6 +586,7 @@ YAW MOI_________3950000______23089847_______24848934
     </tank>
   </propulsion>
   <system file="A350XWB-hydraulic" />
+  <system file="A350XWB-apu" />
 	<system file="TriCycle_PushbackJSBSIM"/>
   <system file="A350XWB-fuel"/>
   <!--system file="pushback" /> -->

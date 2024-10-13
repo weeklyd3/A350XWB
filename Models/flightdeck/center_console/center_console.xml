@@ -46,5 +46,50 @@
 		</parameters>
 		<object-name>center_console_texts</object-name>
 	</effect>
-
+	<animation>
+		<type>material</type>
+		<object-name>ecam_hyd_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/ecam/hyd-active</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>ecam_apu_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/ecam/apu-active</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Btn.A.156</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/ecam/active-page</property>
+				<value>apu</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Btn.A.166</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/ecam/active-page</property>
+				<value>hyd</value>
+			</binding>
+		</action>
+	</animation>
 </PropertyList>

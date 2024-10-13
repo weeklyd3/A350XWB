@@ -2,4 +2,16 @@
 
 <PropertyList>
 	<path>res/eicas3.ac</path>
+	<animation>
+		<type>pick</type>
+		<object-name>upper_ecam</object-name>
+		<action>
+		  <button>0</button>
+		  <repeatable>false</repeatable>
+		  <binding>
+		    <command>nasal</command>
+		    <script>ECAM_UPPER.ecam.show();</script>
+		  </binding>
+		</action>
+	      </animation>
 </PropertyList>

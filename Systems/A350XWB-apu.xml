@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<system name="apu">
+	<channel name="engine" execrate="2">
+		<actuator name="/systems/apu/flap">
+			<input>/systems/apu/switch</input>
+			<rate_limit sense="incr">0.08</rate_limit>
+			<rate_limit sense="decr">0.08</rate_limit>
+		</actuator>
+		<switch name="/systems/apu/avail">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/apu/n GE 95
+			</test>
+		</switch>
+		<switch name="/systems/apu/running-and-on">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/apu/avail EQ 1
+				/systems/apu/switch EQ 1
+			</test>
+		</switch>
+		<switch name="/systems/apu/starting">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/apu/starter EQ 1
+				/systems/apu/flap GE 0.95
+			</test>
+		</switch>
+		<switch name="/systems/apu/cmd-n">
+			<default value="0" />
+			<test logic="OR" value="100">
+				/systems/apu/running-and-on EQ 1
+				/systems/apu/starting EQ 1
+			</test>
+		</switch>
+		<actuator name="/systems/apu/n">
+			<input>/systems/apu/cmd-n</input>
+			<rate_limit sense="incr">2</rate_limit>
+			<rate_limit sense="decr">5</rate_limit>
+		</actuator>
+		<washout_filter name="/systems/apu/n-trend">
+			<input>/systems/apu/n</input>
+			<c1>1</c1>
+		</washout_filter>
+		<fcs_function name="/systems/apu/relative-egt">
+			<function>
+				<ifthen>
+					<gt>
+						<property>/systems/apu/switch</property>
+						<value>0</value>
+					</gt>
+				<table>
+					<independentVar lookup="row">/systems/apu/n</independentVar>
+					<independentVar lookup="column">atmosphere/density-altitude</independentVar>
+					<tableData>
+						       0  50000
+						 1     0      0
+						10   110     50
+						22   480    430
+						37   650    550
+						50   590    500
+						70   500    425
+						90   350    300
+						100  360    260
+					</tableData>
+				</table>
+				<table>
+					<independentVar lookup="row">/systems/apu/n</independentVar>
+					<independentVar lookup="column">atmosphere/density-altitude</independentVar>
+					<tableData>
+						       0  50000
+						  1    0      0
+						100  360    260
+				 	</tableData>
+				</table>
+			</ifthen>
+		</function>
+		</fcs_function>
+		<switch name="/systems/apu/gen-cmd">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/apu/running-and-on EQ 1
+			</test>
+		</switch>
+		<actuator name="/systems/apu/gen-ready">
+			<input>/systems/apu/gen-cmd</input>
+			<rate_limit>0.4</rate_limit>
+		</actuator>
+		<fcs_function name="/systems/apu/gen-hz">
+			<function>
+				<product>
+					<property>/systems/apu/gen-ready</property>
+					<value>400</value>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/apu/gen-voltage">
+			<function>
+				<product>
+					<property>/systems/apu/gen-ready</property>
+					<value>230</value>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/apu/bleed-psi">
+			<function>
+				<product>
+					<property>/systems/apu/gen-ready</property>
+					<value>45</value>
+				</product>
+			</function>
+		</fcs_function>
+		<switch name="/systems/apu/gen-connection">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/apu/avail EQ 1
+				/systems/apu/gen EQ 1
+			</test>
+		</switch>
+		<fcs_function name="/systems/apu/egt">
+			<function>
+				<sum>
+					<property>/systems/apu/relative-egt</property>
+					<property>/environment/temperature-degc</property>
+				</sum>
+			</function>
+		</fcs_function>
+	</channel>
+</system>

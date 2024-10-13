@@ -52,6 +52,55 @@
 			</binding>
 		</action>
 	</animation>
+	<!-- OVERHEAD - APU -->
+	<animation>
+		<type>pick</type>
+		<object-name>apu_master</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/systems/apu/switch</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>apu_start</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/systems/apu/starter</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>apu_bleed</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/systems/apu/bleed</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>apu_gen</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/systems/apu/gen</property>
+			</binding>
+		</action>
+	</animation>
 	<!-- making only the stuff we want light up -->
 	<animation>
 		<type>select</type>
@@ -145,6 +194,89 @@
 			</or>
 		</condition>
 	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>apu_master_on</object-name>
+		<condition>
+			<or>
+				<property>/systems/apu/switch</property>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>apu_master_fault</object-name>
+		<condition>
+			<or>
+				<property>/systems/apu/fault</property>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>apu_start_on</object-name>
+		<condition>
+			<or>
+				<property>/systems/apu/starter</property>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>apu_start_avail</object-name>
+		<condition>
+			<or>
+				<property>/systems/apu/avail</property>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>apu_bleed_on</object-name>
+		<condition>
+			<or>
+				<property>/systems/apu/bleed</property>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>apu_bleed_fault</object-name>
+		<condition>
+			<or>
+				<property>/systems/apu/bleed-fault</property>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>apu_gen_off</object-name>
+		<condition>
+			<or>
+				<not><property>/systems/apu/gen</property></not>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>apu_gen_fault</object-name>
+		<condition>
+			<or>
+				<and>
+					<property>/systems/apu/gen-fault</property>
+					<property>/systems/apu/gen</property>
+				</and>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
 	<!-- making all the stuff light up -->
 	<animation>
 		<type>material</type>
@@ -165,6 +297,14 @@
 		<object-name>eng2yellowpump_off</object-name>
 		<object-name>eng2yellowsupply_fault</object-name>
 		<object-name>eng2yellowsupply_off</object-name>
+		<object-name>apu_start_avail</object-name>
+		<object-name>apu_start_on</object-name>
+		<object-name>apu_master_fault</object-name>
+		<object-name>apu_master_on</object-name>
+		<object-name>apu_bleed_fault</object-name>
+		<object-name>apu_bleed_on</object-name>
+		<object-name>apu_gen_off</object-name>
+		<object-name>apu_gen_fault</object-name>
 		<emission>
 			<red>1</red>
 			<green>1</green>
