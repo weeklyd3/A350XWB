@@ -29,9 +29,9 @@
      inkscape:document-units="px"
      showgrid="false"
      showguides="false"
-     inkscape:zoom="6.1371576"
-     inkscape:cx="47.171674"
-     inkscape:cy="-98.661309"
+     inkscape:zoom="0.7671447"
+     inkscape:cx="132.30881"
+     inkscape:cy="167.50425"
      inkscape:window-width="1920"
      inkscape:window-height="1003"
      inkscape:window-x="0"
@@ -1363,7 +1363,7 @@
        y="98.273911"
        transform="scale(-1,1)" /><path
        id="bg"
-       style="display:none;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       style="display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        d="M 39.151189,42.823076 V 192.09973 H 158.02092 V 42.823076 Z m 52.453639,24.896151 c 17.282592,0 25.995312,14.970661 25.995312,14.970661 V 97.7577 99.587045 112.82551 c 0,0 -8.71272,14.97118 -25.995312,14.97118 -17.282603,0 -25.995309,-15.04663 -25.995309,-15.04663 V 99.587045 97.852268 82.765335 c 0,0 8.712706,-15.046108 25.995309,-15.046108 z m -46.10364,0.503846 H 59.950433 V 127.48973 H 45.501188 Z m 79.569462,0 h 12.94839 V 127.98117 H 125.07065 Z M 65.74026,144.02464 h 52.65518 v 7.67601 H 65.74026 Z"
        sodipodi:nodetypes="cccccsccccsccccsccccccccccccccc" /><g
        id="speed"
@@ -1591,7 +1591,7 @@
        style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        d="m 137.17388,43.881409 0.23719,14.287498"
        id="path84210" /><rect
-       style="display:none;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       style="display:inline;opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.529167;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
        id="rect24490"
        width="17.211338"
        height="25.4"
