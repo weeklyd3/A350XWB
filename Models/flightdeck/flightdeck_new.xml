@@ -4,10 +4,35 @@
   <animation>
  <type>material</type> 
  <object-name>PFD_L</object-name>
+ <object-name>PFD_R</object-name>
  <emission>	
   <red>1</red>	
   <green>1</green>	
   <blue>1</blue>
  </emission>
+</animation>
+<animation>
+  <type>pick</type>
+  <object-name>PFD_L</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>PFD.pfd1.show();</script>
+    </binding>
+  </action>
+</animation>
+<animation>
+  <type>pick</type>
+  <object-name>PFD_R</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>PFD.pfd2.show();</script>
+    </binding>
+  </action>
 </animation>
 </PropertyList>

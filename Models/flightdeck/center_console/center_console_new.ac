@@ -19,7 +19,7 @@ MATERIAL "Material.005" rgb 1.000 1.000 1.000  amb 0.800 0.800 0.800  emis 0.000
 MATERIAL "Material.006" rgb 1.000 1.000 1.000  amb 0.800 0.800 0.800  emis 0.000 0.000 0.000  spec 0.000 0.000 0.000  shi 64 trans 0.100
 OBJECT world
 name "Blender_exporter_v4.2__center_console_new.ac"
-kids 266
+kids 267
 OBJECT poly
 name "brake_selector"
 data 19
@@ -90395,6 +90395,47 @@ numvert 12
 3.01132 1.51175 0.03428
 3.01086 1.5118 0.0266
 3.01132 1.51175 0.0266
+numsurf 3
+SURF 0X0
+mat 15
+refs 4
+0 0 0
+1 1 0
+3 1 1
+2 0 1
+SURF 0X0
+mat 15
+refs 4
+4 0 0
+5 1 0
+7 1 1
+6 0 1
+SURF 0X0
+mat 15
+refs 4
+8 0 0
+9 1 0
+11 1 1
+10 0 1
+kids 0
+OBJECT poly
+name "ecam_bleed_light"
+data 5
+Plane
+crease 40.0
+numvert 12
+3.00933 1.51198 0.01656
+3.00979 1.51193 0.01656
+3.00933 1.51198 0.00888
+3.00979 1.51193 0.00888
+3.0101 1.51189 0.01656
+3.01056 1.51184 0.01656
+3.0101 1.51189 0.00888
+3.01056 1.51184 0.00888
+3.01086 1.5118 0.01656
+3.01132 1.51175 0.01656
+3.01086 1.5118 0.00888
+3.01132 1.51175 0.00888
 numsurf 3
 SURF 0X0
 mat 15

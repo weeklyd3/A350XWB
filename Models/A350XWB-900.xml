@@ -799,7 +799,7 @@
   <animation>
     <type>rotate</type>
     <object-name>slat2</object-name>
-    <property>surface-positions/flap-pos-norm</property>
+    <property>fdm/jsbsim/fcs/slat-pos-norm</property>
     <interpolation>
       <entry><ind>0</ind><dep>0</dep></entry>
       <entry><ind>0.29</ind><dep>20</dep></entry>
@@ -817,7 +817,7 @@
   <animation>
     <type>translate</type>
     <object-name>slat2</object-name>
-    <property>surface-positions/flap-pos-norm</property>
+    <property>fdm/jsbsim/fcs/slat-pos-norm</property>
     <interpolation>
       <entry><ind>0</ind><dep>0</dep></entry>
       <entry><ind>0.29</ind><dep>0.4</dep></entry>
@@ -833,7 +833,7 @@
     <type>rotate</type>
     <object-name>slat1</object-name>
     <object-name>slat1.part2</object-name>
-    <property>surface-positions/flap-pos-norm</property>
+    <property>fdm/jsbsim/fcs/slat-pos-norm</property>
     <interpolation>
       <entry><ind>0</ind><dep>0</dep></entry>
       <entry><ind>0.29</ind><dep>15</dep></entry>
@@ -852,7 +852,7 @@
     <type>translate</type>
     <object-name>slat1</object-name>
     <object-name>slat1.part2</object-name>
-    <property>surface-positions/flap-pos-norm</property>
+    <property>fdm/jsbsim/fcs/slat-pos-norm</property>
     <interpolation>
       <entry><ind>0</ind><dep>0</dep></entry>
       <entry><ind>0.29</ind><dep>0.4</dep></entry>
@@ -867,7 +867,7 @@
   <animation>
     <type>rotate</type>
     <object-name>slat3</object-name>
-    <property>surface-positions/flap-pos-norm</property>
+    <property>fdm/jsbsim/fcs/slat-pos-norm</property>
     <interpolation>
       <entry><ind>0</ind><dep>0</dep></entry>
       <entry><ind>0.29</ind><dep>-20</dep></entry>
@@ -885,7 +885,7 @@
   <animation>
     <type>translate</type>
     <object-name>slat3</object-name>
-    <property>surface-positions/flap-pos-norm</property>
+    <property>fdm/jsbsim/fcs/slat-pos-norm</property>
     <interpolation>
       <entry><ind>0</ind><dep>0</dep></entry>
       <entry><ind>0.29</ind><dep>0.4</dep></entry>
@@ -901,7 +901,7 @@
     <type>rotate</type>
     <object-name>slat4</object-name>
     <object-name>slat4.part2</object-name>
-    <property>surface-positions/flap-pos-norm</property>
+    <property>fdm/jsbsim/fcs/slat-pos-norm</property>
     <interpolation>
       <entry><ind>0</ind><dep>0</dep></entry>
       <entry><ind>0.29</ind><dep>-15</dep></entry>
@@ -920,7 +920,7 @@
     <type>translate</type>
     <object-name>slat4</object-name>
     <object-name>slat4.part2</object-name>
-    <property>surface-positions/flap-pos-norm</property>
+    <property>fdm/jsbsim/fcs/slat-pos-norm</property>
     <interpolation>
       <entry><ind>0</ind><dep>0</dep></entry>
       <entry><ind>0.29</ind><dep>0.4</dep></entry>

@@ -27,9 +27,9 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="pt"
      showgrid="false"
-     inkscape:zoom="5.4662738"
-     inkscape:cx="104.09285"
-     inkscape:cy="52.778183"
+     inkscape:zoom="0.96630982"
+     inkscape:cx="-22.767025"
+     inkscape:cy="-37.772565"
      inkscape:window-width="1920"
      inkscape:window-height="1003"
      inkscape:window-x="0"
@@ -172,6 +172,32 @@
        width="10.479065"
        height="5.1873984"
        x="38.857689"
+       y="10.635467"
+       ry="1.07321" />
+    <rect
+       style="fill:#000000;stroke:none;stroke-width:0.110888;paint-order:markers stroke fill"
+       id="rect34008-9-6-6-3"
+       width="17.638889"
+       height="8.8194447"
+       x="52.916664"
+       y="8.8194447" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.176388;paint-order:markers stroke fill"
+       x="61.684032"
+       y="14.664566"
+       id="text34137-6-3-3-6"><tspan
+         sodipodi:role="line"
+         id="tspan34135-1-5-5-7"
+         style="font-size:4.23333px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.176388"
+         x="61.684032"
+         y="14.664566">ON</tspan></text>
+    <rect
+       style="fill:none;stroke:#ffffff;stroke-width:0.264583;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect34450-6-6-5"
+       width="10.479065"
+       height="5.1873984"
+       x="56.496574"
        y="10.635467"
        ry="1.07321" />
   </g>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <system name="apu">
-	<channel name="engine" execrate="2">
+	<channel name="engine" execrate="6">
 		<actuator name="/systems/apu/flap">
 			<input>/systems/apu/switch</input>
 			<rate_limit sense="incr">0.08</rate_limit>
@@ -80,10 +80,22 @@
 			<default value="0" />
 			<test logic="AND" value="1">
 				/systems/apu/running-and-on EQ 1
+				/systems/apu/gen-fault EQ 0
 			</test>
 		</switch>
 		<actuator name="/systems/apu/gen-ready">
 			<input>/systems/apu/gen-cmd</input>
+			<rate_limit>0.4</rate_limit>
+		</actuator>
+		<switch name="/systems/apu/bleed-cmd">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/apu/running-and-on EQ 1
+				/systems/apu/bleed-fault EQ 0
+			</test>
+		</switch>
+		<actuator name="/systems/apu/bleed-ready">
+			<input>/systems/apu/bleed-cmd</input>
 			<rate_limit>0.4</rate_limit>
 		</actuator>
 		<fcs_function name="/systems/apu/gen-hz">
@@ -105,7 +117,7 @@
 		<fcs_function name="/systems/apu/bleed-psi">
 			<function>
 				<product>
-					<property>/systems/apu/gen-ready</property>
+					<property>/systems/apu/bleed-ready</property>
 					<value>45</value>
 				</product>
 			</function>

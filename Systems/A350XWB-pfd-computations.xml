@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<system name="pfd">
+	<channel name="high speeds" execrate="6">
+		<fcs_function name="/systems/pfd/mmo">
+			<function>
+				<product>
+					<quotient>
+						<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+						<property>/instrumentation/airspeed-indicator/indicated-mach</property>
+					</quotient>
+					<value>0.89</value>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/max-speed">
+			<function>
+				<min>
+					<value>340</value>
+					<property>/systems/pfd/mmo</property>
+				</min>
+			</function>
+		</fcs_function>
+	</channel>
+</system>
