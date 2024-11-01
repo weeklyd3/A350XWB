@@ -43,6 +43,7 @@ var pfd = {
 					# which will be stretched the size of the texture, required)
 		"mipmapping": 1       # Enable mipmapping (optional)
 		});
+		display.addPlacement({"node": name, "texture": "pfd_test.png"});
 		returned.show = func() {
 			var window = canvas.Window.new([889 / 2, 564], "dialog");
 			window.setCanvas(display);
@@ -50,7 +51,7 @@ var pfd = {
 		var path = "Aircraft/A350XWB/Models/Instruments/PFD2/pfd.svg";
 		# create an image child
 		var group = display.createGroup('svg');
-		canvas.parsesvg(group, path, {"font_mapper": returned.font_mapper});
+		canvas.parsesvg(group, path, {"font-mapper": returned.font_mapper});
 		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "ball", "airspeed", "overspeed_barber_poles", "te_flaps", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "hundred_numbers", "hundreds", "thousands", "ten_thousands", "alt_tape", "alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "stall"]) {
 			returned.svg_items[elem] = group.getElementById(elem);
 		}
@@ -66,7 +67,6 @@ var pfd = {
 		returned.svg_items.alt_tape.set('clip', 'rect(25.39999704, 98.86790097, 85.15798798, 85.91866498)');
 		returned.svg_items.ahrs.updateCenter();
 		returned.svg_items.fpv.updateCenter();
-		display.addPlacement({"node": name, "texture": "pfd_test.png"});
 		returned.timer = maketimer(1 / 10, returned, me.update);
 		returned.timer.start();
 		returned.svg_items.radioaltimeter.enableUpdate();
@@ -160,12 +160,14 @@ var pfd = {
 			me.svg_items.fdpitch.setTranslation(0, -pitch_to_px(pitch_offset) / 2 * scale_constant);
 		} else me.svg_items.guides.hide();
 		# update altimeter
-		var ra = (num(pfd_props.altitude.radio.getValue()) - 4);
-		me.svg_items.alt_ground_level.setTranslation(0, ra * 20 / 100 * scale_constant);
-		if (ra > 2500) me.svg_items.radioaltimeter.hide();
-		else {
-			me.svg_items.radioaltimeter.show();
-			me.svg_items.radioaltimeter.updateText(sprintf("%d", math.round(ra)));
+		if (pfd_props.altitude.radio.getValue() != nil) {
+			var ra = (num(pfd_props.altitude.radio.getValue()) - 4);
+			me.svg_items.alt_ground_level.setTranslation(0, ra * 20 / 100 * scale_constant);
+			if (ra > 2500) me.svg_items.radioaltimeter.hide();
+			else {
+				me.svg_items.radioaltimeter.show();
+				me.svg_items.radioaltimeter.updateText(sprintf("%d", math.round(ra)));
+			}
 		}
 		if (getprop("/it-autoflight/output/fd1")) {
 			if (ra > 30) {
@@ -233,4 +235,4 @@ var convert_fl = func(number) {
 	return as_string;
 }
 var pfd1 = pfd.new('PFD_L');
-#var pfd2 = pfd.new('PFD_R');
+var pfd2 = pfd.new('PFD_R');
