@@ -52,10 +52,10 @@ var pfd = {
 		# create an image child
 		var group = display.createGroup('svg');
 		canvas.parsesvg(group, path, {"font-mapper": returned.font_mapper});
-		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "ball", "airspeed", "overspeed_barber_poles", "te_flaps", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "hundred_numbers", "hundreds", "thousands", "ten_thousands", "alt_tape", "alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "stall"]) {
+		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "ball", "airspeed", "overspeed_barber_poles", "mach", "te_flaps", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "hundred_numbers", "hundreds", "thousands", "ten_thousands", "alt_tape", "alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "vs_needle", "vs_exact", "vs_text", "stall"]) {
 			returned.svg_items[elem] = group.getElementById(elem);
 		}
-		foreach (elem; ["alt_fl", "alt_below_1", "alt_above_1", "alt_above_2"]) {
+		foreach (elem; ["alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "vs_text", "mach"]) {
 			returned.svg_items[elem].enableUpdate();
 		}
 		# prolly overkill to use all these decimal places but idc
@@ -65,6 +65,7 @@ var pfd = {
 		returned.svg_items.thousands.set('clip', digitClip);
 		returned.svg_items.ten_thousands.set('clip', digitClip);
 		returned.svg_items.alt_tape.set('clip', 'rect(25.39999704, 98.86790097, 85.15798798, 85.91866498)');
+		returned.svg_items.vs_needle.set('clip', 'rect(20.12420599, 115.0937366, 90.77747274, 109.8020705)');
 		returned.svg_items.ahrs.updateCenter();
 		returned.svg_items.fpv.updateCenter();
 		returned.timer = maketimer(1 / 10, returned, me.update);
@@ -115,10 +116,14 @@ var pfd = {
 		};
 		hash.altitude = {
 			indicated: props.globals.getNode('/instrumentation/altimeter/indicated-altitude-ft'),
+			vs: props.globals.getNode('/it-autoflight/internal/vert-speed-fpm'),
+			vs_needle: props.globals.getNode('/systems/pfd/vs-needle'),
+			vs_translate: props.globals.getNode('/systems/pfd/vs-text-translation'),
 			radio: props.globals.getNode('/position/gear-agl-ft')
 		};
 		hash.airspeed = {
 			indicated: props.globals.getNode('/instrumentation/airspeed-indicator/indicated-speed-kt'),
+			mach: props.globals.getNode('/instrumentation/airspeed-indicator/indicated-mach'),
 			max: props.globals.getNode('/systems/pfd/max-speed')
 		};
 		hash.wing = {
@@ -201,12 +206,27 @@ var pfd = {
 		me.svg_items.alt_above_2.updateText(convert_fl(five_fl_below + 15));
 		me.svg_items.alt_tape.setTranslation(0, 20 * (altitude / 100 - five_fl_below - 5) * scale_constant);
 		me.svg_items.moves_with_alt.setTranslation(0, altitude / 100 * 20 * scale_constant);
+		# vsi
+		var vertical_speed = pfd_props.altitude.vs.getValue();
+		me.svg_items.vs_needle.setRotation(pfd_props.altitude.vs_needle.getValue() * D2R);
+		if (math.abs(vertical_speed) > 200) me.svg_items.vs_exact.show();
+		else me.svg_items.vs_exact.hide();
+		me.svg_items.vs_text.updateText(sprintf("%02d", math.abs(vertical_speed) / 100));
+		me.svg_items.vs_exact.setTranslation(0, pfd_props.altitude.vs_translate.getValue() * scale_constant);
 		# set airspeed
 		var speed = pfd_props.airspeed.indicated.getValue();
 		if (speed < 30) speed = 30;
 		me.svg_items.airspeed.setTranslation(0, 2.645 * (speed - 30) * scale_constant);
 		var maxspeed = pfd_props.airspeed.max.getValue();
 		me.svg_items.overspeed_barber_poles.setTranslation(0, -2.645 * (maxspeed - 30) * scale_constant);
+		# set mach
+		var mach = pfd_props.airspeed.mach.getValue();
+		if (mach > 0.5) {
+			me.svg_items.mach.show();
+			me.svg_items.mach.updateText(sprintf(".%d", mach * 1000));
+		}
+		if (mach < 0.45) me.svg_items.mach.hide();
+		# fpv
 		var has_vv = me.properties.vv.getValue();
 		var fpv = me.svg_items.fpv;
 		if (has_vv and pitch != nil) {

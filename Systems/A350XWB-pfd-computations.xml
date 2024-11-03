@@ -21,4 +21,58 @@
 			</function>
 		</fcs_function>
 	</channel>
+	<channel name="vertical speed indicator" execrate="8">
+		<fcs_function name="/systems/pfd/vs-needle">
+			<function>
+				<table>
+					<independentVar>/it-autoflight/internal/vert-speed-fpm</independentVar>
+					<!-- just tan -1 (dy / (440 - 415)) -->
+					<!-- all these decimal places are probably a waste but idc -->
+					<tableData>
+						-6001   -74.60718898
+						-6000   -74.60718898
+						-4000   -72.78628578
+						-2000   -70.49563019
+						-1500   -67.55752288
+						-1000   -63.65006207
+						-500    -45.26965013
+						0       0
+						500     45.26965013
+						1000    63.65006207
+						1500    67.55752288
+						2000    70.49563019
+						4000    72.78628578
+						6000    74.60718898
+						6001    74.60718898
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/vs-text-translation">
+			<function>
+				<table>
+					<!-- you may notice the entries for -200 are different for +200, and that's because of the height of the digit thing -->
+					<!-- of course, that messes up the translation when -200 < v/s < 200, but at that point it isn't even displayed :D -->
+					<!-- offset is -11.333 -->
+					<independentVar>/it-autoflight/internal/vert-speed-fpm</independentVar>
+					<tableData>
+						-6000    127.135
+						-4000    113.036
+						-2000    98.936
+						-1500    84.737
+						-1000    70.539
+						-500     35.269
+						-200     14.1046
+						200      -25.4376
+						500      -46.602
+						1000     -81.872
+						1500     -96.070
+						2000     -110.269
+						4000     -124.369
+						6000     -138.468
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+	</channel>
 </system>

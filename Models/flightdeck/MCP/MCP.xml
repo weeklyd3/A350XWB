@@ -268,4 +268,13 @@
   <factor-prop>/it-autoflight/input/athr</factor-prop>
  </emission>
 </animation>
+<animation>
+  <type>material</type> 
+  <object-name>nd_labels</object-name>
+  <emission>	
+   <red>1</red>	
+   <green>1</green>	
+   <blue>1</blue>
+  </emission>
+ </animation>
 </PropertyList>
