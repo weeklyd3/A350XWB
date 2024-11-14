@@ -82,5 +82,7 @@ setlistener("/controls/flight/flaps", func(value) {
 		setprop("/fdm/jsbsim/fcs/slat-cmd-norm", 1);
 		setprop("/fdm/jsbsim/fcs/flap-cmd-norm-actual", 1);
 	}
-});
+}, 0, 0);
+setprop("/instrumentation/fcu/alt-increment", 1000);
+setprop("/instrumentation/fcu/alt-knob", 0);
 print('HIIII');

@@ -59,6 +59,7 @@ var pfd = {
 			returned.svg_items[elem].enableUpdate();
 		}
 		# prolly overkill to use all these decimal places but idc
+		returned.svg_items.ahrs.set('clip', 'rect(24.87083043, 78.44894918, 84.97357342, 26.45833025)');
 		returned.svg_items.hundred_numbers.set('clip', 'rect(50.31527746, 102.9760859, 60.58640126, 96.78219079)');
 		var digitClip = 'rect(52.09407101, 102.9760859, 58.80760772, 87.31248981)';
 		returned.svg_items.hundreds.set('clip', digitClip);
@@ -71,36 +72,6 @@ var pfd = {
 		returned.timer = maketimer(1 / 10, returned, me.update);
 		returned.timer.start();
 		returned.svg_items.radioaltimeter.enableUpdate();
-		setlistener("instrumentation/nav/heading-needle-deflection-norm", func(prop) {
-			var value = prop.getValue();
-			returned.svg_items.loc.setTranslation(80 * scale_constant * value, 0);
-			returned.svg_items.ils_rollout.setTranslation(90 * value * scale_constant, 0);
-			if (value < -0.999) {
-				returned.svg_items.loc_left.show();
-				returned.svg_items.loc_right.hide();
-			} else if (value > 0.999) {
-				returned.svg_items.loc_left.hide();
-				returned.svg_items.loc_right.show();
-			} else {
-				returned.svg_items.loc_left.show();
-				returned.svg_items.loc_right.show();
-			}
-		});
-		setlistener("instrumentation/nav/gs-needle-deflection-norm", func(prop) {
-			var value = prop.getValue();
-			returned.svg_items.gs.setTranslation(0, 80 * scale_constant * -value);
-			# 1 is full fly up
-			if (value > 0.999) {
-				returned.svg_items.gs_up.show();
-				returned.svg_items.gs_down.hide();
-			} else if (value < -0.999) {
-				returned.svg_items.gs_up.hide();
-				returned.svg_items.gs_down.show();
-			} else {
-				returned.svg_items.gs_up.show();
-				returned.svg_items.gs_down.show();
-			}
-		});
 		return returned;
 	},
 	create_props: func(hash) {
@@ -129,6 +100,10 @@ var pfd = {
 		hash.wing = {
 			flap: props.globals.getNode('/surface-positions/flap-pos-norm')
 		};
+		hash.ils = {
+			loc: props.globals.getNode('instrumentation/nav/heading-needle-deflection-norm'),
+			gs: props.globals.getNode('instrumentation/nav/gs-needle-deflection-norm')
+		}
 	},
 	update: func() {
 		# update attitude
@@ -223,6 +198,8 @@ var pfd = {
 		var mach = pfd_props.airspeed.mach.getValue();
 		if (mach > 0.5) {
 			me.svg_items.mach.show();
+		}
+		if (mach > 0.45) {
 			me.svg_items.mach.updateText(sprintf(".%d", mach * 1000));
 		}
 		if (mach < 0.45) me.svg_items.mach.hide();
@@ -236,6 +213,37 @@ var pfd = {
 			fpv.setRotation(roll * math.pi / 180);
 		} else {
 			fpv.hide();
+		}
+		# ils
+		var gs = pfd_props.ils.gs.getValue();
+		if (gs != nil) {
+			me.svg_items.gs.setTranslation(0, 80 * scale_constant * -gs);
+			# 1 is full fly up
+			if (gs > 0.999) {
+				me.svg_items.gs_up.show();
+				me.svg_items.gs_down.hide();
+			} else if (gs < -0.999) {
+				me.svg_items.gs_up.hide();
+				me.svg_items.gs_down.show();
+			} else {
+				me.svg_items.gs_up.show();
+				me.svg_items.gs_down.show();
+			}
+		}
+		var loc = pfd_props.ils.loc.getValue();
+		if (loc != nil) {
+			me.svg_items.loc.setTranslation(80 * scale_constant * loc, 0);
+			me.svg_items.ils_rollout.setTranslation(90 * loc * scale_constant, 0);
+			if (loc < -0.999) {
+				me.svg_items.loc_left.show();
+				me.svg_items.loc_right.hide();
+			} else if (loc > 0.999) {
+				me.svg_items.loc_left.hide();
+				me.svg_items.loc_right.show();
+			} else {
+				me.svg_items.loc_left.show();
+				me.svg_items.loc_right.show();
+			}
 		}
 		# bottom part - flaps
 		var flap_pos = pfd_props.wing.flap.getValue();

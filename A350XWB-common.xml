@@ -37,7 +37,7 @@
         <y-offset-m type="double">3.02</y-offset-m>
         <z-offset-m type="double">-29.5</z-offset-m>
         <pitch-offset-deg>-8</pitch-offset-deg>
-        <default-field-of-view-deg type="double">72</default-field-of-view-deg>
+        <default-field-of-view-deg type="double">63</default-field-of-view-deg>
       </config>
     </view>
     <view n="1">
@@ -245,7 +245,7 @@
         <y-offset-m type="double">3.02</y-offset-m>
         <z-offset-m type="double">-29.5</z-offset-m>
         <pitch-offset-deg>-8</pitch-offset-deg>
-        <default-field-of-view-deg type="double">72</default-field-of-view-deg>
+        <default-field-of-view-deg type="double">63</default-field-of-view-deg>
       </config>
       <dynamic>
         <enabled type="bool">true</enabled>
@@ -582,16 +582,19 @@
       <file>Aircraft/A350XWB/Nasal/lighting.nas</file>
       <file>Aircraft/A350XWB/Models/flightdeck/MCP/FCU.nas</file>
     </A350XWB>
+    <itaf>
+      <file>Aircraft/A350XWB/Nasal/it-autoflight.nas</file>
+      <file>Nasal/custom-fma.nas</file>
+    </itaf>
     <PFD>
           <file>Aircraft/A350XWB/Models/Instruments/PFD2/pfd.nas</file>
     </PFD>
     <ECAM_UPPER>
           <file>Aircraft/A350XWB/Models/Instruments/Upper-ECAM/ecam.nas</file>
     </ECAM_UPPER>
-    <itaf>
-      <file>Aircraft/A350XWB/Nasal/it-autoflight.nas</file>
-      <file>Nasal/custom-fma.nas</file>
-    </itaf>
+    <MFD>
+      <file>Aircraft/A350XWB/Models/Instruments/MFD/fms.nas</file>
+    </MFD>
     <reversethrust>
       <file>Aircraft/A350XWB/Nasal/reversethrust.nas</file>
     </reversethrust>

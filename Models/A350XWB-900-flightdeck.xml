@@ -228,7 +228,7 @@
 
 	<model>
 		<name>EICAS-left</name>
-		<path>Aircraft/A350XWB/Models/Instruments/Bottom-ECAM/Bottom-ECAM.xml</path>
+		<path>Aircraft/A350XWB/Models/Instruments/MFD/Bottom-ECAM.xml</path>
 		<offsets>
 			<x-m>2.4889</x-m>
 			<z-m>1.6544</z-m>
@@ -239,7 +239,7 @@
 
 	 <model>
 		<name>EICAS-left</name>
-		<path>Aircraft/A350XWB/Models/Instruments/Bottom-ECAM/Bottom-ECAM2.xml</path>
+		<path>Aircraft/A350XWB/Models/Instruments/MFD/Bottom-ECAM2.xml</path>
 		<offsets>
 			<x-m>2.4889</x-m>
 			<z-m>1.6544</z-m>

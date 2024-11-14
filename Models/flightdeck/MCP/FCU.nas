@@ -42,3 +42,12 @@ var decrease_qnh = func() { change_qnh(0); };
 #var group = fcu_canvas.createGroup('svg');
 #canvas.parsesvg(group, path);
 #fcu_canvas.addPlacement({"node": "Cube.001"});*/
+# functions for knobs
+var alt_knob = props.globals.getNode('/instrumentation/fcu/alt-knob');
+var alt_increment = props.globals.getNode('/instrumentation/fcu/alt-increment');
+var target_alt = props.globals.getNode('/it-autoflight/input/alt');
+var change_alt = func(amount) { # amount is 1 or -1
+	var increment = alt_increment.getValue();
+	target_alt.adjustValue(amount * alt_increment.getValue());
+	alt_knob.adjustValue(amount);
+}

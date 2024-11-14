@@ -12,7 +12,7 @@ var ecam = {
 		var path = "Aircraft/A350XWB/Models/Instruments/Upper-ECAM/ecam.svg";
 		# create an image child
 		var group = display.createGroup('svg');
-		canvas.parsesvg(group, path);
+		canvas.parsesvg(group, path, {'font-mapper': func(doesnt, matter) { return 'ECAMFontRegular.ttf'; }});
 		foreach (elem; ["thr_text_l", "thr_needle_l", "donut_l", "thr_text_r", "thr_needle_r", "donut_r", "n1_left", "n1_right", "tat_temp", "sat_temp", "isa_temp", "utc", "egt_text_l", "egt_needle_l", "egt_text_r", "egt_needle_r"]) {
 			me.svg_items[elem] = group.getElementById(elem);
 		}
@@ -23,39 +23,23 @@ var ecam = {
 		me.svg_items["thr_needle_r"].setCenter(150.485, 75.63);
 		me.svg_items["donut_l"].setCenter(150.485, 75.63);
 		me.svg_items["donut_r"].setCenter(292.486, 75.63);
-		setlistener("systems/engines/thr", func(value) {
-			var thr = value.getValue();
-			me.svg_items.thr_text_l.updateText(sprintf("%.1f", math.round(thr * 10) / 10));
-			me.svg_items.thr_needle_l.setRotation((-120 + 210 * thr / 100) * math.pi / 180);
-		}, 1, 0);
-		setlistener("systems/engines/thr-1", func(value) {
-			var thr = value.getValue();
-			me.svg_items.thr_text_r.updateText(sprintf("%.1f", math.round(thr * 10) / 10));
-			me.svg_items.thr_needle_r.setRotation((-120 + 210 * thr / 100) * math.pi / 180);
-		}, 1, 0);
-		setlistener("/systems/engines/egt-1", func(value) {
-			var egt = value.getValue();
-			me.svg_items.egt_text_l.updateText(sprintf("%d", egt));
-		});
-		setlistener("/systems/engines/egt-2", func(value) {
-			var egt = value.getValue();
-			me.svg_items.egt_text_r.updateText(sprintf("%d", egt));
-		});
-		setlistener("engines/engine/n1", func(value) {
-			var n1 = value.getValue();
-			me.svg_items.n1_left.updateText(sprintf("%.1f", n1));
-		});
-		setlistener("engines/engine[1]/n1", func(value) {
-			var n1 = value.getValue();
-			me.svg_items.n1_right.updateText(sprintf("%.1f", n1));
-		});
+		me.props.engine_1 = {
+			thr: props.globals.getNode('/systems/engines/thr'),
+			n1: props.globals.getNode('/engines/engine/n1'),
+			egt: props.globals.getNode('/systems/engines/egt-1')
+		};
+		me.props.engine_2 = {
+			thr: props.globals.getNode('/systems/engines/thr-1'),
+			n1: props.globals.getNode('/engines/engine[1]/n1'),
+			egt: props.globals.getNode('/systems/engines/egt-2')
+		};
 		setlistener("instrumentation/clock/indicated-string", func(value) {
 			me.svg_items.utc.updateText(value.getValue());
 		});
 		setprop("/instrumentation/ecam/active-page", "bleed");
-		me.pages['hyd'] = hyd_page.new(display, group);
+		#me.pages['hyd'] = hyd_page.new(display, group);
 		me.pages['apu'] = apu_page.new(display, group);
-		me.pages['bleed'] = bleed_page.new(display, group);
+		#me.pages['bleed'] = bleed_page.new(display, group);
 		foreach (var page; keys(me.pages)) {
 			setprop("/instrumentation/ecam/" ~ page ~ "-active", 0);
 		}
@@ -73,9 +57,30 @@ var ecam = {
 			}
 		}, 1, 0);
 		display.addPlacement({"node": name});
+		var timer = maketimer(1 / 15, me, me.update_engines);
+		timer.start();
 		return {"parents": ecam};
 	},
+	update_engines: func() {
+		var thr_l = me.props.engine_1.thr.getValue();
+		me.svg_items.thr_text_l.updateText(sprintf("%.1f", math.round(thr_l * 10) / 10));
+		me.svg_items.thr_needle_l.setRotation((-120 + 210 * thr_l / 100) * math.pi / 180);
+		var egt_l = me.props.engine_1.egt.getValue();
+		me.svg_items.egt_text_l.updateText(sprintf("%d", egt_l));
+		me.svg_items.egt_needle_l.setRotation((-90 + 180 * egt_l / 1000) * D2R);
+		var n1_l = me.props.engine_1.n1.getValue();
+		me.svg_items.n1_left.updateText(sprintf("%.1f", n1_l));
+		var thr_r = me.props.engine_2.thr.getValue();
+		me.svg_items.thr_text_r.updateText(sprintf("%.1f", math.round(thr_r * 10) / 10));
+		me.svg_items.thr_needle_r.setRotation((-120 + 210 * thr_r / 100) * math.pi / 180);
+		var egt_r = me.props.engine_2.egt.getValue();
+		me.svg_items.egt_text_r.updateText(sprintf("%d", egt_r));
+		me.svg_items.egt_needle_r.setRotation((-90 + 180 * egt_r / 1000) * D2R);
+		var n1_r = me.props.engine_2.n1.getValue();
+		me.svg_items.n1_right.updateText(sprintf("%.1f", n1_r));
+	},
 	pages: {},
+	props: {},
 	svg_items: {},
 	show: func() {
 		var window = canvas.Window.new([889, 564], "dialog");
@@ -450,4 +455,4 @@ var bleed_page = {
 	},
 	svg_items: {}
 };
-var upper_ecam = ecam.new('upper_ecam');
+#var upper_ecam = ecam.new('upper_ecam');

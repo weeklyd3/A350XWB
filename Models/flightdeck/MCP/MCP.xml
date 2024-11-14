@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 
-<PropertyList include="fcu_text.xml">
+<PropertyList>
 
 	<path>new_mcp.ac</path>
 
@@ -276,5 +276,382 @@
    <green>1</green>	
    <blue>1</blue>
   </emission>
+ </animation>
+ <!-- text -->
+ <text>
+  <name>fcu_spdmachtext</name>
+  <offsets>
+      <pitch-deg>0</pitch-deg>
+      <heading-deg>0</heading-deg>
+      <roll-deg>0</roll-deg>
+      <x-m>2.93821</x-m>
+      <y-m>-0.093411</y-m>
+      <z-m>1.60393</z-m>
+  </offsets>
+  <axis-alignment>yz-plane</axis-alignment>
+  <type type="string">literal</type>
+  <text type="string">SPD</text>
+  <layout>left-to-right</layout>
+  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+  <font>LiberationFonts/LiberationSans-Regular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+  <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+  <max-height>0.006</max-height> <!-- the maximum height of the text -->
+  <max-width>1</max-width> <!-- the maximum width of the text -->
+  <font-resolution>
+      <width type="int">32</width>
+      <height type="int">32</height>
+  </font-resolution>
+  <alignment>center-top</alignment>
+</text>
+<text>
+  <name>fcu_hdgtext</name>
+  <offsets>
+      <pitch-deg>0</pitch-deg>
+      <heading-deg>0</heading-deg>
+      <roll-deg>0</roll-deg>
+      <x-m>2.93821</x-m>
+      <y-m>-0.04393</y-m>
+      <z-m>1.60393</z-m>
+  </offsets>
+  <axis-alignment>yz-plane</axis-alignment>
+  <type type="string">literal</type>
+  <text type="string">MAG HDG</text>
+  <layout>left-to-right</layout>
+  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+  <font>LiberationFonts/LiberationSans-Regular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+  <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+  <max-height>0.006</max-height> <!-- the maximum height of the text -->
+  <max-width>1</max-width> <!-- the maximum width of the text -->
+  <font-resolution>
+      <width type="int">32</width>
+      <height type="int">32</height>
+  </font-resolution>
+  <alignment>center-top</alignment>
+</text>
+<text>
+  <name>fcu_hdg</name>
+  <offsets>
+      <pitch-deg>0</pitch-deg>
+      <heading-deg>0</heading-deg>
+      <roll-deg>0</roll-deg>
+      <x-m>2.93821</x-m>
+      <y-m>-0.047109</y-m>
+      <z-m>1.5964</z-m>
+  </offsets>
+  <axis-alignment>yz-plane</axis-alignment>
+    <!-- The string value of a property -->
+    <type type="string">number-value</type>
+    <property type="string">/it-autoflight/input/hdg</property>
+    <format type="string">%03.0f</format> <!-- the sprintf() format to display the value -->
+  <layout>left-to-right</layout>
+  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+  <font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+  <character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+  <max-height>0.006</max-height> <!-- the maximum height of the text -->
+  <max-width>1</max-width> <!-- the maximum width of the text -->
+  <font-resolution>
+      <width type="int">32</width>
+      <height type="int">32</height>
+  </font-resolution>
+  <alignment>center-top</alignment>
+</text>
+<text>
+  <name>fcu_hdgblank</name>
+  <offsets>
+      <pitch-deg>0</pitch-deg>
+      <heading-deg>0</heading-deg>
+      <roll-deg>0</roll-deg>
+      <x-m>2.93821</x-m>
+      <y-m>-0.047109</y-m>
+      <z-m>1.5964</z-m>
+  </offsets>
+  <axis-alignment>yz-plane</axis-alignment>
+    <!-- The string value of a property -->
+    <type type="string">literal</type>
+    <text type="string">---</text>
+  <layout>left-to-right</layout>
+  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+  <font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+  <character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+  <max-height>0.006</max-height> <!-- the maximum height of the text -->
+  <max-width>1</max-width> <!-- the maximum width of the text -->
+  <font-resolution>
+      <width type="int">32</width>
+      <height type="int">32</height>
+  </font-resolution>
+  <alignment>center-top</alignment>
+</text>
+<text>
+  <name>fcu_alttext</name>
+  <offsets>
+      <pitch-deg>0</pitch-deg>
+      <heading-deg>0</heading-deg>
+      <roll-deg>0</roll-deg>
+      <x-m>2.93821</x-m>
+      <y-m>0.044109</y-m>
+      <z-m>1.60393</z-m>
+  </offsets>
+  <axis-alignment>yz-plane</axis-alignment>
+  <type type="string">literal</type>
+  <text type="string">ALT</text>
+  <layout>left-to-right</layout>
+  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+  <font>LiberationFonts/LiberationSans-Regular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+  <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+  <max-height>0.006</max-height> <!-- the maximum height of the text -->
+  <max-width>1</max-width> <!-- the maximum width of the text -->
+  <font-resolution>
+      <width type="int">32</width>
+      <height type="int">32</height>
+  </font-resolution>
+  <alignment>center-top</alignment>
+</text>
+<text>
+  <name>fcu_alt</name>
+  <offsets>
+      <pitch-deg>0</pitch-deg>
+      <heading-deg>0</heading-deg>
+      <roll-deg>0</roll-deg>
+      <x-m>2.93821</x-m>
+      <y-m>0.047109</y-m>
+      <z-m>1.5964</z-m>
+  </offsets>
+  <axis-alignment>yz-plane</axis-alignment>
+    <!-- The string value of a property -->
+    <type type="string">number-value</type>
+    <property type="string">/it-autoflight/input/alt</property>
+    <format type="string">%05.0f</format> <!-- the sprintf() format to display the value -->
+  <layout>left-to-right</layout>
+  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+  <font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+  <character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+  <max-height>0.006</max-height> <!-- the maximum height of the text -->
+  <max-width>1</max-width> <!-- the maximum width of the text -->
+  <font-resolution>
+      <width type="int">32</width>
+      <height type="int">32</height>
+  </font-resolution>
+  <alignment>center-top</alignment>
+</text>
+<text>
+  <name>fcu_vstext</name>
+  <offsets>
+      <pitch-deg>0</pitch-deg>
+      <heading-deg>0</heading-deg>
+      <roll-deg>0</roll-deg>
+      <x-m>2.93821</x-m>
+      <y-m>0.093591</y-m>
+      <z-m>1.60393</z-m>
+  </offsets>
+  <axis-alignment>yz-plane</axis-alignment>
+  <type type="string">literal</type>
+  <text type="string">V/S</text>
+  <layout>left-to-right</layout>
+  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+  <font>LiberationFonts/LiberationSans-Regular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+  <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
+  <max-height>0.006</max-height> <!-- the maximum height of the text -->
+  <max-width>1</max-width> <!-- the maximum width of the text -->
+  <font-resolution>
+      <width type="int">32</width>
+      <height type="int">32</height>
+  </font-resolution>
+  <alignment>center-top</alignment>
+</text>
+<animation>
+  <type>material</type> 
+  <object-name>fcu_spdmachtext</object-name>
+  <object-name>fcu_hdgtext</object-name>
+  <object-name>fcu_hdg</object-name>
+  <object-name>fcu_hdgblank</object-name>
+  <object-name>fcu_alttext</object-name>
+  <object-name>fcu_alt</object-name>
+  <object-name>fcu_vstext</object-name>
+  <emission>
+      <red>1</red>
+      <green>1</green>
+      <blue>1</blue>
+  </emission>
+ </animation>
+ <animation>
+  <type>select</type>
+  <object-name>fcu_hdgblank</object-name>
+  <condition>
+    <not-equals>
+     <property>/it-autoflight/output/lat</property>
+     <value>0</value>
+    </not-equals>
+   </condition>
+ </animation>
+ <animation>
+  <type>select</type>
+  <object-name>fcu_hdg</object-name>
+  <condition>
+    <equals>
+     <property>/it-autoflight/output/lat</property>
+     <value>0</value>
+    </equals>
+   </condition>
+ </animation>
+ <animation>
+  <type>knob</type>
+  <object-name>alt_increment_knob</object-name>
+  <property>/instrumentation/fcu/alt-increment</property>
+  <axis>
+    <x1-m>-2.93524</x1-m>
+    <y1-m>0.045185</y1-m>
+    <z1-m>1.55843</z1-m>
+    <x2-m>2.93524</x2-m>
+    <y2-m>0.045185</y2-m>
+    <z2-m>1.55843</z2-m>
+  </axis>
+  <factor>-0.066666666666666667</factor>
+  <offset-deg>6.6666666666667</offset-deg>
+  <action>
+    <binding>
+      <command>property-adjust</command>
+      <property>/instrumentation/fcu/alt-increment</property>
+      <factor>900</factor>
+      <min>100</min>
+      <max>1000</max>
+      <wrap>false</wrap>
+    </binding>
+  </action>
+</animation>
+<animation>
+  <type>rotate</type>
+  <object-name>alt_knob</object-name>
+  <property>/instrumentation/fcu/alt-knob</property>
+  <factor>-11.25</factor>
+  <axis>
+    <x1-m>-2.93524</x1-m>
+    <y1-m>0.044929</y1-m>
+    <z1-m>1.55843</z1-m>
+    <x2-m>2.93524</x2-m>
+    <y2-m>0.044929</y2-m>
+    <z2-m>1.55843</z2-m>
+  </axis>
+</animation>
+<animation>
+  <type>pick</type>
+  <object-name>alt_knob</object-name>
+  <action>
+    <button>3</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>A350XWB.change_alt(1);</script>
+    </binding>
+  </action>
+  <action>
+    <button>4</button>
+    <repeatable>false</repeatable>
+    <binding>
+      <command>nasal</command>
+      <script>A350XWB.change_alt(-1);</script>
+    </binding>
+  </action>
+</animation>
+<animation>
+  <type>knob</type>
+  <object-name>hdg_knob</object-name>
+  <property>/instrumentation/fcu/alt-increment</property>
+  <axis>
+    <x1-m>-2.93524</x1-m>
+    <y1-m>-0.043926</y1-m>
+    <z1-m>1.55803</z1-m>
+    <x2-m>2.93524</x2-m>
+    <y2-m>-0.043926</y2-m>
+    <z2-m>1.55803</z2-m>
+  </axis>
+  <factor>-0.066666666666666667</factor>
+  <offset-deg>0</offset-deg>
+  <action>
+    <binding>
+      <command>property-adjust</command>
+      <property>/it-autoflight/input/hdg</property>
+      <factor>1</factor>
+      <min>0</min>
+      <max>359</max>
+      <wrap>true</wrap>
+    </binding>
+  </action>
+</animation>
+ <!-- captain efis control -->
+ <animation>
+  <type>material</type>
+  <object-name>capt_nd_cstr_light</object-name>
+  <emission>	
+    <red>0</red>	
+    <green>1</green>	
+    <blue>0</blue>
+   </emission>
+ </animation>
+ <animation>
+  <type>material</type>
+  <object-name>capt_nd_wpt_light</object-name>
+  <emission>	
+    <red>0</red>	
+    <green>1</green>	
+    <blue>0</blue>
+    <factor-prop>/instrumentation/efis/inputs/wpt</factor-prop>
+   </emission>
+   <action>
+    <button>1</button>
+    <repeatable>false</repeatable>   
+    <binding>
+      <command>property-assign</command>
+      <property>/instrumentation/efis/inputs/wpt</property>
+      <property>1</property>
+    </binding>   
+    <binding>
+      <command>property-assign</command>
+      <property>/instrumentation/efis/inputs/sta</property>
+      <property>0</property>
+    </binding>  
+    <binding>
+      <command>property-assign</command>
+      <property>/instrumentation/efis/inputs/arpt</property>
+      <property>0</property>
+    </binding>  
+  </action>
+ </animation>
+ <animation>
+  <type>material</type>
+  <object-name>capt_nd_vord_light</object-name>
+  <emission>	
+    <red>0</red>	
+    <green>1</green>	
+    <blue>0</blue>
+    <factor-prop>/instrumentation/efis/inputs/sta</factor-prop>
+   </emission>
  </animation>
 </PropertyList>
