@@ -20,10 +20,9 @@ setlistener("controls/gear/gear-down", func
  });
  
 setlistener("/sim/signals/fdm-initialized", func {	
-  	itaf.ap_init();			
 	var autopilot = gui.Dialog.new("sim/gui/dialogs/autopilot/dialog", "Aircraft/A350XWB/Systems/autopilot-dlg.xml");
 	setprop("/it-autoflight/settings/retard-enable", 1);  # Enable or disable automatic autothrottle retard.
-	setprop("/it-autoflight/settings/retard-ft", 20);     # Add this to change the retard altitude, default is 50ft AGL.
-	setprop("/it-autoflight/settings/land-flap", 0.645);  # Define the landing flaps here. This is needed for autoland, and retard.
-	setprop("/it-autoflight/settings/land-enable", 0);    # Enable or disable automatic landing.
+	setprop("/it-autoflight/settings/retard-ft", 30);     # Add this to change the retard altitude, default is 50ft AGL.
+	setprop("/it-autoflight/settings/land-flap", 0);  # Define the landing flaps here. This is needed for autoland, and retard.
+	setprop("/it-autoflight/settings/land-enable", 1);    # Enable or disable automatic landing.
 });

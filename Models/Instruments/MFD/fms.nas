@@ -34,7 +34,6 @@ var mfd = {
 		setlistener("/devices/status/keyboard/event", func(node) {
 			if (!node.getNode('pressed').getValue()) return;
 			var keyCode = node.getNode('key').getValue();
-			print(keyCode);
 			if (returned.active == nil) return;
 			if (!returned.active.supportsKeyboard) return;
 			if (keyCode == 8 or keyCode == 127) {
@@ -42,7 +41,6 @@ var mfd = {
 				returned.active.value = substr(returned.active.value, 0, size(returned.active.value) - 1);
 			} elsif (keyCode == 10 or keyCode == 13) {
 				# ENTER
-				print('ENTER!!!');
 				returned.active.blur(returned.active);
 				returned.active.active = 0;
 				returned.active = nil;
