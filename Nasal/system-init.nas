@@ -85,4 +85,5 @@ setlistener("/controls/flight/flaps", func(value) {
 }, 0, 0);
 setprop("/instrumentation/fcu/alt-increment", 1000);
 setprop("/instrumentation/fcu/alt-knob", 0);
+debug.dump(props.globals.getNode("/instrumentation"));
 print('HIIII');

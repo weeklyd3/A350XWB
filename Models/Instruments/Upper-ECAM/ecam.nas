@@ -455,4 +455,4 @@ var bleed_page = {
 	},
 	svg_items: {}
 };
-#var upper_ecam = ecam.new('upper_ecam');
+var upper_ecam = ecam.new('upper_ecam');

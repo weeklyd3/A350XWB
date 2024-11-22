@@ -75,4 +75,27 @@
 			</function>
 		</fcs_function>
 	</channel>
+	<channel name="managed speed">
+		<fcs_function name="/systems/pfd/green-dot-speed">
+			<function>
+				<table>
+					<independentVar lookup="column">atmosphere/pressure-altitude</independentVar>
+					<independentVar lookup="row">inertia/weight-lbs</independentVar>
+					<tableData>
+					         9999  10000  20000  30000  40000
+					308646   167   167    168    176    195
+					352739   177   177    181    191    222
+					396831   186   186    192    206    243
+					440924   196   196    203    227    246
+					485016   206   206    216    249    246
+					529108   216   216    226    269    246
+					573201   225   225    238    277    277
+					617293   234   234    251    287    287
+					661386   244   244    262    294    294
+					705478   253   253    273    302    302
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+	</channel>
 </system>

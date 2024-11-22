@@ -103,10 +103,6 @@ file, these values will be used (they are hardcoded).
 		<name>marker-beacon</name>
 		<number>0</number>
 	</marker-beacon>
-
-
-	
-
 	<nav-radio>
 		<name>nav</name>
 		<number>0</number>
@@ -116,8 +112,14 @@ file, these values will be used (they are hardcoded).
 		<name>nav</name>
 		<number>1</number>
 	</nav-radio>
-
-
+	<nav-radio>
+		<name>nav</name>
+		<number>2</number>
+	</nav-radio>
+	<nav-radio>
+		<name>something_else</name>
+		<number>3</number>
+	</nav-radio>
 	<adf>
 		<name>adf</name>
 		<number>0</number>
@@ -127,7 +129,14 @@ file, these values will be used (they are hardcoded).
 		<name>adf</name>
 		<number>1</number>
 	</adf>
-
+	<adf>
+		<name>adf</name>
+		<number>2</number>
+	</adf>	
+	<adf>
+		<name>adf</name>
+		<number>3</number>
+	</adf>
 	<dme>
 		<name>dme</name>
 		<number>0</number>
@@ -138,6 +147,14 @@ file, these values will be used (they are hardcoded).
 		<number>1</number>
 	</dme>
 
+	<dme>
+		<name>dme</name>
+		<number>2</number>
+	</dme>	
+	<dme>
+		<name>dme</name>
+		<number>3</number>
+	</dme>
 	<KT-70>
 		<name>kt-70</name>
 		<number>0</number>
@@ -186,7 +203,4 @@ file, these values will be used (they are hardcoded).
 		<name>mk-viii</name>
 		<number>0</number>
 	</mk-viii>
-
-
-
 </PropertyList>

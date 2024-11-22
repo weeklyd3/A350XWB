@@ -76,7 +76,7 @@ var canvas_PFD = {
 		var font_mapper = func(family, weight)
 		{
 			if( family == "Liberation Sans" and weight == "normal" )
-				return "LiberationFonts/LiberationSans-Regular.ttf";
+				return "ECAMFontRegular.ttf";
 		};
 		
 		canvas.parsesvg(pfd, "Aircraft/747-400/Models/Cockpit/Instruments/PFD/PFD.svg", {'font-mapper': font_mapper});

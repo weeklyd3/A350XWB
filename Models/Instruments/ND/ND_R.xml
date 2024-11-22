@@ -1,22 +1,60 @@
-<!--
-MD-11 Navigation display
--->
+<?xml version="1.0"?>
+
+<!-- Copyright (c) 2022 Josh Davidson (Octal450) -->
 
 <PropertyList>
 
-<path>ND_R.ac</path>
+	<path>res/ND_R.ac</path>
+	
+	<animation>
+		<type>scale</type>
+		<x-offset>1.05</x-offset>
+		<y-offset>1.05</y-offset>
+		<z-offset>1.05</z-offset>
+	</animation>
+    
+    <animation>
+        <type>pick</type>
+        <object-name>ND_R.screen</object-name>
+        <action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>canvas_nd.showNd('right');</script>
+			</binding>
+        </action>
+    </animation> 
 
-<animation>
-	<type>pick</type>
-	<object-name>ND.screenR</object-name>
-	<action>
-		<button>0</button>
-		<repeatable>false</repeatable>
-		<binding>
-			<command>nasal</command>
-			<script>A350XWB.showNd("fo");</script>
-		</binding>
-	</action>
-</animation>
+	<animation>
+		<type>material</type>
+		<object-name>ND_R.screen</object-name>
+		<emission>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+			<factor-prop>controls/lighting/DU/du5</factor-prop>
+		</emission>
+	</animation>
 
+	<effect>
+		<inherits-from>Aircraft/Airbus_A330/Models/Effects/displays/lcd</inherits-from>
+		<parameters>
+			<inner-angle type="float">45</inner-angle><!-- 0-90, use 90 for LED or plasma display-->
+			<outer-angle type="float">65</outer-angle><!-- 0-90, but greater than inner -->
+			<black-angle type="float">80</black-angle><!-- 0-90, but greater than outer -->
+			<dirt-factor>0.07</dirt-factor>
+			<contrast type="float">0.9</contrast>
+			<texture n="1">
+				<type>2d</type>
+				<filter>linear-mipmap-linear</filter>
+				<wrap-s>clamp</wrap-s>
+				<wrap-t>clamp</wrap-t>
+				<internal-format>normalized</internal-format>
+				<image>Aircraft/Airbus_A330/Models/Effects/dust2.png</image>
+			</texture>
+		</parameters>
+		<object-name>ND_R.screen</object-name>
+	</effect>
+   
 </PropertyList>

@@ -29,7 +29,7 @@ me.eicas_canvas = canvas.new({
   me.canvastext = me.canvasgroup.createChild("text", "optional-id-for element")
                 .setTranslation(30, 30)      # The origin is in the top left corner
                 .setAlignment("left-center") # All values from osgText are supported (see $FG_ROOT/Docs/README.osgtext)
-                .setFont("LiberationFonts/LiberationSans-Regular.ttf") # Fonts are loaded either from $AIRCRAFT_DIR/Fonts or $FG_DATA/Fonts
+                .setFont("ECAMFontRegular.ttf") # Fonts are loaded either from $AIRCRAFT_DIR/Fonts or $FG_DATA/Fonts
                 .setFontSize(50)        # Set fontsize and optionally character aspect ratio
                 .setColor(0,0,0);             # Text color
   me.canvastext.setText("Count " ~ me.counter);

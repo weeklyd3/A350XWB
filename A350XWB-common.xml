@@ -14,9 +14,6 @@
 	    <mach-bug-kt-norm type="double">0</mach-bug-kt-norm-->
       </A350XWB>
     </model>
-    <instrumentation>
-      <path>Aircraft/A350XWB/Systems/A350XWB-instrumentation.xml</path>
-    </instrumentation>
     <sound>
       <path>Aircraft/A350XWB/Sounds/A350XWB-sounds.xml</path>
     </sound>
@@ -480,50 +477,106 @@
     <use-controls-flight type="bool">1</use-controls-flight> <!-- Use /controls/flight properties -->
 	</settings>
 </it-autoflight>
-  
-  <instrumentation>
-        <mk-viii>  <!-- mk-viii configuration, see: http://wiki.flightgear.org/index.php/GPWS -->
-            <serviceable>true</serviceable>     <!-- EGPWS_ENABLE -->
-            <configuration-module>
-                <category-1>                    <!-- AIRCRAFT_MODE_TYPE_SELECT -->
-                   255 <!-- aircraft type T1, fast turbofan -->
-                </category-1>
-                <category-4>                    <!-- ALTITUDE_CALLOUTS -->
-                    11 <!-- enable all altitude callouts -->
-                </category-4>
-                <category-8>                    <!-- RADIO_ALTITUDE_INPUT_SELECT -->
-                     3 <!-- use precise (but YASim-specific) gear altitude -->
-                </category-8>
-                <category-13>                   <!-- INPUT_OUTPUT_DISCRETE_TYPE_SELECT -->
-                     5 <!-- flashing warning lamp -->
-                </category-13>
-            </configuration-module>
-            <voice>
-                <file-prefix type="string">Sounds/mk-viii/</file-prefix>
-            </voice>
-            <inputs>                            <!-- Module I/O -->
-                <arinc429>
-                    <!-- provide fixed value for decision height -->
-                    <decision-height-ncd> false </decision-height-ncd>
-                    <decision-height> 250 </decision-height>
-                </arinc429>
-            </inputs>
-            <input-feeders>    <!-- disable some internal default feeders -->
-                <discretes>
-                    <!-- will provide custom (nasal) sources for the following input feeders -->
-                    <glideslope-inhibit> false </glideslope-inhibit>
-                    <landing-gear> false </landing-gear>
-                    <landing-flaps> false </landing-flaps>
-                </discretes>
-            </input-feeders>
-            <speaker>                           <!-- Speaker Configuration -->
-                <max-dist type="double"> 200.0 </max-dist>        <!-- Max. distance where speaker is heard -->
-                <reference-dist type="double"> 2 </reference-dist> <!-- Distance to pilot -->
-                <volume type="double"> 2 </volume>          <!-- Volume at reference distance -->
-            </speaker>
-        </mk-viii>
-	</instrumentation>
-  
+<instrumentation>
+  <path>Aircraft/A350XWB/Systems/A350XWB-instrumentation.xml</path>
+</instrumentation>
+<instrumentation n="0">
+  <mk-viii>  <!-- mk-viii configuration, see: http://wiki.flightgear.org/index.php/GPWS -->
+		<serviceable>true</serviceable>     <!-- EGPWS_ENABLE -->
+		<configuration-module>
+		    <category-1>                    <!-- AIRCRAFT_MODE_TYPE_SELECT -->
+		       255 <!-- aircraft type T1, fast turbofan -->
+		    </category-1>
+		    <category-4>                    <!-- ALTITUDE_CALLOUTS -->
+			11 <!-- enable all altitude callouts -->
+		    </category-4>
+		    <category-8>                    <!-- RADIO_ALTITUDE_INPUT_SELECT -->
+			 3 <!-- use precise (but YASim-specific) gear altitude -->
+		    </category-8>
+		    <category-13>                   <!-- INPUT_OUTPUT_DISCRETE_TYPE_SELECT -->
+			 5 <!-- flashing warning lamp -->
+		    </category-13>
+		</configuration-module>
+		<voice>
+		    <file-prefix type="string">Sounds/mk-viii/</file-prefix>
+		</voice>
+		<inputs>                            <!-- Module I/O -->
+		    <arinc429>
+			<!-- provide fixed value for decision height -->
+			<decision-height-ncd> false </decision-height-ncd>
+			<decision-height> 250 </decision-height>
+		    </arinc429>
+		</inputs>
+		<input-feeders>    <!-- disable some internal default feeders -->
+		    <discretes>
+			<!-- will provide custom (nasal) sources for the following input feeders -->
+			<glideslope-inhibit> false </glideslope-inhibit>
+			<landing-gear> false </landing-gear>
+			<landing-flaps> false </landing-flaps>
+		    </discretes>
+		</input-feeders>
+		<speaker>                           <!-- Speaker Configuration -->
+		    <max-dist type="double"> 200.0 </max-dist>        <!-- Max. distance where speaker is heard -->
+		    <reference-dist type="double"> 2 </reference-dist> <!-- Distance to pilot -->
+		    <volume type="double"> 2 </volume>          <!-- Volume at reference distance -->
+		</speaker>
+	    </mk-viii>
+	<!-- nav tags copied from A320-family -->
+	<nav n="0">
+		<frequencies>
+			<selected-mhz type="double">111.15</selected-mhz>
+			<standby-mhz type="double">110.95</standby-mhz>
+		</frequencies>
+		<radials>
+			<selected-deg type="double">360</selected-deg>
+		</radials>
+		<serviceable type="bool">true</serviceable>
+		<volume type="double">0</volume>
+	</nav>
+	
+	<nav n="1">
+		<frequencies>
+			<selected-mhz type="double">109.55</selected-mhz>
+			<standby-mhz type="double">110.55</standby-mhz>
+		</frequencies>
+		<radials>
+			<selected-deg type="double">360</selected-deg>
+		</radials>
+		<serviceable type="bool">true</serviceable>
+		<volume type="double">0</volume>
+	</nav>
+	
+	<nav n="2">
+		<cdi>
+			<serviceable type="bool">true</serviceable>
+		</cdi>
+		<frequencies>
+			<selected-mhz type="double">112.8</selected-mhz>
+			<standby-mhz type="double">112.6</standby-mhz>
+		</frequencies>
+		<radials>
+			<selected-deg type="double">360</selected-deg>
+		</radials>
+		<serviceable type="bool">true</serviceable>
+		<volume type="double">0</volume>
+	</nav>
+	
+	<nav n="3">
+		<cdi>
+			<serviceable type="bool">true</serviceable>
+		</cdi>
+		<frequencies>
+			<selected-mhz type="double">114.8</selected-mhz>
+			<standby-mhz type="double">114.6</standby-mhz>
+		</frequencies>
+		<radials>
+			<selected-deg type="double">360</selected-deg>
+		</radials>
+		<serviceable type="bool">true</serviceable>
+		<volume type="double">0</volume>
+	</nav>
+</instrumentation>
+
   <consumables>
     <fuel>
       <tank n="0">
@@ -592,7 +645,6 @@
       <file>Aircraft/A350XWB/Nasal/system.nas</file>
       <file>Aircraft/A350XWB/Nasal/wipers.nas</file>
       <file>Aircraft/A350XWB/Nasal/liveries.nas</file>
-      <file>Aircraft/A350XWB/Models/Instruments/ND/ND.nas</file>
       <file>Aircraft/A350XWB/Nasal/ground_services.nas</file>
       <file>Aircraft/A350XWB/Nasal/lighting.nas</file>
       <file>Aircraft/A350XWB/Models/flightdeck/MCP/FCU.nas</file>
@@ -601,6 +653,9 @@
       <file>Aircraft/A350XWB/Nasal/it-autoflight.nas</file>
       <file>Nasal/custom-fma.nas</file>
     </itaf>
+    <ND>
+      <file>Aircraft/A350XWB/Models/Instruments/ND/canvas/ND.nas</file>
+    </ND>
     <PFD>
           <file>Aircraft/A350XWB/Models/Instruments/PFD2/pfd.nas</file>
     </PFD>

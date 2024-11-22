@@ -296,7 +296,7 @@
   <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
   <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>LiberationFonts/LiberationSans-Regular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+  <font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
   <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
   <character-aspect-ratio type="double">1.0</character-aspect-ratio>
   <max-height>0.006</max-height> <!-- the maximum height of the text -->
@@ -325,7 +325,7 @@
   <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
   <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>LiberationFonts/LiberationSans-Regular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+  <font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
   <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
   <character-aspect-ratio type="double">1.0</character-aspect-ratio>
   <max-height>0.006</max-height> <!-- the maximum height of the text -->
@@ -415,7 +415,7 @@
   <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
   <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>LiberationFonts/LiberationSans-Regular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+  <font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
   <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
   <character-aspect-ratio type="double">1.0</character-aspect-ratio>
   <max-height>0.006</max-height> <!-- the maximum height of the text -->
@@ -475,7 +475,7 @@
   <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
   <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>LiberationFonts/LiberationSans-Regular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+  <font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
   <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
   <character-aspect-ratio type="double">1.0</character-aspect-ratio>
   <max-height>0.006</max-height> <!-- the maximum height of the text -->
