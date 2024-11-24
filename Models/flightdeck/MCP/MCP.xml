@@ -626,6 +626,52 @@
   </action>
 </animation>
  <!-- captain efis control -->
+ <!-- pfd -->
+ <animation>
+  <type>material</type>
+  <object-name>capt_ls_light</object-name>
+  <emission>
+    <red>0</red>
+    <blue>0</blue>
+    <green>1</green>
+    <factor-prop>/instrumentation/PFD_L/ls</factor-prop>
+  </emission>
+ </animation>
+ <animation>
+  <type>pick</type>
+  <object-name>capt_ls</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>   
+    <binding>
+      <command>property-toggle</command>
+      <property>/instrumentation/PFD_L/ls</property>
+    </binding>   
+  </action>
+</animation>
+<animation>
+  <type>material</type>
+  <object-name>capt_vv_light</object-name>
+  <emission>
+    <red>0</red>
+    <blue>0</blue>
+    <green>1</green>
+    <factor-prop>/instrumentation/PFD_L/vv</factor-prop>
+  </emission>
+ </animation>
+ <animation>
+  <type>pick</type>
+  <object-name>capt_vv</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>   
+    <binding>
+      <command>property-toggle</command>
+      <property>/instrumentation/PFD_L/vv</property>
+    </binding>   
+  </action>
+</animation>
+ <!-- nd -->
  <animation>
   <type>material</type>
   <object-name>capt_nd_cstr_light</object-name>
@@ -633,8 +679,21 @@
     <red>0</red>	
     <green>1</green>	
     <blue>0</blue>
+    <factor-prop>/instrumentation/efis/inputs/CSTR</factor-prop>
    </emission>
  </animation>
+ <animation>
+  <type>pick</type>
+  <object-name>capt_nd_cstr</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>   
+    <binding>
+      <command>property-toggle</command>
+      <property>/instrumentation/efis/inputs/CSTR</property>
+    </binding>   
+  </action>
+</animation>
  <animation>
   <type>material</type>
   <object-name>capt_nd_wpt_light</object-name>
@@ -644,34 +703,113 @@
     <blue>0</blue>
     <factor-prop>/instrumentation/efis/inputs/wpt</factor-prop>
    </emission>
-   <action>
-    <button>1</button>
+ </animation>
+ <animation>
+  <type>pick</type>
+  <object-name>capt_nd_wpt</object-name>
+  <action>
+    <button>0</button>
     <repeatable>false</repeatable>   
     <binding>
-      <command>property-assign</command>
+      <command>property-toggle</command>
       <property>/instrumentation/efis/inputs/wpt</property>
-      <property>1</property>
     </binding>   
     <binding>
       <command>property-assign</command>
-      <property>/instrumentation/efis/inputs/sta</property>
-      <property>0</property>
+      <property>/instrumentation/efis/inputs/VORD</property>
+      <value>0</value>
     </binding>  
     <binding>
       <command>property-assign</command>
-      <property>/instrumentation/efis/inputs/arpt</property>
-      <property>0</property>
+      <property>/instrumentation/efis/inputs/NDB</property>
+      <value>0</value>
     </binding>  
   </action>
- </animation>
- <animation>
+</animation>
+<animation>
   <type>material</type>
   <object-name>capt_nd_vord_light</object-name>
   <emission>	
     <red>0</red>	
     <green>1</green>	
     <blue>0</blue>
-    <factor-prop>/instrumentation/efis/inputs/sta</factor-prop>
+    <factor-prop>/instrumentation/efis/inputs/VORD</factor-prop>
    </emission>
  </animation>
+ <animation>
+  <type>pick</type>
+  <object-name>capt_nd_vord</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>   
+    <binding>
+      <command>property-toggle</command>
+      <property>/instrumentation/efis/inputs/VORD</property>
+    </binding>   
+    <binding>
+      <command>property-assign</command>
+      <property>/instrumentation/efis/inputs/wpt</property>
+      <value>0</value>
+    </binding>  
+    <binding>
+      <command>property-assign</command>
+      <property>/instrumentation/efis/inputs/NDB</property>
+      <value>0</value>
+    </binding>  
+  </action>
+</animation>
+<animation>
+  <type>material</type>
+  <object-name>capt_nd_ndb_light</object-name>
+  <emission>	
+    <red>0</red>	
+    <green>1</green>	
+    <blue>0</blue>
+    <factor-prop>/instrumentation/efis/inputs/NDB</factor-prop>
+   </emission>
+ </animation>
+ <animation>
+  <type>pick</type>
+  <object-name>capt_nd_ndb</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>   
+    <binding>
+      <command>property-toggle</command>
+      <property>/instrumentation/efis/inputs/NDB</property>
+    </binding>   
+    <binding>
+      <command>property-assign</command>
+      <property>/instrumentation/efis/inputs/wpt</property>
+      <value>0</value>
+    </binding>  
+    <binding>
+      <command>property-assign</command>
+      <property>/instrumentation/efis/inputs/VORD</property>
+      <value>0</value>
+    </binding>  
+  </action>
+</animation>
+<animation>
+  <type>material</type>
+  <object-name>capt_nd_arpt_light</object-name>
+  <emission>	
+    <red>0</red>	
+    <green>1</green>	
+    <blue>0</blue>
+    <factor-prop>/instrumentation/efis/inputs/arpt</factor-prop>
+   </emission>
+ </animation>
+ <animation>
+  <type>pick</type>
+  <object-name>capt_nd_arpt</object-name>
+  <action>
+    <button>0</button>
+    <repeatable>false</repeatable>   
+    <binding>
+      <command>property-toggle</command>
+      <property>/instrumentation/efis/inputs/arpt</property>
+    </binding>   
+  </action>
+</animation>
 </PropertyList>

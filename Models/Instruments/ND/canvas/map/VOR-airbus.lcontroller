@@ -17,6 +17,7 @@ SymbolLayer.add(name, {
     }
 });
 var new = func(layer) {
+    print('hi vor');
     var m = {
         parents: [__self__],
         layer: layer,
@@ -27,10 +28,7 @@ var new = func(layer) {
         query_type:'vor',
     };
     setsize(m.active_vors, size(m.navNs));
-    debug.dump(m.navNs);
     foreach (var navN; m.navNs) {
-        debug.dump(navN);
-        debug.dump(navN.getNode("frequencies/selected-mhz"));
         append(m.listeners, setlistener(
                navN.getNode("frequencies/selected-mhz"),
             func m.changed_freq()

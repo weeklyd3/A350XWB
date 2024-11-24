@@ -380,7 +380,7 @@ setlistener("/instrumentation/efis[0]/nd/terrain-on-nd", func{
 	if (terr_on_hd) {
 		alpha = 0.5;
 	}
-	nd_display.main.setColorBackground(0,0,0,alpha);
+	#nd_display.main.setColorBackground(0,0,0,alpha);
 });
 setprop("/instrumentation/efis[0]/nd/terrain-on-nd", 1);
 setprop("/instrumentation/efis[1]/nd/terrain-on-nd", 1);

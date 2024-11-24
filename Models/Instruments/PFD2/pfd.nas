@@ -52,10 +52,10 @@ var pfd = {
 		# create an image child
 		var group = display.createGroup('svg');
 		canvas.parsesvg(group, path, {"font-mapper": returned.font_mapper});
-		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "ball", "airspeed", "overspeed_barber_poles", "mach", "te_flaps", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "hundred_numbers", "hundreds", "thousands", "ten_thousands", "alt_tape", "alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "vs_needle", "vs_exact", "vs_text", "stall"]) {
+		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "ball", "airspeed", "overspeed_barber_poles", "mach", "te_flaps", "ils", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "ils_ident", "ils_frequency", "ils_distance", "ils_distance_label", "hundred_numbers", "hundreds", "thousands", "ten_thousands", "alt_tape", "alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "vs_needle", "vs_exact", "vs_text", "stall"]) {
 			returned.svg_items[elem] = group.getElementById(elem);
 		}
-		foreach (elem; ["alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "vs_text", "mach"]) {
+		foreach (elem; ["alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "vs_text", "mach", "ils_ident", "ils_frequency", "ils_distance"]) {
 			returned.svg_items[elem].enableUpdate();
 		}
 		# prolly overkill to use all these decimal places but idc
@@ -101,8 +101,14 @@ var pfd = {
 			flap: props.globals.getNode('/surface-positions/flap-pos-norm')
 		};
 		hash.ils = {
+			frequency: props.globals.getNode('instrumentation/nav/frequencies/selected-mhz'),
+			name: props.globals.getNode('/instrumentation/nav/nav-id'),
+			dme: props.globals.getNode('/instrumentation/dme/indicated-distance-nm'),
+			dme_in_range: props.globals.getNode('/instrumentation/dme/in-range'),
 			loc: props.globals.getNode('instrumentation/nav/heading-needle-deflection-norm'),
-			gs: props.globals.getNode('instrumentation/nav/gs-needle-deflection-norm')
+			loc_in_range: props.globals.getNode('/instrumentation/nav/in-range'),
+			gs: props.globals.getNode('instrumentation/nav/gs-needle-deflection-norm'),
+			gs_in_range: props.globals.getNode('/instrumentation/nav/gs-in-range')
 		}
 	},
 	update: func() {
@@ -215,36 +221,52 @@ var pfd = {
 			fpv.hide();
 		}
 		# ils
-		var gs = pfd_props.ils.gs.getValue();
-		if (gs != nil) {
-			me.svg_items.gs.setTranslation(0, 80 * scale_constant * -gs);
-			# 1 is full fly up
-			if (gs > 0.999) {
-				me.svg_items.gs_up.show();
-				me.svg_items.gs_down.hide();
-			} else if (gs < -0.999) {
-				me.svg_items.gs_up.hide();
-				me.svg_items.gs_down.show();
+		var has_ils = me.properties.ls.getValue();
+		if (has_ils) {
+			me.svg_items.ils_frequency.updateText(sprintf("%.02f", pfd_props.ils.frequency.getValue()));
+			var gs = pfd_props.ils.gs.getValue();
+			if (gs != nil and pfd_props.ils.gs_in_range.getValue()) {
+				me.svg_items.gs.setTranslation(0, 80 * scale_constant * -gs);
+				# 1 is full fly up
+				if (gs > 0.999) {
+					me.svg_items.gs_up.show();
+					me.svg_items.gs_down.hide();
+				} else if (gs < -0.999) {
+					me.svg_items.gs_up.hide();
+					me.svg_items.gs_down.show();
+				} else {
+					me.svg_items.gs_up.show();
+					me.svg_items.gs_down.show();
+				}
+				me.svg_items.gs.show();
+			} else me.svg_items.gs.hide();
+			var loc = pfd_props.ils.loc.getValue();
+			me.svg_items.ils_ident.updateText(pfd_props.ils.name.getValue());
+			if (loc != nil and pfd_props.ils.loc_in_range.getValue()) {
+				me.svg_items.loc.setTranslation(80 * scale_constant * loc, 0);
+				me.svg_items.ils_rollout.setTranslation(90 * loc * scale_constant, 0);
+				if (loc < -0.999) {
+					me.svg_items.loc_left.show();
+					me.svg_items.loc_right.hide();
+				} else if (loc > 0.999) {
+					me.svg_items.loc_left.hide();
+					me.svg_items.loc_right.show();
+				} else {
+					me.svg_items.loc_left.show();
+					me.svg_items.loc_right.show();
+				}
+				me.svg_items.loc.show();
+			} else me.svg_items.loc.hide();
+			if (pfd_props.ils.dme_in_range.getValue()) {
+				me.svg_items.ils_distance.updateText(sprintf("%.1f", pfd_props.ils.dme.getValue()));
+				me.svg_items.ils_distance.show();
+				me.svg_items.ils_distance_label.show();
 			} else {
-				me.svg_items.gs_up.show();
-				me.svg_items.gs_down.show();
+				me.svg_items.ils_distance.hide();
+				me.svg_items.ils_distance_label.hide();
 			}
-		}
-		var loc = pfd_props.ils.loc.getValue();
-		if (loc != nil) {
-			me.svg_items.loc.setTranslation(80 * scale_constant * loc, 0);
-			me.svg_items.ils_rollout.setTranslation(90 * loc * scale_constant, 0);
-			if (loc < -0.999) {
-				me.svg_items.loc_left.show();
-				me.svg_items.loc_right.hide();
-			} else if (loc > 0.999) {
-				me.svg_items.loc_left.hide();
-				me.svg_items.loc_right.show();
-			} else {
-				me.svg_items.loc_left.show();
-				me.svg_items.loc_right.show();
-			}
-		}
+			me.svg_items.ils.show();
+		} else me.svg_items.ils.hide();
 		# bottom part - flaps
 		var flap_pos = pfd_props.wing.flap.getValue();
 		var flap_pos_norm = 0;
