@@ -27,9 +27,9 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="pt"
      showgrid="false"
-     inkscape:zoom="0.96630982"
-     inkscape:cx="-22.767025"
-     inkscape:cy="-37.772565"
+     inkscape:zoom="7.7304785"
+     inkscape:cx="314.40486"
+     inkscape:cy="25.289508"
      inkscape:window-width="1920"
      inkscape:window-height="1003"
      inkscape:window-x="0"
@@ -200,5 +200,49 @@
        x="56.496574"
        y="10.635467"
        ry="1.07321" />
+    <rect
+       style="fill:#000000;stroke:none;stroke-width:0.110888;paint-order:markers stroke fill"
+       id="rect34008-9-6-6-3-3"
+       width="17.638889"
+       height="8.8194447"
+       x="52.916664"
+       y="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.176388;paint-order:markers stroke fill"
+       x="61.684032"
+       y="5.8451214"
+       id="text34137-6-3-3-6-6"><tspan
+         sodipodi:role="line"
+         id="tspan34135-1-5-5-7-7"
+         style="font-size:4.23333px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.176388"
+         x="61.684032"
+         y="5.8451214">DISC</tspan></text>
+    <rect
+       style="fill:#000000;stroke:none;stroke-width:0.110888;paint-order:markers stroke fill"
+       id="rect34008-9-6-6-3-3-9"
+       width="17.638889"
+       height="8.8194447"
+       x="70.55555"
+       y="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.176388;paint-order:markers stroke fill"
+       x="79.322922"
+       y="5.8451214"
+       id="text34137-6-3-3-6-6-0"><tspan
+         sodipodi:role="line"
+         id="tspan34135-1-5-5-7-7-9"
+         style="font-size:4.23333px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.176388"
+         x="79.322922"
+         y="5.8451214">ISOL</tspan></text>
+    <rect
+       style="fill:none;stroke:#ffffff;stroke-width:0.273018;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect34450-6-6-5-5"
+       width="11.176032"
+       height="5.1789637"
+       x="56.148094"
+       y="1.8202394"
+       ry="1.0714649" />
   </g>
 </svg>

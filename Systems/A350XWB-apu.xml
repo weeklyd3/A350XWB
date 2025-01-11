@@ -2,7 +2,7 @@
 <system name="apu">
 	<channel name="engine" execrate="6">
 		<actuator name="/systems/apu/flap">
-			<input>/systems/apu/switch</input>
+			<input>/controls/apu/switch</input>
 			<rate_limit sense="incr">0.08</rate_limit>
 			<rate_limit sense="decr">0.08</rate_limit>
 		</actuator>
@@ -16,13 +16,13 @@
 			<default value="0" />
 			<test logic="AND" value="1">
 				/systems/apu/avail EQ 1
-				/systems/apu/switch EQ 1
+				/controls/apu/switch EQ 1
 			</test>
 		</switch>
 		<switch name="/systems/apu/starting">
 			<default value="0" />
 			<test logic="AND" value="1">
-				/systems/apu/starter EQ 1
+				/controls/apu/starter EQ 1
 				/systems/apu/flap GE 0.95
 			</test>
 		</switch>
@@ -46,7 +46,7 @@
 			<function>
 				<ifthen>
 					<gt>
-						<property>/systems/apu/switch</property>
+						<property>/controls/apu/switch</property>
 						<value>0</value>
 					</gt>
 				<table>

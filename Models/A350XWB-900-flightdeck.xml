@@ -497,7 +497,7 @@
 		<object-name>sidestick_2</object-name>
 		<object-name>sidestick_4</object-name>
 		<object-name>sidestick_button2</object-name>
-		<property>controls/flight/elevator</property>
+		<property>controls/flight/elevator[1]</property>
 		<factor>10</factor>
 		<center>
 			<x-m>2.7908</x-m>
@@ -516,7 +516,7 @@
 		<object-name>sidestick_2</object-name>
 		<object-name>sidestick_4</object-name>
 		<object-name>sidestick_button2</object-name>
-		<property>controls/flight/aileron</property>
+		<property>controls/flight/aileron[1]</property>
 		<factor>10</factor>
 		<center>
 			<x-m>2.7908</x-m>
@@ -690,7 +690,7 @@
 		<type>rotate</type>
 		<object-name>throttle_left</object-name>
 		<object-name>reverse_left</object-name>
-		<property>controls/engines/engine[0]/angle</property>
+		<property>/systems/fadec/throttle/man-throttle-angle-1</property>
 		<factor>50</factor>
 		<axis>
 			<x>0</x>
@@ -768,7 +768,7 @@
 		<type>rotate</type>
 		<object-name>throttle_right</object-name>
 		<object-name>reverse_right</object-name>
-		<property>controls/engines/engine[1]/angle</property>
+		<property>/systems/fadec/throttle/man-throttle-angle-2</property>
 		<factor>50</factor>
 		<axis>
 			<x>0</x>
@@ -1043,7 +1043,16 @@
 			<z-m>1.1827</z-m>
 		</center>
 	</animation>
-
+	<!-- function below is from a320 pfd.xml -->
+	<!-- Copyright (c) 2024 Josh Davidson (Octal450) -->
+	<predict-simple>
+		<name>Speed Predictor (Smoothed)</name>
+		<debug>false</debug>
+		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
+		<output>/systems/pfd/speed-trend-raw</output>
+		<seconds>10.0</seconds>
+		<filter-gain>0.01</filter-gain>
+	</predict-simple>
 	<effect>
 	  <inherits-from>Effects/lightmap</inherits-from>
 	  <parameters>

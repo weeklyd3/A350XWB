@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="889.646pt"
+   height="564.19598pt"
+   viewBox="0 0 889.64599 564.19598"
+   version="1.1"
+   id="svg658"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="hyd.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview660"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="pt"
+     showgrid="false"
+     inkscape:zoom="0.49953305"
+     inkscape:cx="303.28324"
+     inkscape:cy="217.20285"
+     inkscape:window-width="1698"
+     inkscape:window-height="991"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs655" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="hyd"
+       style="display:inline">
+      <path
+         id="rect2419"
+         style="fill:#4d4d4d;stroke:none;stroke-width:0.5;paint-order:markers stroke fill"
+         d="m 62,254.85498 h 81 V 321.972 c 0.49422,33.95336 -1.64084,60.39949 -13,60.5085 H 75 C 61.710001,381.82731 61.380535,352.9335 62,321.972 Z"
+         sodipodi:nodetypes="ccccccc" />
+      <path
+         id="rect2419-3"
+         style="fill:#4d4d4d;stroke:none;stroke-width:0.5;paint-order:markers stroke fill"
+         d="m 298.93328,254.85498 h 81 V 321.972 c 0.49422,33.95336 -1.64084,60.39949 -13,60.5085 h -55 c -13.29,-0.65319 -13.61946,-29.547 -13,-60.5085 z"
+         sodipodi:nodetypes="ccccccc" />
+      <rect
+         style="fill:none;stroke:#00ff00;stroke-width:2.60218;stroke-dasharray:none;paint-order:markers stroke fill"
+         id="rect2754"
+         width="96.108818"
+         height="18.109245"
+         x="59.83009"
+         y="216.82191"
+         ry="0" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:start;text-anchor:start;fill:none;stroke:#00ff00;stroke-width:2.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         x="64.619484"
+         y="229.12677"
+         id="text3062"><tspan
+           sodipodi:role="line"
+           id="tspan3060"
+           style="font-size:10px;fill:#ffffff;stroke:none;stroke-width:2.5"
+           x="64.619484"
+           y="229.12677">GREEN</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:14px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:start;text-anchor:start;fill:none;stroke:#00ff00;stroke-width:2.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         x="98.837334"
+         y="231.13579"
+         id="green_pressure"><tspan
+           sodipodi:role="line"
+           id="tspan3060-5"
+           style="font-size:14px;fill:#00ff00;stroke:none;stroke-width:2.5"
+           x="98.837334"
+           y="231.13579">5000</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:10px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:start;text-anchor:start;fill:none;stroke:#00ff00;stroke-width:2.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         x="135.42236"
+         y="229.12677"
+         id="text3062-3"><tspan
+           sodipodi:role="line"
+           id="tspan3060-6"
+           style="font-size:10px;fill:#00ffff;stroke:none;stroke-width:2.5"
+           x="135.42236"
+           y="229.12677">PSI</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:8.5px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:start;text-anchor:start;fill:none;stroke:#00ff00;stroke-width:2.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         x="296.57425"
+         y="227.92194"
+         id="text3062-5"><tspan
+           sodipodi:role="line"
+           id="tspan3060-62"
+           style="font-size:8.5px;fill:#ffffff;stroke:none;stroke-width:2.5"
+           x="296.57425"
+           y="227.92194">YELLOW</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:14px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:start;text-anchor:start;fill:none;stroke:#00ff00;stroke-width:2.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         x="330.8898"
+         y="231.13579"
+         id="yellow_pressure"><tspan
+           sodipodi:role="line"
+           id="tspan3060-5-1"
+           style="font-size:14px;fill:#00ff00;stroke:none;stroke-width:2.5"
+           x="330.8898"
+           y="231.13579">5000</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:10px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:start;text-anchor:start;fill:none;stroke:#00ff00;stroke-width:2.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         x="367.47485"
+         y="229.12677"
+         id="text3062-3-2"><tspan
+           sodipodi:role="line"
+           id="tspan3060-6-7"
+           style="font-size:10px;fill:#00ffff;stroke:none;stroke-width:2.5"
+           x="367.47485"
+           y="229.12677">PSI</tspan></text>
+      <path
+         style="fill:#ffffff;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="M 77.482612,234.98225 V 330"
+         id="path3908"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:#ffffff;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="M 364.34,234.98225 V 272.28"
+         id="path3908-6"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;paint-order:markers stroke fill"
+         d="m 77.483,330.00042 h 261.45 V 335"
+         id="path585"
+         sodipodi:nodetypes="ccc" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 77.482612,330 v 5"
+         id="path1922"
+         sodipodi:nodetypes="cc" />
+      <rect
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         id="rect2087"
+         width="14.892673"
+         height="14.89267"
+         x="70.036667"
+         y="335.60013" />
+      <circle
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         id="path2361"
+         cx="77.483002"
+         cy="366.87534"
+         r="7.4463348" />
+      <rect
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         id="rect2087-7"
+         width="14.892673"
+         height="14.89267"
+         x="331.48651"
+         y="335.60013" />
+      <circle
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         id="path2361-5"
+         cx="338.93283"
+         cy="366.87534"
+         r="7.4463348" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 77.483002,350.4928 v 8.9362"
+         id="path2363" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="M 77.483002,374.32167 V 380.072 H 338.933 v -5"
+         id="path3205"
+         sodipodi:nodetypes="cccc" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 338.93284,350.4928 v 8.9362"
+         id="path4208" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="M 77.483002,335.60013 V 350.4928"
+         id="eng1greenpump_on" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 77.483002,359.429 v 14.89267"
+         id="eng1greensupply_on" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="M 338.93284,335.60013 V 350.4928"
+         id="eng2greenpump_on" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 338.93283,359.429 v 14.89267"
+         id="eng2greensupply_on" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;paint-order:markers stroke fill"
+         d="m 364.34006,267.28 -261.46325,3.2e-4 v 4.90957"
+         id="path585-0"
+         sodipodi:nodetypes="ccc" />
+      <rect
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+         id="rect2087-9"
+         width="14.893428"
+         height="14.62455"
+         x="-371.78677"
+         y="272.77921"
+         transform="scale(-1,1)" />
+      <ellipse
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+         id="path2361-3"
+         cx="-364.34006"
+         cy="303.49136"
+         rx="7.446712"
+         ry="7.3122749"
+         transform="scale(-1,1)" />
+      <rect
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+         id="rect2087-7-6"
+         width="14.893428"
+         height="14.62455"
+         x="-110.32366"
+         y="272.77921"
+         transform="scale(-1,1)" />
+      <ellipse
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+         id="path2361-5-0"
+         cx="-102.87698"
+         cy="303.49136"
+         rx="7.446712"
+         ry="7.3122749"
+         transform="scale(-1,1)" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 364.34006,287.40377 v 8.77531"
+         id="path2363-6" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 364.34006,310.80364 v 5.6468 H 102.87681 v -4.90998"
+         id="path3205-2"
+         sodipodi:nodetypes="cccc" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 102.87698,287.40377 v 8.77531"
+         id="path4208-6" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 364.34006,272.77922 v 14.62455"
+         id="eng2yellowpump_on" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 364.34006,296.17908 v 14.62456"
+         id="eng2yellowsupply_on" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 102.87698,272.77922 v 14.62455"
+         id="eng1yellowpump_on" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 102.87698,296.17908 v 14.62456"
+         id="eng1yellowsupply_on" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="M 364.34006,316.45044 V 380.072"
+         id="path6042"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="M 70.036666,343.04646 H 84.92934"
+         id="eng1greenpump_off" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="M 70.036666,366.87533 H 84.92934"
+         id="eng1greensupply_off" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 331.48651,343.04646 h 14.89267"
+         id="eng2greenpump_off" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 331.48649,366.87533 h 14.89268"
+         id="eng2greensupply_off" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 95.43027,303.49136 h 14.89342"
+         id="eng1yellowsupply_off" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 95.43024,280.09147 h 14.89343"
+         id="eng1yellowpump_off" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 356.89334,280.09147 h 14.89344"
+         id="eng2yellowpump_off" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         d="m 356.89334,303.49136 h 14.89343"
+         id="eng2yellowsupply_off" />
+      <rect
+         style="fill:#00ff00;stroke:none;stroke-width:1.51481;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000"
+         id="green_quantity"
+         width="13.999998"
+         height="80"
+         x="70.483002"
+         y="405.05701" />
+      <rect
+         style="fill:#000000;stroke:none;stroke-width:1.5;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000"
+         id="rect2733"
+         width="374.12701"
+         height="79.138977"
+         x="25.389252"
+         y="485.05701" />
+      <path
+         style="fill:#000000;stroke:#00ff00;stroke-width:1.5;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000"
+         d="M 77.483002,380.072 V 485"
+         id="path1860"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:#000000;stroke:#00ff00;stroke-width:1.5;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000"
+         d="M 364.34006,380.072 V 485"
+         id="path1862"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         d="m 70.49334,405.057 v 80.73966 H 84.472662 V 405.057"
+         id="path2679" />
+      <rect
+         style="fill:#00ff00;stroke:none;stroke-width:1.51481;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000"
+         id="yellow_quantity"
+         width="13.999998"
+         height="80"
+         x="357.34067"
+         y="405.05701" />
+      <path
+         style="fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         d="m 357.351,405.057 v 80.73966 h 13.97932 V 405.057"
+         id="path2679-5" />
+      <path
+         style="fill:#ff6600;stroke:#ff6600;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         d="m 85.983,465.057 v 21.5"
+         id="path3653" />
+      <path
+         style="fill:#ff6600;stroke:#ff6600;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         d="m 372.851,465.057 v 21.5"
+         id="path3653-3" />
+      <text
+         xml:space="preserve"
+         style="font-size:20px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-anchor:middle;fill:none;stroke:none;stroke-width:0.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         x="20.742718"
+         y="167.75977"
+         id="hyd_title"><tspan
+           sodipodi:role="line"
+           id="tspan2211"
+           style="font-size:20px;text-align:start;text-anchor:start;fill:#ffffff;stroke:none;stroke-width:0.5"
+           x="20.742718"
+           y="167.75977">HYD</tspan></text>
+      <rect
+         style="fill:none;stroke:#00ff00;stroke-width:2.60218;stroke-dasharray:none;paint-order:markers stroke fill"
+         id="rect2754-3"
+         width="96.108818"
+         height="18.109245"
+         x="291.88309"
+         y="216.82191"
+         ry="0" />
+      <text
+         xml:space="preserve"
+         style="font-size:15.9999px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ff00;stroke-width:1.49999;paint-order:markers stroke fill;stop-color:#000000"
+         x="77.482574"
+         y="501.17181"
+         id="text4855"><tspan
+           sodipodi:role="line"
+           id="tspan4853"
+           style="font-size:15.9999px;fill:#ffffff;stroke-width:1.49999"
+           x="77.482574"
+           y="501.17181">GREEN RSVR</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:15.9999px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ff00;stroke-width:1.49999;paint-order:markers stroke fill;stop-color:#000000"
+         x="364.23843"
+         y="501.17181"
+         id="text4855-3"><tspan
+           sodipodi:role="line"
+           id="tspan4853-6"
+           style="font-size:15.9999px;fill:#ffffff;stroke-width:1.49999"
+           x="364.23843"
+           y="501.17181">YELLOW RSVR</tspan></text>
+    </g>
+  </g>
+</svg>

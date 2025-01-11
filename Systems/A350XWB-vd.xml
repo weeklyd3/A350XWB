@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="A350XWB-vd">
+	<channel name="range" execrate="2">
+		<!-- unlike on a boeing, the vertical display is restricted to 160 miles -->
+		<fcs_function name="/instrumentation/efis/vd/horizontal-range">
+			<function>
+				<table>
+					<independentVar>/instrumentation/efis/inputs/range-nm</independentVar>
+					<tableData>
+						10    10
+						160   160
+						320   160
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<!-- according to the fcom, a diagonal is 4 degrees
+		so if horizontal range is 160 miles, vertical range is 160 * 6076 * tan(4) ~ 70k ft -->
+		<fcs_function name="/instrumentation/efis/vd/range">
+			<function>
+				<table>
+					<independentVar>/instrumentation/efis/inputs/range-nm</independentVar>
+					<tableData>
+						0      0
+						160    70000
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/instrumentation/efis/vd/scale">
+			<!-- provides how much two ticks are -->
+			<function>
+				<table>
+					<independentVar>/instrumentation/efis/inputs/range-nm</independentVar>
+					<tableData>
+						10   1000
+						20   3000
+						40   5000
+						80   10000
+						160  20000
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/instrumentation/efis/vd/range-half">
+			<function>
+				<product>
+					<value>0.5</value>
+					<property>/instrumentation/efis/vd/range</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/instrumentation/efis/vd/range-start-factor">
+			<function>
+				<table>
+					<independentVar>/systems/pfd/fpa-sane</independentVar>
+					<tableData>
+						-5     -0.4
+						-4     -0.4
+						0      0
+						4      0.4
+						5      0.4
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/instrumentation/efis/vd/range-start">
+			<function>
+				<sum>
+					<property>/instrumentation/altimeter/indicated-altitude-ft</property>
+					<product>
+						<value>-1</value>
+						<property>/instrumentation/efis/vd/range-half</property>
+					</product>
+					<product>
+						<property>/instrumentation/efis/vd/range-start-factor</property>
+						<property>/instrumentation/efis/vd/range</property>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/instrumentation/efis/vd/low">
+			<function>
+				<product>
+					<property>/instrumentation/efis/vd/scale</property>
+					<floor>
+						<quotient>
+							<property>/instrumentation/efis/vd/range-start</property>
+							<property>/instrumentation/efis/vd/scale</property>
+						</quotient>
+					</floor>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/instrumentation/efis/vd/tick-scale">
+			<!-- in the svg file, one tick (by default) is 38 pixels -->
+			<function>
+				<product>
+					<value>228</value> <!-- height of vd -->
+					<value>0.5</value> <!-- without this it's the height of 2 ticks -->
+					<quotient>
+						<property>/instrumentation/efis/vd/scale</property>
+						<property>/instrumentation/efis/vd/range</property>
+					</quotient>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/instrumentation/efis/vd/low-displacement">
+			<function>
+				<product>
+					<value>2</value>
+					<property>/instrumentation/efis/vd/tick-scale</property>
+					<quotient>
+						<difference>
+							<property>/instrumentation/efis/vd/range-start</property>
+							<property>/instrumentation/efis/vd/low</property>
+						</difference>
+						<property>/instrumentation/efis/vd/scale</property>
+					</quotient>
+				</product>
+			</function>
+		</fcs_function>
+	</channel>
+</system>

@@ -61,7 +61,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>property-toggle</command>
-				<property>/systems/apu/switch</property>
+				<property>/controls/apu/switch</property>
 			</binding>
 		</action>
 	</animation>
@@ -73,7 +73,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>property-toggle</command>
-				<property>/systems/apu/starter</property>
+				<property>/controls/apu/starter</property>
 			</binding>
 		</action>
 	</animation>
@@ -409,7 +409,7 @@
 		<object-name>apu_master_on</object-name>
 		<condition>
 			<or>
-				<property>/systems/apu/switch</property>
+				<property>/controls/apu/switch</property>
 				<property>overhead/christmas-tree</property>
 			</or>
 		</condition>
@@ -429,7 +429,7 @@
 		<object-name>apu_start_on</object-name>
 		<condition>
 			<or>
-				<property>/systems/apu/starter</property>
+				<property>/controls/apu/starter</property>
 				<property>overhead/christmas-tree</property>
 			</or>
 		</condition>

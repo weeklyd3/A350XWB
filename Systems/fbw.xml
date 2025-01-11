@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="fbw">
+	<property value="-0.5">/systems/fbw/pitch-g-p</property>
+	<property value="-0.35">/systems/fbw/pitch-g-i</property>
+	<property value="-0.005">/systems/fbw/pitch-g-d</property>
+	<channel name="stuff">
+		<fcs_function name="/systems/fbw/roll-rate-cmd">
+			<function>
+				<product>
+					<value>15</value>
+					<property>/controls/flight/aileron</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/roll-rate-cmd-protection">
+			<!-- prevents rolling past 67 degrees -->
+			<function>
+				<sum>
+					<property>/systems/fbw/roll-rate-cmd</property>
+					<table>
+						<independentVar>/orientation/roll-deg</independentVar>
+						<tableData>
+							-67    15
+							-33    0
+							0      0
+							33     0
+							67    -15
+						</tableData>
+					</table>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/roll-rate-error">
+			<function>
+				<difference>
+					<property>/systems/fbw/roll-rate-cmd-protection</property>
+					<property>/orientation/roll-rate-degps</property>
+				</difference>
+			</function>
+		</fcs_function>
+		<pid name="/systems/fbw/aileron">
+			<input>/systems/fbw/roll-rate-error</input>
+			<kp>0.15</kp>
+			<ki>0.15</ki>
+			<kd>0.000</kd>
+			<output>/systems/fbw/aileron</output>
+		</pid>
+		<fcs_function name="/systems/fbw/pitch-g-cmd">
+			<function>
+				<table>
+					<independentVar>/controls/flight/elevator</independentVar>
+					<!-- 1 = full forward, -1 = full back -->
+					<tableData>
+					-1   2.5
+					0    1
+					1    -1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<!-- it needs to pull up during turns when abs(bank angle) < 33 so i add the g load and minus one -->
+		<fcs_function name="/systems/fbw/g-cmd">
+			<function>
+				<sum>
+					<property>/systems/fbw/pitch-g-cmd</property>
+					<quotient>
+						<value>1</value>
+						<cos>
+							<toradians>
+								<min>
+									<value>33</value>
+									<max>
+										<value>-33</value>
+										<property>/orientation/roll-deg</property>
+									</max>
+								</min>
+							</toradians>
+						</cos>
+					</quotient>
+					<value>-1</value>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/pitch-g-error">
+			<function>
+				<difference>
+					<property>/systems/fbw/g-cmd</property>
+					<property>accelerations/Nz</property>
+				</difference>
+			</function>
+		</fcs_function>
+		<switch name="/systems/fbw/g-trigger">
+			<default value="0" />
+			<test value="1" logic="OR">
+				/systems/fbw/g-elevator GE 0.999
+				/systems/fbw/g-elevator LE -0.999
+			</test>
+		</switch>
+		<!-- elevator is crazy effective at high speeds -->
+		<pid name="/systems/fbw/g-elevator-unmodified">
+			<input>/systems/fbw/pitch-g-error</input>
+			<kp>/systems/fbw/pitch-g-p</kp>
+			<ki>/systems/fbw/pitch-g-i</ki>
+			<kd>/systems/fbw/pitch-g-d</kd>
+			<trigger>/systems/fbw/g-trigger</trigger>
+			<output>/systems/fbw/g-elevator</output>
+			<clipto>
+				<max>1</max>
+				<min>-1</min>
+			</clipto>
+		</pid>
+		<fcs_function name="/systems/fbw/g-elevator">
+			<function>
+				<product>
+					<property>/systems/fbw/g-elevator-unmodified</property>
+					<!-- tuned it for 250 knots -->
+					<pow>
+						<min>
+							<quotient>
+								<value>250</value>
+								<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+							</quotient>
+							<value>2</value>
+						</min>
+						<value>2</value>
+					</pow>
+				</product>
+			</function>
+			<clipto>
+				<max>1</max>
+				<min>-1</min>
+			</clipto>
+		</fcs_function>
+		<switch name="/systems/fbw/direct">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/position/gear-agl-ft le 50
+			</test>
+		</switch>
+		<actuator name="/systems/fbw/g-direct-blend">
+			<input>/systems/fbw/direct</input>
+			<rate_limit>0.2</rate_limit>
+		</actuator>
+		<fcs_function name="/systems/fbw/elevator">
+			<function>
+				<!-- ehh screw it it's not well tuned rn -->
+				<sum>
+					<value>0</value>
+					<property>/controls/flight/elevator</property>
+				</sum>
+				<!--<sum>
+					<product>
+						<property>/systems/fbw/g-direct-blend</property>
+						<property>/controls/flight/elevator</property>
+					</product>
+					<product>
+						<difference>
+							<value>1</value>
+							<property>/systems/fbw/g-direct-blend</property>
+						</difference>
+						<property>/systems/fbw/g-elevator</property>
+					</product>
+				</sum>-->
+			</function>
+		</fcs_function>
+	</channel>
+</system>

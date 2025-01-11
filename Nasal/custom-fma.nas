@@ -3,13 +3,19 @@
 # Copyright (c) 2024 Josh Davidson (Octal450)
 
 var UpdateFma = {
-	latText: "T/O",
-	spdText: "PITCH",
-	thrText: "THR LIM",
-	vertText: "T/O CLB",
+	latText: "",
+	thrText: "",
+	vertText: "",
+	latArmText: "",
+	vertArmText: "",
 	thr: func() { # Called when speed/thrust modes change
-		me.spdText = Text.spd.getValue();
-		me.thrText = Text.thr.getValue();
+		me.thrText = {
+			"SPEED": "SPEED",
+			"MACH": "MACH",
+			"IDLE": "THR IDLE",
+			"RETARD": "THR IDLE",
+			"THR LIM": "THR CLB"
+		}[Text.thr.getValue()];
 	},
 	arm: func() { # Called when armed modes change
 		Output.lnavArm.getBoolValue();
@@ -17,10 +23,28 @@ var UpdateFma = {
 		Output.gsArm.getBoolValue();
 	},
 	lat: func() { # Called when lateral mode changes
-	print('lateral mode changed !!!');
-		me.latText = Text.lat.getValue();
+		me.latText = {
+			"T/O": "RWY",
+			"RLOU": "ROLL OUT",
+			"HDG": "HDG",
+			"ALGN": "FLARE",
+			"LNAV": "NAV",
+			"LOC": "LOC"
+		}[Text.lat.getValue()];
 	},
 	vert: func() { # Called when vertical mode changes
-		me.vertText = Text.vert.getValue();
+		me.vertText = {
+			"T/O CLB": "SRS",
+			"ROLLOUT": "ROLL OUT",
+			"ALT HLD": "ALT",
+			"FPA": "FPA",
+			"V/S": "V/S",
+			"ALT CAP": "ALT*",
+			"FLARE": "FLARE",
+			"SPD CLB": "OP CLB",
+			"SPD DES": "OP DES",
+			"G/S": "G/S",
+			"G/A CLB": "SRS"
+		}[Text.vert.getValue()];
 	},
 };

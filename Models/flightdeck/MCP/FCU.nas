@@ -51,3 +51,17 @@ var change_alt = func(amount) { # amount is 1 or -1
 	target_alt.adjustValue(amount * alt_increment.getValue());
 	alt_knob.adjustValue(amount);
 }
+var spd_knob = props.globals.getNode('/instrumentation/fcu/spd-knob');
+var target_spd = props.globals.getNode('/it-autoflight/input/kts');
+var target_mach = props.globals.getNode('/it-autoflight/input/mach');
+var kts_mach = props.globals.getNode('/it-autoflight/input/kts-mach');
+var change_spd = func(amount) { # amount is 1 or -1
+	if (kts_mach.getValue()) {
+		var increment = 0.01;
+		target_mach.adjustValue(increment * amount);
+	} else {
+		var increment = 1;
+		target_spd.adjustValue(increment * amount);
+	}
+	spd_knob.adjustValue(amount);
+}

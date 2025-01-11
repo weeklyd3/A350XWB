@@ -3,3 +3,6 @@ newpfd.svg
 #ignore generated backup files
 *.*~
 .*~
+Systems/A320-fbw.xml
+Systems/A320-libraries.xml
+Nasal/fbw.nas

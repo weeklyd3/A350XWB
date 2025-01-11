@@ -452,8 +452,8 @@
     <auto-bank-limit-calc type="bool">1</auto-bank-limit-calc> <!-- Disable to add a custom auto bank limit schedule -->
     <auto-system-reset type="bool">1</auto-system-reset> <!-- Automatically reset the system after landing -->
     <autoland-without-ap type="bool">1</autoland-without-ap> <!-- Engage autoland guidance even if the AP is off -->
-    <autothrottle-max type="double">0.95</autothrottle-max> <!-- Thrust max limit normalized -->
-    <autothrottle-min type="double">0.02</autothrottle-min> <!-- Thrust low limit normalized -->
+    <autothrottle-max type="double">1</autothrottle-max> <!-- Thrust max limit normalized -->
+    <autothrottle-min type="double">0.0</autothrottle-min> <!-- Thrust low limit normalized -->
     <bank-max-deg type="double">30</bank-max-deg> <!-- Maximum bank limit -->
     <custom-fma type="bool">1</custom-fma> <!-- Call functions when modes change for a custom FMA to be implemented --> 
     <disable-final type="bool">0</disable-final> <!-- Disable the Final Controllers for custom FCS integration -->
@@ -473,7 +473,7 @@
     <stall-aoa-deg type="double">15</stall-aoa-deg> <!-- Angle of attack where AP trips off -->
     <takeoff-hdg-cap type="double">5</takeoff-hdg-cap> <!-- Maximum bank to capture current hdg in T/O mode -->
     <toga-spd type="double">160</toga-spd> <!-- V2 + 10kts -->
-    <use-controls-engines type="bool">1</use-controls-engines> <!-- Use /controls/engines properties -->
+    <use-controls-engines type="bool">0</use-controls-engines> <!-- Use /controls/engines properties -->
     <use-controls-flight type="bool">1</use-controls-flight> <!-- Use /controls/flight properties -->
 	</settings>
 </it-autoflight>
@@ -653,6 +653,9 @@
       <file>Aircraft/A350XWB/Nasal/it-autoflight.nas</file>
       <file>Nasal/custom-fma.nas</file>
     </itaf>
+		<!--<fbw>
+			<file>Aircraft/A320-family/Nasal/Systems/fbw.nas</file>
+		</fbw>-->
     <ND>
       <file>Aircraft/A350XWB/Models/Instruments/ND/canvas/ND.nas</file>
     </ND>

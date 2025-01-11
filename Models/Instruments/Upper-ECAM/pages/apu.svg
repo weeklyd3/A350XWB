@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="889.646pt"
+   height="564.19598pt"
+   viewBox="0 0 889.64599 564.19598"
+   version="1.1"
+   id="svg658"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="apu.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview660"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="pt"
+     showgrid="false"
+     inkscape:zoom="0.49953305"
+     inkscape:cx="821.76745"
+     inkscape:cy="795.74315"
+     inkscape:window-width="1698"
+     inkscape:window-height="991"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs655" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="apu"
+       style="display:inline">
+      <text
+         xml:space="preserve"
+         style="font-size:20px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-anchor:middle;display:inline;fill:none;stroke:none;stroke-width:0.5;stroke-dasharray:none;paint-order:markers stroke fill"
+         x="20.742718"
+         y="167.75977"
+         id="apu_title"><tspan
+           sodipodi:role="line"
+           id="tspan2211-5"
+           style="font-size:20px;text-align:start;text-anchor:start;fill:#ffffff;stroke:none;stroke-width:0.5"
+           x="20.742718"
+           y="167.75977">APU</tspan></text>
+      <g
+         id="apu_egt">
+        <path
+           id="path6531"
+           style="display:inline;fill:none;stroke:#ffffff;stroke-width:1.5;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 42.932995,486.95838 c -6.767883,-6.76788 -10.425466,-15.60479 -10.806454,-24.60999 -0.333892,-7.892 1.848793,-15.91324 6.659988,-22.78434 3.745771,-5.34951 8.691581,-9.4403 14.252006,-12.11549 9.730981,-4.68169 21.344314,-5.02792 31.702273,-0.19792 7.902825,3.68515 13.967139,9.86696 17.583202,17.23785 3.83157,7.81019 4.91438,16.95542 2.52302,25.88008"
+           sodipodi:nodetypes="csssssc" />
+        <path
+           style="fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 42.932995,486.95839 3.532637,-3.53265"
+           id="path7991" />
+        <path
+           style="fill:#ff0000;stroke:#ff0000;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 104.84703,470.36857 -4.82864,-1.29383"
+           id="path8184" />
+        <text
+           xml:space="preserve"
+           style="font-size:14px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="50.87603"
+           y="482.73917"
+           id="text8432"><tspan
+             sodipodi:role="line"
+             id="tspan8430"
+             style="font-size:14px;fill:#ffffff;stroke:none;stroke-width:1.5"
+             x="50.87603"
+             y="482.73917">0</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:14px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="62.320316"
+           y="441.26727"
+           id="text8432-3"><tspan
+             sodipodi:role="line"
+             id="tspan8430-7"
+             style="font-size:14px;fill:#ffffff;stroke:none;stroke-width:1.5"
+             x="62.320316"
+             y="441.26727">5</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:14px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="82.974327"
+           y="445.22141"
+           id="text8432-3-5"><tspan
+             sodipodi:role="line"
+             id="tspan8430-7-9"
+             style="font-size:14px;fill:#ffffff;stroke:none;stroke-width:1.5"
+             x="82.974327"
+             y="445.22141">7</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:14px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="96.20385"
+           y="461.36292"
+           id="text8432-3-5-2"><tspan
+             sodipodi:role="line"
+             id="tspan8430-7-9-2"
+             style="font-size:14px;fill:#ffffff;stroke:none;stroke-width:1.5"
+             x="96.20385"
+             y="461.36292">9</tspan></text>
+        <path
+           style="fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 104.94585,455.2051 -4.94179,0.77886"
+           id="path9166" />
+        <path
+           style="fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 99.612045,441.10334 -4.189575,2.71342"
+           id="path9205" />
+        <path
+           style="fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 88.927102,430.41009 -2.727299,4.19168"
+           id="path9440" />
+        <path
+           style="fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 74.788022,424.92259 -0.78277,4.96236"
+           id="path9505" />
+        <path
+           style="fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 59.695714,425.67756 1.304722,4.86928"
+           id="path9742" />
+        <path
+           style="fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 46.253433,432.64175 3.145299,3.88017"
+           id="path9744" />
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#ff0000;stroke:#ff0000;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="110.9071"
+           y="490.09036"
+           id="apu_egt_text"><tspan
+             sodipodi:role="line"
+             id="tspan10772"
+             style="font-size:22px;text-align:end;text-anchor:end;fill:#00ff00;stroke:none;stroke-width:1.5"
+             x="110.9071"
+             y="490.09036">500</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:15px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#ff0000;stroke:#ff0000;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="132.65407"
+           y="490.09036"
+           id="text10774-8"><tspan
+             sodipodi:role="line"
+             id="tspan10772-9"
+             style="font-size:15px;text-align:end;text-anchor:end;fill:#00ffff;stroke:none;stroke-width:1.5"
+             x="132.65407"
+             y="490.09036">°C</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:20px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:end;text-decoration-color:#000000;text-anchor:end;fill:#ffffff;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="115.07594"
+           y="454.43869"
+           id="text12086"><tspan
+             sodipodi:role="line"
+             id="tspan12084"
+             style="font-size:20px;text-align:start;text-anchor:start;fill:#ffffff;stroke-width:1.5"
+             x="115.07594"
+             y="454.43869">EGT</tspan></text>
+        <path
+           style="display:inline;fill:#00ff00;stroke:#00ff00;stroke-width:2.5;stroke-dasharray:none;paint-order:markers stroke fill"
+           d="M 150.98428,75.62991 V 36.358034"
+           id="egt_needle"
+           inkscape:transform-center-y="-19.709281"
+           sodipodi:nodetypes="cc"
+           transform="translate(-81.863738,385.14809)" />
+      </g>
+      <g
+         id="apu_n"
+         transform="translate(0,-96.86508)"
+         inkscape:label="apu_n">
+        <path
+           id="path6531-1"
+           style="display:inline;fill:none;stroke:#ffffff;stroke-width:1.5;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 42.932995,486.95838 c -14.452153,-14.45216 -14.452156,-37.88373 0,-52.33589 1.911592,-1.91159 3.980284,-3.57034 6.164515,-4.97624 14.329153,-9.22307 33.630816,-7.56433 46.171383,4.97624"
+           sodipodi:nodetypes="cssc" />
+        <path
+           style="display:inline;fill:none;stroke:#ff0000;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           id="path6531-1-8"
+           sodipodi:type="arc"
+           sodipodi:cx="69.100945"
+           sodipodi:cy="460.79044"
+           sodipodi:rx="37.007069"
+           sodipodi:ry="37.007069"
+           sodipodi:start="5.4977871"
+           sodipodi:end="5.7595865"
+           sodipodi:open="true"
+           sodipodi:arc-type="arc"
+           d="m 95.268893,434.62249 a 37.007069,37.007069 0 0 1 5.881117,7.66441" />
+        <path
+           style="fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 42.932995,486.95839 3.532637,-3.53265"
+           id="path7991-5" />
+        <text
+           xml:space="preserve"
+           style="font-size:14px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="50.87603"
+           y="482.73917"
+           id="text8432-4"><tspan
+             sodipodi:role="line"
+             id="tspan8430-76"
+             style="font-size:14px;fill:#ffffff;stroke:none;stroke-width:1.5"
+             x="50.87603"
+             y="482.73917">0</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:14px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="84.980186"
+           y="449.30774"
+           id="text8432-4-1"><tspan
+             sodipodi:role="line"
+             id="tspan8430-76-4"
+             style="font-size:14px;fill:#ffffff;stroke:none;stroke-width:1.5"
+             x="84.980186"
+             y="449.30774">10</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:14px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:none;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="50.889702"
+           y="449.23596"
+           id="text8432-4-1-9"
+           inkscape:label="text8432-4-1-9"><tspan
+             sodipodi:role="line"
+             id="tspan8430-76-4-2"
+             style="font-size:14px;fill:#ffffff;stroke:none;stroke-width:1.5"
+             x="50.889702"
+             y="449.23596">5</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:22px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#ff0000;stroke:#ff0000;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="110.9071"
+           y="490.09036"
+           id="apu_n_text"><tspan
+             sodipodi:role="line"
+             id="tspan10772-7"
+             style="font-size:22px;text-align:end;text-anchor:end;fill:#00ff00;stroke:none;stroke-width:1.5"
+             x="110.9071"
+             y="490.09036">75</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:15px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#ff0000;stroke:#ff0000;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="132.65407"
+           y="490.09036"
+           id="text10774-8-8"><tspan
+             sodipodi:role="line"
+             id="tspan10772-9-6"
+             style="font-size:15px;text-align:end;text-anchor:end;fill:#00ffff;stroke:none;stroke-width:1.5"
+             x="132.65407"
+             y="490.09036">%</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:20px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:end;text-decoration-color:#000000;text-anchor:end;fill:#ffffff;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="115.07594"
+           y="454.43869"
+           id="text12086-8"><tspan
+             sodipodi:role="line"
+             id="tspan12084-8"
+             style="font-size:20px;text-align:start;text-anchor:start;fill:#ffffff;stroke-width:1.5"
+             x="115.07594"
+             y="454.43869">N</tspan></text>
+        <path
+           style="fill:#ffffff;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 94.958588,338.14837 -3.537908,3.53791"
+           id="path13959"
+           transform="translate(0,96.865082)" />
+        <path
+           style="fill:#ffffff;stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 43.396243,338.26212 3.569821,3.56982"
+           id="path13962"
+           sodipodi:nodetypes="cc"
+           transform="translate(0,96.865082)" />
+        <path
+           style="display:inline;fill:#00ff00;stroke:#00ff00;stroke-width:2.5;stroke-dasharray:none;paint-order:markers stroke fill"
+           d="M 150.98428,75.629742 V 36.358248"
+           id="apu_n_needle"
+           inkscape:transform-center-y="-19.6355"
+           inkscape:label="apu_n_needle"
+           sodipodi:nodetypes="cc"
+           transform="translate(-81.863738,385.14809)" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-size:20px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:start;text-decoration-color:#000000;text-anchor:start;fill:#ffffff;stroke:#ff0000;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         x="243.85339"
+         y="403.65454"
+         id="apu_flap"><tspan
+           sodipodi:role="line"
+           id="tspan23299"
+           style="fill:#00ff00;stroke:none;stroke-width:1.5"
+           x="243.85339"
+           y="403.65454">FLAP OPEN</tspan></text>
+      <path
+         style="fill:none;stroke:#ffffff;stroke-width:2;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         d="M 33.014608,279.27153 V 252.353 H 412.13 v 26.91536"
+         id="path805"
+         sodipodi:nodetypes="cccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:20px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:2;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         x="172.57185"
+         y="272.88049"
+         id="text3721"><tspan
+           sodipodi:role="line"
+           id="tspan3719"
+           style="fill:#ffffff;stroke-width:2"
+           x="172.57185"
+           y="272.88049">APU FU</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:20px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ff00;stroke:none;stroke-width:2;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         x="222.5723"
+         y="272.88049"
+         id="apu_fu"><tspan
+           sodipodi:role="line"
+           id="tspan3723"
+           style="fill:#00ff00;stroke-width:2"
+           x="222.5723"
+           y="272.88049">0</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:20px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:end;text-decoration-color:#000000;text-anchor:end;fill:#00ffff;stroke:none;stroke-width:2;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         x="237.43573"
+         y="272.88049"
+         id="text3831"><tspan
+           sodipodi:role="line"
+           id="tspan3829"
+           style="text-align:start;text-anchor:start;fill:#00ffff;stroke:none;stroke-width:2"
+           x="237.43573"
+           y="272.88049">KG</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:18px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         x="98.222359"
+         y="196.60405"
+         id="apu_gen_text"><tspan
+           sodipodi:role="line"
+           id="tspan8818"
+           style="fill:#ffffff;stroke-width:1.5"
+           x="98.222359"
+           y="196.60405">APU GEN</tspan></text>
+      <g
+         id="apu_gen_avail"
+         style="display:inline">
+        <text
+           xml:space="preserve"
+           style="font-size:18px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;display:inline;fill:#ffffff;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="98.222359"
+           y="226.60435"
+           id="apu_gen_off"><tspan
+             sodipodi:role="line"
+             id="tspan8818-2"
+             style="fill:#ffffff;stroke-width:1.5"
+             x="98.222359"
+             y="226.60435">OFF</tspan></text>
+        <path
+           id="apu_gen_border"
+           style="display:inline;fill:none;stroke:#ffffff;stroke-width:1.5;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 54.454052,179.50639 h 89.148998 v 66.80808 H 54.454052 Z"
+           sodipodi:nodetypes="ccccc" />
+        <g
+           id="apu_gen_stats"
+           style="display:inline">
+          <text
+             xml:space="preserve"
+             style="font-size:18px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ff00;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+             x="101.6003"
+             y="211.60435"
+             id="apu_gen_load"><tspan
+               sodipodi:role="line"
+               id="tspan9548"
+               style="text-align:end;text-anchor:end;fill:#00ff00;stroke-width:1.5"
+               x="101.6003"
+               y="211.60435">100</tspan></text>
+          <text
+             xml:space="preserve"
+             style="font-size:18px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ff00;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+             x="101.6003"
+             y="226.60435"
+             id="apu_gen_voltage"><tspan
+               sodipodi:role="line"
+               id="tspan9548-6"
+               style="text-align:end;text-anchor:end;fill:#00ff00;stroke-width:1.5"
+               x="101.6003"
+               y="226.60435">230</tspan></text>
+          <text
+             xml:space="preserve"
+             style="font-size:18px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ff00;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+             x="101.6003"
+             y="241.60435"
+             id="apu_gen_hz"><tspan
+               sodipodi:role="line"
+               id="tspan9548-6-5"
+               style="text-align:end;text-anchor:end;fill:#00ff00;stroke-width:1.5"
+               x="101.6003"
+               y="241.60435">400</tspan></text>
+          <text
+             xml:space="preserve"
+             style="font-size:15px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ffff;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+             x="111.61689"
+             y="211.60435"
+             id="text9550-35"><tspan
+               sodipodi:role="line"
+               id="tspan9548-62"
+               style="font-size:15px;fill:#00ffff;stroke-width:1.5"
+               x="111.61689"
+               y="211.60435">%</tspan></text>
+          <text
+             xml:space="preserve"
+             style="font-size:15px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ffff;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+             x="110.41958"
+             y="226.60435"
+             id="text9550-3-9"><tspan
+               sodipodi:role="line"
+               id="tspan9548-6-1"
+               style="font-size:15px;fill:#00ffff;stroke-width:1.5"
+               x="110.41958"
+               y="226.60435">V</tspan></text>
+          <text
+             xml:space="preserve"
+             style="font-size:15px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ffff;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+             x="113.41885"
+             y="241.60435"
+             id="text9550-3-7-2"><tspan
+               sodipodi:role="line"
+               id="tspan9548-6-5-7"
+               style="font-size:15px;fill:#00ffff;stroke-width:1.5"
+               x="113.41885"
+               y="241.60435">Hz</tspan></text>
+        </g>
+      </g>
+      <path
+         style="display:inline;fill:none;stroke:#00ff00;stroke-width:1.5;paint-order:markers stroke fill;stop-color:#000000"
+         d="M 99.028553,165.52593 92.029,176.98913 h 14 z"
+         id="apu_gen_connection"
+         sodipodi:nodetypes="cccc" />
+      <text
+         xml:space="preserve"
+         style="font-size:18px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;display:inline;fill:#ffffff;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         x="324.96448"
+         y="226.60379"
+         id="text8820-0"><tspan
+           sodipodi:role="line"
+           id="tspan8818-9"
+           style="fill:#ffffff;stroke-width:1.5"
+           x="324.96448"
+           y="226.60379">BLEED</tspan></text>
+      <g
+         id="apu_bleed_stats"
+         style="display:inline"
+         transform="translate(173.89606)">
+        <path
+           style="fill:none;stroke:#00ff00;stroke-width:1.5;paint-order:markers stroke fill;stop-color:#000000"
+           d="M 324.55144,202.72098 V 209.506"
+           id="path26710"
+           transform="translate(-173.89606)" />
+        <path
+           id="rect6628-6"
+           style="fill:none;stroke:#ffffff;stroke-width:1.5;paint-order:markers stroke fill;stop-color:#000000"
+           d="m 119.08094,209.506 h 63.149 v 36.80847 h -63.149 z"
+           sodipodi:nodetypes="ccccc" />
+        <text
+           xml:space="preserve"
+           style="font-size:18px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ff00;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="140.03525"
+           y="241.60435"
+           id="apu_bleed_psi"><tspan
+             sodipodi:role="line"
+             id="tspan9548-6-5-9"
+             style="text-align:end;text-anchor:end;fill:#00ff00;stroke-width:1.5"
+             x="140.03525"
+             y="241.60435">0</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:15px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ffff;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+           x="155.7093"
+           y="241.60435"
+           id="text9550-3-7-2-7"><tspan
+             sodipodi:role="line"
+             id="tspan9548-6-5-7-5"
+             style="font-size:15px;fill:#00ffff;stroke-width:1.5"
+             x="155.7093"
+             y="241.60435">PSI</tspan></text>
+        <ellipse
+           style="display:inline;fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+           id="path2361-3-2"
+           cx="-150.65538"
+           cy="195.40871"
+           rx="7.446712"
+           ry="7.3122749"
+           transform="scale(-1,1)" />
+        <path
+           style="display:inline;fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"
+           d="m 150.65541,188.09641 v 14.62456"
+           id="apu_bleed_open" />
+        <path
+           style="display:inline;fill:none;stroke:#00ff00;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill"
+           d="m 143.20869,195.40869 h 14.89343"
+           id="apu_bleed_closed" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-size:22px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:2;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
+         x="222.41156"
+         y="217.98921"
+         id="apu_avail"><tspan
+           sodipodi:role="line"
+           id="tspan6223"
+           style="font-size:22px;fill:#00ff00;stroke-width:2"
+           x="222.41156"
+           y="217.98921">AVAIL</tspan></text>
+      <path
+         style="display:inline;fill:none;stroke:#00ff00;stroke-width:1.5;paint-order:markers stroke fill;stop-color:#000000"
+         d="m 319.552,179.22967 4.999,-8.78367 5.00079,8.66162"
+         id="path26994"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#00ff00;stroke-width:1.5;paint-order:markers stroke fill;stop-color:#000000"
+         d="m 324.551,170.446 v 17.65043"
+         id="path26996" />
+    </g>
+  </g>
+</svg>

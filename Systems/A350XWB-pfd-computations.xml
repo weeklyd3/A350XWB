@@ -20,6 +20,206 @@
 				</min>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/pfd/max-speed-plus-six">
+			<function>
+				<sum>
+					<value>6</value>
+					<property>/systems/pfd/max-speed</property>
+				</sum>
+			</function>
+		</fcs_function>
+		<!-- tables in the fcom only give the vls at altitude for conf 0 -->
+		<fcs_function name="/systems/pfd/vls-uncorrected">
+			<function>
+				<table>
+					<independentVar lookup="row">inertia/weight-lbs</independentVar>
+					<independentVar lookup="column">fcs/flap-pos-deg</independentVar>
+					<independentVar lookup="table">fcs/slat-pos-deg</independentVar>
+					<tableData breakPoint="0">
+					        0     11.6  23.84 25.8  40
+					308646  149   125   123   123   123
+					352739  159   134   131   124   123
+					396831  169   142   139   132   128
+					440924  178   149   147   139   135
+					485016  187   157   154   145   142
+					529108  195   164   161   152   148
+					573201  203   170   167   158   154
+					617293  211   177   174   164   160
+					661386  219   184   180   170   166
+					705478  227   190   186   176   171
+					</tableData>
+					<tableData breakPoint="0.29">
+					        0     11.6  23.84 25.8  40
+					308646  131   125   123   123   123
+					352739  140   134   131   124   123
+					396831  148   142   139   132   128
+					440924  157   149   147   139   135
+					485016  164   157   154   145   142
+					529108  172   164   161   152   148
+					573201  179   170   167   158   154
+					617293  185   177   174   164   160
+					661386  192   184   180   170   166
+					705478  199   190   186   176   171
+					</tableData>
+					<!-- couldn't find independent slat data so copy of above -->
+					<tableData breakPoint="0.3">
+					        0     11.6  23.84 25.8  40
+					308646  131   125   123   123   123
+					352739  140   134   131   124   123
+					396831  148   142   139   132   128
+					440924  157   149   147   139   135
+					485016  164   157   154   145   142
+					529108  172   164   161   152   148
+					573201  179   170   167   158   154
+					617293  185   177   174   164   160
+					661386  192   184   180   170   166
+					705478  199   190   186   176   171
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/vls-correction">
+			<function>
+				<quotient>
+					<table>
+						<independentVar lookup="row">inertia/weight-lbs</independentVar>
+						<independentVar lookup="column">atmosphere/pressure-altitude</independentVar>
+						<tableData>
+						        10000  20000  30000  40000
+						308646  167    168    176    195
+						352739  177    181    191    222
+						396831  186    192    206    243
+						440924  196    203    227    246
+						485016  206    216    249    246
+						529108  216    226    269    246
+						573201  225    238    277    246
+						617293  234    251    287    246
+						661386  244    262    294    246
+						705478  253    273    302    246
+						</tableData>
+					</table>
+					<!-- divided by the fl100 column to get the correction ratio -->
+					<table>
+						<independentVar lookup="row">inertia/weight-lbs</independentVar>
+						<tableData>
+						308646  167
+						352739  177
+						396831  186
+						440924  196
+						485016  206
+						529108  216
+						573201  225
+						617293  234
+						661386  244
+						705478  253
+						</tableData>
+					</table>
+				</quotient>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/vls">
+			<function>
+				<product>
+					<property>/systems/pfd/vls-correction</property>
+					<property>/systems/pfd/vls-uncorrected</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/vs1g">
+			<!-- by definition, on all aircraft except a320, vls = 1.23 * vs1g -->
+			<function>
+				<quotient>
+					<property>/systems/pfd/vls</property>
+					<value>1.23</value>
+				</quotient>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/vsw">
+			<function>
+				<product>
+					<value>1.10</value>
+					<property>/systems/pfd/vs1g</property>
+					<sqrt>
+						<product>
+							<property>/accelerations/pilot/z-accel-fps_sec</property>
+							<property>/environment/gravitational-acceleration-mps2</property>
+						</product>
+					</sqrt>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/max-aoa">
+			<function>
+				<table>
+					<independentVar>/instrumentation/airspeed-indicator/indicated-mach</independentVar>
+					<!-- a guess -->
+					<tableData>
+					0     14
+					0.85  8
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/prot-aoa">
+			<function>
+				<table>
+					<independentVar>/instrumentation/airspeed-indicator/indicated-mach</independentVar>
+					<!-- a guess -->
+					<tableData>
+					0     12
+					0.85  7
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<!-- two functions below basically copied from a320-fmgc.xml -->
+		<!-- a320-fmgc.xml copyright (c) 2022 Josh Davidson and Jonathan Redpath -->
+		<fcs_function name="/systems/pfd/v-alpha-max">
+			<function>
+				<product>
+					<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+					<pow>
+						<max>
+							<quotient>
+								<property>aero/alpha-deg</property>
+								<property>/systems/pfd/max-aoa</property>
+							</quotient>
+							<value>0</value>
+						</max>
+						<value>0.35</value>
+					</pow>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/v-alpha-prot">
+			<function>
+				<product>
+					<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+					<pow>
+						<max>
+							<quotient>
+								<property>aero/alpha-deg</property>
+								<property>/systems/pfd/prot-aoa</property>
+							</quotient>
+							<value>0</value>
+						</max>
+						<value>0.35</value>
+					</pow>
+				</product>
+			</function>
+		</fcs_function>
+		<!--<washout_filter name="/systems/apu/speed-trend-raw">
+			<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
+			<c1>1</c1>
+		</washout_filter>-->
+		<fcs_function name="/systems/pfd/speed-trend">
+			<function>
+				<difference>
+					<property>/systems/pfd/speed-trend-raw</property>
+					<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+				</difference>
+			</function>
+		</fcs_function>
 	</channel>
 	<channel name="vertical speed indicator" execrate="8">
 		<fcs_function name="/systems/pfd/vs-needle">
@@ -72,6 +272,54 @@
 						6000     -138.468
 					</tableData>
 				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/fpa">
+			<function>
+				<sum>
+					<property>/orientation/model/pitch-deg</property>
+					<product>
+						<value>-1</value>
+						<property>/orientation/alpha-deg</property>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<!-- while stationary on the ground, the fpv can dance up and down -->
+		<fcs_function name="/systems/pfd/fpa-sane-multiplier">
+			<function>
+				<table>
+					<independentVar>/velocities/groundspeed-kt</independentVar>
+					<tableData>
+						0     0
+						10    1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/fpa-sane">
+			<function>
+				<product>
+					<property>/systems/pfd/fpa</property>
+					<property>/systems/pfd/fpa-sane-multiplier</property>
+				</product>
+			</function>
+		</fcs_function>
+	</channel>
+	<channel name="calculations" execrate="2">
+		<fcs_function name="/systems/pfd/drift">
+			<function>
+				<ifthen>
+					<property>/it-autoflight/input/true-course</property>
+					<difference>
+						<property>/orientation/track-magnetic-deg</property>
+						<property>/orientation/heading-magnetic-deg</property>
+					</difference>
+					<difference>
+						<property>/orientation/track-deg</property>
+						<property>/orientation/true-heading-deg</property>
+					</difference>
+				</ifthen>
 			</function>
 		</fcs_function>
 	</channel>

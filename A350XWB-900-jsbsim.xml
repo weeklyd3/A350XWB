@@ -585,6 +585,9 @@ YAW MOI_________3950000______23089847_______24848934
       <type>JET-A1</type>
     </tank>
   </propulsion>
+  <!--<system file="A320-libraries" />
+  <system file="A320-fbw" />-->
+  <system file="fbw" />
   <system file="A350XWB-hydraulic" />
   <system file="A350XWB-apu" />
   <system file="A350XWB-air" />
@@ -592,11 +595,13 @@ YAW MOI_________3950000______23089847_______24848934
   <system file="A350XWB-fuel"/>
   <system file="A350XWB-engines" />
   <system file="A350XWB-pfd-computations" />
+  <system file="A350XWB-vd" />
   <!--system file="pushback" /> -->
   <flight_control name="FCS: A350">
     <channel name="Pitch">
       <summer name="Pitch Trim Sum">
-        <input>fcs/elevator-cmd-norm</input>
+        <!--<input>fcs/elevator-cmd-norm</input>-->
+        <input>/systems/fbw/elevator</input>
         <input>fcs/pitch-trim-cmd-norm</input>
         <clipto>
           <min>-1</min>
@@ -627,7 +632,8 @@ YAW MOI_________3950000______23089847_______24848934
     </channel>
     <channel name="Roll">
       <summer name="Roll Trim Sum">
-        <input>fcs/aileron-cmd-norm</input>
+        <!--<input>fcs/aileron-cmd-norm</input>-->
+        <input>/systems/fbw/aileron</input>
         <input>fcs/roll-trim-cmd-norm</input>
         <clipto>
           <min>-1</min>
@@ -808,6 +814,18 @@ YAW MOI_________3950000______23089847_______24848934
         </range>
         <output>fcs/slat-pos-norm</output>
       </aerosurface_scale>
+      <aerosurface_scale name="Slat position normalized">
+        <input>fcs/slat-pos-deg</input>
+        <domain>
+          <min>0</min>
+          <max>1</max>
+        </domain>
+        <range>
+          <min>0</min>
+          <max>1</max>
+        </range>
+        <output>surface-positions/slat-pos-norm</output>
+      </aerosurface_scale>
     </channel>
     <channel name="Landing Gear">
       <kinematic name="Gear Control">
@@ -853,24 +871,91 @@ YAW MOI_________3950000______23089847_______24848934
           <property>aero/qbar-psf</property>
           <property>metrics/Sw-sqft</property>
           <table>
-            <independentVar lookup="row">aero/alpha-rad</independentVar>
-            <tableData>
+            <independentVar lookup="row">aero/alpha-deg</independentVar>
+            <independentVar lookup="column">zero</independentVar> <!-- i needed SOMETHING for the column... defined in system-init.nas -->
+            <!--<independentVar lookup="table">atmosphere/pressure-altitude</independentVar>-->
+            <!--<tableData>
               -0.20 -0.680
                0.00  0.200
                0.23  1.200
                0.60  0.600
+            </tableData>-->
+            <!-- prolly stupid to use so many decimal places -->
+            <tableData breakPoint="0">
+                  0                    1
+              -10 -0.68                0
+              0   0.2                  0
+              3   0.408600020986084    0
+              4   0.460545741939042    0
+              5   0.552045704143608    0
+              15  1.32959915714663     0
+              25  0.552045704143608    0
+            </tableData>
+            <tableData breakPoint="10000">
+                  0                    1
+              -10 -0.68                0
+              0   0.2                  0
+              5   0.553820387898979    0
+              15  1.2861901197531      0
+              25  0.553820387898979    0
+            </tableData>
+            <tableData breakPoint="20000">
+                  0                    1
+              -10 -0.68                0
+              0   0.2                  0
+              4   0.460059786218274    0
+              14  1.18949755783144     0
+              23  0.552045704143608    0
+            </tableData>
+            <tableData breakPoint="30000">
+                  0                    1
+              -10 -0.68                0
+              0   0.2                  0
+              3   0.377928305417668    0
+              12  1.02336342939981     0
+              19  0.552045704143608    0
+            </tableData>
+            <tableData breakPoint="40000">
+                  0                    1
+              -10 -0.68                0
+              0   0.2                  0
+              3   0.419559861853754    0
+              10  0.867340883070804    0
+              15  0.552045704143608    0
             </tableData>
           </table>
       </product>
     </function>
-
+    <function name="aero/force/Lift_slat">
+       <description>Delta Lift due to slats</description>
+       <product>
+           <property>aero/qbar-psf</property>
+           <property>metrics/Sw-sqft</property>
+           <table>
+            <independentVar lookup="row">aero/alpha-deg</independentVar>
+            <independentVar lookup="column">fcs/slat-pos-deg</independentVar>
+            <tableData>
+                 0  11.6    40
+              0  0  0.0137  0.0337
+              9  0  0.0537  0.0737
+            </tableData>
+           </table>
+       </product>
+    </function>
     <function name="aero/force/Lift_flap">
        <description>Delta Lift due to flaps</description>
        <product>
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
-           <property>fcs/flap-pos-deg</property>
-           <value> 0.02000 </value>
+           <table>
+            <independentVar lookup="row">aero/alpha-deg</independentVar>
+            <independentVar lookup="column">fcs/flap-pos-deg</independentVar>
+            <tableData> 
+                 0  11.6    23.84   25.8    40
+              0  0  0.1     0.13    0.17    0.23
+              5  0  0.3424  0.4334  0.5573  0.7304
+            </tableData>
+            </table>
        </product>
     </function>
 

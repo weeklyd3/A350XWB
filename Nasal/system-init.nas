@@ -10,9 +10,9 @@ setprop("/fdm/jsbsim/fcs/rudder-fbw-output", 0);
 setprop("/fdm/jsbsim/fcs/aileron-fbw-output", 0);
 setprop("/fdm/jsbsim/fcs/elevator-fbw-output", 0);
 setprop("/overhead/christmas-tree", 0);
-setprop("/systems/apu/starter", 0);
+setprop("/controls/apu/starter", 0);
 setprop('/systems/apu/running', 0);
-setprop("/systems/apu/switch", 0);
+setprop("/controls/apu/switch", 0);
 setprop("/systems/apu/fault", 0);
 setprop("/systems/apu/n", 0);
 setprop("/systems/apu/egt", 0);
@@ -22,7 +22,7 @@ setprop("/systems/apu/gen", 1);
 setprop("/systems/apu/gen-fault", 0);
 # shut off apu starter
 setlistener("/systems/apu/n", func(value) {
-	if (value.getValue() > 99.5) setprop("/systems/apu/starter", 0);
+	if (value.getValue() > 99.5) setprop("/controls/apu/starter", 0);
 });
 setprop("/systems/air/cockpit-temp-cmd", 24);
 setprop("/systems/air/cockpit-temp", 24);
@@ -50,6 +50,7 @@ setprop("/engines/engine[1]/fuel-flow_pph", 0);
 
 setprop("/fdm/jsbsim/fcs/slat-cmd-norm", 0);
 setprop("/fdm/jsbsim/fcs/flap-cmd-norm-actual", 0);
+setprop("/fdm/jsbsim/fcs/flap-mode", 0);
 var slats = props.globals.getNode("/fdm/jsbsim/fcs/slat-cmd-norm");
 var ias = props.globals.getNode('/instrumentation/airspeed-indicator/indicated-speed-kt');
 setlistener("/controls/flight/flaps", func(value) {
@@ -58,6 +59,7 @@ setlistener("/controls/flight/flaps", func(value) {
 		# wants no flaps
 		setprop("/fdm/jsbsim/fcs/slat-cmd-norm", 0);
 		setprop("/fdm/jsbsim/fcs/flap-cmd-norm-actual", 0);
+		setprop("/fdm/jsbsim/fcs/flap-mode", 0);
 	}
 	if (pos == 0.29) {
 		# wants flaps 1.
@@ -65,24 +67,42 @@ setlistener("/controls/flight/flaps", func(value) {
 		if (ias.getValue() < 210) {
 			# they actually want flaps
 			setprop("/fdm/jsbsim/fcs/flap-cmd-norm-actual", 0.29);
-		} else setprop("/fdm/jsbsim/fcs/flap-cmd-norm-actual", 0);
+			setprop("/fdm/jsbsim/fcs/flap-mode", 1.5);
+		} else {
+			setprop("/fdm/jsbsim/fcs/flap-cmd-norm-actual", 0);
+			setprop("/fdm/jsbsim/fcs/flap-mode", 1);
+		}
 	}
 	if (pos == 0.596) {
 		# wants flaps 2
 		setprop("/fdm/jsbsim/fcs/slat-cmd-norm", 0.29);
 		setprop("/fdm/jsbsim/fcs/flap-cmd-norm-actual", 0.596);
+		setprop("/fdm/jsbsim/fcs/flap-mode", 2);
 	}
 	if (pos == 0.645) {
 		# wants flaps 3
 		setprop("/fdm/jsbsim/fcs/slat-cmd-norm", 0.29);
 		setprop("/fdm/jsbsim/fcs/flap-cmd-norm-actual", 0.645);
+		setprop("/fdm/jsbsim/fcs/flap-mode", 3);
 	}
 	if (pos == 1) {
 		# wants full flaps.
 		setprop("/fdm/jsbsim/fcs/slat-cmd-norm", 1);
+		setprop("/fdm/jsbsim/fcs/flap-mode", 4);
 		setprop("/fdm/jsbsim/fcs/flap-cmd-norm-actual", 1);
 	}
 }, 0, 0);
 setprop("/instrumentation/fcu/alt-increment", 1000);
 setprop("/instrumentation/fcu/alt-knob", 0);
+setprop("/instrumentation/fcu/spd-knob", 0);
+setprop("/instrumentation/efis/inputs/range-nm", 40);
+setprop("/instrumentation/efis[1]/inputs/range-nm", 40);
+setprop("/instrumentation/efis/vd/horizontal-range", 0);
+setprop("/instrumentation/efis/vd/scale", 0);
+setprop("/instrumentation/efis/vd/low", 0);
+setprop("/instrumentation/efis/vd/low-displacement", 0);
+setprop("/instrumentation/efis/vd/tick-scale", 0);
+setprop("/it-fbw/law", 0);
+setprop("/systems/pfd/speed-trend-raw", 0);
+setprop("/fdm/jsbsim/zero", 0);
 print('HIIII');

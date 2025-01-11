@@ -83,12 +83,12 @@ var canvas_nd_base = {
 
 		if (file != nil) {
 			canvas.parsesvg(canvas_group, file, {"font-mapper": font_mapper});
-
 			var svg_keys = me.getKeys();
 			foreach(var key; svg_keys) {
 				me[key] = canvas_group.getElementById(key);
 			}
 		}
+		#canvas.parsesvg(canvas_group, "Aircraft/A350XWB/Models/Instruments/ND/canvas/res/vsd.svg", {"font-mapper": font_mapper});
 		me.page = canvas_group;
 
 		return me;
@@ -99,7 +99,7 @@ var canvas_nd_base = {
 	update: func() {
 		elapsedtime = getprop("/sim/time/elapsed-sec");
 		if (getprop("/systems/electrical/bus/ac-ess-shed") >= 110) {
-			if (wow0.getValue() == 1) {
+			if (wow0.getValue() == 1 and 0) { # eww dont want self test
 				if (getprop("/systems/acconfig/autoconfig-running") != 1 and du2_test.getValue() != 1) {
 					du2_test.setValue(1);
 					du2_test_amount.setValue(math.round((rand() * 5 ) + 35, 0.1));
@@ -175,17 +175,40 @@ var canvas_nd_base = {
 		}
 	},
 };
-
+var vd_symbols = std.Vector.new(['alt_scale', 'current_alt']);
+var vd_text = std.Vector.new([]);
+for (var i = 1; i <= 14; i += 1) {
+	vd_symbols.append('line_' ~ i);
+	if (i == 1 or i == 3 or i == 5 or i == 7 or i == 9 or i == 11 or i == 13) {
+		vd_symbols.append('text_' ~ i);
+		vd_text.append('text_' ~ i);
+	}
+}
 var canvas_ND_1 = {
 	new: func(canvas_group) {
 		var m = {parents: [canvas_ND_1, canvas_nd_base]};
+		var font_mapper = func(doesnt, matter) { return "ECAMFontRegular.ttf"; };
 		m.init(canvas_group);
-
 		# here we make the ND:
 		me.NDCpt = ND.new("instrumentation/efis", myCockpit_switches, "Airbus");
 		me.NDCpt.newMFD(canvas_group);
-		me.NDCpt.update();
+		canvas.parsesvg(canvas_group, "Aircraft/A350XWB/Models/Instruments/ND/canvas/res/vsd.svg", {"font-mapper": font_mapper});
+		foreach (var symbol; vd_symbols.vector) me.NDCpt.symbols["vd_" ~ symbol] = canvas_group.getElementById("vd_" ~ symbol);
+		foreach (var symbol; vd_text.vector) {
+			me.NDCpt.symbols["vd_" ~ symbol].enableUpdate();
+		}
+		me.NDCpt.symbols['vd_alt_scale'].set('clip', 'rect(1022, 229, 1273, 0)');
+		me.NDCpt.vd_switches = {
+			range: props.globals.getNode('/instrumentation/efis[0]/inputs/range-nm'),
+			vd_range: props.globals.getNode('/instrumentation/efis/vd/horizontal-range'),
+			vert_range: props.globals.getNode('/instrumentation/efis/vd/range'),
+			altitude: props.globals.getNode('/instrumentation/altimeter/indicated-altitude-ft')
+		};
+		me.NDCpt.page = canvas_group;
+		me.NDCpt.terrain_elements = [];
 
+		foreach (var prop; ['horizontal-range', 'scale', 'low', 'tick-scale', 'low-displacement']) me.NDCpt.vd_switches[prop] = props.globals.getNode('/instrumentation/efis/vd/' ~ prop);
+		me.NDCpt.update();
 		return m;
 	},
 	getKeys: func() {
@@ -199,11 +222,27 @@ var canvas_ND_1 = {
 var canvas_ND_2 = {
 	new: func(canvas_group) {
 		var m = {parents: [canvas_ND_2, canvas_nd_base]};
+		var font_mapper = func(doesnt, matter) { return "ECAMFontRegular.ttf"; };
 		m.init(canvas_group);
 
 		# here we make the ND:
 		me.NDFo = ND.new("instrumentation/efis[1]", myCockpit_switches, "Airbus");
 		me.NDFo.newMFD(canvas_group);
+		canvas.parsesvg(canvas_group, "Aircraft/A350XWB/Models/Instruments/ND/canvas/res/vsd.svg", {"font-mapper": font_mapper});
+		foreach (var symbol; vd_symbols.vector) me.NDFo.symbols["vd_" ~ symbol] = canvas_group.getElementById("vd_" ~ symbol);
+		foreach (var symbol; vd_text.vector) {
+			me.NDFo.symbols["vd_" ~ symbol].enableUpdate();
+		}
+		me.NDFo.symbols['vd_alt_scale'].set('clip', 'rect(1022, 229, 1273, 0)');
+		me.NDFo.vd_switches = {
+			range: props.globals.getNode('/instrumentation/efis[0]/inputs/range-nm'),
+			vd_range: props.globals.getNode('/instrumentation/efis/vd/horizontal-range'),
+			vert_range: props.globals.getNode('/instrumentation/efis/vd/range'),
+			altitude: props.globals.getNode('/instrumentation/altimeter/indicated-altitude-ft')
+		};
+		foreach (var prop; ['horizontal-range', 'scale', 'low', 'tick-scale', 'low-displacement']) me.NDFo.vd_switches[prop] = props.globals.getNode('/instrumentation/efis/vd/' ~ prop);
+		me.NDFo.page = canvas_group;
+		me.NDFo.terrain_elements = [];
 		me.NDFo.update();
 
 		return m;
@@ -236,7 +275,6 @@ var canvas_ND_1_test = {
 	new: func(canvas_group, file) {
 		var m = {parents: [canvas_ND_1_test]};
 		m.init(canvas_group, file);
-
 		return m;
 	},
 	getKeys: func() {
@@ -306,14 +344,14 @@ setlistener("sim/signals/fdm-initialized", func {
 	nd_display.main = canvas.new({
 		"name": "ND1",
 		"size": [1024, 1024],
-		"view": [1024, 1024],
+		"view": [1024, 1286],
 		"mipmapping": 1
 	});
 
 	nd_display.right = canvas.new({
 		"name": "ND2",
 		"size": [1024, 1024],
-		"view": [1024, 1024],
+		"view": [1024, 1286],
 		"mipmapping": 1
 	});
 
@@ -394,6 +432,6 @@ setlistener("/flight-management/control/capture-leg", func(n) {
 
 var showNd = func(nd = nil) {
 	if (nd == nil) nd = "main";
-	var dlg = canvas.Window.new([512, 512], "dialog").set("resize", 1);
+	var dlg = canvas.Window.new([889 / 2, 564], "dialog").set("resize", 1);
 	dlg.setCanvas(nd_display[nd]);
 }

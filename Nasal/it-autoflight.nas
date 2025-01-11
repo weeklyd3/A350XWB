@@ -664,14 +664,14 @@ var ITAF = {
 			}
 		} else {
 			if (!Settings.useControlsEngines.getBoolValue()) {
-				setprop("/controls/engines/engine[0]/throttle", Internal.throttle[0].getValue());
-				setprop("/controls/engines/engine[1]/throttle", Internal.throttle[1].getValue());
-				setprop("/controls/engines/engine[2]/throttle", Internal.throttle[2].getValue());
-				setprop("/controls/engines/engine[3]/throttle", Internal.throttle[3].getValue());
-				setprop("/controls/engines/engine[4]/throttle", Internal.throttle[4].getValue());
-				setprop("/controls/engines/engine[5]/throttle", Internal.throttle[5].getValue());
-				setprop("/controls/engines/engine[6]/throttle", Internal.throttle[6].getValue());
-				setprop("/controls/engines/engine[7]/throttle", Internal.throttle[7].getValue());
+				#setprop("/controls/engines/engine[0]/throttle", Internal.throttle[0].getValue());
+				#setprop("/controls/engines/engine[1]/throttle", Internal.throttle[1].getValue());
+				#setprop("/controls/engines/engine[2]/throttle", Internal.throttle[2].getValue());
+				#setprop("/controls/engines/engine[3]/throttle", Internal.throttle[3].getValue());
+				#setprop("/controls/engines/engine[4]/throttle", Internal.throttle[4].getValue());
+				#setprop("/controls/engines/engine[5]/throttle", Internal.throttle[5].getValue());
+				#setprop("/controls/engines/engine[6]/throttle", Internal.throttle[6].getValue());
+				#setprop("/controls/engines/engine[7]/throttle", Internal.throttle[7].getValue());
 			}
 			Output.athr.setBoolValue(0);
 		}

@@ -9,6 +9,8 @@ var NOTHING = func nil;
 
 canvas.NDStyles["Airbus"] = {
 	font_mapper: func(family, weight) {
+		# eh screw it we're not using any other fonts anyways
+		return "ECAMFontRegular.ttf";
 		if( family == "Liberation Sans" and weight == "normal" )
 			return "ECAMFontRegular.ttf";
 	},

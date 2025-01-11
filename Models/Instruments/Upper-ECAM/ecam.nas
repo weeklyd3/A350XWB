@@ -9,14 +9,15 @@ var ecam = {
 			"mipmapping": 1       # Enable mipmapping (optional)
 		});
 		me.display = display;
+		me.page_items = {};
 		var path = "Aircraft/A350XWB/Models/Instruments/Upper-ECAM/ecam.svg";
 		# create an image child
 		var group = display.createGroup('svg');
 		canvas.parsesvg(group, path, {'font-mapper': func(doesnt, matter) { return 'ECAMFontRegular.ttf'; }});
-		foreach (elem; ["thr_text_l", "thr_needle_l", "donut_l", "thr_text_r", "thr_needle_r", "donut_r", "n1_left", "n1_right", "tat_temp", "sat_temp", "isa_temp", "utc", "egt_text_l", "egt_needle_l", "egt_text_r", "egt_needle_r"]) {
+		foreach (elem; ["thr_text_l", "thr_needle_l", "donut_l", "thr_text_r", "thr_needle_r", "donut_r", "n1_left", "n1_right", "tat_temp", "sat_temp", "isa_temp", "utc", "egt_text_l", "egt_needle_l", "egt_text_r", "egt_needle_r", "thrust_limit", "thrust_limit_text"]) {
 			me.svg_items[elem] = group.getElementById(elem);
 		}
-		foreach (elem; ["thr_text_l", "thr_text_r", "n1_left", "n1_right", "tat_temp", "sat_temp", "isa_temp", "utc", "egt_text_l", "egt_text_r"]) {
+		foreach (elem; ["thr_text_l", "thr_text_r", "n1_left", "n1_right", "tat_temp", "sat_temp", "isa_temp", "utc", "egt_text_l", "egt_text_r", "thrust_limit", "thrust_limit_text"]) {
 			me.svg_items[elem].enableUpdate();
 		}
 		me.svg_items["thr_needle_l"].setCenter(150.485, 75.63);
@@ -33,13 +34,50 @@ var ecam = {
 			n1: props.globals.getNode('/engines/engine[1]/n1'),
 			egt: props.globals.getNode('/systems/engines/egt-2')
 		};
+		me.props.limit = {
+			thrust: props.globals.getNode('/systems/fadec/limit/thrust-limit'),
+			text: props.globals.getNode('/systems/fadec/limit/thrust-limit-text')
+		};
 		setlistener("instrumentation/clock/indicated-string", func(value) {
 			me.svg_items.utc.updateText(value.getValue());
 		});
+		var object = me;
+		me.ed_update_items = [
+			props.UpdateManager.FromHashValue('limit_thrust', 0.05, func(value) {
+				object.svg_items.thrust_limit.updateText(sprintf("%0.1f", value) ~ "%");
+			}),
+			props.UpdateManager.FromHashValue('limit_text', 0.5, func(value) {
+				object.svg_items.thrust_limit_text.updateText(['TOGA', 'CLB', 'MREV', 'MCT'][value]);
+			}),
+			props.UpdateManager.FromHashValue('engine_1_thr', 0.05, func(thr_l) {
+				object.svg_items.thr_text_l.updateText(sprintf("%.1f", math.round(thr_l * 10) / 10));
+				object.svg_items.thr_needle_l.setRotation((-120 + 210 * thr_l / 100) * math.pi / 180);
+			}),
+			props.UpdateManager.FromHashValue('engine_2_thr', 0.05, func(thr_r) {
+				object.svg_items.thr_text_r.updateText(sprintf("%.1f", math.round(thr_r * 10) / 10));
+				object.svg_items.thr_needle_r.setRotation((-120 + 210 * thr_r / 100) * math.pi / 180);
+			}),
+			props.UpdateManager.FromHashValue('engine_1_egt', 0.5, func(egt_l) {
+				object.svg_items.egt_text_l.updateText(sprintf("%d", egt_l));
+				object.svg_items.egt_needle_l.setRotation((-90 + 180 * egt_l / 1000) * D2R);
+			}),
+			props.UpdateManager.FromHashValue('engine_2_egt', 0.5, func(egt_r) {
+				object.svg_items.egt_text_r.updateText(sprintf("%d", egt_r));
+				object.svg_items.egt_needle_r.setRotation((-90 + 180 * egt_r / 1000) * D2R);
+			}),
+			props.UpdateManager.FromHashValue('engine_1_n1', 0.05, func(n1_l) {
+				object.svg_items.n1_left.updateText(sprintf("%.1f", n1_l));
+			}),
+			props.UpdateManager.FromHashValue('engine_2_n1', 0.05, func(n1_r) {
+				object.svg_items.n1_right.updateText(sprintf("%.1f", n1_r));
+			}),
+		];
 		setprop("/instrumentation/ecam/active-page", "bleed");
-		#me.pages['hyd'] = hyd_page.new(display, group);
+		var pages = ['hyd', 'apu', 'bleed'];
+		foreach (var page; pages) canvas.parsesvg(group, "Aircraft/A350XWB/Models/Instruments/Upper-ECAM/pages/" ~ page ~ ".svg", {'font-mapper': func(doesnt, matter) { return 'ECAMFontRegular.ttf'; }});
+		me.pages['hyd'] = hyd_page.new(display, group);
 		me.pages['apu'] = apu_page.new(display, group);
-		#me.pages['bleed'] = bleed_page.new(display, group);
+		me.pages['bleed'] = bleed_page.new(display, group);
 		foreach (var page; keys(me.pages)) {
 			setprop("/instrumentation/ecam/" ~ page ~ "-active", 0);
 		}
@@ -62,20 +100,14 @@ var ecam = {
 		return {"parents": ecam};
 	},
 	update_engines: func() {
-		var thr_l = me.props.engine_1.thr.getValue();
-		me.svg_items.thr_text_l.updateText(sprintf("%.1f", math.round(thr_l * 10) / 10));
-		me.svg_items.thr_needle_l.setRotation((-120 + 210 * thr_l / 100) * math.pi / 180);
-		var egt_l = me.props.engine_1.egt.getValue();
-		me.svg_items.egt_text_l.updateText(sprintf("%d", egt_l));
-		me.svg_items.egt_needle_l.setRotation((-90 + 180 * egt_l / 1000) * D2R);
-		var n1_l = me.props.engine_1.n1.getValue();
-		me.svg_items.n1_left.updateText(sprintf("%.1f", n1_l));
-		var thr_r = me.props.engine_2.thr.getValue();
-		me.svg_items.thr_text_r.updateText(sprintf("%.1f", math.round(thr_r * 10) / 10));
-		me.svg_items.thr_needle_r.setRotation((-120 + 210 * thr_r / 100) * math.pi / 180);
-		var egt_r = me.props.engine_2.egt.getValue();
-		me.svg_items.egt_text_r.updateText(sprintf("%d", egt_r));
-		me.svg_items.egt_needle_r.setRotation((-90 + 180 * egt_r / 1000) * D2R);
+		var notification = {};
+		foreach (key; keys(me.props)) {
+			foreach (key2; keys(me.props[key])) {
+				notification[key ~ "_" ~ key2] = me.props[key][key2].getValue();
+			}
+		}
+		foreach (item; me.ed_update_items) item.update(notification);		
+		
 		var n1_r = me.props.engine_2.n1.getValue();
 		me.svg_items.n1_right.updateText(sprintf("%.1f", n1_r));
 	},
@@ -85,6 +117,40 @@ var ecam = {
 	show: func() {
 		var window = canvas.Window.new([889, 564], "dialog");
 		window.setCanvas(me.display);
+	}
+};
+# something that displays data
+var ecam_item = {
+	new: func(prop, change, mode, function) {
+		if (typeof(prop) == 'vector') {
+			# u must want a list of properties
+			if (mode != 'function') {
+				print('when prop is a vector, only mode "function" is available');
+				return;
+			}
+			return props.UpdateManager.FromHashList(prop, change, function);
+		}
+		var execute_func = func(mode, function_single, value) {
+			if (mode == 'trans-x') function_single.element.setTranslation(function_single.offset + value * function_single.scale, 0);
+			if (mode == 'trans-y') function_single.element.setTranslation(0, function_single.offset + value * function_single.scale);
+			if (mode == 'rot') function_single.element.setRotation((function_single.offset + value * function_single.scale) * math.pi / 180);
+			if (mode == 'format') function_single.element.updateText(sprintf(function_single.format, value));
+		}
+		# then probably a string
+		return props.UpdateManager.FromHashValue(prop, change, func(value) {
+			if (typeof(function) == 'vector') {
+				# list of actions
+				foreach (var action; function) execute_func(action.mode, action, value);
+			} else execute_func(action.mode, action, value);
+		});
+	}
+};
+var ecam_sd_page = {
+	new: func(ecam_parent, draw, svg_group, name, items) {
+		var returned = {parents: [ecam_sd_page], ecam: ecam_parent, items: items};
+		ecam_parent.page_items[name] = [];
+		foreach (var item; items) append(ecam_parent.page_items[name], item);
+		return returned;
 	}
 };
 var hyd_page = {

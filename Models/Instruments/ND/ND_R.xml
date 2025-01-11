@@ -21,7 +21,7 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<command>nasal</command>
-				<script>canvas_nd.showNd('right');</script>
+				<script>ND.showNd('right');</script>
 			</binding>
         </action>
     </animation> 

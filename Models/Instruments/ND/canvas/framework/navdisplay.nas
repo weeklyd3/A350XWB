@@ -331,7 +331,105 @@ canvas.NavDisplay.update_sub = func(){
 		}
 	}
 };
-
+canvas.NavDisplay.update_vd = func() {
+	#debug.dump(me.vd_switches);
+	var low = me.vd_switches.low.getValue();
+	var altitude = me.vd_switches.altitude.getValue();
+	var low_translation = me.vd_switches['low-displacement'].getValue();
+	var low_add = me.vd_switches['scale'].getValue();
+	var tick_scale = me.vd_switches['tick-scale'].getValue();
+	foreach (var line; [0, 1, 2, 3, 4, 5, 6]) {
+		var vd_num = line * 2 + 1;
+		me.symbols['vd_text_' ~ vd_num].updateText(sprintf("%d", low + low_add * line));
+	}
+	me.symbols['vd_alt_scale'].setTranslation(0, low_translation);
+	for (var i = 1; i <= 14; i += 1) {
+		me.symbols['vd_line_' ~ i].setTranslation(0, -(i - 1) * (tick_scale - 38));
+	}
+	# altitude at bottom of vd
+	var base_alt = low + low_translation / tick_scale / 2 * low_add;
+	var airplane_symbol = (altitude - base_alt) / low_add * tick_scale * 2;
+	me.symbols['vd_current_alt'].setTranslation(0, -airplane_symbol);
+	# update terrain
+	me.update_terrain();
+	if (size(me.terrain) != terrain_steps + 1) return print('whoa what???');
+	var last_is_solid = me.terrain[0][1];
+	var last_path = me.page.createChild('path');
+	if (last_is_solid == 1) last_path.setColorFill([157 / 255, 50 / 255, 1 / 255]); # 9d3201
+	else if (last_is_solid == 2) last_path.setColorFill([0, 1, 0]);
+	else last_path.setColorFill([0, 1, 1]);
+	last_path.moveTo(230, 1273);
+	#last_path.hide();
+	var range = me.vd_switches.vert_range.getValue();
+	me.old_terrain_elements = me.terrain_elements;
+	me.terrain_elements = [];
+	for (var i = 0; i <= terrain_steps; i = i + 1) {
+		# draw terrain
+		if (i != (terrain_steps)) {
+			if (me.terrain[i][0] == nil) me.terrain[i] = [0, 2];
+			var solid = me.terrain[i][1];
+			var y_coordinate = 1273 - (me.terrain[i][0] - base_alt) / range * 250;
+		} else {
+			if (me.terrain[i][0] == nil) me.terrain[i] = [0, 2];
+			var y_coordinate = 1273 - (me.terrain[i][0] - base_alt) / range * 250;
+			var solid = 2; # doesnt matter
+		}
+		if (i == (terrain_steps) or solid != last_is_solid) {
+			last_path.lineTo((i) / terrain_steps * 665 + 230, y_coordinate);
+			last_path.lineTo((i) / terrain_steps * 665 + 230, 1273);
+			append(me.terrain_elements, last_path);
+			if (i == (terrain_steps)) break;
+			last_path = me.page.createChild('path');
+			#last_path.hide();
+			last_path.moveTo((i) / terrain_steps * 665 + 230, 1273);
+			if (solid == 1) last_path.setColorFill([157 / 255, 50 / 255, 1 / 255]); # 9d3201
+			else if (solid == 2) last_path.setColorFill([0, 1, 0]);
+			else last_path.setColorFill([0, 1, 1]);
+		}
+		var x_coordinate = i / terrain_steps * 665 + 230;
+		last_path.lineTo(x_coordinate, y_coordinate);
+		last_is_solid = solid;
+	}
+	if (!size(me.terrain_elements)) return print('HUH???');
+	if (me.terrain_elements == me.old_terrain_elements) return print('WHAT THE???');
+	foreach (element; me.old_terrain_elements) element.del();
+}
+var route_active = props.globals.getNode('/autopilot/route-manager/active');
+var track = props.globals.getNode('/orientation/track-deg');
+var terrain_steps = 20;
+canvas.NavDisplay.flightplan = nil;
+# [elevation, is ground?]
+canvas.NavDisplay.terrain = [];
+for (var i = 0; i <= terrain_steps; i += 1) append(canvas.NavDisplay.terrain, [0, 2]);
+canvas.NavDisplay.terrain_path = nil;
+canvas.NavDisplay.terrain_elements = [];
+canvas.NavDisplay.update_terrain = func() {
+	if (me.flightplan == nil) me.flightplan = flightplan();
+	var nd_range = me.vd_switches.range.getValue();
+	var vd_range = me.vd_switches.vd_range.getValue();
+	var pos = geo.aircraft_position();
+	var ref_coordinates = geo.Coord.new();
+	ref_coordinates.set(pos);
+	if (route_active.getValue() and me.flightplan != nil) {
+		var next_waypoint = me.flightplan.currentWP();
+		debug.dump(next_waypoint.index);
+	} else {
+		var track_value = track.getValue();
+		# take cut along track
+		for (var i = 0; i <= terrain_steps; i += 1) {
+			var info = geodinfo(ref_coordinates.lat(), ref_coordinates.lon());
+			if (info == nil) {
+				me.terrain[i] = [nil, 2];
+				continue;
+			}
+			if (info[1] == nil) info[1] = {solid: 1};
+			var terrain_array = [info[0] * (100 / 12 / 2.54), info[1].solid];
+			me.terrain[i] = terrain_array;
+			ref_coordinates.apply_course_distance(track_value, vd_range * 1852 / terrain_steps);
+		}
+	}
+};
+canvas.NavDisplay.terrain_profile = [];
 canvas.NavDisplay.update = func() # FIXME: This stuff is still too aircraft specific, cannot easily be reused by other aircraft
 {
 	var _time = systime();
@@ -593,6 +691,10 @@ canvas.NavDisplay.update = func() # FIXME: This stuff is still too aircraft spec
 	me.symbols["status.wpt"].setVisible( me.get_switch("toggle_waypoints") and me.in_mode("toggle_display_mode", ["MAP"]));
 	me.symbols["status.arpt"].setVisible( me.get_switch("toggle_airports") and me.in_mode("toggle_display_mode", ["MAP"]));
 	me.symbols["status.sta"].setVisible( me.get_switch("toggle_stations") and  me.in_mode("toggle_display_mode", ["MAP"]));
+
+	# update vertical display
+	me.update_vd();
+
 	# Okay, _how_ do we hook this up with FGPlot?
 	logprint(_MP_dbg_lvl, "Total ND update took "~((systime()-_time)*100)~"ms");
 	setprop("/instrumentation/navdisplay["~ canvas.NavDisplay.id ~"]/update-ms", systime() - _time);

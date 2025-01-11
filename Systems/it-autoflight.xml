@@ -659,6 +659,14 @@
 		<input>/it-autoflight/input/mach</input>
 		<output>/it-autoflight/input/mach-x1000</output>
 	</filter>
+
+	<filter>
+		<name>Mach x100</name>
+		<type>gain</type>
+		<gain>100</gain>
+		<input>/it-autoflight/input/mach</input>
+		<output>/it-autoflight/input/mach-x100</output>
+	</filter>
 	
 	<filter>
 		<name>Nav1 Error Deg</name>
@@ -2589,5 +2597,66 @@
 		<max>15</max>
 		<max-rate-of-change>10</max-rate-of-change>
 	</filter>
-
+	<!-- copied from a320 fmgc-pitch.xml -->
+	<filter>
+		<name>System Command: Pitch Target Inactive Sync</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<enable>
+			<condition>
+				<not>
+					<and>
+						<property>/it-autoflight/output/ap-on</property>
+						<equals>
+							<property>/gear/gear[1]/wow</property>
+							<value>0</value>
+						</equals>
+						<equals>
+							<property>/gear/gear[2]/wow</property>
+							<value>0</value>
+						</equals>
+						<not-equals>
+							<property>/it-autoflight/output/vert</property>
+							<value>9</value>
+						</not-equals>
+					</and>
+				</not>
+			</condition>
+		</enable>
+		<input>/orientation/pitch-deg</input>
+		<output>/it-autoflight/internal/target-pitch-deg</output>
+		<min>-15</min>
+		<max>30</max>
+	</filter>
+	
+	<filter>
+		<name>System Command: Pitch Rate Target</name>
+		<type>gain</type>
+		<gain>0.12</gain>
+		<input>/orientation/pitch-deg</input>
+		<reference>/it-autoflight/internal/target-pitch-deg</reference>
+		<output>/fdm/jsbsim/fbw/fmgc/pitch-cmd</output> <!-- Inputs to the FBW Pitch -->
+		<min>-0.3</min>
+		<max>0.3</max>
+	</filter>
+	<!-- copied from a320 fmgc-roll-yaw.xml -->
+	<filter>
+		<name>System Command: Roll Rate Target</name>
+		<type>gain</type>
+		<gain>-0.06</gain>
+		<input>/orientation/roll-deg</input>
+		<reference>/it-autoflight/internal/target-roll</reference>
+		<output>/fdm/jsbsim/fbw/fmgc/roll-cmd</output> <!-- Inputs to the FBW Roll -->
+		<min>-0.33</min>
+		<max>0.33</max>
+	</filter>
+	<!-- copied from a320 libraries.xml -->
+	<predict-simple>
+		<name>FBW Pitch IAS Predictor</name>
+		<debug>false</debug>
+		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
+		<output>/fdm/jsbsim/fbw/pitch/ias-predict</output>
+		<seconds>1.0</seconds>
+		<filter-gain>0</filter-gain>
+	</predict-simple>
 </PropertyList>
