@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <system name="engines">
 	<channel name="thr">
-		<fcs_function name="/systems/engines/max-thrust">
-			<function><product>
+		<fcs_function name="/systems/fadec/limit/milthrust-unmodified">
+			<function>
 				<table>
 					<independentVar lookup="row">velocities/mach</independentVar>
 					<independentVar lookup="column">atmosphere/density-altitude</independentVar>
 					<tableData>
-						      -10000       0   10000   20000   30000   40000   50000   60000
+						-10000       0   10000   20000   30000   40000   50000   60000
 						0.0   1.2600  1.0000  0.7400  0.5340  0.3720  0.2410  0.1490  0
 						0.2   1.1710  0.9340  0.6970  0.5060  0.3550  0.2310  0.1430  0
 						0.4   1.1500  0.9210  0.6920  0.5060  0.3570  0.2330  0.1450  0
@@ -18,24 +18,66 @@
 						1.4   1.5941  1.3400  1.0860  0.8450  0.6280  0.4240  0.2630  0
 					</tableData>
 				</table>
-					<!--<property>/systems/fadec/limit/rated-thrust-factor</property>-->
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/engines/max-thrust">
+			<function><product>
+					<property>/systems/fadec/limit/milthrust-unmodified</property>
+					<property>/systems/fadec/limit/rated-thrust-factor</property>
 					<table> <!-- Thrust loss due to reverser angle -->
 						<independentVar lookup="row">/surface-positions/reverser-norm</independentVar>
 						<tableData>
-							0.01  1.00
+							0.00  1.00
 							1.00  0.65
 						</tableData>
 					</table>
 		
 				<value>84000</value>
 	</product></function></fcs_function>
+	<!-- /systems/fadec/limit/fgturbine-thrust is funny so -->
+	<!-- based on https://github.com/JSBSim-Team/jsbsim/blob/f6ae92ecf8f1fad60f41bdb8f3f012a2eb4e3391/src/models/propulsion/FGTurbine.cpp#L217 -->
+	<fcs_function name="/systems/fadec/limit/fgturbine-thrust-actual">
+		<function>
+			<sum>
+				<!-- idlethrust variable in that c++ file -->
+				<product>
+					<value>84000</value>
+					<property>propulsion/engine/IdleThrust</property>
+				</product>
+				<product>
+					<!-- milthrust variable in that c++ file -->
+					<product>
+						<difference>
+							<value>84000</value>
+							<product>
+								<value>84000</value>
+								<property>propulsion/engine/IdleThrust</property>
+							</product>
+						</difference>
+						<property>propulsion/engine/MilThrust</property>
+					</product>
+					<pow>
+						<!-- equivalent to n2norm -->
+						<quotient>
+							<difference>
+								<property>/systems/fadec/limit/rated-thrust-n1</property>
+								<value>18.9</value>
+							</difference>
+							<value>80.2</value>
+						</quotient>
+						<value>2</value>
+					</pow>
+				</product>
+			</sum>
+		</function>
+	</fcs_function>
 	<fcs_function name="/systems/engines/thr">
 		<function>
 			<product>
 				<value>100</value>
 				<quotient>
 					<property>/engines/engine/thrust_lb</property>
-					<property>/systems/engines/max-thrust</property>
+					<property>/systems/fadec/limit/fgturbine-thrust-actual</property>
 				</quotient>
 			</product>
 		</function>
@@ -46,11 +88,48 @@
 					<value>100</value>
 					<quotient>
 						<property>/engines/engine[1]/thrust_lb</property>
-						<property>/systems/engines/max-thrust</property>
+						<property>/systems/fadec/limit/fgturbine-thrust-actual</property>
 					</quotient>
 				</product>
 			</function>
 		</fcs_function>
+		<!-- ill take advantage of this: 
+		https://github.com/JSBSim-Team/jsbsim/blob/f6ae92ecf8f1fad60f41bdb8f3f012a2eb4e3391/src/models/propulsion/FGTurbine.cpp#L228
+		-->
+		<!--<fcs_function name="/systems/engines/thr">
+			<function>
+				<quotient>
+					<product>
+						<value>100</value>
+						<difference>
+							<property>/engines/engine[0]/epr</property>
+							<value>1</value>
+						</difference>
+					</product>
+					<quotient>
+						<property>/systems/engines/max-thrust</property>
+						<value>84000</value>
+					</quotient>
+				</quotient>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/engines/thr-1">
+			<function>
+				<quotient>
+					<product>
+						<value>100</value>
+						<difference>
+							<property>/engines/engine[1]/epr</property>
+							<value>1</value>
+						</difference>
+					</product>
+					<quotient>
+						<property>/systems/engines/max-thrust</property>
+						<value>84000</value>
+					</quotient>
+				</quotient>
+			</function>
+		</fcs_function>-->
 	</channel>
 	<channel name="egt">
 		<fcs_function name="/systems/engines/egt-relative-1">
@@ -90,6 +169,962 @@
 					<property>/environment/temperature-degc</property>
 				</sum>
 			</function>
+		</fcs_function>
+	</channel>
+	<property value="84000">/systems/fadec/limit/rated-thrust</property>
+	<channel name="fadec limits">
+		<!-- copied from a320 cfm56 fadec -->
+		<!-- Copyright (c) 2024 Josh Davidson (Octal450) -->
+		<fcs_function name="/systems/fadec/limit/rated-thrust-n1">
+			<function>
+				<table>
+					<independentVar lookup="column">atmosphere/pressure-altitude</independentVar>
+					<independentVar lookup="row">propulsion/tat-c</independentVar>
+					<!-- this is an unhealthy amount of data from the a330 fcom -->
+					<tableData>
+        -2000  -1000  0      1000   2000   3000   4000   5000   6000   7000   8000   40000
+-60     71.6   72.8   74.0   74.6   75.1   76.4   77.2   77.7   77.8   77.9   78.0   83.0
+-12     79.2   80.6   81.9   82.6   83.2   84.5   85.5   86.0   86.1   86.2   86.3   88.0
+-8      79.8   81.2   82.6   83.2   83.8   85.2   86.1   86.7   86.8   86.9   87.0   89.0
+-4      80.4   81.8   83.2   83.8   84.4   85.8   86.8   87.3   87.4   87.5   87.7   87.7
+0       81.0   82.4   83.8   84.4   85.1   86.4   87.4   88.0   88.1   88.2   88.3   88.3
+4       81.6   83.0   84.4   85.0   85.7   87.1   88.0   88.6   88.7   88.8   88.9   89.5
+8       82.2   83.6   85.0   85.7   86.3   87.7   88.7   89.2   89.4   89.5   89.6   90.0
+10      82.5   83.9   85.3   86.0   86.6   88.0   89.0   89.6   89.7   89.9   89.9   89.9
+12      82.8   84.2   85.6   86.3   86.9   88.3   89.3   89.9   90.0   90.1   90.2   92.2
+14      83.1   84.5   85.9   86.6   87.2   88.6   89.6   90.2   90.3   90.4   90.5   92.5
+16      83.4   84.8   85.1   86.9   87.5   88.9   89.9   90.5   90.6   90.7   90.7   92.7
+18      83.7   85.1   86.5   97.2   87.8   89.2   90.2   90.8   90.9   90.9   90.8   92.8
+20      83.9   85.4   86.8   87.5   88.1   89.6   90.6   91.1   91.1   91.0   91.0   93.0
+22      84.2   85.7   87.1   87.8   88.4   89.9   90.9   91.2   91.2   91.1   91.1   93.1
+24      84.5   86.0   87.4   88.1   88.7   90.2   91.2   91.3   91.3   91.2   91.3   93.3
+26      84.8   86.2   87.7   88.4   89.0   90.5   91.2   91.4   91.2   91.1   91.4   93.4
+28      85.1   86.5   88.0   88.7   89.3   90.8   91.1   91.2   90.9   91.0   91.2   93.2
+30      85.4   86.8   88.3   88.9   89.6   90.7   90.8   90.7   90.6   90.8   90.7   92.7
+32      85.6   87.1   88.6   89.2   89.9   90.3   90.3   90.2   90.3   90.3   90.3   92.3
+34      85.9   87.4   88.9   89.5   89.8   89.8   89.8   89.8   89.7   89.7   89.8   91.8
+36      86.2   89.7   89.1   89.5   89.4   89.4   89.3   89.2   89.2   89.2   89.2   91.2
+38      86.5   88.0   89.1   89.0   88.9   88.8   88.7   88.7   88.7   88.7   88.7   90.7
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<!-- these three are complete guesses -->
+		<fcs_function name="/systems/fadec/limit/idle-thrust-n1">
+			<function>
+				<table>
+					<independentVar lookup="column">velocities/mach</independentVar>
+					<independentVar lookup="row">propulsion/tat-c</independentVar>
+					<tableData>
+							0.2     0.85
+						-20     30.0    45.0
+						0       20.0    40.0
+						20      19.0    40.0
+						21      19.0    40.0
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/limit/approach-idle-thrust-n1">
+			<function>
+				<table>
+					<independentVar lookup="column">velocities/mach</independentVar>
+					<independentVar lookup="row">propulsion/tat-c</independentVar>
+					<tableData>
+							0.2     0.85
+						-20     35.0    45.0
+						0       30.0    45.0
+						20      25.0    45.0
+						21      24.0    45.0
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/limit/reverse-idle-thrust-n1">
+			<function>
+				<table>
+					<independentVar lookup="column">velocities/mach</independentVar>
+					<independentVar lookup="row">propulsion/tat-c</independentVar>
+					<tableData>
+							0.2     0.85
+						-20     32.0    47.0
+						0       22.0    42.0
+						20      21.0    42.0
+						21      21.0    42.0
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<switch name="/systems/fadec/limit/idle-n1">
+			<default value="/systems/fadec/limit/idle-thrust-n1" />
+			<test logic="OR" value="/systems/fadec/limit/approach-idle-thrust-n1">
+				fcs/flap-cmd-norm ge 0
+				gear/gear-cmd-norm ge 0
+				gear/unit/WOW eq 0
+			</test>
+			<test logic="OR" value="/systems/fadec/limit/reverse-idle-thrust-n1">
+				/engines/engine/reverser-pos-norm eq 1
+				/engines/engine[0]/reverser-pos-norm eq 1
+			</test>
+		</switch>
+		<fcs_function name="/systems/fadec/limit/climb-n1">
+			<function>
+				<table>
+					<independentVar lookup="column">atmosphere/pressure-altitude</independentVar>
+					<independentVar lookup="row">propulsion/tat-c</independentVar>
+					<tableData>
+        -1000  3000   7000   11000  15000  19000  23000  27000  31000  35000  39000
+-60     66.4   68.2   70.2   71.3   73.0   74.8   76.0   76.8   77.5   80.0   80.3
+-46     68.5   70.4   72.4   73.6   75.4   77.3   78.5   79.2   80.0   82.6   82.9
+-42     69.1   71.0   73.1   74.3   76.1   77.9   79.1   79.9   80.7   83.3   83.6
+-38     69.7   71.6   73.7   74.9   76.7   78.6   79.8   80.6   81.4   84.0   84.3
+-34     70.3   72.2   74.3   75.5   77.4   79.3   80.5   81.3   82.1   84.7   85.0
+-30     70.9   72.8   75.0   76.2   78.0   79.9   81.2   82.0   82.8   85.5   85.7
+-26     71.5   73.4   75.6   76.8   78.6   80.6   81.8   82.7   83.5   86.2   86.4
+-22     72.1   74.0   76.2   77.4   79.3   81.2   82.5   83.3   84.2   86.8   87.1
+-18     72.6   74.6   76.8   78.0   79.9   81.9   83.2   84.0   84.8   87.5   87.8
+-14     73.2   75.2   77.4   78.6   80.5   82.5   83.8   84.6   85.5   87.9   87.5
+-10     73.8   75.8   78.0   79.2   81.2   83.2   84.4   85.3   86.2   87.3   86.9
+-6      74.3   76.4   78.6   79.8   81.8   83.8   85.1   85.9   86.8   86.8   86.3
+-2      74.9   76.9   79.2   80.4   82.4   84.4   85.7   86.6   86.2   86.2   85.6
+2       75.4   77.5   79.7   81.0   83.0   85.0   86.4   86.2   85.5   85.5   85.0
+6       76.0   78.1   80.3   81.6   83.6   85.7   86.1   85.5   84.8   84.9   84.3
+10      76.5   78.6   80.9   82.2   84.2   85.8   85.4   84.9   84.1   84.2   83.6
+14      77.0   79.2   81.5   82.8   84.8   85.1   84.7   84.2   83.5   83.7   83.1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/limit/climb-norm">
+			<function>
+				<quotient>
+					<difference>
+						<property>/systems/fadec/limit/climb-n1</property>
+						<property>/systems/fadec/limit/idle-thrust-n1</property>
+					</difference>
+					<difference>
+						<property>/systems/fadec/limit/rated-thrust-n1</property>
+						<property>/systems/fadec/limit/idle-thrust-n1</property>
+					</difference>
+				</quotient>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/limit/mct-n1">
+			<function>
+				<table>
+					<independentVar lookup="column">atmosphere/pressure-altitude</independentVar>
+					<independentVar lookup="row">propulsion/tat-c</independentVar>
+					<tableData>
+        -1000  3000   7000   11000  15000  19000  23000  27000  31000  35000  39000
+-60     68.6   70.8   73.2   76.2   78.7   78.5   77.8   78.4   79.5   81.1   80.9
+-46     70.8   73.1   75.6   78.6   81.3   81.0   80.3   80.9   82.1   83.7   83.5
+-42     71.4   73.7   76.2   79.3   82.0   81.7   81.0   81.6   82.8   84.5   84.2
+-38     72.0   74.4   76.9   80.0   82.7   82.5   81.7   82.3   83.6   85.2   84.9
+-34     72.6   75.0   77.5   80.7   83.4   83.2   82.4   83.0   84.3   85.9   85.7
+-30     73.2   75.6   78.2   81.3   84.1   83.8   83.1   83.7   85.0   86.6   86.4
+-26     73.8   76.2   78.8   82.0   84.8   84.5   83.8   84.4   85.7   87.3   87.1
+-22     74.4   76.8   79.5   82.7   85.5   85.2   84.5   85.1   86.3   87.8   87.8
+-18     75.0   77.5   80.1   83.3   86.1   85.9   85.1   85.7   87.0   87.4   87.6
+-14     75.6   78.1   80.7   84.0   86.8   86.6   85.8   86.4   86.6   86.8   87.0
+-10     76.2   78.7   81.3   84.6   87.5   87.2   86.5   86.5   86.0   86.2   86.3
+-6      76.8   79.3   81.9   85.3   88.1   87.9   87.1   85.9   85.3   85.5   85.6
+-2      77.3   79.9   82.6   85.9   88.8   88.5   86.5   85.3   84.6   84.8   84.9
+2       77.9   80.4   83.2   86.5   89.5   88.6   85.9   84.6   83.9   84.0   84.1
+6       78.5   81.0   83.8   87.2   90.1   86.1   85.3   83.9   83.2   83.2   83.3
+10      79.0   81.6   84.4   87.8   89.7   87.5   84.6   83.2   82.5   82.5   82.6
+14      79.6   82.2   85.0   88.1   89.0   86.8   83.9   82.6   82.0   82.0   82.1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/limit/mct-norm">
+			<function>
+				<quotient>
+					<difference>
+						<property>/systems/fadec/limit/mct-n1</property>
+						<property>/systems/fadec/limit/idle-thrust-n1</property>
+					</difference>
+					<difference>
+						<property>/systems/fadec/limit/mct-n1</property>
+						<property>/systems/fadec/limit/idle-thrust-n1</property>
+					</difference>
+				</quotient>
+			</function>
+		</fcs_function>
+		<!-- Following functions fix a FGTurbine inaccuracy... rated thrust N1% should be rated thrust lbs -->
+		<!-- These calculations change it so that the rated power at sea level is at the correct N1% value. It still changes with altitude and mach as it should -->
+		<fcs_function name="/systems/fadec/limit/fgturbine-thrust">
+			<function>
+				<sum>
+					<product>
+						<property>propulsion/engine[0]/IdleThrust</property> <!-- It doesn't matter which engine, same for all -->
+						<property>/systems/fadec/limit/rated-thrust</property>
+					</product>
+					<product>
+						<difference>
+							<property>/systems/fadec/limit/rated-thrust</property>
+							<product>
+								<property>propulsion/engine[0]/IdleThrust</property> <!-- It doesn't matter which engine, same for all -->
+								<property>/systems/fadec/limit/rated-thrust</property>
+							</product>
+						</difference>
+						<property>/systems/fadec/limit/milthrust-unmodified</property>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		
+		<fcs_function name="/systems/fadec/limit/rated-thrust-actual">
+			<function>
+				<sum>
+					<product>
+						<property>propulsion/engine[0]/IdleThrust</property> <!-- It doesn't matter which engine, same for all -->
+						<property>/systems/fadec/limit/rated-thrust</property>
+					</product>
+					<product>
+						<product>
+							<difference>
+								<property>/systems/fadec/limit/rated-thrust</property>
+								<product>
+									<property>propulsion/engine[0]/IdleThrust</property> <!-- It doesn't matter which engine, same for all -->
+									<property>/systems/fadec/limit/rated-thrust</property>
+								</product>
+							</difference>
+							<property>/systems/fadec/limit/milthrust-unmodified</property>
+						</product>
+						<pow>
+							<quotient>
+								<difference>
+									<property>/systems/fadec/limit/rated-thrust-n1</property>
+									<value>18.9</value>
+								</difference>
+								<value>80.2</value>
+							</quotient>
+							<value>2</value>
+						</pow>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		
+		<fcs_function name="/systems/fadec/limit/rated-thrust-factor">
+			<function>
+				<ifthen>
+					<nq> <!-- Prevent divide by 0 -->
+						<property>/systems/fadec/limit/rated-thrust-actual</property>
+						<value>0</value>
+					</nq>
+					<quotient>
+						<property>/systems/fadec/limit/fgturbine-thrust</property>
+						<property>/systems/fadec/limit/rated-thrust-actual</property>
+					</quotient>
+					<value>1</value>
+				</ifthen>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/limit/idle-limit">
+			<function>
+				<quotient>
+					<!-- copied from fgturbine-thrust-actual -->
+					<sum>
+						<!-- idlethrust variable in that c++ file -->
+						<product>
+							<value>84000</value>
+							<property>propulsion/engine/IdleThrust</property>
+						</product>
+						<product>
+							<!-- milthrust variable in that c++ file -->
+							<product>
+								<difference>
+									<value>84000</value>
+									<product>
+										<value>84000</value>
+										<property>propulsion/engine/IdleThrust</property>
+									</product>
+								</difference>
+								<property>propulsion/engine/MilThrust</property>
+							</product>
+							<pow>
+								<!-- equivalent to n2norm -->
+								<quotient>
+									<difference>
+										<property>/systems/fadec/limit/idle-n1</property>
+										<value>18.9</value>
+									</difference>
+									<value>80.2</value>
+								</quotient>
+								<value>2</value>
+							</pow>
+						</product>
+					</sum>
+					<quotient>
+						<property>/systems/fadec/limit/fgturbine-thrust-actual</property>
+						<value>100</value>
+					</quotient>
+				</quotient>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/limit/climb-limit">
+			<function>
+				<quotient>
+					<!-- copied from fgturbine-thrust-actual -->
+					<sum>
+						<!-- idlethrust variable in that c++ file -->
+						<product>
+							<value>84000</value>
+							<property>propulsion/engine/IdleThrust</property>
+						</product>
+						<product>
+							<!-- milthrust variable in that c++ file -->
+							<product>
+								<difference>
+									<value>84000</value>
+									<product>
+										<value>84000</value>
+										<property>propulsion/engine/IdleThrust</property>
+									</product>
+								</difference>
+								<property>propulsion/engine/MilThrust</property>
+							</product>
+							<pow>
+								<!-- equivalent to n2norm -->
+								<quotient>
+									<difference>
+										<property>/systems/fadec/limit/climb-n1</property>
+										<value>18.9</value>
+									</difference>
+									<value>80.2</value>
+								</quotient>
+								<value>2</value>
+							</pow>
+						</product>
+					</sum>
+					<quotient>
+						<property>/systems/fadec/limit/fgturbine-thrust-actual</property>
+						<value>100</value>
+					</quotient>
+				</quotient>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/limit/mct-limit">
+			<function>
+				<quotient>
+					<!-- copied from fgturbine-thrust-actual -->
+					<sum>
+						<!-- idlethrust variable in that c++ file -->
+						<product>
+							<value>84000</value>
+							<property>propulsion/engine/IdleThrust</property>
+						</product>
+						<product>
+							<!-- milthrust variable in that c++ file -->
+							<product>
+								<difference>
+									<value>84000</value>
+									<product>
+										<value>84000</value>
+										<property>propulsion/engine/IdleThrust</property>
+									</product>
+								</difference>
+								<property>propulsion/engine/MilThrust</property>
+							</product>
+							<pow>
+								<!-- equivalent to n2norm -->
+								<quotient>
+									<difference>
+										<property>/systems/fadec/limit/mct-n1</property>
+										<value>18.9</value>
+									</difference>
+									<value>80.2</value>
+								</quotient>
+								<value>2</value>
+							</pow>
+						</product>
+					</sum>
+					<quotient>
+						<property>/systems/fadec/limit/fgturbine-thrust-actual</property>
+						<value>100</value>
+					</quotient>
+				</quotient>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<switch name="/systems/fadec/limit/thrust-limit">
+			<default value="100" />
+			<test value="/systems/fadec/limit/climb-limit" logic="AND">
+				gear/unit/WOW eq 0
+				/systems/fadec/throttle/max-throttle le /systems/fadec/throttle/climb-detent-end
+			</test>
+			<!-- mrev = climb -->
+			<test value="/systems/fadec/limit/climb-limit" logic="AND">
+				/engines/engine/reverser-pos-norm ge 0.01
+				/engines/engine[0]/reverser-pos-norm ge 0.01
+			</test>
+			<test value="/systems/fadec/limit/mct-limit" logic="AND">
+				gear/unit/WOW eq 0
+				/systems/fadec/throttle/max-throttle le /systems/fadec/throttle/mct-detent-end
+			</test>
+		</switch>
+		<switch name="/systems/fadec/limit/thrust-limit-text">
+			<default value="0" />
+			<test value="1" logic="AND">
+				gear/unit/WOW eq 0
+				/systems/fadec/throttle/max-throttle le /systems/fadec/throttle/climb-detent-end
+			</test>
+			<!-- mrev = climb -->
+			<test value="2" logic="AND">
+				/engines/engine/reverser-pos-norm ge 0.01
+				/engines/engine[0]/reverser-pos-norm ge 0.01
+			</test>
+			<test value="3" logic="AND">
+				gear/unit/WOW eq 0
+				/systems/fadec/throttle/max-throttle le /systems/fadec/throttle/mct-detent-end
+			</test>
+		</switch>
+	</channel>
+	<!-- climb = 0.625 -->
+	<property value="0.65">/systems/fadec/throttle/climb-detent-end</property>
+	<property value="0.6">/systems/fadec/throttle/climb-detent-start</property>
+	<!-- mct = 0.805 -->
+	<property value="0.83">/systems/fadec/throttle/mct-detent-end</property>
+	<property value="0.78">/systems/fadec/throttle/mct-detent-start</property>
+	<channel name="fadec magic stuff">
+		<switch name="/systems/fadec/throttle/one-engine-out">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/engines/engine/running eq 0
+				/engines/engine[1]/running eq 1
+			</test>
+			<test logic="AND" value="1">
+				/engines/engine/running eq 1
+				/engines/engine[1]/running eq 0
+			</test>
+		</switch>
+		<fcs_function name="/systems/fadec/throttle/max-throttle">
+			<function>
+				<max>
+					<property>/systems/fadec/throttle/man-throttle-angle-1</property>
+					<property>/systems/fadec/throttle/man-throttle-angle-2</property>
+				</max>
+			</function>
+			<output>/it-autoflight/settings/autothrottle-max</output>
+		</fcs_function>
+		<lag_filter name="/systems/fadec/throttle/throttle-1">
+			<input>/controls/engines/engine/throttle</input>
+			<c1>20</c1>
+		</lag_filter>
+		<fcs_function name="/systems/fadec/throttle/man-throttle-angle-1">
+			<function>
+				<table>
+					<independentVar>/systems/fadec/throttle/throttle-1</independentVar>
+					<tableData>
+						0              0
+						0.03           0
+						0.6            0.625
+						0.65           0.625
+						0.78           0.805
+						0.83           0.805
+						0.97           1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<switch name="/systems/fadec/throttle/athr-1">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/it-autoflight/output/athr eq 1
+				/systems/fadec/throttle/one-engine-out eq 0
+				/systems/fadec/throttle/man-throttle-angle-1 le /systems/fadec/throttle/climb-detent-end
+			</test>
+			<test logic="AND" value="1">
+				/it-autoflight/output/athr eq 1
+				/systems/fadec/throttle/one-engine-out eq 1
+				/systems/fadec/throttle/man-throttle-angle-1 le /systems/fadec/throttle/mct-detent-end
+			</test>
+		</switch>
+		<fcs_function name="/systems/fadec/throttle/throttle-angle-1">
+			<function>
+				<ifthen>
+					<ge>
+						<property>/systems/fadec/throttle/athr-1</property>
+						<value>0.5</value>
+					</ge>
+					<min>
+						<property>/it-autoflight/internal/throttle[0]</property>
+						<property>/systems/fadec/throttle/man-throttle-angle-1</property>
+					</min>
+					<property>/systems/fadec/throttle/man-throttle-angle-1</property>
+				</ifthen>
+			</function>
+		</fcs_function>
+		<switch name="/systems/fadec/throttle/athr-2">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/it-autoflight/output/athr eq 1
+				/systems/fadec/throttle/one-engine-out eq 0
+				/systems/fadec/throttle/man-throttle-angle-2 le /systems/fadec/throttle/climb-detent-end
+			</test>
+			<test logic="AND" value="1">
+				/it-autoflight/output/athr eq 1
+				/systems/fadec/throttle/one-engine-out eq 1
+				/systems/fadec/throttle/man-throttle-angle-2 le /systems/fadec/throttle/mct-detent-end
+			</test>
+		</switch>
+		<lag_filter name="/systems/fadec/throttle/throttle-2">
+			<input>/controls/engines/engine[1]/throttle</input>
+			<c1>20</c1>
+		</lag_filter>
+		<fcs_function name="/systems/fadec/throttle/man-throttle-angle-2">
+			<function>
+				<table>
+					<independentVar>/systems/fadec/throttle/throttle-2</independentVar>
+					<tableData>
+						0              0
+						0.03           0
+						0.6            0.625
+						0.65           0.625
+						0.78           0.805
+						0.83           0.805
+						0.97           1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/throttle-angle-2">
+			<function>
+				<ifthen>
+					<ge>
+						<property>/systems/fadec/throttle/athr-2</property>
+						<value>0.5</value>
+					</ge>
+					<min>
+						<property>/it-autoflight/internal/throttle[1]</property>
+						<property>/systems/fadec/throttle/man-throttle-angle-2</property>
+					</min>
+					<property>/systems/fadec/throttle/man-throttle-angle-2</property>
+				</ifthen>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/idle-clb-1">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/idle-limit</property>
+					<product>
+						<difference>
+							<property>/systems/fadec/limit/climb-limit</property>
+							<property>/systems/fadec/limit/idle-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/throttle-angle-1</independentVar>
+							<tableData>
+							0              0
+							0.625          1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/man-idle-clb-1">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/idle-limit</property>
+					<product>
+						<difference>
+							<property>/systems/fadec/limit/climb-limit</property>
+							<property>/systems/fadec/limit/idle-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/man-throttle-angle-1</independentVar>
+							<tableData>
+							0              0
+							0.625          1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/clb-mct-1">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/climb-limit</property>
+					<product>
+						<difference>
+							<property>/systems/fadec/limit/mct-limit</property>
+							<property>/systems/fadec/limit/climb-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/throttle-angle-1</independentVar>
+							<tableData>
+							0.625          0
+							0.805          1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/man-clb-mct-1">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/climb-limit</property>
+					<product>
+						<difference>
+							<property>/systems/fadec/limit/mct-limit</property>
+							<property>/systems/fadec/limit/climb-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/man-throttle-angle-1</independentVar>
+							<tableData>
+							0.625          0
+							0.805          1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/mct-toga-1">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/mct-limit</property>
+					<product>
+						<difference>
+							<value>100</value>
+							<property>/systems/fadec/limit/mct-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/throttle-angle-1</independentVar>
+							<tableData>
+							0.805          0
+							1              1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/man-mct-toga-1">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/mct-limit</property>
+					<product>
+						<difference>
+							<value>100</value>
+							<property>/systems/fadec/limit/mct-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/man-throttle-angle-1</independentVar>
+							<tableData>
+							0.805          0
+							1              1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<switch name="/systems/fadec/throttle/thr-command-1">
+			<default value="0" />
+			<test value="/systems/fadec/throttle/idle-clb-1" logic="AND">
+				/systems/fadec/throttle/throttle-angle-1 ge 0
+				/systems/fadec/throttle/throttle-angle-1 le 0.625
+			</test>
+			<test value="/systems/fadec/throttle/clb-mct-1" logic="AND">
+				/systems/fadec/throttle/throttle-angle-1 ge 0.625
+				/systems/fadec/throttle/throttle-angle-1 le 0.805
+			</test>
+			<test value="/systems/fadec/throttle/mct-toga-1" logic="AND">
+				/systems/fadec/throttle/throttle-angle-1 ge 0.805
+			</test>
+		</switch>
+		<switch name="/systems/fadec/throttle/donut-command-1">
+			<default value="0" />
+			<test value="/systems/fadec/throttle/man-idle-clb-1" logic="AND">
+				/systems/fadec/throttle/man-throttle-angle-1 ge 0
+				/systems/fadec/throttle/man-throttle-angle-1 le 0.625
+			</test>
+			<test value="/systems/fadec/throttle/man-clb-mct-1" logic="AND">
+				/systems/fadec/throttle/man-throttle-angle-1 ge 0.625
+				/systems/fadec/throttle/man-throttle-angle-1 le 0.805
+			</test>
+			<test value="/systems/fadec/throttle/man-mct-toga-1" logic="AND">
+				/systems/fadec/throttle/man-throttle-angle-1 ge 0.805
+			</test>
+		</switch>
+		<!--<fcs_function name="/systems/fadec/throttle/throttle-angle-1">
+			<function>
+				<table>
+					<independentVar>/controls/engines/engine/throttle</independentVar>
+					<tableData>
+						0              0
+						0.03           0
+						0.5045473668   0.5345473668
+						0.5645473668   0.5345473668
+						0.7447896541   0.7747896541
+						0.8047896541   0.7747896541
+						0.97           1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/throttle-angle-2">
+			<function>
+				<table>
+					<independentVar>/controls/engines/engine[1]/throttle</independentVar>
+					<tableData>
+						0              0
+						0.03           0
+						0.5045473668   0.5345473668
+						0.5645473668   0.5345473668
+						0.7447896541   0.7747896541
+						0.8047896541   0.7747896541
+						0.97           1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>-->
+		<fcs_function name="/systems/fadec/throttle/idle-clb-2">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/idle-limit</property>
+					<product>
+						<difference>
+							<property>/systems/fadec/limit/climb-limit</property>
+							<property>/systems/fadec/limit/idle-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/throttle-angle-2</independentVar>
+							<tableData>
+							0              0
+							0.625          1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/man-idle-clb-2">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/idle-limit</property>
+					<product>
+						<difference>
+							<property>/systems/fadec/limit/climb-limit</property>
+							<property>/systems/fadec/limit/idle-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/man-throttle-angle-2</independentVar>
+							<tableData>
+							0              0
+							0.625          1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/clb-mct-2">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/climb-limit</property>
+					<product>
+						<difference>
+							<property>/systems/fadec/limit/mct-limit</property>
+							<property>/systems/fadec/limit/climb-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/throttle-angle-2</independentVar>
+							<tableData>
+							0.625          0
+							0.805          1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/man-clb-mct-2">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/climb-limit</property>
+					<product>
+						<difference>
+							<property>/systems/fadec/limit/mct-limit</property>
+							<property>/systems/fadec/limit/climb-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/man-throttle-angle-2</independentVar>
+							<tableData>
+							0.625          0
+							0.805          1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/mct-toga-2">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/mct-limit</property>
+					<product>
+						<difference>
+							<value>100</value>
+							<property>/systems/fadec/limit/mct-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/throttle-angle-2</independentVar>
+							<tableData>
+							0.805          0
+							1              1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/man-mct-toga-2">
+			<function>
+				<sum>
+					<property>/systems/fadec/limit/mct-limit</property>
+					<product>
+						<difference>
+							<value>100</value>
+							<property>/systems/fadec/limit/mct-limit</property>
+						</difference>
+						<table>
+							<independentVar>/systems/fadec/throttle/man-throttle-angle-2</independentVar>
+							<tableData>
+							0.805          0
+							1              1
+							</tableData>
+						</table>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+
+		<switch name="/systems/fadec/throttle/thr-command-2">
+			<default value="0" />
+			<test value="/systems/fadec/throttle/idle-clb-2" logic="AND">
+				/systems/fadec/throttle/man-throttle-angle-2 ge 0
+				/systems/fadec/throttle/throttle-angle-2 le 0.625
+			</test>
+			<test value="/systems/fadec/throttle/clb-mct-2" logic="AND">
+				/systems/fadec/throttle/throttle-angle-2 ge 0.625
+				/systems/fadec/throttle/throttle-angle-2 le 0.805
+			</test>
+			<test value="/systems/fadec/throttle/mct-toga-2" logic="AND">
+				/systems/fadec/throttle/throttle-angle-2 ge 0.805
+			</test>
+		</switch>
+		<switch name="/systems/fadec/throttle/donut-command-2">
+			<default value="0" />
+			<test value="/systems/fadec/throttle/man-idle-clb-2" logic="AND">
+				/systems/fadec/throttle/man-throttle-angle-2 ge 0
+				/systems/fadec/throttle/man-throttle-angle-2 le 0.625
+			</test>
+			<test value="/systems/fadec/throttle/man-clb-mct-2" logic="AND">
+				/systems/fadec/throttle/man-throttle-angle-2 ge 0.625
+				/systems/fadec/throttle/man-throttle-angle-2 le 0.805
+			</test>
+			<test value="/systems/fadec/throttle/man-mct-toga-2" logic="AND">
+				/systems/fadec/throttle/man-throttle-angle-2 ge 0.805
+			</test>
+		</switch>
+		<!-- thrust = idle + (mil - idle) * ((n2 - idlen2) / (maxn2 - idlen2)) ^ 2 -->
+		<!-- 
+		           18.9                      99.1
+		N1 ->        |___|_________________|___|
+		             ^   ^                 ^   ^ actual toga
+		fgturbine idle   fadec idle    fadec toga
+		throttle from 18.9 to 99.1: sqrt(thrust demand)
+		toga - idle = 80.2
+		-->
+		<fcs_function name="fcs/throttle-pos-norm">
+			<function>
+				<sqrt>
+					<quotient>
+						<max>
+							<difference>
+								<product>
+									<property>/systems/fadec/limit/fgturbine-thrust-actual</property>
+									<property>/systems/fadec/throttle/thr-command-1</property>
+									<value>0.01</value>
+								</product>
+								<product>
+									<value>84000</value>
+									<property>propulsion/engine/IdleThrust</property>
+								</product>
+							</difference>
+							<value>0</value>
+						</max>
+						<product>
+							<difference>
+								<value>84000</value>
+								<product>
+									<value>84000</value>
+									<property>propulsion/engine/IdleThrust</property>
+								</product>
+							</difference>
+							<property>propulsion/engine/MilThrust</property>
+						</product>
+					</quotient>
+				</sqrt>
+			</function>
+			<clipto>
+				<max>1</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="fcs/throttle-pos-norm[1]">
+			<function>
+				<sqrt>
+					<quotient>
+						<max>
+							<difference>
+								<product>
+									<property>/systems/fadec/limit/fgturbine-thrust-actual</property>
+									<property>/systems/fadec/throttle/thr-command-2</property>
+									<value>0.01</value>
+								</product>
+								<product>
+									<value>84000</value>
+									<property>propulsion/engine/IdleThrust</property>
+								</product>
+							</difference>
+							<value>0</value>
+						</max>
+						<product>
+							<difference>
+								<value>84000</value>
+								<product>
+									<value>84000</value>
+									<property>propulsion/engine/IdleThrust</property>
+								</product>
+							</difference>
+							<property>propulsion/engine/MilThrust</property>
+						</product>
+					</quotient>
+				</sqrt>
+			</function>
+			<clipto>
+				<max>1</max>
+				<min>0</min>
+			</clipto>
 		</fcs_function>
 	</channel>
 </system>

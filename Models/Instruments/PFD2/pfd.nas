@@ -52,7 +52,7 @@ var pfd = {
 		# create an image child
 		var group = display.createGroup('svg');
 		canvas.parsesvg(group, path, {"font-mapper": returned.font_mapper});
-		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "ball", "airspeed", "overspeed_barber_poles", "vls", "alpha_prot", "mach", "speed_trend", "speed_trend_up", "speed_trend_down", "te_flaps", "le_flaps", "ils", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "ils_ident", "ils_frequency", "ils_distance", "ils_distance_label", "hundred_numbers", "hundreds", "thousands", "ten_thousands", "alt_tape", "alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "vs_needle", "vs_exact", "vs_text", "stall", "fma_2_3", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "vs_fpa", "fma_2_vs_value", "fma_2_vs"]) {
+		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "pfd_heading_scale", "ball", "airspeed", "overspeed_barber_poles", "vls", "alpha_prot", "speed_selected", "speed_selected_1", "speed_selected_2", "mach", "speed_trend", "speed_trend_up", "speed_trend_down", "te_flaps", "le_flaps", "ils", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "ils_ident", "ils_frequency", "ils_distance", "ils_distance_label", "hundred_numbers", "hundreds", "thousands", "ten_thousands", "alt_tape", "alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "vs_needle", "vs_exact", "vs_text", "stall", "fma_2_3", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "vs_fpa", "fma_2_vs_value", "fma_2_vs"]) {
 			returned.svg_items[elem] = group.getElementById(elem);
 			if (group.getElementById(elem) == nil) {
 				setprop("/sim/messages/copilot", "pfd svg item " ~ elem ~ " does not exist!!!");
@@ -60,10 +60,11 @@ var pfd = {
 				setprop("/sim/messages/copilot", "");
 			}
 		}
-		foreach (elem; ["alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "vs_text", "mach", "ils_ident", "ils_frequency", "ils_distance", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "fma_2_vs_value", "fma_2_vs"]) {
+		foreach (elem; ["alt_fl", "alt_below_1", "alt_above_1", "alt_above_2", "vs_text", "mach", "ils_ident", "ils_frequency", "ils_distance", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "fma_2_vs_value", "fma_2_vs", "speed_selected_1", "speed_selected_2"]) {
 			returned.svg_items[elem].enableUpdate();
 		}
 		# prolly overkill to use all these decimal places but idc
+		group.getElementById('speed').set('clip', 'rect(25.4, 6.35, 84.66665679, 26.45833025)');
 		returned.svg_items.ahrs.set('clip', 'rect(24.87083043, 78.44894918, 84.97357342, 26.45833025)');
 		returned.svg_items.hundred_numbers.set('clip', 'rect(50.31527746, 102.9760859, 60.58640126, 96.78219079)');
 		var digitClip = 'rect(52.09407101, 102.9760859, 58.80760772, 87.31248981)';
@@ -97,6 +98,9 @@ var pfd = {
 					pitch_translation = -70;
 				}
 				returned.svg_items.horizon.setTranslation(0, pitch_translation * scale_constant);
+			}),
+			props.UpdateManager.FromHashValue('attitude_heading_offset', 0.05, func(offset) {
+				returned.svg_items.pfd_heading_scale.setTranslation(4 * offset * scale_constant, 0);
 			}),
 			props.UpdateManager.FromHashValue('vv', 0.5, func(vv) {
 				if (vv) returned.svg_items.fpv.show();
@@ -162,6 +166,27 @@ var pfd = {
 			props.UpdateManager.FromHashValue('airspeed_indicated', 0.1, func(speed) {
 				if (speed < 30) speed = 30;
 				returned.svg_items.airspeed.setTranslation(0, 2.645 * (speed - 30) * scale_constant);
+			}),
+			props.UpdateManager.FromHashValue('airspeed_delta', 0.05, func(delta) {
+				returned.svg_items.speed_selected.setTranslation(0, -2.645 * (delta) * scale_constant);
+				if (delta < -(112 / 2.645)) {
+					returned.svg_items.speed_selected_2.show();
+				} else returned.svg_items.speed_selected_2.hide();
+				if (delta > (112 / 2.645)) {
+					returned.svg_items.speed_selected_1.show();
+				} else returned.svg_items.speed_selected_1.hide();
+			}),
+			props.UpdateManager.FromHashValue('airspeed_target', 0.005, func(speed) {
+				var indicated_speed_target = '';
+				if (speed < 1) {
+					# probably mach
+					indicated_speed_target = sprintf("%.02f", speed);
+				} else {
+					# probably kts
+					indicated_speed_target = sprintf("%d", speed);
+				}
+				returned.svg_items.speed_selected_1.updateText(indicated_speed_target);
+				returned.svg_items.speed_selected_2.updateText(indicated_speed_target)
 			}),
 			props.UpdateManager.FromHashValue('airspeed_max', 0.1, func(maxspeed) {
 				returned.svg_items.overspeed_barber_poles.setTranslation(0, -2.645 * (maxspeed - 30) * scale_constant);
@@ -257,7 +282,8 @@ var pfd = {
 			pitch: props.globals.getNode('/orientation/model/pitch-deg'),
 			roll: props.globals.getNode('/orientation/model/roll-deg'),
 			aoa: props.globals.getNode('/fdm/jsbsim/aero/alpha-deg'),
-			fpa: props.globals.getNode('/systems/pfd/fpa-sane')
+			fpa: props.globals.getNode('/systems/pfd/fpa-sane'),
+			heading_offset: props.globals.getNode('/systems/pfd/yaw-rounded')
 		};
 		hash.fd = {
 			enabled: props.globals.getNode('/it-autoflight/output/fd1'),
@@ -273,6 +299,8 @@ var pfd = {
 		};
 		hash.airspeed = {
 			indicated: props.globals.getNode('/instrumentation/airspeed-indicator/indicated-speed-kt'),
+			delta: props.globals.getNode('/systems/pfd/speed-delta'),
+			target: props.globals.getNode('/systems/pfd/speed-select'),
 			mach: props.globals.getNode('/instrumentation/airspeed-indicator/indicated-mach'),
 			trend: props.globals.getNode('/systems/pfd/speed-trend'),
 			max: props.globals.getNode('/systems/pfd/max-speed'),

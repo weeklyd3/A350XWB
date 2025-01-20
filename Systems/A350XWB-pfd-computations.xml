@@ -322,8 +322,106 @@
 				</ifthen>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/pfd/heading">
+			<function>
+				<ifthen>
+					<property>/it-autoflight/input/true-course</property>
+					<property>/orientation/true-heading-deg</property>
+					<property>/orientation/heading-magnetic-deg</property>
+				</ifthen>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/track-raw">
+			<function>
+				<ifthen>
+					<property>/it-autoflight/input/true-course</property>
+					<property>/instrumentation/gps/indicated-track-true-deg</property>
+					<property>/instrumentation/gps/indicated-track-magnetic-deg</property>
+				</ifthen>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/yaw-blend">
+			<!-- 0 = all heading, 1 = all track -->
+			<function>
+				<table>
+					<independentVar>/instrumentation/gps/indicated-ground-speed-kt</independentVar>
+					<tableData>
+					0   0
+					1   0
+					10  1
+					11  1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/track">
+			<function>
+				<sum>
+					<product>
+						<property>/systems/pfd/yaw-blend</property>
+						<property>/systems/pfd/track-raw</property>
+					</product>
+					<product>
+						<difference>
+							<value>1</value>
+							<property>/systems/pfd/yaw-blend</property>
+						</difference>
+						<property>/systems/pfd/heading</property>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/yaw">
+			<function>
+				<ifthen>
+					<property>/it-autoflight/input/trk</property>
+					<property>/systems/pfd/track</property>
+					<property>/systems/pfd/heading</property>
+				</ifthen>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/yaw-rounded">
+			<function>
+				<fmod>
+					<property>/systems/pfd/yaw</property>
+					<value>10</value>
+				</fmod>
+			</function>
+		</fcs_function>
 	</channel>
 	<channel name="managed speed">
+		<fcs_function name="/systems/pfd/speed-select">
+			<function>
+				<ifthen>
+					<property>/it-autoflight/input/kts-mach</property>
+					<property>/it-autoflight/input/mach</property>
+					<property>/it-autoflight/input/kts</property>
+				</ifthen>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/target-speed">
+			<function>
+				<ifthen>
+					<property>/it-autoflight/input/kts-mach</property>
+					<product>
+						<property>/it-autoflight/input/mach</property>
+						<quotient>
+							<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+							<property>/instrumentation/airspeed-indicator/indicated-mach</property>
+						</quotient>
+					</product>
+					<property>/it-autoflight/input/kts</property>
+				</ifthen>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/speed-delta">
+			<function>
+				<difference>
+					<property>/systems/pfd/target-speed</property>
+					<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+				</difference>
+			</function>
+		</fcs_function>
 		<fcs_function name="/systems/pfd/green-dot-speed">
 			<function>
 				<table>

@@ -412,7 +412,7 @@ canvas.NavDisplay.update_terrain = func() {
 	ref_coordinates.set(pos);
 	if (route_active.getValue() and me.flightplan != nil) {
 		var next_waypoint = me.flightplan.currentWP();
-		debug.dump(next_waypoint.index);
+		#debug.dump(next_waypoint.index);
 	} else {
 		var track_value = track.getValue();
 		# take cut along track

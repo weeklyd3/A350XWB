@@ -10,6 +10,7 @@ var ecam = {
 		});
 		me.display = display;
 		me.page_items = {};
+		me.page_svg_items = {};
 		var path = "Aircraft/A350XWB/Models/Instruments/Upper-ECAM/ecam.svg";
 		# create an image child
 		var group = display.createGroup('svg');
@@ -22,17 +23,17 @@ var ecam = {
 		}
 		me.svg_items["thr_needle_l"].setCenter(150.485, 75.63);
 		me.svg_items["thr_needle_r"].setCenter(150.485, 75.63);
-		me.svg_items["donut_l"].setCenter(150.485, 75.63);
-		me.svg_items["donut_r"].setCenter(292.486, 75.63);
 		me.props.engine_1 = {
 			thr: props.globals.getNode('/systems/engines/thr'),
 			n1: props.globals.getNode('/engines/engine/n1'),
-			egt: props.globals.getNode('/systems/engines/egt-1')
+			egt: props.globals.getNode('/systems/engines/egt-1'),
+			donut: props.globals.getNode('/systems/fadec/throttle/donut-command-1')
 		};
 		me.props.engine_2 = {
 			thr: props.globals.getNode('/systems/engines/thr-1'),
 			n1: props.globals.getNode('/engines/engine[1]/n1'),
-			egt: props.globals.getNode('/systems/engines/egt-2')
+			egt: props.globals.getNode('/systems/engines/egt-2'),
+			donut: props.globals.getNode('/systems/fadec/throttle/donut-command-2')
 		};
 		me.props.limit = {
 			thrust: props.globals.getNode('/systems/fadec/limit/thrust-limit'),
@@ -71,26 +72,128 @@ var ecam = {
 			props.UpdateManager.FromHashValue('engine_2_n1', 0.05, func(n1_r) {
 				object.svg_items.n1_right.updateText(sprintf("%.1f", n1_r));
 			}),
+			props.UpdateManager.FromHashValue('engine_1_donut', 0.05, func(donut_l) {
+				object.svg_items.donut_l.setRotation((-120 + 210 * donut_l / 100) * math.pi / 180);
+			}),
+			props.UpdateManager.FromHashValue('engine_2_donut', 0.05, func(donut_r) {
+				object.svg_items.donut_r.setRotation((-120 + 210 * donut_r / 100) * math.pi / 180);
+			})
 		];
-		setprop("/instrumentation/ecam/active-page", "bleed");
-		var pages = ['hyd', 'apu', 'bleed'];
-		foreach (var page; pages) canvas.parsesvg(group, "Aircraft/A350XWB/Models/Instruments/Upper-ECAM/pages/" ~ page ~ ".svg", {'font-mapper': func(doesnt, matter) { return 'ECAMFontRegular.ttf'; }});
-		me.pages['hyd'] = hyd_page.new(display, group);
-		me.pages['apu'] = apu_page.new(display, group);
-		me.pages['bleed'] = bleed_page.new(display, group);
+		setprop("/instrumentation/ecam/active-page", "apu");
+		#var pages = ['hyd', 'apu', 'bleed'];
+		var pages = ['apu'];
+		foreach (var page; pages) {
+			canvas.parsesvg(group, "Aircraft/A350XWB/Models/Instruments/Upper-ECAM/pages/" ~ page ~ ".svg", {'font-mapper': func(doesnt, matter) { return 'ECAMFontRegular.ttf'; }});
+			me.svg_items[page] = group.getElementById(page);
+		}
+
+		var apu_page = ecam_sd_page.new(me, group, 'apu', {
+			n: props.globals.getNode('/systems/apu/n'),
+			flap: props.globals.getNode('/systems/apu/flap'),
+			egt: props.globals.getNode('/systems/apu/egt'),
+			avail: props.globals.getNode('/systems/apu/avail'),
+			hz: props.globals.getNode('/systems/apu/gen-hz'),
+			voltage: props.globals.getNode('/systems/apu/gen-voltage'),
+			gen: props.globals.getNode('/systems/apu/gen'),
+			gen_connection: props.globals.getNode('/systems/apu/gen-connection'),
+			bleed_psi: props.globals.getNode('/systems/apu/bleed-psi'),
+			bleed: props.globals.getNode('/systems/apu/bleed')
+		}, ["apu", "apu_n_needle", "apu_egt_needle", "apu_avail", "apu_gen_stats", "apu_gen_border", "apu_gen_off", "apu_gen_text", "apu_gen_connection", "apu_gen_avail", "apu_bleed_closed", "apu_bleed_open"], ["apu_n_text", "apu_flap", "apu_egt_text", "apu_gen_hz", "apu_gen_voltage", "apu_gen_load", "apu_bleed_psi"], [
+			['n', 0.1, 'rot', {
+				offset: -135,
+				scale: 180 / 100,
+				element: 'apu_n_needle'
+			}],
+			['n', 0.4, 'format', {
+				format: "%d",
+				element: 'apu_n_text'
+			}],
+			['egt', 0.1, 'rot', {
+				offset: -135,
+				scale: 240 / 1000,
+				element: 'apu_egt_needle'
+			}],
+			['egt', 0.5, 'function', func(egt) {
+				me.page_svg_items['apu_egt_text'].updateText(sprintf("%d", 5 * math.round(egt / 5)));
+			}],
+			['avail', 0.4, 'show', [
+				{
+					element: 'apu_avail',
+					invert: 0
+				},
+				{
+					element: 'apu_gen_avail',
+					invert: 0
+				}
+			]],
+			['hz', 0.5, 'format', {
+				element: 'apu_gen_hz',
+				format: "%d"
+			}],
+			['voltage', 0.5, 'format', {
+				element: 'apu_gen_voltage',
+				format: "%d"
+			}],
+			['bleed_psi', 0.5, 'format', {
+				element: 'apu_bleed_psi',
+				format: "%d"
+			}],
+			['bleed_psi', 0.5, 'format', {
+				element: 'apu_bleed_psi',
+				format: "%d"
+			}],
+			['bleed', 0.5, 'show', [
+				{
+					element: 'apu_bleed_open',
+					invert: 0
+				},
+				{
+					element: 'apu_bleed_closed',
+					invert: 1
+				}
+			]],
+			['flap', 0.01, 'show', {
+				element: 'apu_flap',
+				invert: 0
+			}],
+			['flap', 0.01, 'function', func(flap) {
+				if (flap > 0.95) me.page_svg_items['apu_flap'].updateText('FLAP OPEN');
+				else me.page_svg_items['apu_flap'].updateText('FLAP MOVING');
+			}],
+			['gen_connection', 0.01, 'function', func(connection) {
+				if (connection) me.page_svg_items.apu_gen_connection.setColor(0, 1, 0);
+				else me.page_svg_items.apu_gen_connection.setColor(1, 1, 1);
+			}],
+			['gen', 0.4, 'show', [
+				{
+					element: 'apu_gen_off',
+					invert: 1
+				},
+				{
+					element: 'apu_gen_stats',
+					invert: 0
+				}
+			]]
+		]);
+
+		#me.pages['hyd'] = hyd_page.new(display, group);
+		me.pages['apu'] = apu_page;
+		#me.pages['bleed'] = bleed_page.new(display, group);
 		foreach (var page; keys(me.pages)) {
 			setprop("/instrumentation/ecam/" ~ page ~ "-active", 0);
 		}
+		me.active_page = props.globals.getNode('/instrumentation/ecam/active-page');
 		setlistener("/instrumentation/ecam/active-page", func(value) {
 			foreach (var page; keys(me.pages)) {
 				if (page != value.getValue()) {
 					print('hiding page ', page);
 					setprop("/instrumentation/ecam/" ~ page ~ "-active", 0);
-					me.pages[page].hide();
+					me.svg_items[page].hide();
 				} else {
-					me.pages[page].show();
+					print(page);
+					me.svg_items[page].show();
 					setprop("/instrumentation/ecam/" ~ page ~ "-active", 1);
-					me.pages[page].update_all();
+					#me.pages[page].update_all();
 				}
 			}
 		}, 1, 0);
@@ -110,6 +213,21 @@ var ecam = {
 		
 		var n1_r = me.props.engine_2.n1.getValue();
 		me.svg_items.n1_right.updateText(sprintf("%.1f", n1_r));
+
+		var notification = {};
+		foreach (key; keys(me.pages[me.active_page.getValue()].properties)) {
+			var key1 = me.pages[me.active_page.getValue()].properties[key];
+			if (isa(key1, props.Node)) {
+				notification[key] = key1.getValue();
+				continue;
+			}
+			foreach (key2; keys(key1)) {
+				notification[key ~ "_" ~ key2] = me.pages[me.active_page.getValue()].properties[key][key2].getValue();
+			}
+		}
+		foreach (item; me.page_items[me.active_page.getValue()]) {
+			item.update(notification);
+		}
 	},
 	pages: {},
 	props: {},
@@ -135,21 +253,46 @@ var ecam_item = {
 			if (mode == 'trans-y') function_single.element.setTranslation(0, function_single.offset + value * function_single.scale);
 			if (mode == 'rot') function_single.element.setRotation((function_single.offset + value * function_single.scale) * math.pi / 180);
 			if (mode == 'format') function_single.element.updateText(sprintf(function_single.format, value));
+			if (mode == 'show') {
+				if (function_single.invert) {
+					if (value) function_single.element.hide();
+					else function_single.element.show();
+				} else {
+					if (value) function_single.element.show();
+					else function_single.element.hide();
+				}
+			}
+			if (mode == 'function') function_single(value);
 		}
 		# then probably a string
 		return props.UpdateManager.FromHashValue(prop, change, func(value) {
 			if (typeof(function) == 'vector') {
 				# list of actions
-				foreach (var action; function) execute_func(action.mode, action, value);
-			} else execute_func(action.mode, action, value);
+				foreach (var action; function) execute_func(mode, action, value);
+			} else execute_func(mode, function, value);
 		});
 	}
 };
 var ecam_sd_page = {
-	new: func(ecam_parent, draw, svg_group, name, items) {
-		var returned = {parents: [ecam_sd_page], ecam: ecam_parent, items: items};
+	new: func(ecam_parent, svg_group, name, properties, svg_items, svg_text, items) {
+		var returned = {parents: [ecam_sd_page], ecam: ecam_parent, properties: properties, items: items};
 		ecam_parent.page_items[name] = [];
-		foreach (var item; items) append(ecam_parent.page_items[name], item);
+		ecam_parent.page_svg_items[name] = {};
+		foreach (item; svg_items) ecam_parent.page_svg_items[item] = svg_group.getElementById(item);
+		foreach (item; svg_text) {
+			ecam_parent.page_svg_items[item] = svg_group.getElementById(item);
+			ecam_parent.page_svg_items[item].enableUpdate();
+		}
+		foreach (var item; items) {
+			if (typeof(item[3]) == 'vector') var item_list = item[3];
+			else var item_list = [item[3]];
+			foreach (active_element; item_list) {
+				if (contains(active_element, 'element')) {
+					active_element.element = ecam_parent.page_svg_items[active_element.element];
+				}
+			}
+			append(ecam_parent.page_items[name], ecam_item.new(item[0], item[1], item[2], item[3]));
+		}
 		return returned;
 	}
 };
@@ -265,131 +408,6 @@ var hyd_page = {
 				}
 			}
 		}
-	},
-	svg_items: {}
-};
-var apu_page = {
-	new: func(draw, svg_group) {
-		me.canvas = draw;
-		foreach (elem; ["apu", "apu_n_needle", "egt_needle", "apu_avail", "apu_gen_stats", "apu_gen_border", "apu_gen_off", "apu_gen_text", "apu_gen_connection", "apu_gen_avail", "apu_bleed_closed", "apu_bleed_open"]) {
-			me.svg_items[elem] = svg_group.getElementById(elem);
-		}
-		#me.svg_items.apu_n_needle.updateCenter();
-		me.svg_items.apu_n_needle.setCenter(68.620262, 460.778);
-		me.svg_items.egt_needle.setCenter(68.620262, 460.778);
-		print('center set');
-		foreach (elem; ["apu_n_text", "apu_flap", "apu_egt_text", "apu_gen_hz", "apu_gen_voltage", "apu_gen_load", "apu_bleed_psi"]) {
-			me.svg_items[elem] = svg_group.getElementById(elem);
-			me.svg_items[elem].enableUpdate();
-		}
-		setlistener("/systems/apu/n", func(value) {
-			if (!me.am_i_on_screen()) return;
-			me.update_n(value.getValue());
- 		}, 1, 0);
-		setlistener("/systems/apu/flap", func(value) {
-			if (!me.am_i_on_screen()) return;
-			me.update_flap(value.getValue());
- 		}, 1, 0);
-		setlistener("/systems/apu/egt", func(value) {
-			if (!me.am_i_on_screen()) return;
-			me.update_egt(value.getValue());
-		}, 1, 0);
-		setlistener("/systems/apu/avail", func(value) {
-			if (!me.am_i_on_screen()) return;
-			me.update_avail(value.getValue());
-		}, 1, 0);
-		setlistener("/systems/apu/gen-ready", func(value) {
-			if (!me.am_i_on_screen()) return;
-			me.update_gen_stats();
-		}, 1, 0);
-		setlistener("/systems/apu/bleed-ready", func(value) {
-			if (!me.am_i_on_screen()) return;
-			me.update_bleed_stats();
-		}, 1, 0);
-		setlistener("/systems/apu/gen", func(value) {
-			if (!me.am_i_on_screen()) return;
-			me.update_gen_on(value.getValue());
-		}, 1, 0);
-		setlistener("/systems/apu/bleed", func(value) {
-			if (!me.am_i_on_screen()) return;
-			me.update_bleed(value.getValue());
-		}, 1, 0);
-		setlistener("/systems/apu/gen-connection", func(value) {
-			if (!me.am_i_on_screen()) return;
-			me.update_connection(value.getValue());
-		}, 1, 0);
-		return {"parents": [apu_page]};
-	},
-	update_n: func(n) {
-		me.svg_items.apu_n_needle.setRotation((-135 + 1.80 * n) * math.pi / 180);
-		me.svg_items['apu_n_text'].updateText(sprintf("%d", n));
-	},
-	update_flap: func(flap) {
-		if (!flap) me.svg_items['apu_flap'].updateText('');
-		else if (flap > 0.95) me.svg_items['apu_flap'].updateText('FLAP OPEN');
-		else me.svg_items['apu_flap'].updateText('FLAP MOVING');
-	},
-	update_egt: func(egt) {
-		me.svg_items.apu_egt_text.updateText(sprintf("%d", math.round(egt / 5) * 5));
-		me.svg_items.egt_needle.setRotation((240 * egt / 1000 - 135) * math.pi / 180);
-	},
-	update_avail: func(avail) {
-		if (avail) {
-			me.svg_items.apu_avail.show();
-			me.svg_items.apu_gen_avail.show();
-		} else {
-			me.svg_items.apu_avail.hide();
-			me.svg_items.apu_gen_avail.hide();
-		}
-	},
-	update_gen_stats: func() {
-		me.svg_items.apu_gen_hz.updateText(sprintf("%d", getprop("/systems/apu/gen-hz")));
-		me.svg_items.apu_gen_voltage.updateText(sprintf("%d", getprop("/systems/apu/gen-voltage")));
-	},
-	update_bleed_stats: func() {
-		me.svg_items.apu_bleed_psi.updateText(sprintf("%d", getprop("/systems/apu/bleed-psi")));
-	},
-	update_gen_on: func(value) {
-		if (value) {
-			me.svg_items.apu_gen_off.hide();
-			me.svg_items.apu_gen_stats.show();
-		} else {
-			me.svg_items.apu_gen_off.show();
-			me.svg_items.apu_gen_stats.hide();
-		}
-	},
-	update_connection: func(value) {
-		if (value) me.svg_items.apu_gen_connection.setColor(0, 1, 0);
-		else me.svg_items.apu_gen_connection.setColor(1, 1, 1);
-	},
-	update_bleed: func(value) {
-		if (value) {
-			me.svg_items.apu_bleed_closed.hide();
-			me.svg_items.apu_bleed_open.show();
-		} else {
-			me.svg_items.apu_bleed_closed.show();
-			me.svg_items.apu_bleed_open.hide();
-		}
-	},
-	hide: func() {
-		me.svg_items['apu'].hide();
-	},
-	show: func() {
-		me.svg_items['apu'].show();
-	},
-	am_i_on_screen: func() {
-		return getprop("/instrumentation/ecam/active-page") == "apu";
-	},
-	update_all: func() {
-		me.update_n(getprop("/systems/apu/n"));
-		me.update_flap(getprop("/systems/apu/flap"));
-		me.update_egt(getprop("/systems/apu/egt"));
-		me.update_avail(getprop("/systems/apu/avail"));
-		me.update_gen_stats();
-		me.update_bleed_stats();
-		me.update_gen_on(getprop("/systems/apu/gen"));
-		me.update_bleed(getprop("/systems/apu/bleed"));
-		me.update_connection(getprop("/systems/apu/gen-connection"));
 	},
 	svg_items: {}
 };

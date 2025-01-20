@@ -594,6 +594,7 @@ YAW MOI_________3950000______23089847_______24848934
 	<system file="TriCycle_PushbackJSBSIM"/>
   <system file="A350XWB-fuel"/>
   <system file="A350XWB-engines" />
+  <system file="A350XWB-electrical" />
   <system file="A350XWB-pfd-computations" />
   <system file="A350XWB-vd" />
   <!--system file="pushback" /> -->

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="A350XWB-electrical">
+	<property value="1">/controls/electric/gen-1a</property>
+	<property value="0">/controls/electric/guard-1a</property>
+	<property value="0">/systems/electrical/generators/gen-1a-fault</property>
+	<property value="1">/controls/electric/drive-1a</property>
+	<property value="0">/systems/electrical/generators/drive-1a-fault</property>
+	<property value="1">/controls/electric/gen-1b</property>
+	<property value="0">/controls/electric/guard-1b</property>
+	<property value="0">/systems/electrical/generators/gen-1b-fault</property>
+	<property value="1">/controls/electric/drive-1b</property>
+	<property value="0">/systems/electrical/generators/drive-1b-fault</property>
+	<property value="1">/controls/electric/gen-2a</property>
+	<property value="0">/controls/electric/guard-2a</property>
+	<property value="0">/systems/electrical/generators/gen-2a-fault</property>
+	<property value="1">/controls/electric/drive-2a</property>
+	<property value="0">/systems/electrical/generators/drive-2a-fault</property>
+	<property value="1">/controls/electric/gen-2b</property>
+	<property value="0">/controls/electric/guard-2b</property>
+	<property value="0">/systems/electrical/generators/gen-2b-fault</property>
+	<property value="1">/controls/electric/drive-2b</property>
+	<property value="0">/systems/electrical/generators/drive-2b-fault</property>
+	<channel name="generators">
+		<switch name="/systems/electrical/generators/gen-1a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/electric/gen-1a eq 1
+				/systems/electrical/generators/gen-1a-fault eq 0
+				/systems/electrical/generators/drive-1a-fault eq 0
+				/controls/electric/drive-1a eq 1
+				/engines/engine/running eq 1
+			</test>
+		</switch>
+		<pure_gain name="/systems/electrical/voltage/gen-1a-cmd">
+			<input>/systems/electrical/generators/gen-1a</input>
+			<gain>230</gain>
+		</pure_gain>
+		<actuator name="/systems/electrical/voltage/gen-1a">
+			<input>/systems/electrical/voltage/gen-1a-cmd</input>
+			<rate_limit>100</rate_limit>
+		</actuator>
+		<switch name="/systems/electrical/generators/gen-1b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/electric/gen-1b eq 1
+				/systems/electrical/generators/gen-1b-fault eq 0
+				/systems/electrical/generators/drive-1b-fault eq 0
+				/controls/electric/drive-1b eq 1
+				/engines/engine/running eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/generators/gen-2a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/electric/gen-2a eq 1
+				/systems/electrical/generators/gen-2a-fault eq 0
+				/systems/electrical/generators/drive-2a-fault eq 0
+				/controls/electric/drive-2a eq 1
+				/engines/engine[1]/running eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/generators/gen-2b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/electric/gen-2b eq 1
+				/systems/electrical/generators/gen-2b-fault eq 0
+				/systems/electrical/generators/drive-2b-fault eq 0
+				/controls/electric/drive-2b eq 1
+				/engines/engine[1]/running eq 1
+			</test>
+		</switch>
+	</channel>
+</system>

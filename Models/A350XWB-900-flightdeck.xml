@@ -333,7 +333,7 @@
 		<object-name>sidestick_1</object-name>
 		<object-name>sidestick_3</object-name>
 		<object-name>sidestick_button1</object-name>
-		<property>controls/flight/elevator</property>
+		<property>systems/fbw/sidestick/elevator</property>
 		<factor>10</factor>
 		<center>
 			<x-m>2.7908</x-m>
@@ -352,7 +352,7 @@
 		<object-name>sidestick_1</object-name>
 		<object-name>sidestick_3</object-name>
 		<object-name>sidestick_button1</object-name>
-		<property>controls/flight/aileron</property>
+		<property>systems/fbw/sidestick/aileron</property>
 		<factor>10</factor>
 		<center>
 			<x-m>2.7908</x-m>
@@ -372,7 +372,7 @@
 		<object-name>sidestick_3</object-name>
 		<object-name>sidestick_button1</object-name>
 		<object-name>level3</object-name>
-		<property>controls/flight/elevator</property>
+		<property>systems/fbw/sidestick/elevator</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -392,7 +392,7 @@
 		<object-name>sidestick_3</object-name>
 		<object-name>sidestick_button1</object-name>
 		<object-name>level3</object-name>
-		<property>controls/flight/aileron</property>
+		<property>systems/fbw/sidestick/aileron</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -413,7 +413,7 @@
 		<object-name>sidestick_button1</object-name>
 		<object-name>level3</object-name>
 		<object-name>level2</object-name>
-		<property>controls/flight/elevator</property>
+		<property>systems/fbw/sidestick/elevator</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -434,7 +434,7 @@
 		<object-name>sidestick_button1</object-name>
 		<object-name>level3</object-name>
 		<object-name>level2</object-name>
-		<property>controls/flight/aileron</property>
+		<property>systems/fbw/sidestick/aileron</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -456,7 +456,7 @@
 		<object-name>level3</object-name>
 		<object-name>level2</object-name>
 		<object-name>level1</object-name>
-		<property>controls/flight/elevator</property>
+		<property>systems/fbw/sidestick/elevator</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -478,7 +478,7 @@
 		<object-name>level3</object-name>
 		<object-name>level2</object-name>
 		<object-name>level1</object-name>
-		<property>controls/flight/aileron</property>
+		<property>systems/fbw/sidestick/aileron</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -497,7 +497,7 @@
 		<object-name>sidestick_2</object-name>
 		<object-name>sidestick_4</object-name>
 		<object-name>sidestick_button2</object-name>
-		<property>controls/flight/elevator[1]</property>
+		<property>systems/fbw/sidestick[1]/elevator</property>
 		<factor>10</factor>
 		<center>
 			<x-m>2.7908</x-m>
@@ -516,7 +516,7 @@
 		<object-name>sidestick_2</object-name>
 		<object-name>sidestick_4</object-name>
 		<object-name>sidestick_button2</object-name>
-		<property>controls/flight/aileron[1]</property>
+		<property>systems/fbw/sidestick[1]/aileron</property>
 		<factor>10</factor>
 		<center>
 			<x-m>2.7908</x-m>
@@ -536,7 +536,7 @@
 		<object-name>sidestick_4</object-name>
 		<object-name>sidestick_button2</object-name>
 		<object-name>level3_2</object-name>
-		<property>controls/flight/elevator</property>
+		<property>systems/fbw/sidestick[1]/elevator</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -556,7 +556,7 @@
 		<object-name>sidestick_4</object-name>
 		<object-name>sidestick_button2</object-name>
 		<object-name>level3_2</object-name>
-		<property>controls/flight/aileron</property>
+		<property>systems/fbw/sidestick[1]/aileron</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -577,7 +577,7 @@
 		<object-name>sidestick_button2</object-name>
 		<object-name>level3_2</object-name>
 		<object-name>level2_2</object-name>
-		<property>controls/flight/elevator</property>
+		<property>systems/fbw/sidestick[1]/elevator</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -598,7 +598,7 @@
 		<object-name>sidestick_button2</object-name>
 		<object-name>level3_2</object-name>
 		<object-name>level2_2</object-name>
-		<property>controls/flight/aileron</property>
+		<property>systems/fbw/sidestick[1]/aileron</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -620,7 +620,7 @@
 		<object-name>level3_2</object-name>
 		<object-name>level2_2</object-name>
 		<object-name>level1_2</object-name>
-		<property>controls/flight/elevator</property>
+		<property>systems/fbw/sidestick[1]/elevator</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -642,7 +642,7 @@
 		<object-name>level3_2</object-name>
 		<object-name>level2_2</object-name>
 		<object-name>level1_2</object-name>
-		<property>controls/flight/aileron</property>
+		<property>systems/fbw/sidestick[1]/aileron</property>
 		<factor>3</factor>
 		<center>
 			<x-m>2.7912</x-m>
@@ -657,6 +657,22 @@
 	</animation>
 
 	<!-- Throttle quadrant -->
+	<animation>
+		<name>a/thr disconnect</name>
+		<type>pick</type>
+		<object-name>athr_disconnect_left</object-name>
+		<object-name>athr_disconnect_right</object-name>
+		<action>
+			<button>0</button>
+			<repeatable type="bool">false</repeatable>
+			<binding>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/athr</property>
+				<value>0</value>
+			</binding>
+		</action>
+	</animation>
+
 	<animation>
 		<name>Engine 1 throttle lever pick</name>
 		<type>pick</type>
@@ -689,6 +705,7 @@
 		<name>Engine 1 throttle lever</name>
 		<type>rotate</type>
 		<object-name>throttle_left</object-name>
+		<object-name>athr_disconnect_left</object-name>
 		<object-name>reverse_left</object-name>
 		<property>/systems/fadec/throttle/man-throttle-angle-1</property>
 		<factor>50</factor>
@@ -767,6 +784,7 @@
 		<name>Engine 2 throttle lever</name>
 		<type>rotate</type>
 		<object-name>throttle_right</object-name>
+		<object-name>athr_disconnect_right</object-name>
 		<object-name>reverse_right</object-name>
 		<property>/systems/fadec/throttle/man-throttle-angle-2</property>
 		<factor>50</factor>

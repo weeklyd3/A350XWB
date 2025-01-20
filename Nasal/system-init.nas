@@ -105,4 +105,8 @@ setprop("/instrumentation/efis/vd/tick-scale", 0);
 setprop("/it-fbw/law", 0);
 setprop("/systems/pfd/speed-trend-raw", 0);
 setprop("/fdm/jsbsim/zero", 0);
+#foreach (gen; ['1a', '1b', '2a', '2b']) {
+#	setprop("/controls/electric/gen-" ~ gen, 1);
+#	setprop("/controls/electric/drive-" ~ gen, 1);
+#}
 print('HIIII');

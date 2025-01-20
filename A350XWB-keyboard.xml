@@ -94,4 +94,34 @@
 					</script>
 				</binding>
 			</key>
+			<key n="102">
+				<name>f</name>
+				<desc>set TOGA thrust</desc>
+				<repeatable type="bool">false</repeatable>
+				<binding>
+					<command>property-assign</command>
+					<property>/controls/engines/engine/throttle</property>
+					<value>1</value>
+				</binding>
+				<binding>
+					<command>property-assign</command>
+					<property>/controls/engines/engine[1]/throttle</property>
+					<value>1</value>
+				</binding>
+			</key>
+			<key n="101">
+				<name>e</name>
+				<desc>set idle thrust</desc>
+				<repeatable type="bool">false</repeatable>
+				<binding>
+					<command>property-assign</command>
+					<property>/controls/engines/engine/throttle</property>
+					<value>0</value>
+				</binding>
+				<binding>
+					<command>property-assign</command>
+					<property>/controls/engines/engine[1]/throttle</property>
+					<value>0</value>
+				</binding>
+			</key>
 </PropertyList>

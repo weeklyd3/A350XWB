@@ -24,14 +24,14 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="pt"
      showgrid="false"
-     inkscape:zoom="0.49953305"
-     inkscape:cx="821.76745"
-     inkscape:cy="795.74315"
-     inkscape:window-width="1698"
-     inkscape:window-height="991"
-     inkscape:window-x="26"
-     inkscape:window-y="23"
-     inkscape:window-maximized="0"
+     inkscape:zoom="0.24976653"
+     inkscape:cx="246.22995"
+     inkscape:cy="-322.301"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
      id="defs655" />
@@ -172,7 +172,7 @@
         <path
            style="display:inline;fill:#00ff00;stroke:#00ff00;stroke-width:2.5;stroke-dasharray:none;paint-order:markers stroke fill"
            d="M 150.98428,75.62991 V 36.358034"
-           id="egt_needle"
+           id="apu_egt_needle"
            inkscape:transform-center-y="-19.709281"
            sodipodi:nodetypes="cc"
            transform="translate(-81.863738,385.14809)" />
@@ -473,24 +473,24 @@
         <text
            xml:space="preserve"
            style="font-size:18px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ff00;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
-           x="140.03525"
+           x="145.53831"
            y="241.60435"
            id="apu_bleed_psi"><tspan
              sodipodi:role="line"
              id="tspan9548-6-5-9"
              style="text-align:end;text-anchor:end;fill:#00ff00;stroke-width:1.5"
-             x="140.03525"
+             x="145.53831"
              y="241.60435">0</tspan></text>
         <text
            xml:space="preserve"
            style="font-size:15px;font-family:'FBW Display-EIS';-inkscape-font-specification:'FBW Display-EIS';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#00ffff;stroke:none;stroke-width:1.5;stroke-dasharray:none;paint-order:markers stroke fill;stop-color:#000000"
-           x="155.7093"
+           x="161.21237"
            y="241.60435"
            id="text9550-3-7-2-7"><tspan
              sodipodi:role="line"
              id="tspan9548-6-5-7-5"
              style="font-size:15px;fill:#00ffff;stroke-width:1.5"
-             x="155.7093"
+             x="161.21237"
              y="241.60435">PSI</tspan></text>
         <ellipse
            style="display:inline;fill:none;stroke:#00ff00;stroke-width:1.48647;stroke-dasharray:none;paint-order:markers stroke fill"

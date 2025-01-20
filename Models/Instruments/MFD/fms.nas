@@ -15,12 +15,18 @@ var mfd = {
 		returned.display = display;
 		returned.svg_items = {};
 		var path = "Aircraft/A350XWB/Models/Instruments/MFD/res/fms.svg";
+		var page_prefix = "Aircraft/A350XWB/Models/Instruments/MFD/res/";
 		# create an image child
 		var group = display.createGroup('svg');
 		returned.group = group;
-		canvas.parsesvg(group, path, {'font-mapper': func(doesnt, matter) { return 'ECAMFontRegular.ttf'; }});
+		var parse_options = {'font-mapper': func(doesnt, matter) { return 'ECAMFontRegular.ttf'; }};
+		canvas.parsesvg(group, path, parse_options);
+
+		var fms = group.getElementById('fms');
+		canvas.parsesvg(fms, page_prefix ~ "fms/init"           ~ ".svg", parse_options);
+		canvas.parsesvg(fms, page_prefix ~ "fms/fuelload"       ~ ".svg", parse_options);
+
 		returned.setApp(returned, 'fms');
-		returned.setSection(returned, 'active');
 		returned.setPage(returned, 'init');
 		foreach (item; ['cursor', 'mfd']) returned.svg_items[item] = group.getElementById(item);
 		returned.svg_items.cursor.addEventListener('mouseenter', func() { print('bruh'); });
@@ -72,6 +78,7 @@ var mfd = {
 		button.new(returned, group, 'acft_status', func(ret) { print('hi'); });
 		button.new(returned, group, 'init_fuelload', func(ret) { ret.setPage(ret, 'fuelload'); });
 		returned.widgets = [
+			# fms -> init
 			field.new(returned, group, 'from_airport', '/autopilot/route-manager/departure/airport', {}),
 			field.new(returned, group, 'to_airport', '/autopilot/route-manager/destination/airport', {}),
 			field.new(returned, group, 'altn_airport', '/autopilot/route-manager/alternate/airport', {}),
@@ -82,6 +89,7 @@ var mfd = {
 			dropdown.new(returned, group, "init_mode", '/fms/config/mode', {
 				options: ['econ', 'lrc']
 			})
+			# fms -> fuel&load
 		];
 		display.addEventListener('mousemove', func(ev) {
 			returned.svg_items.cursor.setTranslation(ev.clientX, ev.clientY);
@@ -107,22 +115,11 @@ var mfd = {
 			else returned.group.getElementById(name).show();
 		}
 	},
-	setSection: func(returned, section) {
-		var sections = {
-			fms: ['active']
-		};
-		returned.section = section;
-		var activeSections = sections[returned.app];
-		foreach (var name; activeSections) {
-			if (name != section) returned.group.getElementById(name).hide();
-			else returned.group.getElementById(name).show();
-		}
-	},
 	setPage: func(returned, page) {
 		var pages = {
-			'fms/active': ['init', 'fuelload']
+			'fms': ['init', 'fuelload']
 		};
-		var activePages = pages[returned.app ~ "/" ~ returned.section];
+		var activePages = pages[returned.app];
 		foreach (var name; activePages) {
 			if (name != page) returned.group.getElementById(name).hide();
 			else returned.group.getElementById(name).show();

@@ -3,6 +3,26 @@
 	<property value="-0.5">/systems/fbw/pitch-g-p</property>
 	<property value="-0.35">/systems/fbw/pitch-g-i</property>
 	<property value="-0.005">/systems/fbw/pitch-g-d</property>
+	<property value="0">/controls/flight/elevator[1]</property>
+	<property value="0">/controls/flight/aileron[1]</property>
+	<channel name="inputs">
+		<lag_filter name="/systems/fbw/sidestick/elevator">
+			<input>/controls/flight/elevator</input>
+			<c1>40</c1>
+		</lag_filter>
+		<lag_filter name="/systems/fbw/sidestick/aileron">
+			<input>/controls/flight/aileron</input>
+			<c1>40</c1>
+		</lag_filter>
+		<lag_filter name="/systems/fbw/sidestick[1]/elevator">
+			<input>/controls/flight/elevator[1]</input>
+			<c1>40</c1>
+		</lag_filter>
+		<lag_filter name="/systems/fbw/sidestick[1]/aileron">
+			<input>/controls/flight/aileron[1]</input>
+			<c1>40</c1>
+		</lag_filter>
+	</channel>
 	<channel name="stuff">
 		<fcs_function name="/systems/fbw/roll-rate-cmd">
 			<function>
@@ -45,47 +65,117 @@
 			<kd>0.000</kd>
 			<output>/systems/fbw/aileron</output>
 		</pid>
-		<fcs_function name="/systems/fbw/pitch-g-cmd">
+		<fcs_function name="/systems/fbw/alpha-margin">
+			<!-- how many more degrees of aoa will i let you pull? -->
+			<function>
+				<difference>
+					<property>/systems/pfd/max-aoa</property>
+					<property>aero/alpha-deg</property>
+				</difference>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/pitch-g-protection-up">
+			<function>
+				<min>
+					<!-- pitch attitude protection against pulling too much -->
+					<table>
+						<independentVar>/orientation/pitch-deg</independentVar>
+						<tableData>
+							20     2.5
+							30     1.0
+							31     0.2
+							35     0.0
+						</tableData>
+					</table>
+					<!-- aoa protection -->
+					<table>
+						<independentVar>/systems/fbw/alpha-margin</independentVar>
+						<tableData>
+							-1     0.0
+							0      1.0
+							3      2.5
+						</tableData>
+					</table>
+				</min>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/pitch-g-protection-down">
+			<!-- pitch attitude protection against pushing too much -->
 			<function>
 				<table>
-					<independentVar>/controls/flight/elevator</independentVar>
-					<!-- 1 = full forward, -1 = full back -->
+					<independentVar>/orientation/pitch-deg</independentVar>
 					<tableData>
-					-1   2.5
-					0    1
-					1    -1
+						-15     1
+						-5     -1
 					</tableData>
 				</table>
 			</function>
 		</fcs_function>
-		<!-- it needs to pull up during turns when abs(bank angle) < 33 so i add the g load and minus one -->
-		<fcs_function name="/systems/fbw/g-cmd">
+		<fcs_function name="/systems/fbw/pitch-g-cmd">
 			<function>
 				<sum>
-					<property>/systems/fbw/pitch-g-cmd</property>
+					<min>
+						<property>/systems/fbw/pitch-g-protection-up</property>
+						<max>
+							<property>/systems/fbw/pitch-g-protection-down</property>
+							<table>
+								<independentVar>/controls/flight/elevator</independentVar>
+								<!-- 1 = full forward, -1 = full back -->
+								<tableData>
+								-1   2.5
+								0    1
+								1    -1
+								</tableData>
+							</table>
+						</max>
+					</min>
+					<value>-1</value>
 					<quotient>
 						<value>1</value>
 						<cos>
 							<toradians>
-								<min>
-									<value>33</value>
-									<max>
-										<value>-33</value>
-										<property>/orientation/roll-deg</property>
-									</max>
-								</min>
+								<max>
+									<value>-33</value>
+									<min>
+										<value>33</value>
+										<abs>
+											<property>/orientation/roll-deg</property>
+										</abs>
+									</min>
+								</max>
 							</toradians>
 						</cos>
 					</quotient>
-					<value>-1</value>
+				</sum>
+			</function>
+			<clipto>
+				<min>-1</min>
+				<max>2.5</max>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/c-star">
+			<function>
+				<sum>
+					<property>accelerations/Nz</property>
+					<product>
+						<!-- 210 knots in m/s -->
+						<value>108</value>
+						<quotient>
+							<quotient>
+								<property>/orientation/pitch-rate-degps</property>
+								<value>57.29577951</value>
+							</quotient>
+							<value>9.80665</value>
+						</quotient>
+					</product>
 				</sum>
 			</function>
 		</fcs_function>
 		<fcs_function name="/systems/fbw/pitch-g-error">
 			<function>
 				<difference>
-					<property>/systems/fbw/g-cmd</property>
-					<property>accelerations/Nz</property>
+					<property>/systems/fbw/pitch-g-cmd</property>
+					<property>/systems/fbw/c-star</property>
 				</difference>
 			</function>
 		</fcs_function>
@@ -97,7 +187,7 @@
 			</test>
 		</switch>
 		<!-- elevator is crazy effective at high speeds -->
-		<pid name="/systems/fbw/g-elevator-unmodified">
+		<pid name="/systems/fbw/g-elevator">
 			<input>/systems/fbw/pitch-g-error</input>
 			<kp>/systems/fbw/pitch-g-p</kp>
 			<ki>/systems/fbw/pitch-g-i</ki>
@@ -109,28 +199,6 @@
 				<min>-1</min>
 			</clipto>
 		</pid>
-		<fcs_function name="/systems/fbw/g-elevator">
-			<function>
-				<product>
-					<property>/systems/fbw/g-elevator-unmodified</property>
-					<!-- tuned it for 250 knots -->
-					<pow>
-						<min>
-							<quotient>
-								<value>250</value>
-								<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
-							</quotient>
-							<value>2</value>
-						</min>
-						<value>2</value>
-					</pow>
-				</product>
-			</function>
-			<clipto>
-				<max>1</max>
-				<min>-1</min>
-			</clipto>
-		</fcs_function>
 		<switch name="/systems/fbw/direct">
 			<default value="0" />
 			<test logic="AND" value="1">
@@ -143,12 +211,7 @@
 		</actuator>
 		<fcs_function name="/systems/fbw/elevator">
 			<function>
-				<!-- ehh screw it it's not well tuned rn -->
 				<sum>
-					<value>0</value>
-					<property>/controls/flight/elevator</property>
-				</sum>
-				<!--<sum>
 					<product>
 						<property>/systems/fbw/g-direct-blend</property>
 						<property>/controls/flight/elevator</property>
@@ -160,7 +223,7 @@
 						</difference>
 						<property>/systems/fbw/g-elevator</property>
 					</product>
-				</sum>-->
+				</sum>
 			</function>
 		</fcs_function>
 	</channel>

@@ -15,10 +15,10 @@
 	<n2spindown>9.5</n2spindown>
 	<n1startrate>0.578</n1startrate>
 	<n2startrate>1.193</n2startrate>
-	<idlen1>20.0</idlen1>
+	<idlen1>18.9</idlen1>
 	<idlen2>60.0</idlen2>
-	<maxn1>104.3</maxn1>
-	<maxn2>102.6</maxn2>
+	<maxn1>99.1</maxn1>
+	<maxn2>100.2</maxn2>
 	<augmented>0</augmented>
 	<injected>0</injected>
 	
@@ -115,11 +115,11 @@
 					1.4   1.5941  1.3400  1.0860  0.8450  0.6280  0.4240  0.2630  0
 				</tableData>
 			</table>
-			<!--<property>/systems/fadec/limit/rated-thrust-factor</property>-->
+			<property>/systems/fadec/limit/rated-thrust-factor</property>
 			<table> <!-- Thrust loss due to reverser angle -->
 				<independentVar lookup="row">/surface-positions/reverser-norm</independentVar>
 				<tableData>
-					0.01  1.00
+					0.00  1.00
 					1.00  0.65
 				</tableData>
 			</table>
