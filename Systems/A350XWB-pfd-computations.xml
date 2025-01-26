@@ -307,21 +307,6 @@
 		</fcs_function>
 	</channel>
 	<channel name="calculations" execrate="2">
-		<fcs_function name="/systems/pfd/drift">
-			<function>
-				<ifthen>
-					<property>/it-autoflight/input/true-course</property>
-					<difference>
-						<property>/orientation/track-magnetic-deg</property>
-						<property>/orientation/heading-magnetic-deg</property>
-					</difference>
-					<difference>
-						<property>/orientation/track-deg</property>
-						<property>/orientation/true-heading-deg</property>
-					</difference>
-				</ifthen>
-			</function>
-		</fcs_function>
 		<fcs_function name="/systems/pfd/heading">
 			<function>
 				<ifthen>
@@ -380,6 +365,14 @@
 				</ifthen>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/pfd/heading-rounded">
+			<function>
+				<fmod>
+					<property>/systems/pfd/heading</property>
+					<value>10</value>
+				</fmod>
+			</function>
+		</fcs_function>
 		<fcs_function name="/systems/pfd/yaw-rounded">
 			<function>
 				<fmod>
@@ -388,6 +381,45 @@
 				</fmod>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/pfd/yaw-number">
+			<!-- the number at the center or slightly left of the heading tape -->
+			<function>
+				<quotient>
+					<difference>
+						<property>/systems/pfd/yaw</property>
+						<property>/systems/pfd/yaw-rounded</property>
+					</difference>
+					<value>10</value>
+				</quotient>
+			</function>
+		</fcs_function>
+		<switch name="/systems/pfd/gear-transit-up">
+			<default value="0" />
+			<test logic="AND" value="1">
+				gear/gear-cmd-norm eq 0
+				gear/gear-pos-norm gt 0
+			</test>
+		</switch>
+		<switch name="/systems/pfd/gear-transit-down">
+			<default value="0" />
+			<test logic="AND" value="1">
+				gear/gear-cmd-norm eq 1
+				gear/gear-pos-norm lt 1
+			</test>
+		</switch>
+		<switch name="/systems/pfd/gear-down">
+			<default value="0" />
+			<test logic="AND" value="1">
+				gear/gear-pos-norm eq 1
+			</test>
+		</switch>
+		<switch name="/systems/pfd/flaps-transit">
+			<default value="1" />
+			<test logic="AND" value="0">
+				fcs/flap-cmd-norm-actual eq fcs/flap-pos-norm
+				fcs/slat-cmd-norm eq fcs/slat-pos-norm
+			</test>
+		</switch>
 	</channel>
 	<channel name="managed speed">
 		<fcs_function name="/systems/pfd/speed-select">

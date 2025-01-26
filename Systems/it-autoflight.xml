@@ -449,6 +449,19 @@
 			<max>180</max>
 		</period>
 	</filter>
+
+	<filter>
+		<name>Drift Angle</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<input>/instrumentation/nav/radials/selected-deg</input>
+		<reference>/systems/pfd/heading</reference>
+		<output>/systems/pfd/course-difference</output>
+		<period>
+			<min>-180</min>
+			<max>180</max>
+		</period>
+	</filter>
 	
 	<filter>
 		<name>Mag True Diff</name>

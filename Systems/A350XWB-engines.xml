@@ -1,5 +1,10 @@
 <?xml version="1.0"?>
 <system name="engines">
+	<channel name="isa">
+		<!--<fcs_function name="/systems/pfd/isa-temp">
+		
+		</fcs_function>-->
+	</channel>
 	<channel name="thr">
 		<fcs_function name="/systems/fadec/limit/milthrust-unmodified">
 			<function>
@@ -172,6 +177,11 @@
 		</fcs_function>
 	</channel>
 	<property value="84000">/systems/fadec/limit/rated-thrust</property>
+	<channel name="takeoff thrust">
+		<!--<fcs_function name="/systems/fadec/limit/takeoff/flex">
+
+		</fcs_function>-->
+	</channel>
 	<channel name="fadec limits">
 		<!-- copied from a320 cfm56 fadec -->
 		<!-- Copyright (c) 2024 Josh Davidson (Octal450) -->
