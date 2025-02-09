@@ -12,11 +12,26 @@
 				</product>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/pfd/vfe">
+			<function>
+				<table>
+					<independentVar lookup="row">fcs/slat-pos-norm</independentVar>
+					<independentVar lookup="column">fcs/flap-pos-norm</independentVar>
+					<tableData>
+					       0       0.29    0.596     0.645       1
+					0      340     230     220       215         200
+					0.29   255     220     212       195         200
+					1      215     215     200       195         186
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
 		<fcs_function name="/systems/pfd/max-speed">
 			<function>
 				<min>
 					<value>340</value>
 					<property>/systems/pfd/mmo</property>
+					<property>/systems/pfd/vfe</property>
 				</min>
 			</function>
 		</fcs_function>
@@ -215,12 +230,21 @@
 		<fcs_function name="/systems/pfd/speed-trend">
 			<function>
 				<difference>
-					<property>/systems/pfd/speed-trend-raw</property>
+					<property>/instrumentation/airspeed-indicator/predicted-speed-kt</property>
 					<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
 				</difference>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/pfd/speed-trend[1]">
+			<function>
+				<difference>
+					<property>/instrumentation/airspeed-indicator[1]/predicted-speed-kt</property>
+					<property>/instrumentation/airspeed-indicator[1]/indicated-speed-kt</property>
+				</difference>
+			</function>
+		</fcs_function>
 	</channel>
+	<property value="0">/orientation/path-deg</property>
 	<channel name="vertical speed indicator" execrate="8">
 		<fcs_function name="/systems/pfd/vs-needle">
 			<function>
@@ -274,7 +298,7 @@
 				</table>
 			</function>
 		</fcs_function>
-		<fcs_function name="/systems/pfd/fpa">
+		<!--<fcs_function name="/systems/pfd/fpa">
 			<function>
 				<sum>
 					<property>/orientation/model/pitch-deg</property>
@@ -284,7 +308,7 @@
 					</product>
 				</sum>
 			</function>
-		</fcs_function>
+		</fcs_function>-->
 		<!-- while stationary on the ground, the fpv can dance up and down -->
 		<fcs_function name="/systems/pfd/fpa-sane-multiplier">
 			<function>
@@ -300,7 +324,8 @@
 		<fcs_function name="/systems/pfd/fpa-sane">
 			<function>
 				<product>
-					<property>/systems/pfd/fpa</property>
+					<!--<property>/systems/pfd/fpa</property>-->
+					<property>/orientation/path-deg</property>
 					<property>/systems/pfd/fpa-sane-multiplier</property>
 				</product>
 			</function>
@@ -393,6 +418,31 @@
 				</quotient>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/pfd/slip-skid">
+			<function>
+				<ifthen>
+					<property>gear/wow</property>
+					<table>
+						<independentVar>accelerations/Ny</independentVar>
+						<tableData>
+							-0.3    1
+							0.3     -1
+						</tableData>
+					</table>
+					<table>
+						<independentVar>aero/beta-deg</independentVar>
+						<tableData>
+							-10    -1
+							10     1
+						</tableData>
+					</table>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>1</max>
+				<min>-1</min>
+			</clipto>
+		</fcs_function>
 		<switch name="/systems/pfd/gear-transit-up">
 			<default value="0" />
 			<test logic="AND" value="1">
@@ -454,23 +504,31 @@
 				</difference>
 			</function>
 		</fcs_function>
+		<fcs_function name="/fdm/jsbsim/inertia/weight-kgs">
+			<function>
+				<product>
+					<property>inertia/weight-lbs</property>
+					<value>0.45359237</value>
+				</product>
+			</function>
+		</fcs_function>
 		<fcs_function name="/systems/pfd/green-dot-speed">
 			<function>
 				<table>
 					<independentVar lookup="column">atmosphere/pressure-altitude</independentVar>
-					<independentVar lookup="row">inertia/weight-lbs</independentVar>
+					<independentVar lookup="row">inertia/weight-kgs</independentVar>
 					<tableData>
-					         9999  10000  20000  30000  40000
-					308646   167   167    168    176    195
-					352739   177   177    181    191    222
-					396831   186   186    192    206    243
-					440924   196   196    203    227    246
-					485016   206   206    216    249    246
-					529108   216   216    226    269    246
-					573201   225   225    238    277    277
-					617293   234   234    251    287    287
-					661386   244   244    262    294    294
-					705478   253   253    273    302    302
+					        10000    20000    30000    40000
+					110000  149      150      154      164
+					130000  161      161      168      187
+					150000  171      174      183      213
+					170000  181      186      198      236
+					190000  190      197      218      246
+					210000  200      209      237      246
+					230000  210      220      255      246
+					250000  219      232      271      271
+					270000  229      245      281      281
+					290000  239      259      291      291
 					</tableData>
 				</table>
 			</function>

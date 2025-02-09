@@ -32,6 +32,18 @@ file, these values will be used (they are hardcoded).
 		<total-pressure>/systems/pitot/total-pressure-inhg</total-pressure>
 		<static-pressure>/systems/static/pressure-inhg</static-pressure>
 	</airspeed-indicator>
+	<airspeed-indicator>
+		<name>airspeed-indicator</name>
+		<number>1</number>
+		<total-pressure>/systems/pitot[1]/total-pressure-inhg</total-pressure>
+		<static-pressure>/systems/static/pressure-inhg</static-pressure>
+	</airspeed-indicator>
+	<airspeed-indicator>
+		<name>airspeed-indicator</name>
+		<number>2</number>
+		<total-pressure>/systems/pitot[2]/total-pressure-inhg</total-pressure>
+		<static-pressure>/systems/static/pressure-inhg</static-pressure>
+	</airspeed-indicator>
 
 	<vertical-speed-indicator>
 		<name>vertical-speed-indicator</name>
@@ -82,6 +94,20 @@ file, these values will be used (they are hardcoded).
 		<quantum>0</quantum>
 		<tau>0</tau>
 	</altimeter>
+	<altimeter>
+		<name>altimeter</name>
+		<number>1</number>
+		<static-pressure>/systems/static/pressure-inhg</static-pressure>
+		<quantum>0</quantum>
+		<tau>0</tau>
+	</altimeter>
+	<altimeter>
+		<name>altimeter</name>
+		<number>2</number>
+		<static-pressure>/systems/static/pressure-inhg</static-pressure>
+		<quantum>0</quantum>
+		<tau>0</tau>
+	</altimeter>
 
 	<altimeter>
 		<name>encoder</name>
@@ -103,9 +129,13 @@ file, these values will be used (they are hardcoded).
 		<name>marker-beacon</name>
 		<number>0</number>
 	</marker-beacon>
+	<!-- honestly sick of this crap that i have to keep screwing around to find a solution for.
+	found out that it was because of this power supply thing -->
 	<nav-radio>
 		<name>nav</name>
 		<number>0</number>
+		<power-supply>/fdm/jsbsim/inertia/weight-lbs</power-supply>
+		<minimum-supply-volts>109.9</minimum-supply-volts>
 	</nav-radio>
 
 	<nav-radio>
@@ -140,6 +170,8 @@ file, these values will be used (they are hardcoded).
 	<dme>
 		<name>dme</name>
 		<number>0</number>
+		<power-supply>/fdm/jsbsim/inertia/weight-lbs</power-supply>
+		<minimum-supply-volts>109.9</minimum-supply-volts>
 	</dme>
 
 	<dme>

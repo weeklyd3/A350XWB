@@ -10,8 +10,16 @@
 			<input>/controls/flight/elevator</input>
 			<c1>40</c1>
 		</lag_filter>
+		<fcs_function name="/systems/fbw/sidestick/aileron-raw">
+			<function>
+				<sum>
+					<property>/controls/flight/aileron</property>
+					<property>fcs/roll-trim-cmd-norm</property>
+				</sum>
+			</function>
+		</fcs_function>
 		<lag_filter name="/systems/fbw/sidestick/aileron">
-			<input>/controls/flight/aileron</input>
+			<input>/systems/fbw/sidestick/aileron-raw</input>
 			<c1>40</c1>
 		</lag_filter>
 		<lag_filter name="/systems/fbw/sidestick[1]/elevator">
@@ -28,7 +36,7 @@
 			<function>
 				<product>
 					<value>15</value>
-					<property>/controls/flight/aileron</property>
+					<property>/systems/fbw/sidestick/aileron</property>
 				</product>
 			</function>
 		</fcs_function>
@@ -58,13 +66,130 @@
 				</difference>
 			</function>
 		</fcs_function>
-		<pid name="/systems/fbw/aileron">
+		<switch name="/systems/fbw/aileron-trigger">
+			<default value="0" />
+			<test value="1" logic="OR">
+				/systems/fbw/aileron GE 0.999
+				/systems/fbw/aileron LE -0.999
+				gear/wow eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/aileron-direct">
+			<default value="0" />
+			<test logic="AND" value="1">
+				gear/wow eq 1
+			</test>
+		</switch>
+		<actuator name="/systems/fbw/aileron-direct-blend">
+			<input>/systems/fbw/aileron-direct</input>
+			<rate_limit>0.2</rate_limit>
+		</actuator>
+		<pid name="/systems/fbw/flight-aileron">
 			<input>/systems/fbw/roll-rate-error</input>
 			<kp>0.15</kp>
 			<ki>0.15</ki>
 			<kd>0.000</kd>
+			<trigger>/systems/fbw/aileron-trigger</trigger>
 			<output>/systems/fbw/aileron</output>
 		</pid>
+		<fcs_function name="/systems/fbw/aileron">
+			<function>
+				<sum>
+					<product>
+						<property>/systems/fbw/aileron-direct-blend</property>
+						<property>/controls/flight/aileron</property>
+					</product>
+					<product>
+						<difference>
+							<value>1</value>
+							<property>/systems/fbw/aileron-direct-blend</property>
+						</difference>
+						<property>/systems/fbw/flight-aileron</property>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/outer-aileron">
+			<function>
+				<product>
+					<table>
+						<independentVar>/instrumentation/airspeed-indicator/indicated-speed-kt</independentVar>
+						<!-- guess, only thing i know is that they aren't used above 250 knots -->
+						<tableData>
+							210       2
+							250       0
+							251       0
+						</tableData>
+					</table>
+					<property>/systems/fbw/aileron</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/symmetric-aileron">
+			<function>
+				<sum>
+					<value>0</value>
+					<!-- due to flaps -->
+					<table>
+						<independentVar lookup="column">fcs/slat-pos-norm</independentVar>
+						<independentVar lookup="row">fcs/flap-pos-norm</independentVar>
+						<tableData>
+							      0   0.29   1
+							0     0   0      0
+							0.29  0   0.5    0
+							0.596 0   0.5    0
+							0.645 0   0.5    0
+							1     0   0      0
+						</tableData>
+					</table>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="fcs/left-outer-aileron-pos-norm">
+			<function>
+				<sum>
+					<property>/systems/fbw/symmetric-aileron</property>
+					<property>/systems/fbw/outer-aileron</property>
+				</sum>
+			</function>
+			<clipto>
+				<max>1</max>
+				<min>-1</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="fcs/right-outer-aileron-pos-norm">
+			<function>
+				<sum>
+					<property>/systems/fbw/symmetric-aileron</property>
+					<product>
+						<property>/systems/fbw/outer-aileron</property>
+						<value>-1</value>
+					</product>
+				</sum>
+			</function>
+			<clipto>
+				<max>1</max>
+				<min>-1</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/fdm-aileron">
+			<!-- difference between left aileron and right aileron -->
+			<function>
+				<quotient>
+					<difference>
+						<sum>
+							<property>fcs/left-outer-aileron-pos-norm</property>
+							<property>fcs/left-aileron-pos-norm</property>
+						</sum>
+						<sum>
+							<property>fcs/right-outer-aileron-pos-norm</property>
+							<property>fcs/right-aileron-pos-norm</property>
+						</sum>
+					</difference>
+					<value>4</value>
+				</quotient>
+			</function>
+		</fcs_function>
 		<fcs_function name="/systems/fbw/alpha-margin">
 			<!-- how many more degrees of aoa will i let you pull? -->
 			<function>
@@ -184,6 +309,7 @@
 			<test value="1" logic="OR">
 				/systems/fbw/g-elevator GE 0.999
 				/systems/fbw/g-elevator LE -0.999
+				gear/wow eq 1
 			</test>
 		</switch>
 		<!-- elevator is crazy effective at high speeds -->

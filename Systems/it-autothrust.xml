@@ -4,6 +4,20 @@
 <!-- Copyright (c) 2024 Josh Davidson (Octal450) -->
 
 <PropertyList>
+	<predict-simple>
+		<name>predicted airspeed for captain</name>
+		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
+		<output>/instrumentation/airspeed-indicator/predicted-speed-kt</output>
+		<seconds>10</seconds>
+		<filter-gain>0.01</filter-gain>
+	</predict-simple>
+	<predict-simple>
+		<name>predicted airspeed for f/o</name>
+		<input>/instrumentation/airspeed-indicator[1]/indicated-speed-kt</input>
+		<output>/instrumentation/airspeed-indicator[1]/predicted-speed-kt</output>
+		<seconds>10</seconds>
+		<filter-gain>0.01</filter-gain>
+	</predict-simple>
 	
 	<filter>
 		<name>A/THR Knots Lag</name>

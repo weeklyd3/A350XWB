@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PropertyList include="A350XWB-common.xml">
-  <sim>
-    <description>Airbus A350XWB-900</description>
-    <flight-model>jsb</flight-model>
-    <aero>A350XWB-900-jsbsim</aero>
-    <variant>900</variant>
-    <engine>Trent XWB</engine>
-    <model>
-      <path>Aircraft/A350XWB/Models/A350XWB-900.xml</path>
+	<sim>
+		<description>Airbus A350XWB-900</description>
+		<flight-model>jsb</flight-model>
+		<aero>A350XWB-900-jsbsim</aero>
+		<variant>900</variant>
+		<engine>Trent XWB</engine>
+		<model>
+			<path>Aircraft/A350XWB/Models/A350XWB-900.xml</path>
 
 			<!-- JPack: push forces for Voodoomaster Pushback -->
 			<pushback>
@@ -17,116 +17,122 @@
 				<position-norm type="double">0</position-norm>
 				<enabled type="bool">false</enabled>
 			</pushback>
-    </model>
-    <flaps>
-      <setting>0.00</setting>
-      <setting>0.29</setting>
-      <setting>0.596</setting>
-      <setting>0.645</setting>
-      <setting>1</setting>
-    </flaps>
-    <airport>
-      <runways>
-        <start-offset-m>30</start-offset-m>
-      </runways>
-    </airport>
+			<door>
+				<position-x-m type="float">2.18686</position-x-m>
+				<position-y-m type="float">2.52946</position-y-m>
+				<position-z-m type="float">3.16475</position-z-m>
+				<jetway-hood-deg type="float">10</jetway-hood-deg>
+			</door>
+		</model>
+		<flaps>
+			<setting>0.00</setting>
+			<setting>0.29</setting>
+			<setting>0.596</setting>
+			<setting>0.645</setting>
+			<setting>1</setting>
+		</flaps>
+		<airport>
+			<runways>
+				<start-offset-m>30</start-offset-m>
+			</runways>
+		</airport>
 
 		<startup>
-   <splash-texture>Aircraft/A350XWB/Splashs/splash.png</splash-texture>
-   <splash-texture>Aircraft/A350XWB/Splashs/splash01.png</splash-texture>
-   <splash-texture>Aircraft/A350XWB/Splashs/splash02.png</splash-texture>
-   <splash-texture>Aircraft/A350XWB/Splashs/splash03.png</splash-texture>
-   <splash-texture>Aircraft/A350XWB/Splashs/splash04.png</splash-texture>
-  </startup>
-  <previews>
-      <preview>
-        <type>exterior</type>
-        <splash type="bool">true</splash>
-        <path>Splashs/splash.png</path>
-      </preview>
-      <preview>
-        <type>exterior</type>
-        <splash type="bool">true</splash>
-        <path>Splashs/splash01.png</path>
-      </preview>
-      <preview>
-        <type>exterior</type>
-        <splash type="bool">true</splash>
-        <path>Splashs/splash02.png</path>
-      </preview>
-      <preview>
-        <type>exterior</type>
-        <splash type="bool">true</splash>
-        <path>Splashs/splash03.png</path>
-      </preview>
-      <preview>
-        <type>interior</type>
-        <splash type="bool">true</splash>
-        <path>Splashs/splash04.png</path>
-      </preview>
-  </previews>
+			<splash-texture>Aircraft/A350XWB/Splashs/splash.png</splash-texture>
+			<splash-texture>Aircraft/A350XWB/Splashs/splash01.png</splash-texture>
+			<splash-texture>Aircraft/A350XWB/Splashs/splash02.png</splash-texture>
+			<splash-texture>Aircraft/A350XWB/Splashs/splash03.png</splash-texture>
+			<splash-texture>Aircraft/A350XWB/Splashs/splash04.png</splash-texture>
+		</startup>
+		<previews>
+			<preview>
+				<type>exterior</type>
+				<splash type="bool">true</splash>
+				<path>Splashs/splash.png</path>
+			</preview>
+			<preview>
+				<type>exterior</type>
+				<splash type="bool">true</splash>
+				<path>Splashs/splash01.png</path>
+			</preview>
+			<preview>
+				<type>exterior</type>
+				<splash type="bool">true</splash>
+				<path>Splashs/splash02.png</path>
+			</preview>
+			<preview>
+				<type>exterior</type>
+				<splash type="bool">true</splash>
+				<path>Splashs/splash03.png</path>
+			</preview>
+			<preview>
+				<type>interior</type>
+				<splash type="bool">true</splash>
+				<path>Splashs/splash04.png</path>
+			</preview>
+		</previews>
 
-  </sim>
-  <payload>
-    <weight n="0">
-      <name>Crew</name>
-      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[0]"/>
-      <min-lb type="double">120</min-lb>
-      <max-lb type="double">600</max-lb>
-    </weight>
-    <weight n="1">
-      <name>PAX</name>
-      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[1]"/>
-      <min-lb type="double">0</min-lb>
-      <max-lb type="double">56520</max-lb>
-    </weight>
-    <weight n="2">
-      <name>Fwd Cargo</name>
-      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[2]"/>
-      <min-lb type="double">0</min-lb>
-      <max-lb type="double">13000</max-lb>
-    </weight>
-    <weight n="3">
-      <name>Aft Cargo</name>
-      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[3]"/>
-      <min-lb type="double">0</min-lb>
-      <max-lb type="double">18000</max-lb>
-    </weight>
-    <weight n="4">
-      <name>Rear Bulk Cargo</name>
-      <weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[4]"/>
-      <min-lb type="double">0</min-lb>
-      <max-lb type="double">3000</max-lb>
-    </weight>
-  </payload>
+	</sim>
+	<payload>
+		<weight n="0">
+			<name>Crew</name>
+			<weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[0]" />
+			<min-lb type="double">120</min-lb>
+			<max-lb type="double">600</max-lb>
+		</weight>
+		<weight n="1">
+			<name>PAX</name>
+			<weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[1]" />
+			<min-lb type="double">0</min-lb>
+			<max-lb type="double">56520</max-lb>
+		</weight>
+		<weight n="2">
+			<name>Fwd Cargo</name>
+			<weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[2]" />
+			<min-lb type="double">0</min-lb>
+			<max-lb type="double">13000</max-lb>
+		</weight>
+		<weight n="3">
+			<name>Aft Cargo</name>
+			<weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[3]" />
+			<min-lb type="double">0</min-lb>
+			<max-lb type="double">18000</max-lb>
+		</weight>
+		<weight n="4">
+			<name>Rear Bulk Cargo</name>
+			<weight-lb alias="/fdm/jsbsim/inertia/pointmass-weight-lbs[4]" />
+			<min-lb type="double">0</min-lb>
+			<max-lb type="double">3000</max-lb>
+		</weight>
+	</payload>
 
 
-  <limits>
-    <mass-and-balance>
-      <maximum-ramp-mass-lbs>593000</maximum-ramp-mass-lbs>
-      <maximum-takeoff-mass-lbs>591000</maximum-takeoff-mass-lbs>
-      <maximum-landing-mass-lbs>452000</maximum-landing-mass-lbs>
-      <maximum-zero-fuel-mass-lbs>423000</maximum-zero-fuel-mass-lbs>
-    </mass-and-balance>
-    <max-flap-extension-speed>
-      <flaps>0.29</flaps>
-      <speed>230</speed>
-    </max-flap-extension-speed>
-    <max-flap-extension-speed>
-      <flaps>0.596</flaps>
-      <speed>205</speed>
-    </max-flap-extension-speed>
-    <max-flap-extension-speed>
-      <flaps>0.645</flaps>
-      <speed>195</speed>
-    </max-flap-extension-speed>
-    <max-flap-extension-speed>
-      <flaps>1</flaps>
-      <speed>190</speed>
-    </max-flap-extension-speed>
-    <vne>370</vne>
-    <max-gear-extension-speed>250</max-gear-extension-speed>
-    <max-positive-g>2.5</max-positive-g>
-    <max-negative-g>-1</max-negative-g>
-  </limits>
+	<limits>
+		<mass-and-balance>
+			<maximum-ramp-mass-lbs>593000</maximum-ramp-mass-lbs>
+			<maximum-takeoff-mass-lbs>591000</maximum-takeoff-mass-lbs>
+			<maximum-landing-mass-lbs>452000</maximum-landing-mass-lbs>
+			<maximum-zero-fuel-mass-lbs>423000</maximum-zero-fuel-mass-lbs>
+		</mass-and-balance>
+		<max-flap-extension-speed>
+			<flaps>0.29</flaps>
+			<speed>230</speed>
+		</max-flap-extension-speed>
+		<max-flap-extension-speed>
+			<flaps>0.596</flaps>
+			<speed>205</speed>
+		</max-flap-extension-speed>
+		<max-flap-extension-speed>
+			<flaps>0.645</flaps>
+			<speed>195</speed>
+		</max-flap-extension-speed>
+		<max-flap-extension-speed>
+			<flaps>1</flaps>
+			<speed>190</speed>
+		</max-flap-extension-speed>
+		<vne>370</vne>
+		<max-gear-extension-speed>250</max-gear-extension-speed>
+		<max-positive-g>2.5</max-positive-g>
+		<max-negative-g>-1</max-negative-g>
+	</limits>
 </PropertyList>

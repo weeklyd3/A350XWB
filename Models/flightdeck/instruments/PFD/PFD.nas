@@ -434,6 +434,6 @@ setlistener("sim/signals/fdm-initialized", func() {
 
 # The optional second arguments enables creating a window decoration
 var showPfd = func() {
-	var dlg = canvas.Window.new([400, 400], "dialog");
+	var dlg = canvas.Window.new([400, 400], "dialog").set("resize", 1);
 	dlg.setCanvas(pfd_display);
 }

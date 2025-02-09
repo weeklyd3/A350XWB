@@ -176,7 +176,7 @@ var mfd = {
 	}
 };
 var show = func(mfd) {
-	var window = canvas.Window.new([889 / 2, 564], "dialog");
+	var window = canvas.Window.new([889 / 2, 564], "dialog").set("resize", 1);
 	window.setCanvas(mfd.display);
 }
 var plan = flightplan();
@@ -529,5 +529,17 @@ var radio = {
 		});
 	}
 };
-var plan = flightplan();
+var clear = func() {
+	props.globals.getNode('/autopilot/route-manager/route/wp').clearValue();
+	var plan = createFlightplan();
+	var ppos = createWP(geo.aircraft_position().lat(), geo.aircraft_position().lon(), "PPOS");
+	plan.insertWP(ppos, 0);
+	plan.activate();
+};
+print('trying to clear flightplan');
+setprop('/autopilot/route-manager/route/num', 0);
+setprop('/autopilot/route-manager/departure/airport', '');
+var timer = maketimer(1, clear);
+timer.singleShot = 1;
+timer.start();
 var mfd_l = mfd.new('mfd1');

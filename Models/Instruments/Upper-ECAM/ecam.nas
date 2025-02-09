@@ -233,7 +233,7 @@ var ecam = {
 	props: {},
 	svg_items: {},
 	show: func() {
-		var window = canvas.Window.new([889, 564], "dialog");
+		var window = canvas.Window.new([889, 564], "dialog").set("resize", 1);
 		window.setCanvas(me.display);
 	}
 };

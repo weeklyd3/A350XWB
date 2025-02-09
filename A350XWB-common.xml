@@ -1,336 +1,353 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PropertyList>
-  <sim>
-    <author> Juuso Tapaninen (jormapaappa1235), Brendan O'Gara (Sbyx), Chris Leung (ACJZA), Chris Andrews (DARK-L) Joshua Davidson (it0uchpods/411)</author>
-    <status>Alpha</status>
-    <model>
-      <A350XWB>
-        <!--heading-bug-pfd-deg type="double">0</heading-bug-pfd-deg>
-	    <heading-bug-deg type="double">0</heading-bug-deg>
-	    <nav1-bug-deg type="double">0</nav1-bug-deg>
-	    <nav2-bug-deg type="double">0</nav2-bug-deg>
-	    <wp-bug-deg type="double">0</wp-bug-deg>
-	    <ias-bug-kt-norm type="double">0</ias-bug-kt-norm>
-	    <mach-bug-kt-norm type="double">0</mach-bug-kt-norm-->
-      </A350XWB>
-    </model>
-    <sound>
-      <path>Aircraft/A350XWB/Sounds/A350XWB-sounds.xml</path>
-    </sound>
+	<sim>
+		<author> Juuso Tapaninen (jormapaappa1235), Brendan O'Gara (Sbyx), Chris Leung
+			(ACJZA), Chris Andrews (DARK-L) Joshua Davidson (it0uchpods/411)</author>
+		<status>Alpha</status>
+		<model>
+			<A350XWB>
+				<!--heading-bug-pfd-deg
+				type="double">0</heading-bug-pfd-deg>
+			<heading-bug-deg type="double">0</heading-bug-deg>
+			<nav1-bug-deg type="double">0</nav1-bug-deg>
+			<nav2-bug-deg type="double">0</nav2-bug-deg>
+			<wp-bug-deg type="double">0</wp-bug-deg>
+			<ias-bug-kt-norm type="double">0</ias-bug-kt-norm>
+			<mach-bug-kt-norm type="double">0</mach-bug-kt-norm-->
+			</A350XWB>
+		</model>
+		<instrumentation>
+			<path>Aircraft/A350XWB/Systems/A350XWB-instrumentation.xml</path>
+		</instrumentation>
+		<sound>
+			<path>Aircraft/A350XWB/Sounds/A350XWB-sounds.xml</path>
+		</sound>
 
-    <chase-distance-m type="double" archive="y"> -80 </chase-distance-m>
+		<chase-distance-m type="double" archive="y"> -80 </chase-distance-m>
 
-    <view n="0">
-      <name>Pilot View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <limits>
-          <enabled archive="y" type="bool">false</enabled>
-        </limits>
-        <!-- x/y/z == right/up/back -->
-        <x-offset-m type="double">-0.5326</x-offset-m>
-        <y-offset-m type="double">3.02</y-offset-m>
-        <z-offset-m type="double">-29.5</z-offset-m>
-        <pitch-offset-deg>-8</pitch-offset-deg>
-        <default-field-of-view-deg type="double">63</default-field-of-view-deg>
-      </config>
-    </view>
-    <view n="1">
-      <config>
-        <pitch-offset-deg>20</pitch-offset-deg>
-      </config>
-    </view>
-    <view n="2">
-      <config>
-        <pitch-offset-deg>20</pitch-offset-deg>
-      </config>
-    </view>
-    <view n="5">
-      <config>
-        <pitch-offset-deg>20</pitch-offset-deg>
-      </config>
-    </view>
-    <view n="6">
-      <config>
-        <pitch-offset-deg>20</pitch-offset-deg>
-      </config>
-    </view>
-    <view n="7">
-      <config>
-        <pitch-offset-deg>20</pitch-offset-deg>
-      </config>
-    </view>
-    <view n="100">
-      <name>Left Engine View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <from-model type="bool">true</from-model>
-        <from-model-idx type="int">0</from-model-idx>
-        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-        <x-offset-m type="double">-3.25</x-offset-m>
-        <y-offset-m type="double">3.02</y-offset-m>
-        <z-offset-m type="double">-18</z-offset-m>
-        <heading-offset-deg>120</heading-offset-deg>
-        <pitch-offset-deg>-16.2</pitch-offset-deg>
-        <default-field-of-view-deg type="double">72</default-field-of-view-deg>
-      </config>
-    </view>
-    <view n="101">
-      <name>Right Engine View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <from-model type="bool">true</from-model>
-        <from-model-idx type="int">0</from-model-idx>
-        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-        <x-offset-m type="double">3.25</x-offset-m>
-        <y-offset-m type="double">3.02</y-offset-m>
-        <z-offset-m type="double">-18</z-offset-m>
-        <heading-offset-deg>-120</heading-offset-deg>
-        <pitch-offset-deg>-16.2</pitch-offset-deg>
-        <default-field-of-view-deg type="double">72</default-field-of-view-deg>
-      </config>
-    </view>
-    <view n="102">
-      <name>Full Cockpit View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <from-model type="bool">true</from-model>
-        <from-model-idx type="int">0</from-model-idx>
-        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-        <x-offset-m type="double">0</x-offset-m>
-        <y-offset-m type="double">3.02</y-offset-m>
-        <z-offset-m type="double">-29.5</z-offset-m>
-        <pitch-offset-deg archive="y">-5</pitch-offset-deg>
-        <default-field-of-view-deg type="double">105</default-field-of-view-deg>
-      </config>
-    </view>
-    <view n="103">
-      <name>Gear View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <from-model type="bool">true</from-model>
-        <from-model-idx type="int">0</from-model-idx>
-        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-        <x-offset-m type="double">0</x-offset-m>
-        <y-offset-m type="double">-2</y-offset-m>
-        <z-offset-m type="double">10</z-offset-m>
-        <default-field-of-view-deg type="double">90</default-field-of-view-deg>
-      </config>
-    </view>
-    <view n="104">
-      <name>Autopilot View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <from-model type="bool">true</from-model>
-        <from-model-idx type="int">0</from-model-idx>
-        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-        <x-offset-m type="double">0</x-offset-m>
-        <y-offset-m type="double">3.02</y-offset-m>
-        <z-offset-m type="double">-29.5</z-offset-m>
-        <pitch-offset-deg>-13</pitch-offset-deg>
-        <default-field-of-view-deg type="double">44.2</default-field-of-view-deg>
-      </config>
-    </view>
-    <view n="105">
-      <name>Overhead Panel View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <from-model type="bool">true</from-model>
-        <from-model-idx type="int">0</from-model-idx>
-        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-        <x-offset-m type="double">0</x-offset-m>
-        <y-offset-m type="double">3.02</y-offset-m>
-        <z-offset-m type="double">-29</z-offset-m>
-        <pitch-offset-deg>25</pitch-offset-deg>
-        <default-field-of-view-deg type="double">50</default-field-of-view-deg>
-      </config>
-    </view>
-    <view n="106">
-      <name>EFB View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <from-model type="bool">true</from-model>
-        <from-model-idx type="int">0</from-model-idx>
-        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-        <x-offset-m type="double">-0.5326</x-offset-m>
-        <y-offset-m type="double">3.02</y-offset-m>
-        <z-offset-m type="double">-29.5</z-offset-m>
-        <pitch-offset-deg>-35</pitch-offset-deg>
-        <heading-offset-deg>30</heading-offset-deg>
-        <default-field-of-view-deg type="double">60</default-field-of-view-deg>
-      </config>
-    </view>
-    <view n="107">
-      <name>Pedestral View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <from-model type="bool">true</from-model>
-        <from-model-idx type="int">0</from-model-idx>
-        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-        <x-offset-m type="double">0</x-offset-m>
-        <y-offset-m type="double">3.02</y-offset-m>
-        <z-offset-m type="double">-29.5</z-offset-m>
-        <pitch-offset-deg>-55</pitch-offset-deg>
-        <default-field-of-view-deg type="double">50</default-field-of-view-deg>
-      </config>
-    </view>
-    <view n="108">
-      <name>Left Passenger View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <from-model type="bool">true</from-model>
-        <from-model-idx type="int">0</from-model-idx>
-        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-        <x-offset-m type="double">-0.5</x-offset-m>
-        <y-offset-m type="double">3.02</y-offset-m>
-        <z-offset-m type="double">10</z-offset-m>
-        <heading-offset-deg>80</heading-offset-deg>
-        <pitch-offset-deg>-16.2</pitch-offset-deg>
-        <default-field-of-view-deg type="double">72</default-field-of-view-deg>
-      </config>
-    </view>
-    <view n="109">
-      <name>Right Passenger View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <from-model type="bool">true</from-model>
-        <from-model-idx type="int">0</from-model-idx>
-        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-        <x-offset-m type="double">0.5</x-offset-m>
-        <y-offset-m type="double">3.02</y-offset-m>
-        <z-offset-m type="double">10</z-offset-m>
-        <heading-offset-deg>-80</heading-offset-deg>
-        <pitch-offset-deg>-16.2</pitch-offset-deg>
-        <default-field-of-view-deg type="double">72</default-field-of-view-deg>
-      </config>
-    </view>
-    <view n="110">
-      <name>Copilot View</name>
-      <type>lookfrom</type>
-      <internal type="bool">true</internal>
-      <cockpit type="bool">true</cockpit>
-      <config>
-        <limits>
-          <enabled archive="y" type="bool">false</enabled>
-        </limits>
-	<from-model type="bool">true</from-model>
-        <from-model-idx type="int">0</from-model-idx>
-        <ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-        <x-offset-m type="double">0.5326</x-offset-m>
-        <y-offset-m type="double">3.02</y-offset-m>
-        <z-offset-m type="double">-29.5</z-offset-m>
-        <pitch-offset-deg>-8</pitch-offset-deg>
-        <default-field-of-view-deg type="double">63</default-field-of-view-deg>
-      </config>
-      <dynamic>
-        <enabled type="bool">true</enabled>
-      </dynamic>
-    </view>
+		<view n="0">
+			<name>Pilot View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<limits>
+					<enabled archive="y" type="bool">false</enabled>
+				</limits>
+				<!-- x/y/z == right/up/back -->
+				<x-offset-m type="double">-0.5326</x-offset-m>
+				<y-offset-m type="double">3.02</y-offset-m>
+				<z-offset-m type="double">-29.5</z-offset-m>
+				<pitch-offset-deg>-8</pitch-offset-deg>
+				<default-field-of-view-deg type="double">63</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="1">
+			<config>
+				<pitch-offset-deg>20</pitch-offset-deg>
+			</config>
+		</view>
+		<view n="2">
+			<config>
+				<pitch-offset-deg>20</pitch-offset-deg>
+			</config>
+		</view>
+		<view n="5">
+			<config>
+				<pitch-offset-deg>20</pitch-offset-deg>
+			</config>
+		</view>
+		<view n="6">
+			<config>
+				<pitch-offset-deg>20</pitch-offset-deg>
+			</config>
+		</view>
+		<view n="7">
+			<config>
+				<pitch-offset-deg>20</pitch-offset-deg>
+			</config>
+		</view>
+		<view n="100">
+			<name>Left Engine View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m type="double">-3.25</x-offset-m>
+				<y-offset-m type="double">3.02</y-offset-m>
+				<z-offset-m type="double">-18</z-offset-m>
+				<heading-offset-deg>120</heading-offset-deg>
+				<pitch-offset-deg>-16.2</pitch-offset-deg>
+				<default-field-of-view-deg type="double">72</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="101">
+			<name>Right Engine View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m type="double">3.25</x-offset-m>
+				<y-offset-m type="double">3.02</y-offset-m>
+				<z-offset-m type="double">-18</z-offset-m>
+				<heading-offset-deg>-120</heading-offset-deg>
+				<pitch-offset-deg>-16.2</pitch-offset-deg>
+				<default-field-of-view-deg type="double">72</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="102">
+			<name>Full Cockpit View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m type="double">0</x-offset-m>
+				<y-offset-m type="double">3.02</y-offset-m>
+				<z-offset-m type="double">-29.5</z-offset-m>
+				<pitch-offset-deg archive="y">-5</pitch-offset-deg>
+				<default-field-of-view-deg type="double">105</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="103">
+			<name>Gear View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m type="double">0</x-offset-m>
+				<y-offset-m type="double">-2</y-offset-m>
+				<z-offset-m type="double">10</z-offset-m>
+				<default-field-of-view-deg type="double">90</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="104">
+			<name>Autopilot View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m type="double">0</x-offset-m>
+				<y-offset-m type="double">3.02</y-offset-m>
+				<z-offset-m type="double">-29.5</z-offset-m>
+				<pitch-offset-deg>-13</pitch-offset-deg>
+				<default-field-of-view-deg type="double">44.2</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="105">
+			<name>Overhead Panel View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m type="double">0</x-offset-m>
+				<y-offset-m type="double">3.02</y-offset-m>
+				<z-offset-m type="double">-29</z-offset-m>
+				<pitch-offset-deg>25</pitch-offset-deg>
+				<default-field-of-view-deg type="double">50</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="106">
+			<name>EFB View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m type="double">-0.5326</x-offset-m>
+				<y-offset-m type="double">3.02</y-offset-m>
+				<z-offset-m type="double">-29.5</z-offset-m>
+				<pitch-offset-deg>-35</pitch-offset-deg>
+				<heading-offset-deg>30</heading-offset-deg>
+				<default-field-of-view-deg type="double">60</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="107">
+			<name>Pedestral View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m type="double">0</x-offset-m>
+				<y-offset-m type="double">3.02</y-offset-m>
+				<z-offset-m type="double">-29.5</z-offset-m>
+				<pitch-offset-deg>-55</pitch-offset-deg>
+				<default-field-of-view-deg type="double">50</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="108">
+			<name>Left Passenger View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m type="double">-0.5</x-offset-m>
+				<y-offset-m type="double">3.02</y-offset-m>
+				<z-offset-m type="double">10</z-offset-m>
+				<heading-offset-deg>80</heading-offset-deg>
+				<pitch-offset-deg>-16.2</pitch-offset-deg>
+				<default-field-of-view-deg type="double">72</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="109">
+			<name>Right Passenger View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m type="double">0.5</x-offset-m>
+				<y-offset-m type="double">3.02</y-offset-m>
+				<z-offset-m type="double">10</z-offset-m>
+				<heading-offset-deg>-80</heading-offset-deg>
+				<pitch-offset-deg>-16.2</pitch-offset-deg>
+				<default-field-of-view-deg type="double">72</default-field-of-view-deg>
+			</config>
+		</view>
+		<view n="110">
+			<name>Copilot View</name>
+			<type>lookfrom</type>
+			<internal type="bool">true</internal>
+			<cockpit type="bool">true</cockpit>
+			<config>
+				<limits>
+					<enabled archive="y" type="bool">false</enabled>
+				</limits>
+				<from-model type="bool">true</from-model>
+				<from-model-idx type="int">0</from-model-idx>
+				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
+				<x-offset-m type="double">0.5326</x-offset-m>
+				<y-offset-m type="double">3.02</y-offset-m>
+				<z-offset-m type="double">-29.5</z-offset-m>
+				<pitch-offset-deg>-8</pitch-offset-deg>
+				<default-field-of-view-deg type="double">63</default-field-of-view-deg>
+			</config>
+			<dynamic>
+				<enabled type="bool">true</enabled>
+			</dynamic>
+		</view>
 
-    <menubar>
-      <default>
-        <menu n="100">
-          <label>Airbus A350XWB</label>
+		<menubar>
+			<default>
+				<menu n="100">
+					<label>Airbus A350XWB</label>
 
-          <item>
-            <label>Autostart</label>
-            <binding>
-              <command>nasal</command>
-              <script>A350XWB.enginesystem.autostart();</script>
-            </binding>
-	  </item>
+					<item>
+						<label>Autostart</label>
+						<binding>
+							<command>nasal</command>
+							<script>A350XWB.enginesystem.autostart();</script>
+						</binding>
+					</item>
 
-	  <item>
-            <label>Select livery</label>
-            <binding>
-              <command>nasal</command>
-              <script>aircraft.livery.dialog.toggle()</script>
-            </binding>
-	  </item>
-          <item>
-            <label>Autopilot Dialog</label>
-            <binding>
-              <command>nasal</command>
-              <script>var ap_dialog = gui.Dialog.new("sim/gui/dialogs/ap_dialog/dialog", "Aircraft/A350XWB/Systems/autopilot-dlg.xml");
-							 ap_dialog.open();</script>
-            </binding>
-          </item>
-          <item>
-            <name>pushback</name>
-            <label>Request for Pushback</label>
-            <binding>
-              <command>dialog-show</command>
-              <dialog-name>pushback</dialog-name>
-            </binding>
-          </item>
-          <item>
-            <name>lights</name>
-            <label>Control Aircraft Lights</label>
-            <binding>
-              <command>nasal</command>
-              <script>var lights = gui.Dialog.new("sim/gui/dialogs/lights/dialog", "Aircraft/A350XWB/Systems/lights-dlg.xml");
-							 lights.open();</script>
-            </binding>
-          </item>
-          <item>
-            <name>announcements</name>
-            <label>Make Announcements</label>
-            <binding>
-              <command>nasal</command>
-              <script>var announce = gui.Dialog.new("sim/gui/dialogs/announcements/dialog", "Aircraft/A350XWB/Systems/announcements-dlg.xml");
-							 announce.open();</script>
-            </binding>
-          </item>
-          <item>
-            <label>Ground Services Controls</label>
-            <binding>
-              <command>nasal</command>
-              <script>var ground_services = gui.Dialog.new("sim/gui/dialogs/ground_services/dialog", "Aircraft/A350XWB/Systems/ground_services-dlg.xml");
-							 ground_services.open();</script>
-            </binding>
-          </item>
-          <item>
-            <label>Fuel Truck Controls</label>
-            <binding>
-              <command>nasal</command>
-              <script>var fuel_truck = gui.Dialog.new("sim/gui/dialogs/fuel_truck/dialog", "Aircraft/A350XWB/Systems/fuel_truck.xml");
-							 fuel_truck.open();</script>
-            </binding>
-          </item>
-          <item>
-            <name>dualcontrol</name>
-            <label>Dual Control System Settings</label>
-            <binding>
-              <command>nasal</command>
-              <script>var dualcontrol = gui.Dialog.new("sim/gui/dialogs/dualcontrol/dialog", "Aircraft/A350XWB/Systems/dualcontrol-dlg.xml");
-							 dualcontrol.open();</script>
-            </binding>
-          </item>
-        </menu>
-      </default>
-    </menubar>
+					<item>
+						<label>Select livery</label>
+						<binding>
+							<command>nasal</command>
+							<script>aircraft.livery.dialog.toggle()</script>
+						</binding>
+					</item>
+					<item>
+						<label>Autopilot Dialog</label>
+						<binding>
+							<command>nasal</command>
+							<script>var ap_dialog =
+								gui.Dialog.new("sim/gui/dialogs/ap_dialog/dialog",
+								"Aircraft/A350XWB/Systems/autopilot-dlg.xml");
+								ap_dialog.open();</script>
+						</binding>
+					</item>
+					<item>
+						<name>pushback</name>
+						<label>Request for Pushback</label>
+						<binding>
+							<command>dialog-show</command>
+							<dialog-name>pushback</dialog-name>
+						</binding>
+					</item>
+					<item>
+						<name>lights</name>
+						<label>Control Aircraft Lights</label>
+						<binding>
+							<command>nasal</command>
+							<script>var lights =
+								gui.Dialog.new("sim/gui/dialogs/lights/dialog",
+								"Aircraft/A350XWB/Systems/lights-dlg.xml");
+								lights.open();</script>
+						</binding>
+					</item>
+					<item>
+						<name>announcements</name>
+						<label>Make Announcements</label>
+						<binding>
+							<command>nasal</command>
+							<script>var announce =
+								gui.Dialog.new("sim/gui/dialogs/announcements/dialog",
+								"Aircraft/A350XWB/Systems/announcements-dlg.xml");
+								announce.open();</script>
+						</binding>
+					</item>
+					<item>
+						<label>Ground Services Controls</label>
+						<binding>
+							<command>nasal</command>
+							<script>var ground_services =
+								gui.Dialog.new("sim/gui/dialogs/ground_services/dialog",
+								"Aircraft/A350XWB/Systems/ground_services-dlg.xml");
+								ground_services.open();</script>
+						</binding>
+					</item>
+					<item>
+						<label>Fuel Truck Controls</label>
+						<binding>
+							<command>nasal</command>
+							<script>var fuel_truck =
+								gui.Dialog.new("sim/gui/dialogs/fuel_truck/dialog",
+								"Aircraft/A350XWB/Systems/fuel_truck.xml");
+								fuel_truck.open();</script>
+						</binding>
+					</item>
+					<item>
+						<name>dualcontrol</name>
+						<label>Dual Control System Settings</label>
+						<binding>
+							<command>nasal</command>
+							<script>var dualcontrol =
+								gui.Dialog.new("sim/gui/dialogs/dualcontrol/dialog",
+								"Aircraft/A350XWB/Systems/dualcontrol-dlg.xml");
+								dualcontrol.open();</script>
+						</binding>
+					</item>
+				</menu>
+			</default>
+		</menubar>
 
 		<help>
 			<title>Airbus A350XWB</title>
@@ -359,65 +376,74 @@
 				<desc>walk backward from view direction</desc>
 			</key>
 		</help>
+		
+		<!-- Systems -->
+		<systems n="0">
+			<autopilot>
+				<name>Gear AGL FT</name>
+				<path>Aircraft/A350XWB/Systems/gear-agl-ft.xml</path>
+			</autopilot>
+			<autopilot>
+				<name>IT-AUTOFLIGHT</name>
+				<path>Aircraft/A350XWB/Systems/it-autoflight.xml</path>
+			</autopilot>
+			<autopilot>
+				<name>IT-AUTOTHRUST</name>
+				<path>Aircraft/A350XWB/Systems/it-autothrust.xml</path>
+			</autopilot>
+			<wingflexer include="Systems/wingflexer-params.xml" />
+			<property-rule n="100">
+				<name>wing flexer property rule</name>
+				<path>Aircraft/Generic/wingflexer.xml</path>
+			</property-rule>
+			<path>Aircraft/A350XWB/Systems/A350XWB-systems.xml</path>
+		</systems>
 
-    <!-- Systems -->
-    <systems>
-      <autopilot>
-        <name>Gear AGL FT</name>
-        <path>Aircraft/A350XWB/Systems/gear-agl-ft.xml</path>
-      </autopilot>
-      <autopilot>
-      <name>IT-AUTOFLIGHT</name>
-          <path>Aircraft/A350XWB/Systems/it-autoflight.xml</path>
-        </autopilot>
-        <autopilot>
-      <name>IT-AUTOTHRUST</name>
-      <path>Aircraft/A350XWB/Systems/it-autothrust.xml</path>
-      </autopilot>
-      <wingflexer include="Systems/wingflexer-params.xml"/>
-      <property-rule n="100">
-        <name>wing flexer property rule</name>
-        <path>Aircraft/Generic/wingflexer.xml</path>
-      </property-rule>
-    </systems>
-	
-        <multiplay>
-            <generic>
-                <int n="0" alias="/systems/electrical/outputs/strobe"/>
-                <int n="1" alias="/systems/electrical/outputs/beacon"/>
-                <int n="2" alias="/systems/electrical/outputs/taxi-lights"/>
-                <int n="3" alias="/systems/electrical/outputs/logo-lights"/>
-                <int n="4" alias="/systems/electrical/outputs/landing-light[0]"/>
-                <int n="5" alias="/systems/electrical/outputs/landing-light[1]"/>
-                <int n="6" alias="/systems/electrical/outputs/landing-light[2]"/>
-                <int n="7" alias="/systems/electrical/outputs/nav-lights"/>
-                <int n="8" alias="/systems/electrical/outputs/cabin-lights"/>
+		<multiplay>
+			<generic>
+				<int n="0" alias="/systems/electrical/outputs/strobe" />
+				<int n="1" alias="/systems/electrical/outputs/beacon" />
+				<int n="2" alias="/systems/electrical/outputs/taxi-lights" />
+				<int n="3" alias="/systems/electrical/outputs/logo-lights" />
+				<int n="4" alias="/systems/electrical/outputs/landing-light[0]" />
+				<int n="5" alias="/systems/electrical/outputs/landing-light[1]" />
+				<int n="6" alias="/systems/electrical/outputs/landing-light[2]" />
+				<int n="7" alias="/systems/electrical/outputs/nav-lights" />
+				<int n="8" alias="/systems/electrical/outputs/cabin-lights" />
 
-                <float n="0" alias="/gear/gear[0]/compression-ft"/>
-                <float n="1" alias="/gear/gear[1]/compression-ft"/>
-                <float n="2" alias="/gear/gear[2]/compression-ft"/>
-                <float n="3" alias="/surface-positions/speedbrake-pos-norm"/>
-                <float n="4" alias="/surface-positions/reverser-norm"/>
-		<float n="5" alias="/gear/gear[0]/rollspeed-ms"/>
-		<float n="6" alias="/gear/gear[1]/rollspeed-ms"/>
-		<float n="7" alias="/gear/gear[2]/rollspeed-ms"/>
-                <float n="8" alias="/gear/gear[0]/compression-norm"/>
-                <float n="9" alias="/gear/gear[1]/compression-norm"/>
-                <float n="10" alias="/gear/gear[2]/compression-norm"/>
-                <string  alias="/sim/multiplay/callsign"/>
-            </generic>
-        </multiplay>
+				<float n="0" alias="/gear/gear[0]/compression-ft" />
+				<float n="1" alias="/gear/gear[1]/compression-ft" />
+				<float n="2" alias="/gear/gear[2]/compression-ft" />
+				<float n="3" alias="/surface-positions/speedbrake-pos-norm" />
+				<float n="4" alias="/surface-positions/reverser-norm" />
+				<float n="5" alias="/gear/gear[0]/rollspeed-ms" />
+				<float n="6" alias="/gear/gear[1]/rollspeed-ms" />
+				<float n="7" alias="/gear/gear[2]/rollspeed-ms" />
+				<float n="8" alias="/gear/gear[0]/compression-norm" />
+				<float n="9" alias="/gear/gear[1]/compression-norm" />
+				<float n="10" alias="/gear/gear[2]/compression-norm" />
+				<string alias="/sim/multiplay/callsign" />
+			</generic>
+		</multiplay>
 
-        <flight-recorder include="Systems/flight-recorder.xml"/>
-	
-	<instrument-options>
-		<canvas-popup-enable type="bool">true</canvas-popup-enable>
-	</instrument-options>
+		<flight-recorder include="Systems/flight-recorder.xml" />
 
-
-  </sim>
-
-  <it-autoflight>
+		<instrument-options>
+			<canvas-popup-enable type="bool">true</canvas-popup-enable>
+		</instrument-options>
+	</sim>
+	<systems>
+		<pitot n="0">
+			<serviceable type="bool">1</serviceable>
+		</pitot>
+		<pitot n="1">
+			<serviceable type="bool">1</serviceable>
+		</pitot>
+		<pitot n="2">
+			<serviceable type="bool">1</serviceable>
+		</pitot>
+	</systems>
+	<it-autoflight>
 		<config>
 			<roll>
 				<kp-low>0.11</kp-low> <!-- Kp at low speed -->
@@ -436,7 +462,7 @@
 				<flch-accel>1.5</flch-accel>
 				<roll>1.6</roll>
 			</cmd>
-			<autoland> 
+			<autoland>
 				<pitch-kp>0.0051</pitch-kp>
 				<yaw-kp>-0.05</yaw-kp>
 			</autoland>
@@ -447,265 +473,314 @@
 				<yaw-kp>-0.02</yaw-kp>
 			</rollout>
 		</config>
-	<settings>
-    <accel-ft type="double">1500</accel-ft> <!-- Acceleration AGL when T/O CLB changes to SPD CLB, 0 to disable -->
-    <auto-bank-limit-calc type="bool">1</auto-bank-limit-calc> <!-- Disable to add a custom auto bank limit schedule -->
-    <auto-system-reset type="bool">1</auto-system-reset> <!-- Automatically reset the system after landing -->
-    <autoland-without-ap type="bool">1</autoland-without-ap> <!-- Engage autoland guidance even if the AP is off -->
-    <autothrottle-max type="double">1</autothrottle-max> <!-- Thrust max limit normalized -->
-    <autothrottle-min type="double">0.0</autothrottle-min> <!-- Thrust low limit normalized -->
-    <bank-max-deg type="double">30</bank-max-deg> <!-- Maximum bank limit -->
-    <custom-fma type="bool">1</custom-fma> <!-- Call functions when modes change for a custom FMA to be implemented --> 
-    <disable-final type="bool">0</disable-final> <!-- Disable the Final Controllers for custom FCS integration -->
-    <elevator-in-trim type="double">0.01</elevator-in-trim> <!-- Normalized elevator to stop trimming -->
-    <elevator-out-of-trim type="double">0.02</elevator-out-of-trim> <!-- Normalized elevator to start trimming -->
-    <fd-starts-on type="bool">1</fd-starts-on> <!-- Enable/Disable Flight Director being on by default -->
-    <fd-takeoff-deg type="double">15</fd-takeoff-deg> <!-- Adjust Flight Director pitch bar in T/O CLB on ground -->
-    <ground-mode-select type="bool">0</ground-mode-select> <!-- Allow modes to be selected when on ground -->
-    <hdg-hld-separate type="bool">0</hdg-hld-separate> <!-- Separates HDG HLD mode from HDG SEL mode -->
-    <land-enable type="bool">1</land-enable> <!-- Enable/Disable Autoland -->
-    <land-flap type="double">0</land-flap> <!-- Minimum Flap used for landing -->
-    <lnav-ft type="double">50</lnav-ft> <!-- AGL when LNAV becomes active if armed -->
-    <max-kts type="int">350</max-kts> <!-- Maxmimum target airspeed in knots -->
-    <max-mach type="double">0.9</max-mach> <!-- Maxmimum target mach number -->
-    <retard-enable type="bool">1</retard-enable> <!-- AGL to enter Thrust Retard mode -->
-    <retard-ft type="double">30</retard-ft> <!-- Enable Thrust Retard mode -->
-    <stall-aoa-deg type="double">15</stall-aoa-deg> <!-- Angle of attack where AP trips off -->
-    <takeoff-hdg-cap type="double">5</takeoff-hdg-cap> <!-- Maximum bank to capture current hdg in T/O mode -->
-    <toga-spd type="double">160</toga-spd> <!-- V2 + 10kts -->
-    <use-controls-engines type="bool">0</use-controls-engines> <!-- Use /controls/engines properties -->
-    <use-controls-flight type="bool">1</use-controls-flight> <!-- Use /controls/flight properties -->
-	</settings>
-</it-autoflight>
-<instrumentation>
-  <path>Aircraft/A350XWB/Systems/A350XWB-instrumentation.xml</path>
-</instrumentation>
-<instrumentation n="0">
-  <mk-viii>  <!-- mk-viii configuration, see: http://wiki.flightgear.org/index.php/GPWS -->
-		<serviceable>true</serviceable>     <!-- EGPWS_ENABLE -->
-		<configuration-module>
-		    <category-1>                    <!-- AIRCRAFT_MODE_TYPE_SELECT -->
-		       255 <!-- aircraft type T1, fast turbofan -->
-		    </category-1>
-		    <category-4>                    <!-- ALTITUDE_CALLOUTS -->
-			11 <!-- enable all altitude callouts -->
-		    </category-4>
-		    <category-8>                    <!-- RADIO_ALTITUDE_INPUT_SELECT -->
-			 3 <!-- use precise (but YASim-specific) gear altitude -->
-		    </category-8>
-		    <category-13>                   <!-- INPUT_OUTPUT_DISCRETE_TYPE_SELECT -->
-			 5 <!-- flashing warning lamp -->
-		    </category-13>
-		</configuration-module>
-		<voice>
-		    <file-prefix type="string">Sounds/mk-viii/</file-prefix>
-		</voice>
-		<inputs>                            <!-- Module I/O -->
-		    <arinc429>
-			<!-- provide fixed value for decision height -->
-			<decision-height-ncd> false </decision-height-ncd>
-			<decision-height> 250 </decision-height>
-		    </arinc429>
-		</inputs>
-		<input-feeders>    <!-- disable some internal default feeders -->
-		    <discretes>
-			<!-- will provide custom (nasal) sources for the following input feeders -->
-			<glideslope-inhibit> false </glideslope-inhibit>
-			<landing-gear> false </landing-gear>
-			<landing-flaps> false </landing-flaps>
-		    </discretes>
-		</input-feeders>
-		<speaker>                           <!-- Speaker Configuration -->
-		    <max-dist type="double"> 200.0 </max-dist>        <!-- Max. distance where speaker is heard -->
-		    <reference-dist type="double"> 2 </reference-dist> <!-- Distance to pilot -->
-		    <volume type="double"> 2 </volume>          <!-- Volume at reference distance -->
-		</speaker>
-	    </mk-viii>
-	<!-- nav tags copied from A320-family -->
-	<nav n="0">
-		<frequencies>
-			<selected-mhz type="double">111.15</selected-mhz>
-			<standby-mhz type="double">110.95</standby-mhz>
-		</frequencies>
-		<radials>
-			<selected-deg type="double">360</selected-deg>
-		</radials>
-		<serviceable type="bool">true</serviceable>
-		<volume type="double">0</volume>
-	</nav>
-	
-	<nav n="1">
-		<frequencies>
-			<selected-mhz type="double">109.55</selected-mhz>
-			<standby-mhz type="double">110.55</standby-mhz>
-		</frequencies>
-		<radials>
-			<selected-deg type="double">360</selected-deg>
-		</radials>
-		<serviceable type="bool">true</serviceable>
-		<volume type="double">0</volume>
-	</nav>
-	
-	<nav n="2">
-		<cdi>
+		<settings>
+			<accel-ft type="double">1500</accel-ft> <!-- Acceleration AGL when T/O CLB
+			changes to SPD CLB, 0 to disable -->
+			<auto-bank-limit-calc type="bool">1</auto-bank-limit-calc> <!-- Disable to
+			add a custom auto bank limit schedule -->
+			<auto-system-reset type="bool">1</auto-system-reset> <!-- Automatically reset
+			the system after landing -->
+			<autoland-without-ap type="bool">1</autoland-without-ap> <!-- Engage autoland
+			guidance even if the AP is off -->
+			<autothrottle-max type="double">1</autothrottle-max> <!-- Thrust max limit
+			normalized -->
+			<autothrottle-min type="double">0.0</autothrottle-min> <!-- Thrust low limit
+			normalized -->
+			<bank-max-deg type="double">30</bank-max-deg> <!-- Maximum bank limit -->
+			<custom-fma type="bool">1</custom-fma> <!-- Call functions when modes change
+			for a custom FMA to be implemented -->
+			<disable-final type="bool">0</disable-final> <!-- Disable the Final
+			Controllers for custom FCS integration -->
+			<elevator-in-trim type="double">0.01</elevator-in-trim> <!-- Normalized
+			elevator to stop trimming -->
+			<elevator-out-of-trim type="double">0.02</elevator-out-of-trim> <!--
+			Normalized elevator to start trimming -->
+			<fd-starts-on type="bool">1</fd-starts-on> <!-- Enable/Disable Flight
+			Director being on by default -->
+			<fd-takeoff-deg type="double">15</fd-takeoff-deg> <!-- Adjust Flight Director
+			pitch bar in T/O CLB on ground -->
+			<ground-mode-select type="bool">0</ground-mode-select> <!-- Allow modes to be
+			selected when on ground -->
+			<hdg-hld-separate type="bool">0</hdg-hld-separate> <!-- Separates HDG HLD
+			mode from HDG SEL mode -->
+			<land-enable type="bool">1</land-enable> <!-- Enable/Disable Autoland -->
+			<land-flap type="double">0</land-flap> <!-- Minimum Flap used for landing -->
+			<lnav-ft type="double">50</lnav-ft> <!-- AGL when LNAV becomes active if
+			armed -->
+			<max-kts type="int">350</max-kts> <!-- Maxmimum target airspeed in knots -->
+			<max-mach type="double">0.9</max-mach> <!-- Maxmimum target mach number -->
+			<retard-enable type="bool">1</retard-enable> <!-- AGL to enter Thrust Retard
+			mode -->
+			<retard-ft type="double">30</retard-ft> <!-- Enable Thrust Retard mode -->
+			<stall-aoa-deg type="double">15</stall-aoa-deg> <!-- Angle of attack where AP
+			trips off -->
+			<takeoff-hdg-cap type="double">5</takeoff-hdg-cap> <!-- Maximum bank to
+			capture current hdg in T/O mode -->
+			<toga-spd type="double">160</toga-spd> <!-- V2 + 10kts -->
+			<use-controls-engines type="bool">0</use-controls-engines> <!-- Use
+			/controls/engines properties -->
+			<use-controls-flight type="bool">1</use-controls-flight> <!-- Use
+			/controls/flight properties -->
+		</settings>
+	</it-autoflight>
+	<instrumentation n="0">
+		<mk-viii>  <!-- mk-viii configuration, see: http://wiki.flightgear.org/index.php/GPWS -->
+			<serviceable>true</serviceable>     <!-- EGPWS_ENABLE -->
+			<configuration-module>
+				<category-1>                    <!-- AIRCRAFT_MODE_TYPE_SELECT --> 255 <!-- aircraft type T1, fast turbofan -->
+				</category-1>
+				<category-4>                    <!-- ALTITUDE_CALLOUTS --> 11 <!-- enable all altitude callouts -->
+				</category-4>
+				<category-8>                    <!-- RADIO_ALTITUDE_INPUT_SELECT --> 3 <!-- use precise (but YASim-specific) gear altitude -->
+				</category-8>
+				<category-13>                   <!-- INPUT_OUTPUT_DISCRETE_TYPE_SELECT --> 5 <!-- flashing warning lamp -->
+				</category-13>
+			</configuration-module>
+			<voice>
+				<file-prefix type="string">Sounds/mk-viii/</file-prefix>
+			</voice>
+			<inputs>                            <!-- Module I/O -->
+				<arinc429>
+					<!-- provide fixed value for decision height -->
+					<decision-height-ncd> false </decision-height-ncd>
+					<decision-height> 250 </decision-height>
+				</arinc429>
+			</inputs>
+			<input-feeders>    <!-- disable some internal default feeders -->
+				<discretes>
+					<!-- will provide custom (nasal) sources for the following
+					input feeders -->
+					<glideslope-inhibit> false </glideslope-inhibit>
+					<landing-gear> false </landing-gear>
+					<landing-flaps> false </landing-flaps>
+				</discretes>
+			</input-feeders>
+			<speaker>                           <!-- Speaker Configuration -->
+				<max-dist type="double"> 200.0 </max-dist>        <!-- Max. distance where
+				speaker is heard -->
+				<reference-dist type="double"> 2 </reference-dist> <!-- Distance to
+				pilot -->
+				<volume type="double"> 2 </volume>          <!-- Volume at reference distance -->
+			</speaker>
+		</mk-viii>
+		<!-- nav tags copied from A320-family -->
+		<nav n="0">
+			<frequencies>
+				<selected-mhz type="double">111.15</selected-mhz>
+				<standby-mhz type="double">110.95</standby-mhz>
+			</frequencies>
+			<radials>
+				<selected-deg type="double">360</selected-deg>
+			</radials>
 			<serviceable type="bool">true</serviceable>
-		</cdi>
-		<frequencies>
-			<selected-mhz type="double">112.8</selected-mhz>
-			<standby-mhz type="double">112.6</standby-mhz>
-		</frequencies>
-		<radials>
-			<selected-deg type="double">360</selected-deg>
-		</radials>
-		<serviceable type="bool">true</serviceable>
-		<volume type="double">0</volume>
-	</nav>
-	
-	<nav n="3">
-		<cdi>
+			<volume type="double">0</volume>
+		</nav>
+
+		<nav n="1">
+			<frequencies>
+				<selected-mhz type="double">109.55</selected-mhz>
+				<standby-mhz type="double">110.55</standby-mhz>
+			</frequencies>
+			<radials>
+				<selected-deg type="double">360</selected-deg>
+			</radials>
 			<serviceable type="bool">true</serviceable>
-		</cdi>
-		<frequencies>
-			<selected-mhz type="double">114.8</selected-mhz>
-			<standby-mhz type="double">114.6</standby-mhz>
-		</frequencies>
-		<radials>
-			<selected-deg type="double">360</selected-deg>
-		</radials>
-		<serviceable type="bool">true</serviceable>
-		<volume type="double">0</volume>
-	</nav>
-</instrumentation>
+			<volume type="double">0</volume>
+		</nav>
 
-  <consumables>
-    <fuel>
-      <tank n="0">
-        <name>Left Wing Vent</name>
-      </tank>
-      <tank n="1">
-        <name>Left Wing Inner</name>
-      </tank>
-      <tank n="2">
-        <name>Center</name>
-      </tank>
-      <tank n="3">
-        <name>Right Wing Outer</name>
-      </tank>
-      <tank n="4">
-        <name>Right Wing Vent</name>
-      </tank>
-      <tank n="5">
-        <name>Left Pipes</name>
-      </tank>
-      <tank n="6">
-        <name>Right Pipes</name>
-      </tank>
-    </fuel>
-  </consumables>
-  <input>
-    <keyboard include="A350XWB-keyboard.xml">
-    </keyboard>
-  </input>
-  
-  <!-- Autopilot initialization -->
-  <autopilot>
+		<nav n="2">
+			<cdi>
+				<serviceable type="bool">true</serviceable>
+			</cdi>
+			<frequencies>
+				<selected-mhz type="double">112.8</selected-mhz>
+				<standby-mhz type="double">112.6</standby-mhz>
+			</frequencies>
+			<radials>
+				<selected-deg type="double">360</selected-deg>
+			</radials>
+			<serviceable type="bool">true</serviceable>
+			<volume type="double">0</volume>
+		</nav>
 
-    <settings>
-      <kts-mach-select type="string">kts</kts-mach-select>
-      <max-pitch type="float">6.0</max-pitch>
-      <min-pitch type="float">-4.0</min-pitch>
-      <bank-angle-limit-deg type="int">35</bank-angle-limit-deg>
-    </settings>
+		<nav n="3">
+			<cdi>
+				<serviceable type="bool">true</serviceable>
+			</cdi>
+			<frequencies>
+				<selected-mhz type="double">114.8</selected-mhz>
+				<standby-mhz type="double">114.6</standby-mhz>
+			</frequencies>
+			<radials>
+				<selected-deg type="double">360</selected-deg>
+			</radials>
+			<serviceable type="bool">true</serviceable>
+			<volume type="double">0</volume>
+		</nav>
+		<airspeed-indicator n="0">
+			<serviceable type="bool">1</serviceable>
+		</airspeed-indicator>
+		<airspeed-indicator n="1">
+			<serviceable type="bool">1</serviceable>
+		</airspeed-indicator>
+		<airspeed-indicator n="2">
+			<serviceable type="bool">1</serviceable>
+		</airspeed-indicator>
+		<altimeter n="0">
+			<serviceable type="bool">1</serviceable>
+			<mode-c-alt-ft type="double">0</mode-c-alt-ft>
+			<indicated-altitude-ft type="double">0</indicated-altitude-ft>
+			<pressure-alt-ft type="double">0</pressure-alt-ft>
+			<setting-hpa type="double">1013.25</setting-hpa>
+			<setting-inhg type="double">29.92</setting-inhg>
+		</altimeter>
+		<altimeter n="1">
+			<serviceable type="bool">1</serviceable>
+			<mode-c-alt-ft type="double">0</mode-c-alt-ft>
+			<indicated-altitude-ft type="double">0</indicated-altitude-ft>
+			<pressure-alt-ft type="double">0</pressure-alt-ft>
+			<setting-hpa type="double">1013.25</setting-hpa>
+			<setting-inhg type="double">29.92</setting-inhg>
+		</altimeter>
+		<altimeter n="2">
+			<serviceable type="bool">1</serviceable>
+			<mode-c-alt-ft type="double">0</mode-c-alt-ft>
+			<indicated-altitude-ft type="double">0</indicated-altitude-ft>
+			<pressure-alt-ft type="double">0</pressure-alt-ft>
+			<setting-hpa type="double">1013.25</setting-hpa>
+			<setting-inhg type="double">29.92</setting-inhg>
+		</altimeter>
+	</instrumentation>
+	<consumables>
+		<fuel>
+			<tank n="0">
+				<name>Left Wing Vent</name>
+			</tank>
+			<tank n="1">
+				<name>Left Wing Inner</name>
+			</tank>
+			<tank n="2">
+				<name>Center</name>
+			</tank>
+			<tank n="3">
+				<name>Right Wing Outer</name>
+			</tank>
+			<tank n="4">
+				<name>Right Wing Vent</name>
+			</tank>
+			<tank n="5">
+				<name>Left Pipes</name>
+			</tank>
+			<tank n="6">
+				<name>Right Pipes</name>
+			</tank>
+		</fuel>
+	</consumables>
+	<input>
+		<keyboard include="A350XWB-keyboard.xml">
+		</keyboard>
+	</input>
 
-    <internal>
-      <target-pitch-deg type="float">0.00</target-pitch-deg>
-      <max-pitch type="float">6.0</max-pitch>
-      <min-pitch type="float">-4.0</min-pitch>
-    </internal>
+	<!-- Autopilot initialization -->
+	<autopilot>
 
-  </autopilot>
-  
-  <!-- Voodoomaster plane specific initializations -->
-  <voodoomaster>
-    <steering-wheel type="int">0</steering-wheel>
-    <steering-type type="string">TriCycle</steering-type>	<!-- Alternativ: Taildragger-lock or TriCycle -->
-    <pushback>
-      <activated type="bool">false</activated>
-    </pushback>
-  </voodoomaster>
+		<settings>
+			<kts-mach-select type="string">kts</kts-mach-select>
+			<max-pitch type="float">6.0</max-pitch>
+			<min-pitch type="float">-4.0</min-pitch>
+			<bank-angle-limit-deg type="int">35</bank-angle-limit-deg>
+		</settings>
 
-  <nasal>
-    <A350XWB>
-      <file>Aircraft/A350XWB/Nasal/system-init.nas</file>
-      <!--<file>Aircraft/A350XWB/Models/Instruments/PFD2/PFD.nas</file>-->
-      <file>Aircraft/A350XWB/Nasal/A350XWB-EICAS.nas</file>
-      <file>Aircraft/A350XWB/Nasal/A350XWB-engines.nas</file>
-      <file>Aircraft/A350XWB/Nasal/A350XWB-main.nas</file>
-      <file>Aircraft/A350XWB/Nasal/engine-param.nas</file>
-      <file>Aircraft/A350XWB/Nasal/system.nas</file>
-      <file>Aircraft/A350XWB/Nasal/wipers.nas</file>
-      <file>Aircraft/A350XWB/Nasal/liveries.nas</file>
-      <file>Aircraft/A350XWB/Nasal/ground_services.nas</file>
-      <file>Aircraft/A350XWB/Nasal/lighting.nas</file>
-      <file>Aircraft/A350XWB/Models/flightdeck/MCP/FCU.nas</file>
-    </A350XWB>
-    <itaf>
-      <file>Aircraft/A350XWB/Nasal/it-autoflight.nas</file>
-      <file>Nasal/custom-fma.nas</file>
-    </itaf>
+		<internal>
+			<target-pitch-deg type="float">0.00</target-pitch-deg>
+			<max-pitch type="float">6.0</max-pitch>
+			<min-pitch type="float">-4.0</min-pitch>
+		</internal>
+
+	</autopilot>
+
+	<!-- Voodoomaster plane specific initializations -->
+	<voodoomaster>
+		<steering-wheel type="int">0</steering-wheel>
+		<steering-type type="string">TriCycle</steering-type>	<!-- Alternativ:
+		Taildragger-lock or TriCycle -->
+		<pushback>
+			<activated type="bool">false</activated>
+		</pushback>
+	</voodoomaster>
+
+	<nasal>
+		<A350XWB>
+			<file>Aircraft/A350XWB/Nasal/system-init.nas</file>
+			<!--<file>Aircraft/A350XWB/Models/Instruments/PFD2/PFD.nas</file>-->
+			<file>Aircraft/A350XWB/Nasal/A350XWB-EICAS.nas</file>
+			<file>Aircraft/A350XWB/Nasal/A350XWB-engines.nas</file>
+			<file>Aircraft/A350XWB/Nasal/A350XWB-main.nas</file>
+			<file>Aircraft/A350XWB/Nasal/engine-param.nas</file>
+			<file>Aircraft/A350XWB/Nasal/system.nas</file>
+			<file>Aircraft/A350XWB/Nasal/wipers.nas</file>
+			<file>Aircraft/A350XWB/Nasal/liveries.nas</file>
+			<file>Aircraft/A350XWB/Nasal/ground_services.nas</file>
+			<file>Aircraft/A350XWB/Nasal/lighting.nas</file>
+			<file>Aircraft/A350XWB/Models/flightdeck/MCP/FCU.nas</file>
+		</A350XWB>
+		<itaf>
+			<file>Aircraft/A350XWB/Nasal/it-autoflight.nas</file>
+			<file>Nasal/custom-fma.nas</file>
+		</itaf>
 		<!--<fbw>
 			<file>Aircraft/A320-family/Nasal/Systems/fbw.nas</file>
 		</fbw>-->
-    <ND>
-      <file>Aircraft/A350XWB/Models/Instruments/ND/canvas/ND.nas</file>
-    </ND>
-    <PFD>
-          <file>Aircraft/A350XWB/Models/Instruments/PFD2/pfd.nas</file>
-    </PFD>
-    <ECAM_UPPER>
-          <file>Aircraft/A350XWB/Models/Instruments/Upper-ECAM/ecam.nas</file>
-    </ECAM_UPPER>
-    <MFD>
-      <file>Aircraft/A350XWB/Models/Instruments/MFD/fms.nas</file>
-    </MFD>
-    <reversethrust>
-      <file>Aircraft/A350XWB/Nasal/reversethrust.nas</file>
-    </reversethrust>
-    <electrical>
-      <file>Aircraft/A350XWB/Nasal/electrical.nas</file>
-    </electrical>
-    <tyresmoke>
-      <file>Aircraft/A350XWB/Nasal/tyresmoke.nas</file>
-    </tyresmoke>
-    <walk>
-      <file>Aircraft/A350XWB/Nasal/walk.nas</file>
-    </walk>
-    <!-- Dual control -->
-    <dual_control_tools>
-      <file>Aircraft/Generic/DualControl/dual-control-tools.nas</file>
-    </dual_control_tools>
-    <aircraft_dual_control>
-      <file>Aircraft/A350XWB/DualControl/A350XWB-dual-control.nas</file>
-    </aircraft_dual_control>
-    <dual_control>
-      <file>Aircraft/Generic/DualControl/pilot-dual-control.nas</file>
-    </dual_control>
+		<ND>
+			<file>Aircraft/A350XWB/Models/Instruments/ND/canvas/ND.nas</file>
+		</ND>
+		<PFD>
+			<file>Aircraft/A350XWB/Models/Instruments/PFD2/pfd.nas</file>
+		</PFD>
+		<ECAM_UPPER>
+			<file>Aircraft/A350XWB/Models/Instruments/Upper-ECAM/ecam.nas</file>
+		</ECAM_UPPER>
+		<MFD>
+			<file>Aircraft/A350XWB/Models/Instruments/MFD/fms.nas</file>
+		</MFD>
+		<reversethrust>
+			<file>Aircraft/A350XWB/Nasal/reversethrust.nas</file>
+		</reversethrust>
+		<electrical>
+			<file>Aircraft/A350XWB/Nasal/electrical.nas</file>
+		</electrical>
+		<tyresmoke>
+			<file>Aircraft/A350XWB/Nasal/tyresmoke.nas</file>
+		</tyresmoke>
+		<walk>
+			<file>Aircraft/A350XWB/Nasal/walk.nas</file>
+		</walk>
+		<!-- Dual control -->
+		<dual_control_tools>
+			<file>Aircraft/Generic/DualControl/dual-control-tools.nas</file>
+		</dual_control_tools>
+		<aircraft_dual_control>
+			<file>Aircraft/A350XWB/DualControl/A350XWB-dual-control.nas</file>
+		</aircraft_dual_control>
+		<dual_control>
+			<file>Aircraft/Generic/DualControl/pilot-dual-control.nas</file>
+		</dual_control>
 
-  </nasal>
+	</nasal>
 
-  <engines>
-    <engine n="0">
-      <running>true</running>
-    </engine>
-    <engine n="1">
-      <running>true</running>
-    </engine>
-  </engines>
+	<engines>
+		<engine n="0">
+			<running>true</running>
+		</engine>
+		<engine n="1">
+			<running>true</running>
+		</engine>
+	</engines>
 
-  <controls>
-    <gear>
-      <brake-parking>1</brake-parking>
-    </gear>
-  </controls>
+	<controls>
+		<gear>
+			<brake-parking>1</brake-parking>
+		</gear>
+	</controls>
 
 </PropertyList>

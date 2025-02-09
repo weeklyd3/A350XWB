@@ -11,6 +11,24 @@
   <nasal>
     <load>
       var livery_update = aircraft.livery_update.new("Aircraft/A350XWB/Models/Liveries", 10);
+      var model = cmdarg();
+   model.getNode("door[0]/position-x-m", 1).setValue(2.18686);
+   model.getNode("door[0]/position-y-m", 1).setValue(2.52946);
+   model.getNode("door[0]/position-z-m", 1).setValue(3.16475);
+   model.getNode("door[0]/jetway-hood-deg", 1).setValue(10);
+   var clear = func() {
+   var plan = createFlightplan();
+var ppos = createWP(geo.aircraft_position().lat(), geo.aircraft_position().lon(), "PPOS");
+plan.insertWP(ppos, 0);
+plan.activate();
+   };
+   print('trying to clear flightplan');
+props.globals.getNode('/autopilot/route-manager/route/wp').clearValue();
+setprop('/autopilot/route-manager/route/num', 0);
+setprop('/autopilot/route-manager/departure/airport', '')''
+var timer = maketimer(1, clear);
+timer.singleShot = 1;
+timer.start();
     </load>
     <unload>
       livery_update.stop();
@@ -271,7 +289,8 @@
     <object-name>winglet.right</object-name>
     <object-name>flap9</object-name>
     <object-name>flap10</object-name>
-    <object-name>aileron1</object-name>
+    <object-name>right_outer_aileron</object-name>
+    <object-name>right_inner_aileron</object-name>
     <object-name>slat4</object-name>
     <object-name>slat4.part2</object-name>
     <object-name>right.wing.lamp</object-name>
@@ -304,7 +323,8 @@
     <type>rotate</type>
     <object-name>wing.right.3</object-name>
     <object-name>winglet.right</object-name>
-    <object-name>aileron1</object-name>
+    <object-name>right_outer_aileron</object-name>
+    <object-name>right_inner_aileron</object-name>
     <object-name>slat4.part2</object-name>
     <object-name>right.wing.lamp</object-name>
     <object-name>greennav</object-name>
@@ -333,7 +353,8 @@
     <object-name>winglet.left</object-name>
     <object-name>flap5</object-name>
     <object-name>flap6</object-name>
-    <object-name>aileron2</object-name>
+    <object-name>left_outer_aileron</object-name>
+    <object-name>left_inner_aileron</object-name>
     <object-name>slat1</object-name>
     <object-name>slat1.part2</object-name>
     <object-name>left.wing.lamp</object-name>
@@ -367,7 +388,8 @@
     <type>rotate</type>
     <object-name>wing.left.3</object-name>
     <object-name>winglet.left</object-name>
-    <object-name>aileron2</object-name>
+    <object-name>left_outer_aileron</object-name>
+    <object-name>left_inner_aileron</object-name>
     <object-name>slat1.part2</object-name>
     <object-name>left.wing.lamp</object-name>
     <object-name>rednav</object-name>
@@ -394,32 +416,70 @@
   <animation>
     <name>Aileron1</name>
     <type>rotate</type>
-    <object-name>aileron1</object-name>
-    <property>surface-positions/left-aileron-pos-norm</property>
+    <object-name>right_inner_aileron</object-name>
+    <property>surface-positions/right-aileron-pos-norm</property>
     <interpolation>
-      <entry><ind>-1.0</ind><dep>25.0</dep></entry>
+      <entry><ind>-1.0</ind><dep>30.0</dep></entry>
       <entry><ind>0.0</ind><dep>0.0</dep></entry>
-      <entry><ind>1.0</ind><dep>-25.0</dep></entry>
+      <entry><ind>1.0</ind><dep>-20.0</dep></entry>
     </interpolation>
     <axis>
-      <x1-m>39.0382</x1-m>
-      <y1-m>20.4009</y1-m>
-      <z1-m>1.9868</z1-m>
-      <x2-m>43.0227</x2-m>
-      <y2-m>28.6213</y2-m>
-      <z2-m>2.9418</z2-m>
+      <x1-m>43.0227</x1-m>
+      <y1-m>28.6213</y1-m>
+      <z1-m>2.9418</z1-m>
+      <x2-m>39.0382</x2-m>
+      <y2-m>20.4009</y2-m>
+      <z2-m>1.9868</z2-m>
+    </axis>
+  </animation>
+    <animation>
+    <name>Aileron1</name>
+    <type>rotate</type>
+    <object-name>right_outer_aileron</object-name>
+    <property>fdm/jsbsim/fcs/right-outer-aileron-pos-norm</property>
+    <interpolation>
+      <entry><ind>-1.0</ind><dep>30.0</dep></entry>
+      <entry><ind>0.0</ind><dep>0.0</dep></entry>
+      <entry><ind>1.0</ind><dep>-20.0</dep></entry>
+    </interpolation>
+    <axis>
+      <x1-m>43.0227</x1-m>
+      <y1-m>28.6213</y1-m>
+      <z1-m>2.9418</z1-m>
+      <x2-m>39.0382</x2-m>
+      <y2-m>20.4009</y2-m>
+      <z2-m>1.9868</z2-m>
     </axis>
   </animation>
   
   <animation>
     <name>Aileron2</name>
     <type>rotate</type>
-    <object-name>aileron2</object-name>
+    <object-name>left_inner_aileron</object-name>
     <property>surface-positions/left-aileron-pos-norm</property>
     <interpolation>
-      <entry><ind>-1.0</ind><dep>25.0</dep></entry>
+      <entry><ind>-1.0</ind><dep>30.0</dep></entry>
       <entry><ind>0.0</ind><dep>0.0</dep></entry>
-      <entry><ind>1.0</ind><dep>-25.0</dep></entry>
+      <entry><ind>1.0</ind><dep>-20.0</dep></entry>
+    </interpolation>
+    <axis>
+      <x1-m>39.0382</x1-m>
+      <y1-m>-20.4009</y1-m>
+      <z1-m>1.9868</z1-m>
+      <x2-m>43.0227</x2-m>
+      <y2-m>-28.6213</y2-m>
+      <z2-m>2.9418</z2-m>
+    </axis>
+  </animation>
+    <animation>
+    <name>Aileron2</name>
+    <type>rotate</type>
+    <object-name>left_outer_aileron</object-name>
+    <property>fdm/jsbsim/fcs/left-outer-aileron-pos-norm</property>
+    <interpolation>
+      <entry><ind>-1.0</ind><dep>30.0</dep></entry>
+      <entry><ind>0.0</ind><dep>0.0</dep></entry>
+      <entry><ind>1.0</ind><dep>-20.0</dep></entry>
     </interpolation>
     <axis>
       <x1-m>39.0382</x1-m>

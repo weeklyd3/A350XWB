@@ -663,21 +663,6 @@
 				/systems/fadec/throttle/man-throttle-angle-1 le /systems/fadec/throttle/mct-detent-end
 			</test>
 		</switch>
-		<fcs_function name="/systems/fadec/throttle/throttle-angle-1">
-			<function>
-				<ifthen>
-					<ge>
-						<property>/systems/fadec/throttle/athr-1</property>
-						<value>0.5</value>
-					</ge>
-					<min>
-						<property>/it-autoflight/internal/throttle[0]</property>
-						<property>/systems/fadec/throttle/man-throttle-angle-1</property>
-					</min>
-					<property>/systems/fadec/throttle/man-throttle-angle-1</property>
-				</ifthen>
-			</function>
-		</fcs_function>
 		<switch name="/systems/fadec/throttle/athr-2">
 			<default value="0" />
 			<test logic="AND" value="1">
@@ -691,6 +676,28 @@
 				/systems/fadec/throttle/man-throttle-angle-2 le /systems/fadec/throttle/mct-detent-end
 			</test>
 		</switch>
+		<switch name="/systems/fadec/throttle/athr">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/fadec/throttle/athr-1 eq 1
+				/systems/fadec/throttle/athr-2 eq 1
+			</test>
+		</switch>
+		<fcs_function name="/systems/fadec/throttle/throttle-angle-1">
+			<function>
+				<ifthen>
+					<ge>
+						<property>/systems/fadec/throttle/athr</property>
+						<value>0.5</value>
+					</ge>
+					<min>
+						<property>/it-autoflight/internal/throttle[0]</property>
+						<property>/systems/fadec/throttle/man-throttle-angle-1</property>
+					</min>
+					<property>/systems/fadec/throttle/man-throttle-angle-1</property>
+				</ifthen>
+			</function>
+		</fcs_function>
 		<lag_filter name="/systems/fadec/throttle/throttle-2">
 			<input>/controls/engines/engine[1]/throttle</input>
 			<c1>20</c1>
@@ -715,7 +722,7 @@
 			<function>
 				<ifthen>
 					<ge>
-						<property>/systems/fadec/throttle/athr-2</property>
+						<property>/systems/fadec/throttle/athr</property>
 						<value>0.5</value>
 					</ge>
 					<min>

@@ -20,6 +20,10 @@
 	<property value="0">/systems/electrical/generators/gen-2b-fault</property>
 	<property value="1">/controls/electric/drive-2b</property>
 	<property value="0">/systems/electrical/generators/drive-2b-fault</property>
+	<property value="28">/systems/electrical/batteries/bat-1-voltage</property>
+	<property value="28">/systems/electrical/batteries/bat-emer-1-voltage</property>
+	<property value="28">/systems/electrical/batteries/bat-2-voltage</property>
+	<property value="28">/systems/electrical/batteries/bat-emer-2-voltage</property>
 	<channel name="generators">
 		<switch name="/systems/electrical/generators/gen-1a">
 			<default value="0" />
@@ -49,6 +53,14 @@
 				/engines/engine/running eq 1
 			</test>
 		</switch>
+		<pure_gain name="/systems/electrical/voltage/gen-1b-cmd">
+			<input>/systems/electrical/generators/gen-1b</input>
+			<gain>230</gain>
+		</pure_gain>
+		<actuator name="/systems/electrical/voltage/gen-1b">
+			<input>/systems/electrical/voltage/gen-1b-cmd</input>
+			<rate_limit>100</rate_limit>
+		</actuator>
 		<switch name="/systems/electrical/generators/gen-2a">
 			<default value="0" />
 			<test logic="AND" value="1">
@@ -59,6 +71,14 @@
 				/engines/engine[1]/running eq 1
 			</test>
 		</switch>
+		<pure_gain name="/systems/electrical/voltage/gen-2a-cmd">
+			<input>/systems/electrical/generators/gen-2a</input>
+			<gain>230</gain>
+		</pure_gain>
+		<actuator name="/systems/electrical/voltage/gen-2a">
+			<input>/systems/electrical/voltage/gen-2a-cmd</input>
+			<rate_limit>100</rate_limit>
+		</actuator>
 		<switch name="/systems/electrical/generators/gen-2b">
 			<default value="0" />
 			<test logic="AND" value="1">
@@ -67,6 +87,23 @@
 				/systems/electrical/generators/drive-2b-fault eq 0
 				/controls/electric/drive-2b eq 1
 				/engines/engine[1]/running eq 1
+			</test>
+		</switch>
+		<pure_gain name="/systems/electrical/voltage/gen-2b-cmd">
+			<input>/systems/electrical/generators/gen-2b</input>
+			<gain>230</gain>
+		</pure_gain>
+		<actuator name="/systems/electrical/voltage/gen-2b">
+			<input>/systems/electrical/voltage/gen-2b-cmd</input>
+			<rate_limit>100</rate_limit>
+		</actuator>
+	</channel>
+	<channel name="buses">
+		<switch name="/systems/electrical/bus/voltage-1a">
+			<default value="/systems/electrical/voltage/gen-1a" />
+			<test logic="AND" value="/systems/apu/gen-voltage">
+				/systems/electrical/generators/gen-1a eq 0
+				/systems/apu/gen-voltage gt 0
 			</test>
 		</switch>
 	</channel>

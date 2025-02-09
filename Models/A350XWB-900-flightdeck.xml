@@ -12,12 +12,12 @@
 			<z-m>1.855</z-m> <!-- 1872 more up -->
     			<pitch-deg>-17</pitch-deg><!-- -17 -->
 		</offsets>
-		<condition>
+		<!--<condition>
 			<greater-than-equals>
 				<property>/systems/electrical/outputs/bus</property>
 				<value>12</value>
 			</greater-than-equals>
-		</condition>
+		</condition>-->
 	</model>
 
 	<!--<model>
@@ -96,12 +96,12 @@
 			<z-m>1.8778</z-m>
     			<pitch-deg>-17</pitch-deg>
 		</offsets>
-		<condition>
+		<!--<condition>
 			<greater-than-equals>
 				<property>/systems/electrical/outputs/bus</property>
 				<value>12</value>
 			</greater-than-equals>
-		</condition>
+		</condition>-->
 	</model>
 	
 	<model>
@@ -112,12 +112,12 @@
 			<z-m>1.8778</z-m>
     			<pitch-deg>-17</pitch-deg>
 		</offsets>
-		<condition>
+		<!--<condition>
 			<greater-than-equals>
 				<property>/systems/electrical/outputs/bus</property>
 				<value>12</value>
 			</greater-than-equals>
-		</condition>
+		</condition>-->
 	</model>
 
 <!-- ##################################################### -->
