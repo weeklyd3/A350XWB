@@ -46,6 +46,7 @@ var pfd = {
 		});
 		display.addPlacement({"node": name, "texture": "pfd_test.png"});
 		returned.show = func() {
+			print('showing primary flight display');
 			var window = canvas.Window.new([889 / 2, 564], "dialog").set("resize", 1);
 			window.setCanvas(display);
 		};
@@ -53,7 +54,7 @@ var pfd = {
 		# create an image child
 		var group = display.createGroup('svg');
 		canvas.parsesvg(group, path, {"font-mapper": returned.font_mapper});
-		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "pfd_heading_scale", "ball", "airspeed", "overspeed_barber_poles", "vls", "alpha_prot", "speed_selected", "speed_selected_1", "speed_selected_2", "mach", "speed_trend", "speed_trend_up", "speed_trend_down", "speed_trend_up_line", "speed_trend_down_line", "green_dot_speed", "te_flaps", "te_flaps_line", "le_flaps", "wing_scale", "flaps_cmd_frame", "flaps_cmd", "flap_triangle_1", "flap_triangle_2", "flap_triangle_3", "flap_triangle_4", "slat_circle_1", "slat_circle_2", "park_brk", "gear_down", "gear_transit_down", "gear_transit_up", "ils", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "ils_ident", "ils_frequency", "ils_distance", "ils_distance_label", "ils_course_text_left", "ils_course_text_right", "ils_course_left", "ils_course_right", "ils_course_text", "ils_course", "hundred_numbers", "hundreds", "thousands", "thousands_zero", "ten_thousands", "alt_tape", "alt_fl", "alt_fl_selected", "alt_fl_selected_text", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "vs_needle", "vs_exact", "vs_text", "stall", "heading_tape", "heading_tens", "heading_tens_plus_1", "heading_tens_plus_2", "heading_tens_plus_3", "heading_tens_minus_1", "heading_tens_minus_2", "yaw_marker", "track_marker", "fma_2_3", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "vs_fpa", "fma_2_vs_value", "fma_2_vs"]) {
+		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "pfd_heading_scale", "ball", "airspeed", "overspeed_barber_poles", "vls", "alpha_prot", "speed_selected", "speed_selected_1", "speed_selected_2", "mach", "speed_trend", "speed_trend_up", "speed_trend_down", "speed_trend_up_line", "speed_trend_down_line", "green_dot_speed", "te_flaps", "te_flaps_line", "le_flaps", "wing_scale", "flaps_cmd_frame", "flaps_cmd", "flap_triangle_1", "flap_triangle_2", "flap_triangle_3", "flap_triangle_4", "slat_circle_1", "slat_circle_2", "park_brk", "gear_down", "gear_transit_down", "gear_transit_up", "ils", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "ils_ident", "ils_frequency", "ils_distance", "ils_distance_label", "ils_course_text_left", "ils_course_text_right", "ils_course_left", "ils_course_right", "ils_course_text", "ils_course", "hundred_numbers", "hundreds", "thousands", "thousands_zero", "ten_thousands", "alt_tape", "alt_fl", "alt_fl_selected", "alt_fl_selected_text", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "vs_needle", "vs_exact", "vs_text", "stall", "heading_tape", "heading_tens", "heading_tens_plus_1", "heading_tens_plus_2", "heading_tens_plus_3", "heading_tens_minus_1", "heading_tens_minus_2", "yaw_marker", "track_marker", "fma_2_3", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "vs_fpa", "fma_2_vs_value", "fma_2_vs", 'fma_5_fd', 'fma_5_athr', 'fma_5_ap']) {
 			returned.svg_items[elem] = group.getElementById(elem);
 			if (group.getElementById(elem) == nil) {
 				setprop("/sim/messages/copilot", "pfd svg item " ~ elem ~ " does not exist!!!");
@@ -61,7 +62,7 @@ var pfd = {
 				setprop("/sim/messages/copilot", "");
 			}
 		}
-		foreach (elem; ["alt_fl", "alt_fl_selected_text", "alt_below_1", "alt_above_1", "alt_above_2", "vs_text", "mach", "ils_ident", "ils_frequency", "ils_distance", "ils_course_text_left", "ils_course_text_right", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "fma_2_vs_value", "fma_2_vs", "speed_selected_1", "speed_selected_2", "heading_tens", "heading_tens_plus_1", "heading_tens_plus_2", "heading_tens_plus_3", "heading_tens_minus_1", "heading_tens_minus_2", "flaps_cmd"]) {
+		foreach (elem; ["alt_fl", "alt_fl_selected_text", "alt_below_1", "alt_above_1", "alt_above_2", "vs_text", "mach", "ils_ident", "ils_frequency", "ils_distance", "ils_course_text_left", "ils_course_text_right", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "fma_2_vs_value", "fma_2_vs", "fma_5_ap", "speed_selected_1", "speed_selected_2", "heading_tens", "heading_tens_plus_1", "heading_tens_plus_2", "heading_tens_plus_3", "heading_tens_minus_1", "heading_tens_minus_2", "flaps_cmd"]) {
 			returned.svg_items[elem].enableUpdate();
 		}
 		# prolly overkill to use all these decimal places but idc
@@ -258,9 +259,36 @@ var pfd = {
 				}
 				if (mach < 0.45) returned.svg_items.mach.hide();
 			}),
+			props.UpdateManager.FromHashList(['fd_ap1', 'fd_ap2'], 0.5, func(hash) {
+				var text = '';
+				if (hash.fd_ap1 or hash.fd_ap2) text ~= 'AP';
+				if (hash.fd_ap1) text ~= '1';
+				if (hash.fd_ap1 and hash.fd_ap2) text ~= '+';
+				if (hash.fd_ap2) text ~= '2';
+				returned.svg_items.fma_5_ap.updateText(text);
+			}),
 			props.UpdateManager.FromHashValue('fd_enabled', 0.5, func(value) {
-				if (value) returned.svg_items.guides.show();
-				else returned.svg_items.guides.hide();
+				if (value) {
+					returned.svg_items.guides.show();
+					returned.svg_items.fma_5_fd.show();
+				} else {
+					returned.svg_items.guides.hide();
+					returned.svg_items.fma_5_fd.hide();
+				}
+			}),
+			props.UpdateManager.FromHashValue('fd_athr_enabled', 0.5, func(enabled) {
+				if (enabled) {
+					returned.svg_items.fma_5_athr.setColor(1, 1, 1);
+				} else {
+					returned.svg_items.fma_5_athr.setColor(0, 1, 1);
+				}
+			}),
+			props.UpdateManager.FromHashValue('fd_athr', 0.5, func(value) {
+				if (value) {
+					returned.svg_items.fma_5_athr.show();
+				} else {
+					returned.svg_items.fma_5_athr.hide();
+				}
 			}),
 			props.UpdateManager.FromHashValue('fd_roll', 0.1, func(roll) {
 				returned.svg_items.fdroll.setTranslation(roll * 1.5 * scale_constant, 0);
@@ -414,14 +442,18 @@ var pfd = {
 		hash.fd = {
 			enabled: props.globals.getNode('/it-autoflight/output/fd1'),
 			roll: props.globals.getNode('/it-autoflight/fd/roll-bar'),
-			pitch: props.globals.getNode('/it-autoflight/fd/pitch-bar')
+			pitch: props.globals.getNode('/it-autoflight/fd/pitch-bar'),
+			athr: props.globals.getNode('/it-autoflight/input/athr'),
+			athr_enabled: props.globals.getNode('/systems/fadec/throttle/athr'),
+			ap1: props.globals.getNode('/it-autoflight/input/ap1'),
+			ap2: props.globals.getNode('/it-autoflight/input/ap2')
 		};
 		hash.altitude = {
 			indicated: props.globals.getNode('/instrumentation/altimeter/indicated-altitude-ft'),
 			vs: props.globals.getNode('/it-autoflight/internal/vert-speed-fpm'),
 			vs_needle: props.globals.getNode('/systems/pfd/vs-needle'),
 			vs_translate: props.globals.getNode('/systems/pfd/vs-text-translation'),
-			radio: props.globals.getNode('/position/gear-agl-ft'),
+			radio: props.globals.getNode('/instrumentation/altimeter/indicated-radio-altitude-ft'),
 			selected: props.globals.getNode('/it-autoflight/internal/alt')
 		};
 		hash.airspeed = {

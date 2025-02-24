@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="A350XWB-electrical-dc">
+	<property value="1">/systems/electrical/batteries/bat-1-charge</property>
+	<property value="1">/systems/electrical/batteries/bat-1-emer-charge</property>
+	<property value="1">/systems/electrical/batteries/bat-2-charge</property>
+	<property value="1">/systems/electrical/batteries/bat-2-emer-charge</property>
+	<channel name="battery voltage">
+		<fcs_function name="/systems/electrical/batteries/bat-1-voltage">
+			<function>
+				<table>
+					<independentVar>/systems/electrical/batteries/bat-1-charge</independentVar>
+					<tableData>
+					0          12
+					0.5        24
+					1          27
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/batteries/bat-2-voltage">
+			<function>
+				<table>
+					<independentVar>/systems/electrical/batteries/bat-2-charge</independentVar>
+					<tableData>
+					0          12
+					0.5        24
+					1          27
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/batteries/bat-emer-1-voltage">
+			<function>
+				<table>
+					<independentVar>/systems/electrical/batteries/bat-emer-1-charge</independentVar>
+					<tableData>
+					0          12
+					0.5        24
+					1          27
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/batteries/bat-emer-2-voltage">
+			<function>
+				<table>
+					<independentVar>/systems/electrical/batteries/bat-emer-2-charge</independentVar>
+					<tableData>
+					0          12
+					0.5        24
+					1          27
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<!-- according to fcom 55 amp hours, voltage is around 9 amps so around 6 hours -->
+		<!-- that means discharge per hour is amps / 55 -->
+		<!-- so discharge per 1/120 seconds is amps / 55 / 120 / 3600 -->
+		
+	</channel>
+</system>

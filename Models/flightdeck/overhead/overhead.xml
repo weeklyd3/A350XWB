@@ -527,6 +527,60 @@
 			</binding>
 		</action>
 	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>ext_a</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<condition>
+					<property>/systems/electrical/voltage/ext-a-attached</property>
+				</condition>
+				<command>property-toggle</command>
+				<property>/controls/electric/ext-a</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>ext_b</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<condition>
+					<property>/systems/electrical/voltage/ext-b-attached</property>
+				</condition>
+				<command>property-toggle</command>
+				<property>/controls/electric/ext-b</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>bus_tie</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/controls/electric/bus-tie</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>side_isol</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/controls/electric/side-isol</property>
+			</binding>
+		</action>
+	</animation>
 	<!-- making only the stuff we want light up -->
 	<animation>
 		<type>select</type>
@@ -1044,6 +1098,80 @@
 			</or>
 		</condition>
 	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>ext_a_avail</object-name>
+		<condition>
+			<or>
+				<and>
+					<property>/systems/electrical/voltage/ext-a-attached</property>
+					<not><property>/controls/electric/ext-a</property></not>
+				</and>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>ext_a_auto</object-name>
+		<condition>
+			<or>
+				<and>
+					<property>/systems/electrical/voltage/ext-a-attached</property>
+					<property>/controls/electric/ext-a</property>
+				</and>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>ext_b_avail</object-name>
+		<condition>
+			<or>
+				<and>
+					<property>/systems/electrical/voltage/ext-b-attached</property>
+					<not><property>/controls/electric/ext-b</property></not>
+				</and>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>ext_b_auto</object-name>
+		<condition>
+			<or>
+				<and>
+					<property>/systems/electrical/voltage/ext-b-attached</property>
+					<property>/controls/electric/ext-b</property>
+				</and>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>bus_tie_off</object-name>
+		<condition>
+			<or>
+				<not>
+					<property>/controls/electric/bus-tie</property>
+				</not>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>side_isol_on</object-name>
+		<condition>
+			<or>
+				<property>/controls/electric/side-isol</property>
+				<property>overhead/christmas-tree</property>
+			</or>
+		</condition>
+	</animation>
 	<!-- making all the stuff light up -->
 	<animation>
 		<type>material</type>
@@ -1100,6 +1228,12 @@
 		<object-name>2b_drive_disc</object-name>
 		<object-name>2b_gen_fault</object-name>
 		<object-name>2b_gen_off</object-name>
+		<object-name>ext_a_avail</object-name>
+		<object-name>ext_a_auto</object-name>
+		<object-name>ext_b_avail</object-name>
+		<object-name>ext_b_auto</object-name>
+		<object-name>bus_tie_off</object-name>
+		<object-name>side_isol_on</object-name>
 		<emission>
 			<red>1</red>
 			<green>1</green>

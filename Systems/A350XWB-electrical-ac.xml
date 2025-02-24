@@ -1,0 +1,1021 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="A350XWB-electrical-ac">
+	<property value="1">/controls/electric/gen-1a</property>
+	<property value="0">/systems/electrical/loads/gen-1a-load</property>
+	<property value="0">/controls/electric/guard-1a</property>
+	<property value="0">/systems/electrical/generators/gen-1a-fault</property>
+	<property value="1">/controls/electric/drive-1a</property>
+	<property value="0">/systems/electrical/generators/drive-1a-fault</property>
+	<property value="1">/controls/electric/gen-1b</property>
+	<property value="0">/systems/electrical/loads/gen-1b-load</property>
+	<property value="0">/controls/electric/guard-1b</property>
+	<property value="0">/systems/electrical/generators/gen-1b-fault</property>
+	<property value="1">/controls/electric/drive-1b</property>
+	<property value="0">/systems/electrical/generators/drive-1b-fault</property>
+	<property value="1">/controls/electric/gen-2a</property>
+	<property value="0">/systems/electrical/loads/gen-2a-load</property>
+	<property value="0">/controls/electric/guard-2a</property>
+	<property value="0">/systems/electrical/generators/gen-2a-fault</property>
+	<property value="1">/controls/electric/drive-2a</property>
+	<property value="0">/systems/electrical/generators/drive-2a-fault</property>
+	<property value="1">/controls/electric/gen-2b</property>
+	<property value="0">/systems/electrical/loads/gen-2b-load</property>
+	<property value="0">/controls/electric/guard-2b</property>
+	<property value="0">/systems/electrical/generators/gen-2b-fault</property>
+	<property value="1">/controls/electric/drive-2b</property>
+	<property value="0">/systems/electrical/generators/drive-2b-fault</property>
+	<property value="28">/systems/electrical/batteries/bat-1-voltage</property>
+	<property value="28">/systems/electrical/batteries/bat-emer-1-voltage</property>
+	<property value="28">/systems/electrical/batteries/bat-2-voltage</property>
+	<property value="28">/systems/electrical/batteries/bat-emer-2-voltage</property>
+	<property value="1">/controls/electric/bus-tie</property>
+	<property value="0">/controls/electric/side-isol</property>
+	<property value="1">/systems/electrical/voltage/ext-a</property>
+	<property value="2">/systems/electrical/voltage/ext-b</property>
+	<property value="1">/systems/electrical/voltage/ext-a-attached</property>
+	<property value="1">/systems/electrical/voltage/ext-b-attached</property>
+	<property value="0">/controls/electric/ext-a</property>
+	<property value="0">/controls/electric/ext-b</property>
+	<property value="0">/controls/electric/rat</property>
+	<property value="0">/systems/electrical/loads/apu-load</property>
+	<channel name="generators">
+		<switch name="/systems/electrical/generators/gen-1a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/electric/gen-1a eq 1
+				/systems/electrical/generators/gen-1a-fault eq 0
+				/systems/electrical/generators/drive-1a-fault eq 0
+				/controls/electric/drive-1a eq 1
+				/engines/engine/running eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/fault-1a">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/generators/gen-1a-fault eq 1
+				/systems/electrical/generators/drive-1a-fault eq 1
+				/controls/electric/drive-1a eq 0
+			</test>
+		</switch>
+		<pure_gain name="/systems/electrical/voltage/gen-1a-cmd">
+			<input>/systems/electrical/generators/gen-1a</input>
+			<gain>230</gain>
+		</pure_gain>
+		<actuator name="/systems/electrical/voltage/gen-1a">
+			<input>/systems/electrical/voltage/gen-1a-cmd</input>
+			<rate_limit>100</rate_limit>
+		</actuator>
+		<switch name="/systems/electrical/generators/gen-1b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/electric/gen-1b eq 1
+				/systems/electrical/generators/gen-1b-fault eq 0
+				/systems/electrical/generators/drive-1b-fault eq 0
+				/controls/electric/drive-1b eq 1
+				/engines/engine/running eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/fault-1b">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/generators/gen-1b-fault eq 1
+				/systems/electrical/generators/drive-1b-fault eq 1
+				/controls/electric/drive-1b eq 0
+			</test>
+		</switch>
+		<pure_gain name="/systems/electrical/voltage/gen-1b-cmd">
+			<input>/systems/electrical/generators/gen-1b</input>
+			<gain>230</gain>
+		</pure_gain>
+		<actuator name="/systems/electrical/voltage/gen-1b">
+			<input>/systems/electrical/voltage/gen-1b-cmd</input>
+			<rate_limit>100</rate_limit>
+		</actuator>
+		<switch name="/systems/electrical/generators/gen-2a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/electric/gen-2a eq 1
+				/systems/electrical/generators/gen-2a-fault eq 0
+				/systems/electrical/generators/drive-2a-fault eq 0
+				/controls/electric/drive-2a eq 1
+				/engines/engine[1]/running eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/fault-2a">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/generators/gen-2a-fault eq 1
+				/systems/electrical/generators/drive-2a-fault eq 1
+				/controls/electric/drive-2a eq 0
+			</test>
+		</switch>
+		<pure_gain name="/systems/electrical/voltage/gen-2a-cmd">
+			<input>/systems/electrical/generators/gen-2a</input>
+			<gain>230</gain>
+		</pure_gain>
+		<actuator name="/systems/electrical/voltage/gen-2a">
+			<input>/systems/electrical/voltage/gen-2a-cmd</input>
+			<rate_limit>100</rate_limit>
+		</actuator>
+		<switch name="/systems/electrical/generators/gen-2b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/electric/gen-2b eq 1
+				/systems/electrical/generators/gen-2b-fault eq 0
+				/systems/electrical/generators/drive-2b-fault eq 0
+				/controls/electric/drive-2b eq 1
+				/engines/engine[1]/running eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/fault-2b">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/generators/gen-2b-fault eq 1
+				/systems/electrical/generators/drive-2b-fault eq 1
+				/controls/electric/drive-2b eq 0
+			</test>
+		</switch>
+		<pure_gain name="/systems/electrical/voltage/gen-2b-cmd">
+			<input>/systems/electrical/generators/gen-2b</input>
+			<gain>230</gain>
+		</pure_gain>
+		<actuator name="/systems/electrical/voltage/gen-2b">
+			<input>/systems/electrical/voltage/gen-2b-cmd</input>
+			<rate_limit>100</rate_limit>
+		</actuator>
+		<switch name="/systems/electrical/generators/ext-a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/voltage/ext-a-attached eq 1
+				/controls/electric/ext-a eq 1
+			</test>
+		</switch>
+		<pure_gain name="/systems/electrical/voltage/ext-a-cmd">
+			<input>/systems/electrical/generators/ext-a</input>
+			<gain>115</gain>
+		</pure_gain>
+		<actuator name="/systems/electrical/voltage/ext-a">
+			<input>/systems/electrical/voltage/ext-a-cmd</input>
+			<rate_limit>100</rate_limit>
+		</actuator>
+		<pure_gain name="/systems/electrical/voltage/ext-a-230">
+			<input>/systems/electrical/voltage/ext-a</input>
+			<gain>2</gain>
+		</pure_gain>
+
+		<switch name="/systems/electrical/generators/ext-b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/voltage/ext-b-attached eq 1
+				/controls/electric/ext-b eq 1
+			</test>
+		</switch>
+		<pure_gain name="/systems/electrical/voltage/ext-b-cmd">
+			<input>/systems/electrical/generators/ext-b</input>
+			<gain>115</gain>
+		</pure_gain>
+		<actuator name="/systems/electrical/voltage/ext-b">
+			<input>/systems/electrical/voltage/ext-b-cmd</input>
+			<rate_limit>100</rate_limit>
+		</actuator>
+		<pure_gain name="/systems/electrical/voltage/ext-b-230">
+			<input>/systems/electrical/voltage/ext-b</input>
+			<gain>2</gain>
+		</pure_gain>
+		<actuator name="/systems/electrical/generators/rat-position">
+			<input>/controls/electric/rat</input>
+			<rate_limit sense="incr">0.25</rate_limit>
+			<rate_limit sense="decr">0</rate_limit>
+		</actuator>
+		<fcs_function name="/systems/electrical/voltage/rat">
+			<function>
+				<product>
+					<property>/systems/electrical/generators/rat-position</property>
+					<table>
+						<independentVar>/velocities/airspeed-kt</independentVar>
+						<tableData>
+						0        0
+						140      230
+						141      230
+						</tableData>
+					</table>
+				</product>
+			</function>
+		</fcs_function>
+	</channel>
+	<channel name="reconfiguration">
+		<!-- how many busbars the apu can supply (4 on ground, 2 in air) -->
+		<summer name="/systems/electrical/reconfiguration/generators-lost">
+			<bias>4</bias>
+			<input>-/systems/electrical/generators/gen-1a</input>
+			<input>-/systems/electrical/generators/gen-1b</input>
+			<input>-/systems/electrical/generators/gen-2a</input>
+			<input>-/systems/electrical/generators/gen-2b</input>
+		</summer>
+		<!-- how many external power units are connected -->
+		<summer name="/systems/electrical/reconfiguration/ext">
+			<input>/systems/electrical/generators/ext-a</input>
+			<input>/systems/electrical/generators/ext-b</input>
+		</summer>
+		<switch name="/systems/electrical/reconfiguration/apu-supply">
+			<default value="0" />
+			<test logic="AND" value="2">
+				/systems/apu/gen-connection eq 1
+				gear/wow eq 0
+			</test>
+			<test logic="AND" value="4">
+				/systems/apu/gen-connection eq 1
+				gear/wow eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/apu-1a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-1a eq 0
+				/controls/electric/side-isol eq 0
+				/systems/electrical/reconfiguration/apu-supply gt 0
+				/systems/electrical/generators/ext-a eq 0
+				<test logic="OR">
+					gear/wow eq 1
+					<test logic="OR">
+						<test logic="AND">
+							/systems/electrical/generators/gen-1a eq 0
+							/systems/electrical/generators/gen-1b eq 0
+						</test>
+						<test logic="OR">
+							/systems/electrical/generators/gen-2a eq 1
+							/systems/electrical/generators/gen-2b eq 1
+						</test>
+					</test>
+				</test>
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/ext-a-1a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-1a eq 0
+				/systems/electrical/reconfiguration/apu-1a eq 0
+				/systems/electrical/generators/ext-a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/ext-b-1a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-1a eq 0
+				/systems/electrical/reconfiguration/apu-1a eq 0
+				/systems/electrical/generators/ext-b eq 1
+				/controls/electric/side-isol eq 0
+				/systems/electrical/reconfiguration/ext-a-1a eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/apu-1b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-1b eq 0
+				/controls/electric/side-isol eq 0
+				/systems/electrical/reconfiguration/apu-supply gt 0
+				/systems/electrical/generators/ext-a eq 0
+				<test logic="OR">
+					gear/wow eq 1
+					<test logic="OR">
+						<test logic="AND">
+							/systems/electrical/generators/gen-1a eq 0
+							/systems/electrical/generators/gen-1b eq 0
+						</test>
+						<test logic="OR">
+							/systems/electrical/generators/gen-2a eq 1
+							/systems/electrical/generators/gen-2b eq 1
+						</test>
+					</test>
+				</test>
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/ext-a-1b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-1b eq 0
+				/systems/electrical/reconfiguration/apu-1b eq 0
+				/systems/electrical/generators/ext-a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/ext-b-1b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-1b eq 0
+				/systems/electrical/reconfiguration/apu-1b eq 0
+				/systems/electrical/generators/ext-b eq 1
+				/controls/electric/side-isol eq 0
+				/systems/electrical/reconfiguration/ext-a-1b eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/apu-2b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2b eq 0
+				/controls/electric/side-isol eq 0
+				/systems/electrical/reconfiguration/apu-supply eq 4
+				/systems/electrical/generators/ext-b eq 0
+			</test>
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2b eq 0
+				/controls/electric/side-isol eq 0
+				/systems/electrical/reconfiguration/apu-supply eq 2
+				/systems/electrical/reconfiguration/apu-1a eq 0
+				/systems/electrical/reconfiguration/apu-1b eq 0
+				/systems/electrical/generators/ext-b eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/ext-b-2b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2b eq 0
+				/systems/electrical/generators/ext-b eq 1
+				/systems/electrical/reconfiguration/apu-2b eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/ext-a-2b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2b eq 0
+				/systems/electrical/generators/ext-a eq 1
+				/controls/electric/side-isol eq 0
+				/systems/electrical/reconfiguration/ext-b-2b eq 0
+				/systems/electrical/reconfiguration/apu-2b eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/apu-2a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2a eq 0
+				/controls/electric/side-isol eq 0
+				/systems/electrical/reconfiguration/apu-supply eq 4
+				/systems/electrical/generators/ext-b eq 0
+			</test>
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2a eq 0
+				/controls/electric/side-isol eq 0
+				/systems/electrical/reconfiguration/apu-supply eq 2
+				/systems/electrical/reconfiguration/apu-1a eq 0
+				/systems/electrical/reconfiguration/apu-1b eq 0
+				/systems/electrical/generators/ext-b eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/ext-b-2a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2a eq 0
+				/systems/electrical/generators/ext-b eq 1
+				/systems/electrical/reconfiguration/apu-2a eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/ext-a-2a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2a eq 0
+				/systems/electrical/generators/ext-a eq 1
+				/controls/electric/side-isol eq 0
+				/systems/electrical/reconfiguration/ext-b-2a eq 0
+				/systems/electrical/reconfiguration/apu-2a eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-1b-supplies-1a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-1b eq 1
+				/systems/electrical/generators/gen-1a eq 0
+				/systems/electrical/reconfiguration/apu-1a eq 0
+				/systems/electrical/reconfiguration/ext-a-1a eq 0
+				/systems/electrical/reconfiguration/ext-b-1a eq 0
+				/controls/electric/bus-tie eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-1a-supplies-1b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-1a eq 1
+				/systems/electrical/generators/gen-1b eq 0
+				/systems/electrical/reconfiguration/apu-1b eq 0
+				/systems/electrical/reconfiguration/ext-a-1b eq 0
+				/systems/electrical/reconfiguration/ext-b-1b eq 0
+				/controls/electric/bus-tie eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-2b-supplies-2a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2b eq 1
+				/systems/electrical/generators/gen-2a eq 0
+				/systems/electrical/reconfiguration/apu-2a eq 0
+				/systems/electrical/reconfiguration/ext-a-2a eq 0
+				/systems/electrical/reconfiguration/ext-b-2a eq 0
+				/controls/electric/bus-tie eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-2a-supplies-2b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2a eq 1
+				/systems/electrical/generators/gen-2b eq 0
+				/systems/electrical/reconfiguration/apu-2b eq 0
+				/systems/electrical/reconfiguration/ext-a-2b eq 0
+				/systems/electrical/reconfiguration/ext-b-2b eq 0
+				/controls/electric/bus-tie eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-2b-supplies-1a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2b eq 1
+				/systems/electrical/generators/gen-1a eq 0
+				/systems/electrical/reconfiguration/apu-1a eq 0
+				/controls/electric/bus-tie eq 1
+				/systems/electrical/reconfiguration/gen-1b-supplies-1a eq 0
+				/systems/electrical/reconfiguration/gen-2b-supplies-2a eq 0
+				/systems/electrical/reconfiguration/ext-a-1a eq 0
+				/systems/electrical/reconfiguration/ext-b-1a eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-2a-supplies-1b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-2a eq 1
+				/systems/electrical/generators/gen-1b eq 0
+				/systems/electrical/reconfiguration/apu-1b eq 0
+				/controls/electric/bus-tie eq 1
+				/systems/electrical/reconfiguration/gen-1a-supplies-1b eq 0
+				/systems/electrical/reconfiguration/gen-2a-supplies-2b eq 0
+				/systems/electrical/reconfiguration/ext-a-1b eq 0
+				/systems/electrical/reconfiguration/ext-b-1b eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-1b-supplies-2a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-1b eq 1
+				/systems/electrical/generators/gen-2a eq 0
+				/systems/electrical/reconfiguration/apu-2a eq 0
+				/controls/electric/bus-tie eq 1
+				/systems/electrical/reconfiguration/gen-1b-supplies-1a eq 0
+				/systems/electrical/reconfiguration/gen-2b-supplies-2a eq 0
+				/systems/electrical/reconfiguration/ext-a-2a eq 0
+				/systems/electrical/reconfiguration/ext-b-2a eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-1a-supplies-2b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/generators/gen-1a eq 1
+				/systems/electrical/generators/gen-2b eq 0
+				/systems/electrical/reconfiguration/apu-2b eq 0
+				/controls/electric/bus-tie eq 1
+				/systems/electrical/reconfiguration/gen-1a-supplies-1b eq 0
+				/systems/electrical/reconfiguration/gen-2a-supplies-2b eq 0
+				/systems/electrical/reconfiguration/ext-a-2b eq 0
+				/systems/electrical/reconfiguration/ext-b-2b eq 0
+			</test>
+		</switch>
+
+		<switch name="/systems/electrical/reconfiguration/rat-supplies-emer-1">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/voltage/rat ge 230
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/rat-supplies-emer-2">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/voltage/rat ge 230
+			</test>
+		</switch>
+
+		<switch name="/systems/electrical/reconfiguration/ac-1b-supplies-emer-1">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/rat-supplies-emer-1 eq 0
+				/systems/electrical/ecam/ac-1b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/ac-2b-supplies-emer-2">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/rat-supplies-emer-2 eq 0
+				/systems/electrical/ecam/ac-2b eq 1
+			</test>
+		</switch>
+
+		<switch name="/systems/electrical/reconfiguration/emer-2-supplies-emer-1">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/ac-1b-supplies-emer-1 eq 0
+				/systems/electrical/reconfiguration/rat-supplies-emer-1 eq 0
+				<test logic="OR">
+					/systems/electrical/reconfiguration/ac-2b-supplies-emer-2 eq 1
+					/systems/electrical/reconfiguration/rat-supplies-emer-2 eq 1
+				</test>
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/emer-1-supplies-emer-2">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/ac-2b-supplies-emer-2 eq 0
+				/systems/electrical/reconfiguration/rat-supplies-emer-2 eq 0
+				<test logic="OR">
+					/systems/electrical/reconfiguration/ac-1b-supplies-emer-1 eq 1
+					/systems/electrical/reconfiguration/rat-supplies-emer-1 eq 1
+				</test>
+			</test>
+		</switch>
+	</channel>
+	<!-- that was quite a mouthful, wasn't it? -->
+	<channel name="bus voltage">
+		<switch name="/systems/electrical/bus/emer-1">
+			<default value="0" />
+			<test logic="AND" value="/systems/electrical/voltage/rat">
+				/systems/electrical/reconfiguration/rat-supplies-emer-1 eq 1
+			</test>
+			<test logic="AND" value="/systems/electrical/bus/ac-1b">
+				/systems/electrical/reconfiguration/ac-1b-supplies-emer-1 eq 1
+			</test>
+			<test logic="AND" value="/systems/electrical/bus/emer-2">
+				/systems/electrical/reconfiguration/emer-2-supplies-emer-1 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/bus/emer-2">
+			<default value="0" />
+			<test logic="AND" value="/systems/electrical/voltage/rat">
+				/systems/electrical/reconfiguration/rat-supplies-emer-2 eq 1
+			</test>
+			<test logic="AND" value="/systems/electrical/bus/ac-2b">
+				/systems/electrical/reconfiguration/ac-2b-supplies-emer-2 eq 1
+			</test>
+			<test logic="AND" value="/systems/electrical/bus/emer-1">
+				/systems/electrical/reconfiguration/emer-1-supplies-emer-2 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/bus/ac-1a">
+			<default value="/systems/electrical/voltage/gen-1a" />
+			<test value="/systems/apu/gen-voltage">
+				/systems/electrical/reconfiguration/apu-1a eq 1
+			</test>
+			<test value="/systems/electrical/voltage/ext-a-230">
+				/systems/electrical/reconfiguration/ext-a-1a eq 1
+			</test>
+			<test value="/systems/electrical/voltage/ext-b-230">
+				/systems/electrical/reconfiguration/ext-b-1a eq 1
+			</test>
+			<test value="/systems/electrical/voltage/gen-1b">
+				/systems/electrical/reconfiguration/gen-1b-supplies-1a eq 1
+			</test>
+			<test value="/systems/electrical/voltage/gen-2b">
+				/systems/electrical/reconfiguration/gen-2b-supplies-1a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-1a-1a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/ext-a-1a eq 0
+				/systems/electrical/reconfiguration/ext-b-1a eq 0
+				/systems/electrical/reconfiguration/gen-1b-supplies-1a eq 0
+				/systems/electrical/reconfiguration/gen-2b-supplies-1a eq 0
+				/systems/electrical/reconfiguration/apu-1a eq 0
+				/systems/electrical/generators/gen-1a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/bus/ac-1b">
+			<default value="/systems/electrical/voltage/gen-1b" />
+			<test value="/systems/apu/gen-voltage">
+				/systems/electrical/reconfiguration/apu-1b eq 1
+			</test>
+			<test value="/systems/electrical/voltage/ext-a-230">
+				/systems/electrical/reconfiguration/ext-a-1b eq 1
+			</test>
+			<test value="/systems/electrical/voltage/ext-b-230">
+				/systems/electrical/reconfiguration/ext-b-1b eq 1
+			</test>
+			<test value="/systems/electrical/voltage/gen-1a">
+				/systems/electrical/reconfiguration/gen-1a-supplies-1b eq 1
+			</test>
+			<test value="/systems/electrical/voltage/gen-2a">
+				/systems/electrical/reconfiguration/gen-2a-supplies-1b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-1b-1b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/ext-a-1b eq 0
+				/systems/electrical/reconfiguration/ext-b-1b eq 0
+				/systems/electrical/reconfiguration/gen-1a-supplies-1b eq 0
+				/systems/electrical/reconfiguration/gen-2a-supplies-1b eq 0
+				/systems/electrical/reconfiguration/apu-1b eq 0
+				/systems/electrical/generators/gen-1b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/bus/ac-2a">
+			<default value="/systems/electrical/voltage/gen-2a" />
+			<test value="/systems/apu/gen-voltage">
+				/systems/electrical/reconfiguration/apu-2a eq 1
+			</test>
+			<test value="/systems/electrical/voltage/ext-b-230">
+				/systems/electrical/reconfiguration/ext-b-2a eq 1
+			</test>
+			<test value="/systems/electrical/voltage/ext-a-230">
+				/systems/electrical/reconfiguration/ext-a-2a eq 1
+			</test>
+			<test value="/systems/electrical/voltage/gen-2b">
+				/systems/electrical/reconfiguration/gen-2b-supplies-2a eq 1
+			</test>
+			<test value="/systems/electrical/voltage/gen-1b">
+				/systems/electrical/reconfiguration/gen-1b-supplies-2a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-2a-2a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/ext-a-2a eq 0
+				/systems/electrical/reconfiguration/ext-b-2a eq 0
+				/systems/electrical/reconfiguration/gen-1b-supplies-2a eq 0
+				/systems/electrical/reconfiguration/gen-2b-supplies-2a eq 0
+				/systems/electrical/reconfiguration/apu-2a eq 0
+				/systems/electrical/generators/gen-2a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/bus/ac-2b">
+			<default value="/systems/electrical/voltage/gen-2b" />
+			<test value="/systems/apu/gen-voltage">
+				/systems/electrical/reconfiguration/apu-2b eq 1
+			</test>
+			<test value="/systems/electrical/voltage/ext-b-230">
+				/systems/electrical/reconfiguration/ext-b-2b eq 1
+			</test>
+			<test value="/systems/electrical/voltage/ext-a-230">
+				/systems/electrical/reconfiguration/ext-a-2b eq 1
+			</test>
+			<test value="/systems/electrical/voltage/gen-2a">
+				/systems/electrical/reconfiguration/gen-2a-supplies-2b eq 1
+			</test>
+			<test value="/systems/electrical/voltage/gen-1a">
+				/systems/electrical/reconfiguration/gen-1a-supplies-2b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/gen-2b-2b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/ext-a-2b eq 0
+				/systems/electrical/reconfiguration/ext-b-2b eq 0
+				/systems/electrical/reconfiguration/gen-1a-supplies-2b eq 0
+				/systems/electrical/reconfiguration/gen-2a-supplies-2b eq 0
+				/systems/electrical/reconfiguration/apu-2b eq 0
+				/systems/electrical/generators/gen-2b eq 1
+			</test>
+		</switch>
+	</channel>
+	<channel name="instrumentation">
+		<switch name="/systems/electrical/ecam/ac-emer-1">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/emer-1 ge 230
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ac-emer-2">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/emer-2 ge 230
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ac-1a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/ac-1a ge 230
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ac-1b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/ac-1b ge 230
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ac-2a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/ac-2a ge 230
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ac-2b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/ac-2b ge 230
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/bus-1a-1b-230">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/gen-1a-supplies-1b eq 1
+				/systems/electrical/reconfiguration/gen-1b-supplies-1a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/bus-2a-2b-230">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/gen-2a-supplies-2b eq 1
+				/systems/electrical/reconfiguration/gen-2b-supplies-2a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/apu-contactor">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/apu-1a eq 1
+				/systems/electrical/reconfiguration/apu-1b eq 1
+				/systems/electrical/reconfiguration/apu-2b eq 1
+				/systems/electrical/reconfiguration/apu-2a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ext-a-contactor">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/ext-a-1a eq 1
+				/systems/electrical/reconfiguration/ext-a-1b eq 1
+				/systems/electrical/reconfiguration/ext-a-2a eq 1
+				/systems/electrical/reconfiguration/ext-a-2b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ext-b-contactor">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/ext-b-1a eq 1
+				/systems/electrical/reconfiguration/ext-b-1b eq 1
+				/systems/electrical/reconfiguration/ext-b-2a eq 1
+				/systems/electrical/reconfiguration/ext-b-2b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ext-left-line">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/ext-b-1a eq 1
+				/systems/electrical/reconfiguration/ext-a-1b eq 1
+				/systems/electrical/reconfiguration/ext-a-2b eq 1
+				/systems/electrical/reconfiguration/ext-a-2a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ext-center-line">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/ext-a-2a eq 1
+				/systems/electrical/reconfiguration/ext-a-2b eq 1
+				/systems/electrical/reconfiguration/ext-b-1a eq 1
+				/systems/electrical/reconfiguration/ext-b-1b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ext-right-line">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/ext-a-2a eq 1
+				/systems/electrical/reconfiguration/ext-b-2b eq 1
+				/systems/electrical/reconfiguration/ext-b-1b eq 1
+				/systems/electrical/reconfiguration/ext-b-1a eq 1
+			</test>
+		</switch>
+		<!-- controls the display of the bottom left "break" in the apu line -->
+		<switch name="/systems/electrical/ecam/gen-1b-apu-1a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/gen-1b-1b eq 1
+				/systems/electrical/reconfiguration/apu-1a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/gen-2b-apu-2a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/gen-2b-2b eq 1
+				/systems/electrical/reconfiguration/apu-2a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/gen-1a-2b">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/gen-1a-supplies-2b eq 1
+				/systems/electrical/reconfiguration/gen-2b-supplies-1a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/gen-1b-2a">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/gen-1b-supplies-2a eq 1
+				/systems/electrical/reconfiguration/gen-2a-supplies-1b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/gen-1a-2b-1b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/gen-1b-1b eq 1
+				/systems/electrical/ecam/gen-1a-2b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/gen-1b-2a-2b">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/reconfiguration/gen-2b-2b eq 1
+				/systems/electrical/ecam/gen-1b-2a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/gen-1a-2b-1b-2a">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/ecam/gen-1b-2a eq 1
+				/systems/electrical/ecam/gen-1a-2b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ext-1a">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/ext-a-1a eq 1
+				/systems/electrical/reconfiguration/ext-b-1a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ext-1b">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/ext-a-1b eq 1
+				/systems/electrical/reconfiguration/ext-b-1b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ext-2a">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/ext-a-2a eq 1
+				/systems/electrical/reconfiguration/ext-b-2a eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/ext-2b">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/ext-a-2b eq 1
+				/systems/electrical/reconfiguration/ext-b-2b eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/rat-contactor">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/rat-supplies-emer-1 eq 1
+				/systems/electrical/reconfiguration/rat-supplies-emer-2 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/ecam/emer-1-emer-2">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/reconfiguration/emer-2-supplies-emer-1 eq 1
+				/systems/electrical/reconfiguration/emer-1-supplies-emer-2 eq 1
+			</test>
+		</switch>
+	</channel>
+	<channel name="overload">
+		<switch name="/systems/electrical/overload/gen-1a-120">
+			<input value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/loads/gen-1a-load ge 120
+			</test>
+		</switch>
+		<switch name="/systems/electrical/overload/gen-1a-160">
+			<input value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/loads/gen-1a-load ge 160
+			</test>
+		</switch>
+		<actuator name="/systems/electrical/overload/gen-1a-120-timer">
+			<input>/systems/electrical/overload/gen-1a-120</input>
+			<rate_limit sense="incr">0.0033333333</rate_limit> <!-- 1 / 300 -->
+			<rate_limit sense="decr">100</rate_limit>
+		</actuator>
+		<actuator name="/systems/electrical/overload/gen-1a-160-timer">
+			<input>/systems/electrical/overload/gen-1a-160</input>
+			<rate_limit sense="incr">0.2</rate_limit> <!-- 1 / 5 -->
+			<rate_limit sense="decr">100</rate_limit>
+		</actuator>
+		<switch name="/systems/electrical/overload/gen-1a-overload">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/overload/gen-1a-160-timer eq 1
+				/systems/electrical/overload/gen-1a-120-timer eq 1
+			</test>
+		</switch>
+
+		<switch name="/systems/electrical/overload/gen-1b-120">
+			<input value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/loads/gen-1b-load ge 120
+			</test>
+		</switch>
+		<switch name="/systems/electrical/overload/gen-1b-160">
+			<input value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/loads/gen-1b-load ge 160
+			</test>
+		</switch>
+		<actuator name="/systems/electrical/overload/gen-1b-120-timer">
+			<input>/systems/electrical/overload/gen-1b-120</input>
+			<rate_limit sense="incr">0.0033333333</rate_limit> <!-- 1 / 300 -->
+			<rate_limit sense="decr">100</rate_limit>
+		</actuator>
+		<actuator name="/systems/electrical/overload/gen-1b-160-timer">
+			<input>/systems/electrical/overload/gen-1b-160</input>
+			<rate_limit sense="incr">0.2</rate_limit> <!-- 1 / 5 -->
+			<rate_limit sense="decr">100</rate_limit>
+		</actuator>
+		<switch name="/systems/electrical/overload/gen-1b-overload">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/overload/gen-1b-160-timer eq 1
+				/systems/electrical/overload/gen-1b-120-timer eq 1
+			</test>
+		</switch>
+
+		<switch name="/systems/electrical/overload/gen-2a-120">
+			<input value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/loads/gen-2a-load ge 120
+			</test>
+		</switch>
+		<switch name="/systems/electrical/overload/gen-2a-160">
+			<input value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/loads/gen-2a-load ge 160
+			</test>
+		</switch>
+		<actuator name="/systems/electrical/overload/gen-2a-120-timer">
+			<input>/systems/electrical/overload/gen-2a-120</input>
+			<rate_limit sense="incr">0.0033333333</rate_limit> <!-- 1 / 300 -->
+			<rate_limit sense="decr">100</rate_limit>
+		</actuator>
+		<actuator name="/systems/electrical/overload/gen-2a-160-timer">
+			<input>/systems/electrical/overload/gen-2a-160</input>
+			<rate_limit sense="incr">0.2</rate_limit> <!-- 1 / 5 -->
+			<rate_limit sense="decr">100</rate_limit>
+		</actuator>
+		<switch name="/systems/electrical/overload/gen-2a-overload">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/overload/gen-2a-160-timer eq 1
+				/systems/electrical/overload/gen-2a-120-timer eq 1
+			</test>
+		</switch>
+
+		<switch name="/systems/electrical/overload/gen-2b-120">
+			<input value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/loads/gen-2b-load ge 120
+			</test>
+		</switch>
+		<switch name="/systems/electrical/overload/gen-2b-160">
+			<input value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/loads/gen-2b-load ge 160
+			</test>
+		</switch>
+		<actuator name="/systems/electrical/overload/gen-2b-120-timer">
+			<input>/systems/electrical/overload/gen-2b-120</input>
+			<rate_limit sense="incr">0.0033333333</rate_limit> <!-- 1 / 300 -->
+			<rate_limit sense="decr">100</rate_limit>
+		</actuator>
+		<actuator name="/systems/electrical/overload/gen-2b-160-timer">
+			<input>/systems/electrical/overload/gen-2b-160</input>
+			<rate_limit sense="incr">0.2</rate_limit> <!-- 1 / 5 -->
+			<rate_limit sense="decr">100</rate_limit>
+		</actuator>
+		<switch name="/systems/electrical/overload/gen-2b-overload">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/overload/gen-2b-160-timer eq 1
+				/systems/electrical/overload/gen-2b-120-timer eq 1
+			</test>
+		</switch>
+
+		<switch name="/systems/electrical/overload/apu-120">
+			<input value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/loads/apu-load ge 120
+			</test>
+		</switch>
+		<switch name="/systems/electrical/overload/apu-160">
+			<input value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/loads/apu-load ge 160
+			</test>
+		</switch>
+		<actuator name="/systems/electrical/overload/apu-120-timer">
+			<input>/systems/electrical/overload/apu-120</input>
+			<rate_limit sense="incr">0.0033333333</rate_limit> <!-- 1 / 300 -->
+			<rate_limit sense="decr">100</rate_limit>
+		</actuator>
+		<actuator name="/systems/electrical/overload/apu-160-timer">
+			<input>/systems/electrical/overload/apu-160</input>
+			<rate_limit sense="incr">0.2</rate_limit> <!-- 1 / 5 -->
+			<rate_limit sense="decr">100</rate_limit>
+		</actuator>
+		<switch name="/systems/electrical/overload/apu-overload">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/overload/apu-160-timer eq 1
+				/systems/electrical/overload/apu-120-timer eq 1
+			</test>
+		</switch>
+	</channel>
+</system>

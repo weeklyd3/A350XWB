@@ -1404,6 +1404,16 @@
 		<min>/it-autoflight/internal/min-vs</min>
 		<max>/it-autoflight/internal/max-vs</max>
 	</filter>
+
+	<filter>
+		<name>Target Flight Level</name>
+		<type>gain</type>
+		<gain>0.01</gain>
+		<input>
+			<property>/it-autoflight/internal/alt</property>
+		</input>
+		<output>/it-autoflight/internal/fl</output>
+	</filter>
 	
 	<filter>
 		<name>Vertical Speed FPM Filter</name>

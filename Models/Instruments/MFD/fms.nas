@@ -88,7 +88,7 @@ var mfd = {
 			field.new(returned, group, 'to_airport', '/autopilot/route-manager/destination/airport', {}),
 			field.new(returned, group, 'altn_airport', '/autopilot/route-manager/alternate/airport', {}),
 			field.new(returned, group, 'flt_nbr', '/fms/config/flight-number', { default: "" }),
-			numeric_field.new(returned, group, 'crz_fl', '/autopilot/route-manager/cruise/flight-level', {letters: 0, punctuation: 0, format: "%d", numeric: 1}),
+			numeric_field.new(returned, group, 'crz_fl', '/fms/config/crz-fl', {letters: 0, punctuation: 0, format: "%d", default: "", numeric: 1}),
 			numeric_field.new(returned, group, 'tropo', '/fms/config/tropo', {letters: 0, punctuation: 0, format: "%d", default: "36090", numeric: 1}),
 			numeric_field.new(returned, group, 'ci', '/fms/config/ci', {punctuation: 0, format: "%d", default: ""}),
 			dropdown.new(returned, group, "init_mode", '/fms/config/mode', {
@@ -121,7 +121,7 @@ var mfd = {
 			numeric_field.new(returned, group, 'perf_to_trans', '/fms/perf/transition-altitude', {letters: 0, punctuation: 0, format: "%d", default: "18000", numeric: 1}),
 			numeric_field.new(returned, group, 'perf_to_flex_temp', '/fms/perf/takeoff/flex-temp', {letters: 0, punctuation: 0, format: "%d", default: "", numeric: 1}),
 			dropdown.new(returned, group, "perf_to_derate", '/fms/perf/takeoff/derate', {
-				options: [4, 8, 12, 16, 20, 24],
+				options: ['4', '8', '12', '16', '20', '24'],
 				alias: {
 					'4': 'D04',
 					'8': 'D08',
@@ -341,7 +341,7 @@ var numeric_field = {
 		}
 		if (prop) {
 			ret.prop = props.globals.getNode(prop);
-			if (ret.prop == nil) {
+			if (ret.prop == nil or ret.prop.getValue() == nil) {
 				ret.prop = props.globals.initNode(prop, default, 'DOUBLE');
 			}
 			ret.value = ret.prop.getValue() ~ "";

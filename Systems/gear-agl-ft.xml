@@ -23,4 +23,27 @@
 		<max>50000</max>
 	</filter>
 
+	<filter>
+		<name>Gear AGL Altitude FT</name>
+		<type>gain</type>
+		<gain>1.0</gain>
+		<input>
+			<expression>
+				<dif>
+					<property>/position/gear-agl-ft</property>
+					<div>
+						<sum>
+							<property>fdm/jsbsim/gear/unit[1]/compression-ft</property>
+							<property>fdm/jsbsim/gear/unit[2]/compression-ft</property>
+						</sum>
+						<value>2</value>
+					</div>
+				</dif>
+			</expression>
+		</input>
+		<output>/instrumentation/altimeter/indicated-radio-altitude-ft</output>
+		<min>-2500</min>
+		<max>2600</max>
+	</filter>
+
 </PropertyList>

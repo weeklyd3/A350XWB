@@ -109,4 +109,11 @@ setprop("/fdm/jsbsim/zero", 0);
 #	setprop("/controls/electric/gen-" ~ gen, 1);
 #	setprop("/controls/electric/drive-" ~ gen, 1);
 #}
+setlistener("/sim/signals/fdm-initialized", func() {
+	#setprop('/engines/engine/running', 0);
+});
+var flex_active = props.globals.getNode('/systems/fadec/limit/takeoff/flex-activated');
+setlistener("/fdm/jsbsim/gear/wow", func(wow) {
+	flex_active.setValue(0);
+});
 print('HIIII');

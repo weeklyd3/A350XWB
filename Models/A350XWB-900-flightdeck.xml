@@ -91,9 +91,9 @@
 	<model>
 		<path>Aircraft/A350XWB/Models/Instruments/ND/ND_L.xml</path>
 		<offsets>
-			<x-m>2.3481</x-m>
+			<x-m>2.3553</x-m>
 			<y-m>-0.349</y-m>
-			<z-m>1.8778</z-m>
+			<z-m>1.85313</z-m>
     			<pitch-deg>-17</pitch-deg>
 		</offsets>
 		<!--<condition>
@@ -107,9 +107,9 @@
 	<model>
 		<path>Aircraft/A350XWB/Models/Instruments/ND/ND_R.xml</path>
 		<offsets>
-			<x-m>2.3481</x-m>
+			<x-m>2.3553</x-m>
 			<y-m>0.349</y-m>
-			<z-m>1.8778</z-m>
+			<z-m>1.85313</z-m>
     			<pitch-deg>-17</pitch-deg>
 		</offsets>
 		<!--<condition>
@@ -707,7 +707,7 @@
 		<object-name>throttle_left</object-name>
 		<object-name>athr_disconnect_left</object-name>
 		<object-name>reverse_left</object-name>
-		<property>/systems/fadec/throttle/man-throttle-angle-1</property>
+		<property>/systems/fadec/throttle/display-throttle-angle-1</property>
 		<factor>50</factor>
 		<axis>
 			<x>0</x>
@@ -786,7 +786,7 @@
 		<object-name>throttle_right</object-name>
 		<object-name>athr_disconnect_right</object-name>
 		<object-name>reverse_right</object-name>
-		<property>/systems/fadec/throttle/man-throttle-angle-2</property>
+		<property>/systems/fadec/throttle/display-throttle-angle-2</property>
 		<factor>50</factor>
 		<axis>
 			<x>0</x>

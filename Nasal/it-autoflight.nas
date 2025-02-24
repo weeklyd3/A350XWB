@@ -924,14 +924,14 @@ var ITAF = {
 			Text.thr.setValue("RETARD");
 			if (Gear.wow1.getBoolValue() or Gear.wow2.getBoolValue()) { # Disconnect A/THR on either main gear touch
 				me.athrMaster(0);
-				setprop("/controls/engines/engine[0]/throttle", 0);
-				setprop("/controls/engines/engine[1]/throttle", 0);
-				setprop("/controls/engines/engine[2]/throttle", 0);
-				setprop("/controls/engines/engine[3]/throttle", 0);
-				setprop("/controls/engines/engine[4]/throttle", 0);
-				setprop("/controls/engines/engine[5]/throttle", 0);
-				setprop("/controls/engines/engine[6]/throttle", 0);
-				setprop("/controls/engines/engine[7]/throttle", 0);
+				#setprop("/controls/engines/engine[0]/throttle", 0);
+				#setprop("/controls/engines/engine[1]/throttle", 0);
+				#setprop("/controls/engines/engine[2]/throttle", 0);
+				#setprop("/controls/engines/engine[3]/throttle", 0);
+				#setprop("/controls/engines/engine[4]/throttle", 0);
+				#setprop("/controls/engines/engine[5]/throttle", 0);
+				#setprop("/controls/engines/engine[6]/throttle", 0);
+				#setprop("/controls/engines/engine[7]/throttle", 0);
 			}
 		} else if (Output.vertTemp == 4) {
 			if (Internal.alt.getValue() >= Position.indicatedAltitudeFt.getValue()) {
@@ -1264,6 +1264,18 @@ setlistener("/it-autoflight/input/kts-mach", func() {
 		} else {
 			ITAF.syncKts();
 		}
+	}
+}, 0, 0);
+
+setlistener("/systems/fadec/throttle/man-throttle-angle-1", func(throttle) {
+	if (throttle.getValue() == 0) {
+		ITAF.athrMaster(0);
+	}
+}, 0, 0);
+
+setlistener("/systems/fadec/throttle/man-throttle-angle-2", func(throttle) {
+	if (throttle.getValue() == 0) {
+		ITAF.athrMaster(0);
 	}
 }, 0, 0);
 

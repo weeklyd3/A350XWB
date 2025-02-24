@@ -396,6 +396,10 @@
 				<name>wing flexer property rule</name>
 				<path>Aircraft/Generic/wingflexer.xml</path>
 			</property-rule>
+			<property-rule n="101">
+				<name>FMS property rule</name>
+				<path>Aircraft/A350XWB/Systems/A350XWB-flight-phases.xml</path>
+			</property-rule>
 			<path>Aircraft/A350XWB/Systems/A350XWB-systems.xml</path>
 		</systems>
 

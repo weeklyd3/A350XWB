@@ -26,9 +26,9 @@
 		<table>
 			<independentVar lookup="row">propulsion/engine/n1</independentVar>
 			<tableData>
-				 24   1.1
-				 28   2.9
-				 46   9.7
+				 24  4
+				 28  8
+				 46  12
 				 68  15.4
 				 80  19.6
 				 94  21.4
@@ -41,9 +41,9 @@
 		<table>
 			<independentVar lookup="row">propulsion/engine/n1</independentVar>
 			<tableData>
-				 24   1.1
-				 28   2.9
-				 46   9.7
+				 24  4
+				 28  8
+				 46  12
 				 68  15.4
 				 80  19.6
 				 94  21.4

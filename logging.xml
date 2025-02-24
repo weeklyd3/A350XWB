@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PropertyList>
+ <logging>
+  <log>
+   <filename>/home/timothy/.fgfs/Export/A350XWB-climb.csv</filename>
+   <enabled>true</enabled>
+   <interval-ms>500</interval-ms>
+   <delimiter>,</delimiter>
+   <entry>
+    <enabled>true</enabled><ref></ref>
+    <title>Ailerons</title>
+    <property>/systems/fbw/fdm-aileron</property>
+   </entry>
+   <entry>
+    <enabled>true</enabled><ref></ref>
+    <title>Elevator</title>
+    <property>/systems/fbw/elevator</property>
+   </entry>
+   <entry>
+    <enabled>true</enabled><ref></ref>
+    <title>Airspeed</title>
+    <property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+   </entry>
+   <entry>
+    <enabled>true</enabled><ref></ref>
+    <title>TAS</title>
+    <property>/instrumentation/airspeed-indicator/true-speed-kt</property>
+   </entry>
+   <entry>
+    <enabled>true</enabled><ref></ref>
+    <title>Mach</title>
+    <property>/instrumentation/airspeed-indicator/indicated-mach</property>
+   </entry>
+   <entry>
+    <enabled>true</enabled><ref></ref>
+    <title>Altitude</title>
+    <property>/instrumentation/altimeter/indicated-altitude-ft</property>
+   </entry>
+    <entry>
+    <enabled>true</enabled><ref></ref>
+    <title>Pitch</title>
+    <property>/orientation/pitch-deg</property>
+   </entry>
+  </log>
+ </logging>
+</PropertyList>

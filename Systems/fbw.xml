@@ -32,11 +32,24 @@
 		</lag_filter>
 	</channel>
 	<channel name="stuff">
+		<fcs_function name="/systems/fbw/aileron-with-deadband">
+			<function>
+				<table>
+					<independentVar>/systems/fbw/sidestick/aileron</independentVar>
+					<tableData>
+						-1      -1
+						-0.02   0
+						0.02    0
+						1       1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
 		<fcs_function name="/systems/fbw/roll-rate-cmd">
 			<function>
 				<product>
 					<value>15</value>
-					<property>/systems/fbw/sidestick/aileron</property>
+					<property>/systems/fbw/aileron-with-deadband</property>
 				</product>
 			</function>
 		</fcs_function>
@@ -145,7 +158,31 @@
 				</sum>
 			</function>
 		</fcs_function>
-		<fcs_function name="fcs/left-outer-aileron-pos-norm">
+		<fcs_function name="fcs/left-aileron-sum-cmd">
+			<function>
+				<sum>
+					<property>/systems/fbw/symmetric-aileron</property>
+					<property>/systems/fbw/aileron</property>
+				</sum>
+			</function>
+		</fcs_function>
+		<actuator name="fcs/left-aileron-sum">
+			<input>fcs/left-aileron-sum-cmd</input>
+			<rate_limit>1</rate_limit>
+		</actuator>
+		<fcs_function name="fcs/right-aileron-sum-cmd">
+			<function>
+				<sum>
+					<property>/systems/fbw/symmetric-aileron</property>
+					<property>-/systems/fbw/aileron</property>
+				</sum>
+			</function>
+		</fcs_function>
+		<actuator name="fcs/right-aileron-sum">
+			<input>fcs/right-aileron-sum-cmd</input>
+			<rate_limit>1</rate_limit>
+		</actuator>
+		<fcs_function name="fcs/left-outer-aileron-cmd-norm">
 			<function>
 				<sum>
 					<property>/systems/fbw/symmetric-aileron</property>
@@ -157,7 +194,11 @@
 				<min>-1</min>
 			</clipto>
 		</fcs_function>
-		<fcs_function name="fcs/right-outer-aileron-pos-norm">
+		<actuator name="fcs/left-outer-aileron-pos-norm">
+			<input>fcs/left-outer-aileron-cmd-norm</input>
+			<rate_limit>1</rate_limit>
+		</actuator>
+		<fcs_function name="fcs/right-outer-aileron-cmd-norm">
 			<function>
 				<sum>
 					<property>/systems/fbw/symmetric-aileron</property>
@@ -172,6 +213,10 @@
 				<min>-1</min>
 			</clipto>
 		</fcs_function>
+		<actuator name="fcs/right-outer-aileron-pos-norm">
+			<input>fcs/right-outer-aileron-cmd-norm</input>
+			<rate_limit>1</rate_limit>
+		</actuator>
 		<fcs_function name="/systems/fbw/fdm-aileron">
 			<!-- difference between left aileron and right aileron -->
 			<function>
@@ -236,6 +281,19 @@
 				</table>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/fbw/elevator-with-deadband">
+			<function>
+				<table>
+					<independentVar>/systems/fbw/sidestick/elevator</independentVar>
+					<tableData>
+						-1      -1
+						-0.02   0
+						0.02    0
+						1       1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
 		<fcs_function name="/systems/fbw/pitch-g-cmd">
 			<function>
 				<sum>
@@ -244,7 +302,7 @@
 						<max>
 							<property>/systems/fbw/pitch-g-protection-down</property>
 							<table>
-								<independentVar>/controls/flight/elevator</independentVar>
+								<independentVar>/systems/fbw/elevator-with-deadband</independentVar>
 								<!-- 1 = full forward, -1 = full back -->
 								<tableData>
 								-1   2.5
@@ -352,5 +410,166 @@
 				</sum>
 			</function>
 		</fcs_function>
+	</channel>
+	<property value="0">/systems/fbw/spoilers/spoiler-1-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-2-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-3-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-4-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-5-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-6-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-7-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-14-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-13-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-12-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-11-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-10-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-9-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-8-fail</property>
+	<property value="1">/controls/flight/speedbrake-armed</property>
+	<channel name="spoilers">
+		<summer name="/systems/fbw/mlg-wow">
+			<input>gear/unit[1]/WOW</input>
+			<input>gear/unit[2]/WOW</input>
+		</summer>
+		<switch name="/systems/fbw/tirespeed-72">
+			<default value="0" />
+			<test logic="AND" value="1"> <!-- 72 knots is 72 * 6076 / 3600 = 121.52 fps -->
+				gear/unit[1]/wheel-speed-fps ge 121.52
+				gear/unit[2]/wheel-speed-fps ge 121.52
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/partial-extension">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/fbw/mlg-wow eq 1
+				/systems/fadec/throttle/throttle-1 le 0.01
+				/systems/fadec/throttle/throttle-2 le 0.01
+				/controls/flight/speedbrake-armed eq 1
+				/systems/fbw/tirespeed-72 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/full-extension">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/fbw/mlg-wow eq 2
+				/systems/fadec/throttle/throttle-1 le 0.01
+				/systems/fadec/throttle/throttle-2 le 0.01
+				/controls/flight/speedbrake-armed eq 1
+				/systems/fbw/tirespeed-72 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/extension-rate">
+			<default value="17" />
+			<test logic="AND" value="5">
+				/systems/fbw/mlg-wow eq 1
+				/systems/fadec/throttle/throttle-1 le 0.01
+				/systems/fadec/throttle/throttle-2 le 0.01
+				/controls/flight/speedbrake-armed eq 1
+			</test>
+		</switch>
+		<fcs_function name="/systems/fbw/spoilers/left-roll">
+			<function>
+				<table>
+					<independentVar>/systems/fbw/aileron</independentVar>
+					<tableData>
+						-1        45
+						-0.2      5
+						0         0
+						1         0
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/right-roll">
+			<function>
+				<table>
+					<independentVar>/systems/fbw/aileron</independentVar>
+					<tableData>
+						-1       0
+						0        0
+						0.2      5
+						1        45
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/balanced">
+			<function>
+				<table> <!-- this is a guess -->
+					<independentVar>/velocities/airspeed-kt</independentVar>
+					<tableData>
+						0         15
+						250       1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/speedbrake-command">
+			<function>
+				<product>
+					<table>
+						<independentVar>/controls/flight/speedbrake</independentVar>
+						<tableData>
+							0      0
+							0.5    0.75
+							1      1
+						</tableData>
+					</table>
+					<table> <!-- GUESS -->
+						<independentVar>accelerations/Nz</independentVar>
+						<tableData>
+						-0.5    0.2
+						0.3     1
+						1       1
+						1.7     1
+						2.5     0.2
+						</tableData>
+					</table>
+					<table>
+						<independentVar>fcs/flap-pos-norm</independentVar>
+						<tableData>
+							0        1
+							0.296    0.5
+						</tableData>
+					</table>
+				</product>
+			</function>
+		</fcs_function>
+		<pure_gain name="/systems/fbw/spoilers/partial-spoilers-1-2-13-14">
+			<input>/systems/fbw/spoilers/partial-extension</input>
+			<gain>10</gain>
+		</pure_gain>
+		<pure_gain name="/systems/fbw/spoilers/partial-spoilers-3-4-5-6-7-8-9-10-11-12">
+			<input>/systems/fbw/spoilers/partial-extension</input>
+			<gain>15</gain>
+		</pure_gain>
+		<pure_gain name="/systems/fbw/spoilers/ground-spoilers-1-2-13-14">
+			<input>/systems/fbw/spoilers/full-extension</input>
+			<gain>35</gain>
+		</pure_gain>
+		<pure_gain name="/systems/fbw/spoilers/ground-spoilers-3-4-5-6-7-8-9-10-11-12">
+			<input>/systems/fbw/spoilers/full-extension</input>
+			<gain>50</gain>
+		</pure_gain>
+		<pure_gain name="/systems/fbw/spoilers/speedbrake-1-14">
+			<input>/systems/fbw/spoilers/speedbrake-command</input>
+			<gain>15</gain>
+		</pure_gain>
+		<pure_gain name="/systems/fbw/spoilers/speedbrake-2-13">
+			<input>/systems/fbw/spoilers/speedbrake-command</input>
+			<gain>12</gain>
+		</pure_gain>
+		<pure_gain name="/systems/fbw/spoilers/speedbrake-3-12">
+			<input>/systems/fbw/spoilers/speedbrake-command</input>
+			<gain>20</gain>
+		</pure_gain>
+		<pure_gain name="/systems/fbw/spoilers/speedbrake-4-5-6-9-10-11">
+			<input>/systems/fbw/spoilers/speedbrake-command</input>
+			<gain>40</gain>
+		</pure_gain>
+		<pure_gain name="/systems/fbw/spoilers/speedbrake-7-8">
+			<input>/systems/fbw/spoilers/speedbrake-command</input>
+			<gain>30</gain>
+		</pure_gain>
 	</channel>
 </system>

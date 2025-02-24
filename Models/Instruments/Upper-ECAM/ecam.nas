@@ -48,7 +48,7 @@ var ecam = {
 				object.svg_items.thrust_limit.updateText(sprintf("%0.1f", value) ~ "%");
 			}),
 			props.UpdateManager.FromHashValue('limit_text', 0.5, func(value) {
-				object.svg_items.thrust_limit_text.updateText(['TOGA', 'CLB', 'MREV', 'MCT'][value]);
+				object.svg_items.thrust_limit_text.updateText(['TOGA', 'CLB', 'MREV', 'MCT', 'D-TO', 'FLEX'][value]);
 			}),
 			props.UpdateManager.FromHashValue('engine_1_thr', 0.05, func(thr_l) {
 				object.svg_items.thr_text_l.updateText(sprintf("%.1f", math.round(thr_l * 10) / 10));
@@ -79,9 +79,9 @@ var ecam = {
 				object.svg_items.donut_r.setRotation((-120 + 210 * donut_r / 100) * math.pi / 180);
 			})
 		];
-		setprop("/instrumentation/ecam/active-page", "apu");
+		setprop("/instrumentation/ecam/active-page", "elec_ac");
 		#var pages = ['hyd', 'apu', 'bleed'];
-		var pages = ['apu'];
+		var pages = ['apu', 'elec_ac'];
 		foreach (var page; pages) {
 			canvas.parsesvg(group, "Aircraft/A350XWB/Models/Instruments/Upper-ECAM/pages/" ~ page ~ ".svg", {'font-mapper': func(doesnt, matter) { return 'ECAMFontRegular.ttf'; }});
 			me.svg_items[page] = group.getElementById(page);
@@ -175,9 +175,568 @@ var ecam = {
 				}
 			]]
 		]);
+		var elec_ac_page = ecam_sd_page.new(me, group, "elec_ac", {
+			gen_1a: {
+				voltage: props.globals.getNode('/systems/electrical/voltage/gen-1a'),
+				drive: props.globals.getNode('/controls/electric/drive-1a'),
+				off: props.globals.getNode('/controls/electric/gen-1a'),
+				fault: props.globals.getNode('/systems/electrical/ecam/fault-1a'),
+				connector: props.globals.getNode('/systems/electrical/reconfiguration/gen-1a-1a'),
+				load: props.globals.getNode('/systems/electrical/loads/gen-1a-load'),
+				overload: props.globals.getNode('/systems/electrical/overload/gen-1a-overload')
+			},
+			gen_1b: {
+				voltage: props.globals.getNode('/systems/electrical/voltage/gen-1b'),
+				drive: props.globals.getNode('/controls/electric/drive-1b'),
+				off: props.globals.getNode('/controls/electric/gen-1b'),
+				fault: props.globals.getNode('/systems/electrical/ecam/fault-1b'),
+				connector: props.globals.getNode('/systems/electrical/reconfiguration/gen-1b-1b'),
+				load: props.globals.getNode('/systems/electrical/loads/gen-1b-load'),
+				overload: props.globals.getNode('/systems/electrical/overload/gen-1b-overload')
+			},
+			gen_2a: {
+				voltage: props.globals.getNode('/systems/electrical/voltage/gen-2a'),
+				drive: props.globals.getNode('/controls/electric/drive-2a'),
+				off: props.globals.getNode('/controls/electric/gen-2a'),
+				fault: props.globals.getNode('/systems/electrical/ecam/fault-2a'),
+				connector: props.globals.getNode('/systems/electrical/reconfiguration/gen-2a-2a'),
+				load: props.globals.getNode('/systems/electrical/loads/gen-2a-load'),
+				overload: props.globals.getNode('/systems/electrical/overload/gen-2a-overload')
+			},
+			gen_2b: {
+				voltage: props.globals.getNode('/systems/electrical/voltage/gen-2b'),
+				drive: props.globals.getNode('/controls/electric/drive-2b'),
+				off: props.globals.getNode('/controls/electric/gen-2b'),
+				fault: props.globals.getNode('/systems/electrical/ecam/fault-2b'),
+				connector: props.globals.getNode('/systems/electrical/reconfiguration/gen-2b-2b'),
+				load: props.globals.getNode('/systems/electrical/loads/gen-2b-load'),
+				overload: props.globals.getNode('/systems/electrical/overload/gen-2b-overload')
+			},
+			apu: {
+				running: props.globals.getNode('/systems/apu/avail'),
+				contactor: props.globals.getNode('/systems/electrical/ecam/apu-contactor'),
+				supplies_1a: props.globals.getNode('/systems/electrical/reconfiguration/apu-1a'),
+				supplies_1b: props.globals.getNode('/systems/electrical/reconfiguration/apu-1b'),
+				supplies_2a: props.globals.getNode('/systems/electrical/reconfiguration/apu-2a'),
+				supplies_2b: props.globals.getNode('/systems/electrical/reconfiguration/apu-2b'),
+				voltage: props.globals.getNode('/systems/apu/gen-voltage'),
+				off: props.globals.getNode('/systems/apu/gen'),
+				load: props.globals.getNode('/systems/electrical/loads/apu-load'),
+				overload: props.globals.getNode('/systems/electrical/overload/apu-overload'),
+				frequency: props.globals.getNode('/systems/apu/gen-hz')
+			},
+			ac_bus: {
+				bus_1a: props.globals.getNode('/systems/electrical/ecam/ac-1a'),
+				bus_1b: props.globals.getNode('/systems/electrical/ecam/ac-1b'),
+				bus_2a: props.globals.getNode('/systems/electrical/ecam/ac-2a'),
+				bus_2b: props.globals.getNode('/systems/electrical/ecam/ac-2b'),
+				bus_1a_1b: props.globals.getNode('/systems/electrical/ecam/bus-1a-1b-230'),
+				bus_2a_2b: props.globals.getNode('/systems/electrical/ecam/bus-2a-2b-230'),
+				gen_1b_apu_1a: props.globals.getNode('/systems/electrical/ecam/gen-1b-apu-1a'),
+				gen_2b_apu_2a: props.globals.getNode('/systems/electrical/ecam/gen-2b-apu-2a'),
+				gen_1a_2b: props.globals.getNode('/systems/electrical/ecam/gen-1a-2b'),
+				gen_1a_2b_1b: props.globals.getNode('/systems/electrical/ecam/gen-1a-2b-1b'),
+				gen_1b_2a: props.globals.getNode('/systems/electrical/ecam/gen-1b-2a'),
+				gen_1b_2a_2b: props.globals.getNode('/systems/electrical/ecam/gen-1b-2a-2b'),
+				gen_1a_2b_1b_2a: props.globals.getNode('/systems/electrical/ecam/gen-1a-2b-1b-2a')
+			},
+			ext: {
+				voltage_1: props.globals.getNode('/systems/electrical/voltage/ext-a'),
+				voltage_2: props.globals.getNode('/systems/electrical/voltage/ext-b'),
+				ext_a: props.globals.getNode('/systems/electrical/generators/ext-a'),
+				ext_b: props.globals.getNode('/systems/electrical/generators/ext-b'),
+				contactor_a: props.globals.getNode('/systems/electrical/ecam/ext-a-contactor'),
+				contactor_b: props.globals.getNode('/systems/electrical/ecam/ext-b-contactor'),
+				ext_1a: props.globals.getNode('/systems/electrical/ecam/ext-1a'),
+				ext_1b: props.globals.getNode('/systems/electrical/ecam/ext-1b'),
+				ext_2a: props.globals.getNode('/systems/electrical/ecam/ext-2a'),
+				ext_2b: props.globals.getNode('/systems/electrical/ecam/ext-2b'),
+				left: props.globals.getNode('/systems/electrical/ecam/ext-left-line'),
+				center: props.globals.getNode('/systems/electrical/ecam/ext-center-line'),
+				right: props.globals.getNode('/systems/electrical/ecam/ext-right-line'),
+				wow: props.globals.getNode('/fdm/jsbsim/gear/wow')
+			},
+			emer: {
+				bus_1b_1: props.globals.getNode('/systems/electrical/reconfiguration/ac-1b-supplies-emer-1'),
+				bus_2b_2: props.globals.getNode('/systems/electrical/reconfiguration/ac-2b-supplies-emer-2'),
+				rat_voltage: props.globals.getNode('/systems/electrical/voltage/rat'),
+				rat_position: props.globals.getNode('/systems/electrical/generators/rat-position'),
+				rat_1: props.globals.getNode('/systems/electrical/reconfiguration/rat-supplies-emer-1'),
+				rat_2: props.globals.getNode('/systems/electrical/reconfiguration/rat-supplies-emer-2'),
+				rat_contactor: props.globals.getNode('/systems/electrical/ecam/rat-contactor'),
+				connector: props.globals.getNode('/systems/electrical/ecam/emer-1-emer-2'),
+				emer_1: props.globals.getNode('/systems/electrical/ecam/ac-emer-1'),
+				emer_2: props.globals.getNode('/systems/electrical/ecam/ac-emer-2'),
+			},
+			engine_1: {
+				running: props.globals.getNode('/engines/engine/running')
+			},
+			engine_2: {
+				running: props.globals.getNode('/engines/engine[1]/running')
+			}
+		}, ['elec_ac_gen_1a_label', 'elec_ac_gen_1a_text', 'elec_ac_gen_1a_off', 'elec_ac_gen_1a_stats', 'elec_ac_gen_1a_voltage', 'elec_ac_gen_1a_load', 'elec_ac_gen_1a_disc', 'elec_ac_gen_1a_connector', 'elec_ac_gen_1b_label', 'elec_ac_gen_1b_text', 'elec_ac_gen_1b_off', 'elec_ac_gen_1b_stats', 'elec_ac_gen_1b_voltage', 'elec_ac_gen_1b_load', 'elec_ac_gen_1b_disc', 'elec_ac_gen_1b_connector', 'elec_ac_gen_2a_label', 'elec_ac_gen_2a_text', 'elec_ac_gen_2a_off', 'elec_ac_gen_2a_stats', 'elec_ac_gen_2a_voltage', 'elec_ac_gen_2a_load', 'elec_ac_gen_2a_disc', 'elec_ac_gen_2a_connector', 'elec_ac_gen_2b_label', 'elec_ac_gen_2b_text', 'elec_ac_gen_2b_off', 'elec_ac_gen_2b_stats', 'elec_ac_gen_2b_voltage', 'elec_ac_gen_2b_load', 'elec_ac_gen_2b_disc', 'elec_ac_gen_2b_connector', 'elec_ac_1a_115_text', 'elec_ac_1a_230_text', 'elec_ac_1a_diamond', 'elec_ac_1b_115_text', 'elec_ac_1b_230_text', 'elec_ac_1b_diamond', 'elec_ac_2a_115_text', 'elec_ac_2a_230_text', 'elec_ac_2a_diamond', 'elec_ac_2b_115_text', 'elec_ac_2b_230_text', 'elec_ac_2b_diamond', 'elec_ac_bus_1a_1b_230', 'elec_ac_bus_2a_2b_230', 'elec_ac_apu_gen_contactor', 'elec_ac_apu_1a', 'elec_ac_apu_1b', 'elec_ac_apu_2b', 'elec_ac_apu_2a', 'elec_ac_1b_apu_1a', 'elec_ac_2b_apu_2a', 'elec_ac_1a_2b', 'elec_ac_1b_2a', 'elec_ac_1a_2b_1b', 'elec_ac_1b_2a_2b', 'elec_ac_1a_2b_1b_2a', 'elec_ac_ext_1a', 'elec_ac_ext_1b', 'elec_ac_ext_2a', 'elec_ac_ext_2b', 'elec_ac_ext_1_voltage', 'elec_ac_ext_2_voltage', 'elec_ac_ext_1_stats', 'elec_ac_ext_1_off', 'elec_ac_ext_2_stats', 'elec_ac_ext_2_off', 'elec_ac_ext_1_contactor', 'elec_ac_ext_2_contactor', 'elec_ac_ext_left','elec_ac_ext_right', 'elec_ac_ext_center', 'elec_ac_2b_emer_2', 'elec_ac_1b_emer_1', 'elec_ac_rat_voltage', 'elec_ac_rat', 'elec_ac_rat_1', 'elec_ac_rat_2', 'elec_ac_rat_contactor', 'elec_ac_emer_connector', 'elec_ac_ext_1', 'elec_ac_ext_2', 'elec_ac_ext_center_emer_1', 'elec_ac_ext_center_emer_2', 'elec_ac_emer_1_diamond', 'elec_ac_emer_1_115', 'elec_ac_emer_1_230', 'elec_ac_emer_2_diamond', 'elec_ac_emer_2_115', 'elec_ac_emer_2_230', 'elec_ac_apu_gen', 'elec_ac_apu_gen_off', 'elec_ac_apu_gen_stats', 'elec_ac_apu_gen_frequency', 'elec_ac_apu_gen_voltage', 'elec_ac_apu_gen_load'], ['elec_ac_gen_1a_voltage', 'elec_ac_gen_1a_load', 'elec_ac_gen_1b_voltage', 'elec_ac_gen_1b_load', 'elec_ac_gen_2a_voltage', 'elec_ac_gen_2a_load', 'elec_ac_gen_2b_voltage', 'elec_ac_gen_2b_load', 'elec_ac_ext_1_voltage', 'elec_ac_ext_2_voltage', 'elec_ac_rat_voltage', 'elec_ac_apu_gen_frequency', 'elec_ac_apu_gen_voltage', 'elec_ac_apu_gen_load'], [
+			["gen_1a_voltage", 0.5, 'format', {
+				element: 'elec_ac_gen_1a_voltage',
+				format: '%d'
+			}],
+			["gen_1a_load", 0.1, 'format', {
+				element: 'elec_ac_gen_1a_load',
+				format: '%d'
+			}],
+			["gen_1a_overload", 0.5, 'function', func(overload) {
+				if (overload) {
+					me.page_svg_items.elec_ac_gen_1a_load.setColor(187 / 255, 97 / 255, 0);
+				} else {
+					me.page_svg_items.elec_ac_gen_1a_load.setColor(0, 1, 0);
+				}
+			}],
+			["gen_1a_voltage", 0.01, 'function', func(voltage) {
+				if (voltage >= 230 and voltage <= 240) {
+					me.page_svg_items.elec_ac_gen_1a_voltage.setColor(0, 1, 0);
+				} else {
+					me.page_svg_items.elec_ac_gen_1a_voltage.setColor(187 / 255, 97 / 255, 0);
+				}
+			}],
+			["gen_1a_drive", 0.5, 'show', {
+				element: 'elec_ac_gen_1a_disc',
+				invert: 1
+			}],
+			["gen_1a_off", 0.5, 'show', [{
+				element: 'elec_ac_gen_1a_off',
+				invert: 1
+			}, {
+				element: 'elec_ac_gen_1a_stats',
+				invert: 0
+			}]],
+			["gen_1a_fault", 0.5, 'function', func(fault) {
+				if (!fault) me.page_svg_items['elec_ac_gen_1a_label'].setColor(1, 1, 1);
+				else me.page_svg_items['elec_ac_gen_1a_label'].setColor(187 / 255, 97 / 255, 0);
+			}],
+			["gen_1a_connector", 0.5, 'show', {
+				element: 'elec_ac_gen_1a_connector',
+				invert: 0
+			}],
+			["engine_1_running", 0.5, 'function', func(running) {
+				if (running) {
+					me.page_svg_items['elec_ac_gen_1a_text'].setColor(1, 1, 1);
+					me.page_svg_items['elec_ac_gen_1b_text'].setColor(1, 1, 1);
+				} else {
+					me.page_svg_items['elec_ac_gen_1a_text'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_gen_1b_text'].setColor(187 / 255, 97 / 255, 0);
+				}
+			}],
+			["engine_2_running", 0.5, 'function', func(running) {
+				if (running) {
+					me.page_svg_items['elec_ac_gen_2a_text'].setColor(1, 1, 1);
+					me.page_svg_items['elec_ac_gen_2b_text'].setColor(1, 1, 1);
+				} else {
+					me.page_svg_items['elec_ac_gen_2a_text'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_gen_2b_text'].setColor(187 / 255, 97 / 255, 0);
+				}
+			}],
+			['ac_bus_bus_1a', 0.5, 'function', func(bus) {
+				if (bus) {
+					me.page_svg_items['elec_ac_1a_115_text'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_1a_230_text'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_1a_diamond'].show();
+				} else {
+					me.page_svg_items['elec_ac_1a_115_text'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_1a_230_text'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_1a_diamond'].hide();
+				}
+			}],
+			['ac_bus_bus_1a_1b', 0.5, 'show', {
+				element: 'elec_ac_bus_1a_1b_230',
+				invert: 0
+			}],
+			['ac_bus_bus_2a_2b', 0.5, 'show', {
+				element: 'elec_ac_bus_2a_2b_230',
+				invert: 0
+			}],
+			['apu_contactor', 0.5, 'show', {
+				element: 'elec_ac_apu_gen_contactor',
+				invert: 0
+			}],
+			['apu_running', 0.5, 'show', {
+				element: 'elec_ac_apu_gen',
+				invert: 0
+			}],
+			['apu_off', 0.5, 'show', [{
+				element: 'elec_ac_apu_gen_stats',
+				invert: 0
+			}, {
+				element: 'elec_ac_apu_gen_off',
+				invert: 1
+			}]],
+			["apu_voltage", 0.01, 'function', func(voltage) {
+				if (voltage >= 225 and voltage <= 245) {
+					me.page_svg_items.elec_ac_apu_gen_voltage.setColor(0, 1, 0);
+				} else {
+					me.page_svg_items.elec_ac_apu_gen_voltage.setColor(187 / 255, 97 / 255, 0);
+				}
+			}],
+			["apu_frequency", 0.01, 'function', func(frequency) {
+				if (frequency >= 385 and frequency <= 418) {
+					me.page_svg_items.elec_ac_apu_gen_frequency.setColor(0, 1, 0);
+				} else {
+					me.page_svg_items.elec_ac_apu_gen_frequency.setColor(187 / 255, 97 / 255, 0);
+				}
+			}],
+			["apu_overload", 0.5, 'function', func(overload) {
+				if (overload) {
+					me.page_svg_items.elec_ac_apu_gen_load.setColor(187 / 255, 97 / 255, 0);
+				} else {
+					me.page_svg_items.elec_ac_apu_gen_load.setColor(0, 1, 0);
+				}
+			}],
+			['apu_load', 0.5, 'format', {
+				element: 'elec_ac_apu_gen_load',
+				format: '%d'
+			}],
+			['apu_voltage', 0.5, 'format', {
+				element: 'elec_ac_apu_gen_voltage',
+				format: '%d'
+			}],
+			['apu_frequency', 0.5, 'format', {
+				element: 'elec_ac_apu_gen_frequency',
+				format: '%d'
+			}],
+			['apu_supplies_1a', 0.5, 'show', {
+				element: 'elec_ac_apu_1a',
+				invert: 0
+			}],
+			['apu_supplies_1b', 0.5, 'show', {
+				element: 'elec_ac_apu_1b',
+				invert: 0
+			}],
+			['apu_supplies_2b', 0.5, 'show', {
+				element: 'elec_ac_apu_2b',
+				invert: 0
+			}],
+			['apu_supplies_2a', 0.5, 'show', {
+				element: 'elec_ac_apu_2a',
+				invert: 0
+			}],
+			['ac_bus_gen_1b_apu_1a', 0.5, 'show', {
+				element: 'elec_ac_1b_apu_1a',
+				invert: 0
+			}],
+			['ac_bus_gen_2b_apu_2a', 0.5, 'show', {
+				element: 'elec_ac_2b_apu_2a',
+				invert: 0
+			}],
+			['ac_bus_gen_1a_2b', 0.5, 'show', {
+				element: 'elec_ac_1a_2b',
+				invert: 0
+			}],
+			['ac_bus_gen_1b_2a', 0.5, 'show', {
+				element: 'elec_ac_1b_2a',
+				invert: 0
+			}],
+			['ac_bus_gen_1a_2b_1b', 0.5, 'show', {
+				element: 'elec_ac_1a_2b_1b',
+				invert: 0
+			}],
+			['ac_bus_gen_1a_2b_1b_2a', 0.5, 'show', {
+				element: 'elec_ac_1a_2b_1b_2a',
+				invert: 0
+			}],
+			['ac_bus_gen_1b_2a_2b', 0.5, 'show', {
+				element: 'elec_ac_1b_2a_2b',
+				invert: 0
+			}],
+			['ext_wow', 0.5, 'show', [{
+				element: 'elec_ac_ext_1',
+				invert: 0
+			}, {
+				element: 'elec_ac_ext_2',
+				invert: 0
+			}]],
+			['ext_voltage_1', 0.5, 'format', {
+				element: 'elec_ac_ext_1_voltage',
+				format: '%d'
+			}],
+			['ext_voltage_2', 0.5, 'format', {
+				element: 'elec_ac_ext_2_voltage',
+				format: '%d'
+			}],
+			['ext_ext_1a', 0.5, 'show', {
+				element: 'elec_ac_ext_1a',
+				invert: 0
+			}],
+			['ext_ext_1b', 0.5, 'show', {
+				element: 'elec_ac_ext_1b',
+				invert: 0
+			}],
+			['ext_ext_2a', 0.5, 'show', {
+				element: 'elec_ac_ext_2a',
+				invert: 0
+			}],
+			['ext_ext_2b', 0.5, 'show', {
+				element: 'elec_ac_ext_2b',
+				invert: 0
+			}],
+			['ext_ext_a', 0.5, 'show', [{
+				element: 'elec_ac_ext_1_stats',
+				invert: 0
+			}, {
+				element: 'elec_ac_ext_1_off',
+				invert: 1
+			}]],
+			['ext_ext_b', 0.5, 'show', [{
+				element: 'elec_ac_ext_2_stats',
+				invert: 0
+			}, {
+				element: 'elec_ac_ext_2_off',
+				invert: 1
+			}]],
+			['ext_contactor_a', 0.5, 'show', {
+				element: 'elec_ac_ext_1_contactor',
+				invert: 0
+			}],
+			['ext_contactor_b', 0.5, 'show', {
+				element: 'elec_ac_ext_2_contactor',
+				invert: 0
+			}],
+			['ext_left', 0.5, 'show', {
+				element: 'elec_ac_ext_left',
+				invert: 0
+			}],
+			['ext_center', 0.5, 'show', {
+				element: 'elec_ac_ext_center',
+				invert: 0
+			}],
+			['ext_right', 0.5, 'show', {
+				element: 'elec_ac_ext_right',
+				invert: 0
+			}],
+			['emer_emer_1', 0.5, 'function', func(bus) {
+				if (bus) {
+					me.page_svg_items['elec_ac_emer_1_230'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_emer_1_115'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_emer_1_diamond'].show();
+				} else {
+					me.page_svg_items['elec_ac_emer_1_230'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_emer_1_115'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_emer_1_diamond'].hide();
+				}
+			}],
+			['emer_emer_2', 0.5, 'function', func(bus) {
+				if (bus) {
+					me.page_svg_items['elec_ac_emer_2_230'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_emer_2_115'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_emer_2_diamond'].show();
+				} else {
+					me.page_svg_items['elec_ac_emer_2_230'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_emer_2_115'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_emer_2_diamond'].hide();
+				}
+			}],
+			['emer_bus_1b_1', 0.5, 'show', [{
+				element: 'elec_ac_1b_emer_1',
+				invert: 0
+			}, {
+				element: 'elec_ac_ext_center_emer_1',
+				invert: 0
+			}]],
+			['emer_bus_2b_2', 0.5, 'show', [{
+				element: 'elec_ac_2b_emer_2',
+				invert: 0
+			}, {
+				element: 'elec_ac_ext_center_emer_2',
+				invert: 0
+			}]],
+			['emer_rat_position', 0.01, 'function', func(position) {
+				if (position > 0.5) me.page_svg_items.elec_ac_rat.show();
+				else me.page_svg_items.elec_ac_rat.hide();
+			}],
+			['emer_rat_voltage', 0.01, 'format', {
+				format: '%d',
+				element: 'elec_ac_rat_voltage'
+			}],
 
+			['emer_rat_1', 0.5, 'show', {
+				element: 'elec_ac_rat_1',
+				invert: 0
+			}],
+			['emer_rat_2', 0.5, 'show', {
+				element: 'elec_ac_rat_2',
+				invert: 0
+			}],
+			['emer_rat_contactor', 0.5, 'show', {
+				element: 'elec_ac_rat_contactor',
+				invert: 0
+			}],
+			['emer_connector', 0.5, 'show', {
+				element: 'elec_ac_emer_connector',
+				invert: 0
+			}],
+			# rest of this stuff is copied ...
+			["gen_1b_voltage", 0.5, 'format', {
+				element: 'elec_ac_gen_1b_voltage',
+				format: '%d'
+			}],
+			["gen_1b_load", 0.1, 'format', {
+				element: 'elec_ac_gen_1b_load',
+				format: '%d'
+			}],
+			["gen_1b_overload", 0.5, 'function', func(overload) {
+				if (overload) {
+					me.page_svg_items.elec_ac_gen_1b_load.setColor(187 / 255, 97 / 255, 0);
+				} else {
+					me.page_svg_items.elec_ac_gen_1b_load.setColor(0, 1, 0);
+				}
+			}],
+			["gen_1b_voltage", 0.01, 'function', func(voltage) {
+				if (voltage >= 230 and voltage <= 240) {
+					me.page_svg_items.elec_ac_gen_1b_voltage.setColor(0, 1, 0);
+				} else {
+					me.page_svg_items.elec_ac_gen_1b_voltage.setColor(187 / 255, 97 / 255, 0);
+				}
+			}],
+			["gen_1b_drive", 0.5, 'show', {
+				element: 'elec_ac_gen_1b_disc',
+				invert: 1
+			}],
+			["gen_1b_off", 0.5, 'show', [{
+				element: 'elec_ac_gen_1b_off',
+				invert: 1
+			}, {
+				element: 'elec_ac_gen_1b_stats',
+				invert: 0
+			}]],
+			["gen_1b_fault", 0.5, 'function', func(fault) {
+				if (!fault) me.page_svg_items['elec_ac_gen_1b_label'].setColor(1, 1, 1);
+				else me.page_svg_items['elec_ac_gen_1b_label'].setColor(187 / 255, 97 / 255, 0);
+			}],
+			["gen_1b_connector", 0.5, 'show', {
+				element: 'elec_ac_gen_1b_connector',
+				invert: 0
+			}],
+
+			["gen_2a_voltage", 0.5, 'format', {
+				element: 'elec_ac_gen_2a_voltage',
+				format: '%d'
+			}],
+			["gen_2a_load", 0.1, 'format', {
+				element: 'elec_ac_gen_2a_load',
+				format: '%d'
+			}],
+			["gen_2a_overload", 0.5, 'function', func(overload) {
+				if (overload) {
+					me.page_svg_items.elec_ac_gen_2a_load.setColor(187 / 255, 97 / 255, 0);
+				} else {
+					me.page_svg_items.elec_ac_gen_2a_load.setColor(0, 1, 0);
+				}
+			}],
+			["gen_2a_voltage", 0.01, 'function', func(voltage) {
+				if (voltage >= 230 and voltage <= 240) {
+					me.page_svg_items.elec_ac_gen_2a_voltage.setColor(0, 1, 0);
+				} else {
+					me.page_svg_items.elec_ac_gen_2a_voltage.setColor(187 / 255, 97 / 255, 0);
+				}
+			}],
+			["gen_2a_drive", 0.5, 'show', {
+				element: 'elec_ac_gen_2a_disc',
+				invert: 1
+			}],
+			["gen_2a_off", 0.5, 'show', [{
+				element: 'elec_ac_gen_2a_off',
+				invert: 1
+			}, {
+				element: 'elec_ac_gen_2a_stats',
+				invert: 0
+			}]],
+			["gen_2a_fault", 0.5, 'function', func(fault) {
+				if (!fault) me.page_svg_items['elec_ac_gen_2a_label'].setColor(1, 1, 1);
+				else me.page_svg_items['elec_ac_gen_2a_label'].setColor(187 / 255, 97 / 255, 0);
+			}],
+			["gen_2a_connector", 0.5, 'show', {
+				element: 'elec_ac_gen_2a_connector',
+				invert: 0
+			}],
+
+			["gen_2b_voltage", 0.5, 'format', {
+				element: 'elec_ac_gen_2b_voltage',
+				format: '%d'
+			}],
+			["gen_2b_load", 0.1, 'format', {
+				element: 'elec_ac_gen_2b_load',
+				format: '%d'
+			}],
+			["gen_2b_overload", 0.5, 'function', func(overload) {
+				if (overload) {
+					me.page_svg_items.elec_ac_gen_2b_load.setColor(187 / 255, 97 / 255, 0);
+				} else {
+					me.page_svg_items.elec_ac_gen_2b_load.setColor(0, 1, 0);
+				}
+			}],
+			["gen_2b_voltage", 0.01, 'function', func(voltage) {
+				if (voltage >= 230 and voltage <= 240) {
+					me.page_svg_items.elec_ac_gen_2b_voltage.setColor(0, 1, 0);
+				} else {
+					me.page_svg_items.elec_ac_gen_2b_voltage.setColor(187 / 255, 97 / 255, 0);
+				}
+			}],
+			["gen_2b_drive", 0.5, 'show', {
+				element: 'elec_ac_gen_2b_disc',
+				invert: 1
+			}],
+			["gen_2b_off", 0.5, 'show', [{
+				element: 'elec_ac_gen_2b_off',
+				invert: 1
+			}, {
+				element: 'elec_ac_gen_2b_stats',
+				invert: 0
+			}]],
+			["gen_2b_fault", 0.5, 'function', func(fault) {
+				if (!fault) me.page_svg_items['elec_ac_gen_2b_label'].setColor(1, 1, 1);
+				else me.page_svg_items['elec_ac_gen_2b_label'].setColor(187 / 255, 97 / 255, 0);
+			}],
+			["gen_2b_connector", 0.5, 'show', {
+				element: 'elec_ac_gen_2b_connector',
+				invert: 0
+			}],
+			['ac_bus_bus_1b', 0.5, 'function', func(bus) {
+				if (bus) {
+					me.page_svg_items['elec_ac_1b_115_text'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_1b_230_text'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_1b_diamond'].show();
+				} else {
+					me.page_svg_items['elec_ac_1b_115_text'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_1b_230_text'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_1b_diamond'].hide();
+				}
+			}],
+			['ac_bus_bus_2a', 0.5, 'function', func(bus) {
+				if (bus) {
+					me.page_svg_items['elec_ac_2a_115_text'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_2a_230_text'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_2a_diamond'].show();
+				} else {
+					me.page_svg_items['elec_ac_2a_115_text'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_2a_230_text'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_2a_diamond'].hide();
+				}
+			}],
+			['ac_bus_bus_2b', 0.5, 'function', func(bus) {
+				if (bus) {
+					me.page_svg_items['elec_ac_2b_115_text'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_2b_230_text'].setColor(0, 1, 0);
+					me.page_svg_items['elec_ac_2b_diamond'].show();
+				} else {
+					me.page_svg_items['elec_ac_2b_115_text'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_2b_230_text'].setColor(187 / 255, 97 / 255, 0);
+					me.page_svg_items['elec_ac_2b_diamond'].hide();
+				}
+			}],
+		]);
+		var elec_dc_page = ecam_sd_page.new(me, group, 'elec_dc', {
+
+		}, [], [], []);
 		#me.pages['hyd'] = hyd_page.new(display, group);
 		me.pages['apu'] = apu_page;
+		me.pages['elec_ac'] = elec_ac_page;
 		#me.pages['bleed'] = bleed_page.new(display, group);
 		foreach (var page; keys(me.pages)) {
 			setprop("/instrumentation/ecam/" ~ page ~ "-active", 0);
