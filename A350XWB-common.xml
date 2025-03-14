@@ -35,9 +35,9 @@
 					<enabled archive="y" type="bool">false</enabled>
 				</limits>
 				<!-- x/y/z == right/up/back -->
-				<x-offset-m type="double">-0.5326</x-offset-m>
-				<y-offset-m type="double">3.02</y-offset-m>
-				<z-offset-m type="double">-29.5</z-offset-m>
+				<x-offset-m type="double">-0.560693</x-offset-m>
+				<y-offset-m type="double">3.02797</y-offset-m>
+				<z-offset-m type="double">-29.649</z-offset-m>
 				<pitch-offset-deg>-8</pitch-offset-deg>
 				<default-field-of-view-deg type="double">63</default-field-of-view-deg>
 			</config>
@@ -243,9 +243,9 @@
 				<from-model type="bool">true</from-model>
 				<from-model-idx type="int">0</from-model-idx>
 				<ground-level-nearplane-m type="double">0.5f</ground-level-nearplane-m>
-				<x-offset-m type="double">0.5326</x-offset-m>
-				<y-offset-m type="double">3.02</y-offset-m>
-				<z-offset-m type="double">-29.5</z-offset-m>
+				<x-offset-m type="double">0.560693</x-offset-m>
+				<y-offset-m type="double">3.02797</y-offset-m>
+				<z-offset-m type="double">-29.649</z-offset-m>
 				<pitch-offset-deg>-8</pitch-offset-deg>
 				<default-field-of-view-deg type="double">63</default-field-of-view-deg>
 			</config>
@@ -503,7 +503,7 @@
 			Director being on by default -->
 			<fd-takeoff-deg type="double">15</fd-takeoff-deg> <!-- Adjust Flight Director
 			pitch bar in T/O CLB on ground -->
-			<ground-mode-select type="bool">0</ground-mode-select> <!-- Allow modes to be
+			<ground-mode-select type="bool">1</ground-mode-select> <!-- Allow modes to be
 			selected when on ground -->
 			<hdg-hld-separate type="bool">0</hdg-hld-separate> <!-- Separates HDG HLD
 			mode from HDG SEL mode -->
@@ -716,6 +716,8 @@
 	<nasal>
 		<A350XWB>
 			<file>Aircraft/A350XWB/Nasal/system-init.nas</file>
+			<file>Aircraft/A350XWB/Nasal/autostart.nas</file>
+			<file>Aircraft/A350XWB/Nasal/autotrim.nas</file>
 			<!--<file>Aircraft/A350XWB/Models/Instruments/PFD2/PFD.nas</file>-->
 			<file>Aircraft/A350XWB/Nasal/A350XWB-EICAS.nas</file>
 			<file>Aircraft/A350XWB/Nasal/A350XWB-engines.nas</file>
@@ -740,6 +742,7 @@
 		</ND>
 		<PFD>
 			<file>Aircraft/A350XWB/Models/Instruments/PFD2/pfd.nas</file>
+			<file>Aircraft/A350XWB/Models/Instruments/PFD2/synthetic_runway_selection.nas</file>
 		</PFD>
 		<ECAM_UPPER>
 			<file>Aircraft/A350XWB/Models/Instruments/Upper-ECAM/ecam.nas</file>
@@ -772,14 +775,14 @@
 
 	</nasal>
 
-	<engines>
+	<!--<engines>
 		<engine n="0">
 			<running>true</running>
 		</engine>
 		<engine n="1">
 			<running>true</running>
 		</engine>
-	</engines>
+	</engines>-->
 
 	<controls>
 		<gear>

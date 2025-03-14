@@ -496,12 +496,68 @@ timer.start();
   <animation>
     <type>rotate</type>
     <object-name>sb1</object-name>
+    <property>/systems/fbw/spoilers/positions/spoiler-1</property>
+    <factor>1</factor>
+    <offset-deg>0</offset-deg>   
+    <axis>
+      <x1-m>34.5174</x1-m>
+      <y1-m>-10.8040</y1-m>
+      <z1-m>0.9125</z1-m>
+      <x2-m>38.5910</x2-m>
+      <y2-m>-20.0619</y2-m>
+      <z2-m>2.1087</z2-m>
+    </axis>
+  </animation>
+    <animation>
+    <type>rotate</type>
     <object-name>sb2</object-name>
+    <property>/systems/fbw/spoilers/positions/spoiler-2</property>
+    <factor>1</factor>
+    <offset-deg>0</offset-deg>   
+    <axis>
+      <x1-m>34.5174</x1-m>
+      <y1-m>-10.8040</y1-m>
+      <z1-m>0.9125</z1-m>
+      <x2-m>38.5910</x2-m>
+      <y2-m>-20.0619</y2-m>
+      <z2-m>2.1087</z2-m>
+    </axis>
+  </animation>
+    <animation>
+    <type>rotate</type>
     <object-name>sb3</object-name>
+    <property>/systems/fbw/spoilers/positions/spoiler-3</property>
+    <factor>1</factor>
+    <offset-deg>0</offset-deg>   
+    <axis>
+      <x1-m>34.5174</x1-m>
+      <y1-m>-10.8040</y1-m>
+      <z1-m>0.9125</z1-m>
+      <x2-m>38.5910</x2-m>
+      <y2-m>-20.0619</y2-m>
+      <z2-m>2.1087</z2-m>
+    </axis>
+  </animation>
+    <animation>
+    <type>rotate</type>
     <object-name>sb4</object-name>
+    <property>/systems/fbw/spoilers/positions/spoiler-4</property>
+    <factor>1</factor>
+    <offset-deg>0</offset-deg>   
+    <axis>
+      <x1-m>34.5174</x1-m>
+      <y1-m>-10.8040</y1-m>
+      <z1-m>0.9125</z1-m>
+      <x2-m>38.5910</x2-m>
+      <y2-m>-20.0619</y2-m>
+      <z2-m>2.1087</z2-m>
+    </axis>
+  </animation>
+    <animation>
+    <type>rotate</type>
     <object-name>sb5</object-name>
-    <property>sim/multiplay/generic/float[3]</property>
-    <factor>59</factor>
+    <property>/systems/fbw/spoilers/positions/spoiler-5</property>
+    <factor>1</factor>
     <offset-deg>0</offset-deg>   
     <axis>
       <x1-m>34.5174</x1-m>
@@ -516,9 +572,23 @@ timer.start();
   <animation>
     <type>rotate</type>
     <object-name>sb6</object-name>
+    <property>/systems/fbw/spoilers/positions/spoiler-6</property>
+    <factor>1</factor>
+    <offset-deg>0</offset-deg>   
+    <axis>
+      <x1-m>34.4441</x1-m>
+      <y1-m>-5.8874</y1-m>
+      <z1-m>0.2498</z1-m>
+      <x2-m>34.4343</x2-m>
+      <y2-m>-10.3992</y2-m>
+      <z2-m>0.8835</z2-m>
+    </axis>
+  </animation>
+  <animation>
+    <type>rotate</type>
     <object-name>sb7</object-name>
-    <property>sim/multiplay/generic/float[3]</property>
-    <factor>59</factor>
+    <property>/systems/fbw/spoilers/positions/spoiler-7</property>
+    <factor>1</factor>
     <offset-deg>0</offset-deg>   
     <axis>
       <x1-m>34.4441</x1-m>
@@ -533,12 +603,8 @@ timer.start();
   <animation>
     <type>rotate</type>
     <object-name>sb10</object-name>
-    <object-name>sb11</object-name>
-    <object-name>sb12</object-name>
-    <object-name>sb13</object-name>
-    <object-name>sb14</object-name>
-    <property>sim/multiplay/generic/float[3]</property>
-    <factor>-59</factor>
+    <property>/systems/fbw/spoilers/positions/spoiler-10</property>
+    <factor>-1</factor>
     <offset-deg>0</offset-deg>   
     <axis>
       <x1-m>34.5174</x1-m>
@@ -549,13 +615,89 @@ timer.start();
       <z2-m>2.1087</z2-m>
     </axis>
   </animation>
-  
+
+  <animation>
+    <type>rotate</type>
+    <object-name>sb11</object-name>
+    <property>/systems/fbw/spoilers/positions/spoiler-11</property>
+    <factor>-1</factor>
+    <offset-deg>0</offset-deg>   
+    <axis>
+      <x1-m>34.5174</x1-m>
+      <y1-m>10.8040</y1-m>
+      <z1-m>0.9125</z1-m>
+      <x2-m>38.5910</x2-m>
+      <y2-m>20.0619</y2-m>
+      <z2-m>2.1087</z2-m>
+    </axis>
+  </animation>
+
+    <animation>
+    <type>rotate</type>
+    <object-name>sb12</object-name>
+    <property>/systems/fbw/spoilers/positions/spoiler-12</property>
+    <factor>-1</factor>
+    <offset-deg>0</offset-deg>   
+    <axis>
+      <x1-m>34.5174</x1-m>
+      <y1-m>10.8040</y1-m>
+      <z1-m>0.9125</z1-m>
+      <x2-m>38.5910</x2-m>
+      <y2-m>20.0619</y2-m>
+      <z2-m>2.1087</z2-m>
+    </axis>
+  </animation>
+    <animation>
+    <type>rotate</type>
+    <object-name>sb13</object-name>
+    <property>/systems/fbw/spoilers/positions/spoiler-13</property>
+    <factor>-1</factor>
+    <offset-deg>0</offset-deg>   
+    <axis>
+      <x1-m>34.5174</x1-m>
+      <y1-m>10.8040</y1-m>
+      <z1-m>0.9125</z1-m>
+      <x2-m>38.5910</x2-m>
+      <y2-m>20.0619</y2-m>
+      <z2-m>2.1087</z2-m>
+    </axis>
+  </animation>
+    <animation>
+    <type>rotate</type>
+    <object-name>sb14</object-name>
+    <property>/systems/fbw/spoilers/positions/spoiler-14</property>
+    <factor>-1</factor>
+    <offset-deg>0</offset-deg>   
+    <axis>
+      <x1-m>34.5174</x1-m>
+      <y1-m>10.8040</y1-m>
+      <z1-m>0.9125</z1-m>
+      <x2-m>38.5910</x2-m>
+      <y2-m>20.0619</y2-m>
+      <z2-m>2.1087</z2-m>
+    </axis>
+  </animation>
+
   <animation>
     <type>rotate</type>
     <object-name>sb8</object-name>
+    <property>/systems/fbw/spoilers/positions/spoiler-8</property>
+    <factor>-1</factor>
+    <offset-deg>0</offset-deg>   
+    <axis>
+      <x1-m>34.4441</x1-m>
+      <y1-m>5.8874</y1-m>
+      <z1-m>0.2498</z1-m>
+      <x2-m>34.4343</x2-m>
+      <y2-m>10.3992</y2-m>
+      <z2-m>0.8835</z2-m>
+    </axis>
+  </animation>
+  <animation>
+    <type>rotate</type>
     <object-name>sb9</object-name>
-    <property>sim/multiplay/generic/float[3]</property>
-    <factor>-59</factor>
+    <property>/systems/fbw/spoilers/positions/spoiler-9</property>
+    <factor>-1</factor>
     <offset-deg>0</offset-deg>   
     <axis>
       <x1-m>34.4441</x1-m>

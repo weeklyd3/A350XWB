@@ -150,6 +150,7 @@ var canvas_nd_base = {
 				ND_1_test.page.hide();
 				ND_1.page.show();
 				ND_1.NDCpt.update();
+				ND_1.NDCpt.update_vd();
 			}
 		} else {
 			ND_1_test.page.hide();
@@ -168,6 +169,7 @@ var canvas_nd_base = {
 				ND_2_test.page.hide();
 				ND_2.page.show();
 				ND_2.NDFo.update();
+				ND_2.NDFo.update_vd();
 			}
 		} else {
 			ND_2_test.page.hide();
@@ -209,6 +211,8 @@ var canvas_ND_1 = {
 
 		foreach (var prop; ['horizontal-range', 'scale', 'low', 'tick-scale', 'low-displacement']) me.NDCpt.vd_switches[prop] = props.globals.getNode('/instrumentation/efis/vd/' ~ prop);
 		me.NDCpt.update();
+
+		print('HIII creating navigation display [left]');
 		return m;
 	},
 	getKeys: func() {
@@ -244,7 +248,7 @@ var canvas_ND_2 = {
 		me.NDFo.page = canvas_group;
 		me.NDFo.terrain_elements = [];
 		me.NDFo.update();
-
+		print('HIII creating navigation display [right]');
 		return m;
 	},
 	getKeys: func() {
@@ -364,6 +368,7 @@ setlistener("sim/signals/fdm-initialized", func {
 
 	ND_1 = canvas_ND_1.new(group_nd1);
 	ND_1_test = canvas_ND_1_test.new(group_nd1_test, "Aircraft/A350XWB/Models/Instruments/Common/res/du-test.svg");
+	print('creating nd2');
 	ND_2 = canvas_ND_2.new(group_nd2);
 	ND_2_test = canvas_ND_2_test.new(group_nd2_test, "Aircraft/A350XWB/Models/Instruments/Common/res/du-test.svg");
 
@@ -377,7 +382,7 @@ var rateApply = func {
 	nd_update.restart(0.05 * getprop("/systems/acconfig/options/nd-rate"));
 }
 
-var nd_update = maketimer(0.05, func {
+var nd_update = maketimer(2, func {
 	canvas_nd_base.update();
 });
 

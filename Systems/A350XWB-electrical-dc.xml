@@ -1,9 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <system name="A350XWB-electrical-dc">
 	<property value="1">/systems/electrical/batteries/bat-1-charge</property>
-	<property value="1">/systems/electrical/batteries/bat-1-emer-charge</property>
+	<property value="1">/systems/electrical/batteries/bat-emer-1-charge</property>
 	<property value="1">/systems/electrical/batteries/bat-2-charge</property>
-	<property value="1">/systems/electrical/batteries/bat-2-emer-charge</property>
+	<property value="1">/systems/electrical/batteries/bat-emer-2-charge</property>
+	<property value="0">/controls/electric/batteries/bat-1</property>
+	<property value="0">/controls/electric/batteries/bat-2</property>
+	<property value="0">/controls/electric/batteries/bat-emer-1</property>
+	<property value="0">/controls/electric/batteries/bat-emer-2</property>
+	<channel name="tr">
+		<pure_gain name="/systems/electrical/tr/tr-1">
+			<input>/systems/electrical/bus/ac-1a</input>
+			<gain>0.122</gain>
+		</pure_gain>
+		<switch name="/systems/electrical/tr/tr-1-active">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/tr/tr-1 ge 27
+			</test>
+		</switch>
+		<pure_gain name="/systems/electrical/tr/tr-2">
+			<input>/systems/electrical/bus/ac-2a</input>
+			<gain>0.122</gain>
+		</pure_gain>
+		<switch name="/systems/electrical/tr/tr-2-active">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/tr/tr-2 ge 27
+			</test>
+		</switch>
+		<pure_gain name="/systems/electrical/tr/tr-emer-1">
+			<input>/systems/electrical/bus/emer-1</input>
+			<gain>0.122</gain>
+		</pure_gain>
+		<switch name="/systems/electrical/tr/tr-emer-1-active">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/tr/tr-emer-1 ge 27
+			</test>
+		</switch>
+		<pure_gain name="/systems/electrical/tr/tr-emer-2">
+			<input>/systems/electrical/bus/emer-2</input>
+			<gain>0.122</gain>
+		</pure_gain>
+		<switch name="/systems/electrical/tr/tr-emer-2-active">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/tr/tr-emer-2 ge 27
+			</test>
+		</switch>
+	</channel>
+	<channel name="reconfiguration">
+		<switch name="/systems/electrical/reconfiguration/dc-1-supplies-dc-2">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/electric/side-isol eq 0
+				/controls/electric/bus-tie eq 0
+				/systems/electrical/tr/tr-1-active eq 1
+				/systems/electrical/tr/tr-2-active eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/dc-2-supplies-dc-1">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/electric/side-isol eq 0
+				/controls/electric/bus-tie eq 0
+				/systems/electrical/tr/tr-2-active eq 1
+				/systems/electrical/tr/tr-1-active eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/dc-emer-1-supplies-dc-emer-2">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/tr/tr-emer-1-active eq 1
+				/systems/electrical/tr/tr-emer-2-active eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/dc-emer-2-supplies-dc-emer-1">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/tr/tr-emer-2-active eq 1
+				/systems/electrical/tr/tr-emer-1-active eq 0
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/bat-1-supplies-dc-1">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/tr/tr-1-active eq 0
+				/systems/electrical/reconfiguration/dc-2-supplies-dc-1 eq 0
+				/controls/electric/batteries/bat-1 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/bat-2-supplies-dc-2">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/tr/tr-2-active eq 0
+				/systems/electrical/reconfiguration/dc-1-supplies-dc-2 eq 0
+				/controls/electric/batteries/bat-2 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/bat-emer-1-supplies-dc-emer-1">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/tr/tr-emer-1-active eq 0
+				/systems/electrical/reconfiguration/dc-emer-2-supplies-dc-emer-1 eq 0
+				/controls/electric/batteries/bat-emer-1 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/reconfiguration/bat-emer-2-supplies-dc-emer-2">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/tr/tr-emer-2-active eq 0
+				/systems/electrical/reconfiguration/dc-emer-1-supplies-dc-emer-2 eq 0
+				/controls/electric/batteries/bat-emer-2 eq 1
+			</test>
+		</switch>
+	</channel>
+	<channel name="dc voltage">
+		<switch name="/systems/electrical/bus/dc-1">
+			<default value="/systems/electrical/tr/tr-1" />
+			<test logic="AND" value="/systems/electrical/tr/tr-2">
+				/systems/electrical/reconfiguration/dc-2-supplies-dc-1 eq 1
+			</test>
+			<test logic="AND" value="/systems/electrical/batteries/bat-1-voltage">
+				/systems/electrical/reconfiguration/bat-1-supplies-dc-1 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/bus/dc-2">
+			<default value="/systems/electrical/tr/tr-2" />
+			<test logic="AND" value="/systems/electrical/tr/tr-1">
+				/systems/electrical/reconfiguration/dc-1-supplies-dc-2 eq 1
+			</test>
+			<test logic="AND" value="/systems/electrical/batteries/bat-2-voltage">
+				/systems/electrical/reconfiguration/bat-2-supplies-dc-2 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/bus/dc-emer-1">
+			<default value="/systems/electrical/tr/tr-emer-1" />
+			<test logic="AND" value="/systems/electrical/tr/tr-emer-2">
+				/systems/electrical/reconfiguration/dc-emer-2-supplies-dc-emer-1 eq 1
+			</test>
+			<test logic="AND" value="/systems/electrical/batteries/bat-emer-1-voltage">
+				/systems/electrical/reconfiguration/bat-emer-1-supplies-dc-emer-1 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/electrical/bus/dc-emer-2">
+			<default value="/systems/electrical/tr/tr-emer-2" />
+			<test logic="AND" value="/systems/electrical/tr/tr-emer-1">
+				/systems/electrical/reconfiguration/dc-emer-1-supplies-dc-emer-2 eq 1
+			</test>
+			<test logic="AND" value="/systems/electrical/batteries/bat-emer-2-voltage">
+				/systems/electrical/reconfiguration/bat-emer-2-supplies-dc-emer-2 eq 1
+			</test>
+		</switch>
+	</channel>
 	<channel name="battery voltage">
 		<fcs_function name="/systems/electrical/batteries/bat-1-voltage">
 			<function>
@@ -15,6 +165,26 @@
 					1          27
 					</tableData>
 				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/batteries/bat-1-amps">
+			<function>
+				<sum>
+					<!-- charge -->
+					<value>0</value>
+					<!-- discharge -->
+					<table>
+						<independentVar lookup="row">/systems/electrical/batteries/bat-1-charge</independentVar>
+						<independentVar lookup="column">/controls/electric/batteries/bat-1</independentVar>
+						<tableData>
+						          0         1
+						0         0         0
+						0.25     -3        -8
+						0.5      -4        -9
+						1        -5        -11
+						</tableData>
+					</table>
+				</sum>
 			</function>
 		</fcs_function>
 		<fcs_function name="/systems/electrical/batteries/bat-2-voltage">
@@ -29,6 +199,26 @@
 				</table>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/electrical/batteries/bat-2-amps">
+			<function>
+				<sum>
+					<!-- charge -->
+					<value>0</value>
+					<!-- discharge -->
+					<table>
+						<independentVar lookup="row">/systems/electrical/batteries/bat-2-charge</independentVar>
+						<independentVar lookup="column">/controls/electric/batteries/bat-2</independentVar>
+						<tableData>
+						          0         1
+						0         0         0
+						0.25     -3        -8
+						0.5      -4        -9
+						1        -5        -11
+						</tableData>
+					</table>
+				</sum>
+			</function>
+		</fcs_function>
 		<fcs_function name="/systems/electrical/batteries/bat-emer-1-voltage">
 			<function>
 				<table>
@@ -39,6 +229,26 @@
 					1          27
 					</tableData>
 				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/batteries/bat-emer-1-amps">
+			<function>
+				<sum>
+					<!-- charge -->
+					<value>0</value>
+					<!-- discharge -->
+					<table>
+						<independentVar lookup="row">/systems/electrical/batteries/bat-emer-1-charge</independentVar>
+						<independentVar lookup="column">/controls/electric/batteries/bat-emer-1</independentVar>
+						<tableData>
+						          0         1
+						0         0         0
+						0.25     -3        -8
+						0.5      -4        -9
+						1        -5        -11
+						</tableData>
+					</table>
+				</sum>
 			</function>
 		</fcs_function>
 		<fcs_function name="/systems/electrical/batteries/bat-emer-2-voltage">
@@ -53,9 +263,84 @@
 				</table>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/electrical/batteries/bat-emer-2-amps">
+			<function>
+				<sum>
+					<!-- charge -->
+					<value>0</value>
+					<!-- discharge -->
+					<table>
+						<independentVar lookup="row">/systems/electrical/batteries/bat-emer-2-charge</independentVar>
+						<independentVar lookup="column">/controls/electric/batteries/bat-emer-2</independentVar>
+						<tableData>
+						          0         1
+						0         0         0
+						0.25     -3        -8
+						0.5      -4        -9
+						1        -5        -11
+						</tableData>
+					</table>
+				</sum>
+			</function>
+		</fcs_function>
 		<!-- according to fcom 55 amp hours, voltage is around 9 amps so around 6 hours -->
 		<!-- that means discharge per hour is amps / 55 -->
 		<!-- so discharge per 1/120 seconds is amps / 55 / 120 / 3600 -->
-		
+		<pid name="/systems/electrical/batteries/bat-1-discharge">
+			<input>/systems/electrical/batteries/bat-1-amps</input>
+			<kp>0</kp>
+			<ki>0.0000050505050505</ki>
+			<kd>0</kd>
+			<clipto>
+				<max>0</max>
+				<min>-1</min>
+			</clipto>
+		</pid>
+		<summer name="/systems/electrical/batteries/bat-1-charge">
+			<bias>1</bias>
+			<input>/systems/electrical/batteries/bat-1-discharge</input>
+		</summer>
+		<pid name="/systems/electrical/batteries/bat-2-discharge">
+			<input>/systems/electrical/batteries/bat-2-amps</input>
+			<kp>0</kp>
+			<ki>0.0000050505050505</ki>
+			<kd>0</kd>
+			<clipto>
+				<max>0</max>
+				<min>-1</min>
+			</clipto>
+		</pid>
+		<summer name="/systems/electrical/batteries/bat-2-charge">
+			<bias>1</bias>
+			<input>/systems/electrical/batteries/bat-2-discharge</input>
+		</summer>
+		<pid name="/systems/electrical/batteries/bat-emer-1-discharge">
+			<input>/systems/electrical/batteries/bat-emer-1-amps</input>
+			<kp>0</kp>
+			<ki>0.0000050505050505</ki> <!-- 1 / 55 / 3600 -->
+			<kd>0</kd>
+			<clipto>
+				<max>0</max>
+				<min>-1</min>
+			</clipto>
+		</pid>
+		<summer name="/systems/electrical/batteries/bat-emer-1-charge">
+			<bias>1</bias>
+			<input>/systems/electrical/batteries/bat-emer-1-discharge</input>
+		</summer>
+		<pid name="/systems/electrical/batteries/bat-emer-2-discharge">
+			<input>/systems/electrical/batteries/bat-emer-2-amps</input>
+			<kp>0</kp>
+			<ki>0.0000050505050505</ki> <!-- 1 / 55 / 3600 -->
+			<kd>0</kd>
+			<clipto>
+				<max>0</max>
+				<min>-1</min>
+			</clipto>
+		</pid>
+		<summer name="/systems/electrical/batteries/bat-emer-2-charge">
+			<bias>1</bias>
+			<input>/systems/electrical/batteries/bat-emer-2-discharge</input>
+		</summer>
 	</channel>
 </system>

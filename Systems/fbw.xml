@@ -34,15 +34,19 @@
 	<channel name="stuff">
 		<fcs_function name="/systems/fbw/aileron-with-deadband">
 			<function>
-				<table>
-					<independentVar>/systems/fbw/sidestick/aileron</independentVar>
-					<tableData>
-						-1      -1
-						-0.02   0
-						0.02    0
-						1       1
-					</tableData>
-				</table>
+				<ifthen>
+					<property>/it-autoflight/output/ap-on</property>
+					<property>/controls/flight/aileron</property>
+					<table>
+						<independentVar>/systems/fbw/sidestick/aileron</independentVar>
+						<tableData>
+							-1      -1
+							-0.02   0
+							0.02    0
+							1       1
+						</tableData>
+					</table>
+				</ifthen>
 			</function>
 		</fcs_function>
 		<fcs_function name="/systems/fbw/roll-rate-cmd">
@@ -99,8 +103,8 @@
 		</actuator>
 		<pid name="/systems/fbw/flight-aileron">
 			<input>/systems/fbw/roll-rate-error</input>
-			<kp>0.15</kp>
-			<ki>0.15</ki>
+			<kp>0.12</kp>
+			<ki>0.12</ki>
 			<kd>0.000</kd>
 			<trigger>/systems/fbw/aileron-trigger</trigger>
 			<output>/systems/fbw/aileron</output>
@@ -251,7 +255,7 @@
 					<table>
 						<independentVar>/orientation/pitch-deg</independentVar>
 						<tableData>
-							20     2.5
+							25     2.5
 							30     1.0
 							31     0.2
 							35     0.0
@@ -276,22 +280,26 @@
 					<independentVar>/orientation/pitch-deg</independentVar>
 					<tableData>
 						-15     1
-						-5     -1
+						-10     -1
 					</tableData>
 				</table>
 			</function>
 		</fcs_function>
 		<fcs_function name="/systems/fbw/elevator-with-deadband">
 			<function>
-				<table>
-					<independentVar>/systems/fbw/sidestick/elevator</independentVar>
-					<tableData>
-						-1      -1
-						-0.02   0
-						0.02    0
-						1       1
-					</tableData>
-				</table>
+				<ifthen>
+					<property>/it-autoflight/output/ap-on</property>
+					<property>/controls/flight/elevator</property>
+					<table>
+						<independentVar>/systems/fbw/sidestick/elevator</independentVar>
+						<tableData>
+							-1      -1
+							-0.02   0
+							0.02    0
+							1       1
+						</tableData>
+					</table>
+				</ifthen>
 			</function>
 		</fcs_function>
 		<fcs_function name="/systems/fbw/pitch-g-cmd">
@@ -371,7 +379,7 @@
 			</test>
 		</switch>
 		<!-- elevator is crazy effective at high speeds -->
-		<pid name="/systems/fbw/g-elevator">
+		<pid name="/systems/fbw/g-elevator-no-trim">
 			<input>/systems/fbw/pitch-g-error</input>
 			<kp>/systems/fbw/pitch-g-p</kp>
 			<ki>/systems/fbw/pitch-g-i</ki>
@@ -379,10 +387,22 @@
 			<trigger>/systems/fbw/g-trigger</trigger>
 			<output>/systems/fbw/g-elevator</output>
 			<clipto>
+				<max>2</max>
+				<min>-2</min>
+			</clipto>
+		</pid>
+		<actuator name="fcs/pitch-trim-pos-norm">
+			<input>/controls/flight/elevator-trim</input>
+			<rate_limit>0.02</rate_limit>
+		</actuator>
+		<summer name="/systems/fbw/g-elevator">
+			<input>/systems/fbw/g-elevator-no-trim</input>
+			<input>-fcs/pitch-trim-pos-norm</input>
+			<clipto>
 				<max>1</max>
 				<min>-1</min>
 			</clipto>
-		</pid>
+		</summer>
 		<switch name="/systems/fbw/direct">
 			<default value="0" />
 			<test logic="AND" value="1">
@@ -410,21 +430,20 @@
 				</sum>
 			</function>
 		</fcs_function>
+		<switch name="/systems/fbw/autotrim">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/fbw/g-direct-blend le 0.01
+			</test>
+		</switch>
 	</channel>
-	<property value="0">/systems/fbw/spoilers/spoiler-1-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-2-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-3-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-4-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-5-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-6-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-7-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-14-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-13-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-12-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-11-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-10-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-9-fail</property>
-	<property value="0">/systems/fbw/spoilers/spoiler-8-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-1-14-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-2-13-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-3-12-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-4-11-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-5-10-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-6-9-fail</property>
+	<property value="0">/systems/fbw/spoilers/spoiler-7-8-fail</property>
 	<property value="1">/controls/flight/speedbrake-armed</property>
 	<channel name="spoilers">
 		<summer name="/systems/fbw/mlg-wow">
@@ -489,6 +508,32 @@
 						0        0
 						0.2      5
 						1        45
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/left-roll-30">
+			<function>
+				<table>
+					<independentVar>/systems/fbw/aileron</independentVar>
+					<tableData>
+						-1        30
+						-0.2      5
+						0         0
+						1         0
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/right-roll-30">
+			<function>
+				<table>
+					<independentVar>/systems/fbw/aileron</independentVar>
+					<tableData>
+						-1       0
+						0        0
+						0.2      5
+						1        30
 					</tableData>
 				</table>
 			</function>
@@ -571,5 +616,567 @@
 			<input>/systems/fbw/spoilers/speedbrake-command</input>
 			<gain>30</gain>
 		</pure_gain>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-1-sum">
+			<input>/systems/fbw/spoilers/speedbrake-1-14</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-1-2-13-14</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-1-2-13-14</input>
+			<input>/systems/fbw/spoilers/left-roll-30</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-14-sum">
+			<input>/systems/fbw/spoilers/speedbrake-1-14</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-1-2-13-14</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-1-2-13-14</input>
+			<input>/systems/fbw/spoilers/right-roll-30</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-2-sum">
+			<input>/systems/fbw/spoilers/speedbrake-2-13</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-1-2-13-14</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-1-2-13-14</input>
+			<input>/systems/fbw/spoilers/left-roll-30</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-13-sum">
+			<input>/systems/fbw/spoilers/speedbrake-2-13</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-1-2-13-14</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-1-2-13-14</input>
+			<input>/systems/fbw/spoilers/right-roll-30</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-3-sum">
+			<input>/systems/fbw/spoilers/speedbrake-3-12</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/left-roll</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-12-sum">
+			<input>/systems/fbw/spoilers/speedbrake-3-12</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/right-roll</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-4-sum">
+			<input>/systems/fbw/spoilers/speedbrake-4-5-6-9-10-11</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/left-roll</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-11-sum">
+			<input>/systems/fbw/spoilers/speedbrake-4-5-6-9-10-11</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/right-roll</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-5-sum">
+			<input>/systems/fbw/spoilers/speedbrake-4-5-6-9-10-11</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/left-roll</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-10-sum">
+			<input>/systems/fbw/spoilers/speedbrake-4-5-6-9-10-11</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/right-roll</input>
+		</summer>
+		<!-- the innermost 4 spoilers are not used for rolling -->
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-6-sum">
+			<input>/systems/fbw/spoilers/speedbrake-4-5-6-9-10-11</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-9-sum">
+			<input>/systems/fbw/spoilers/speedbrake-4-5-6-9-10-11</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-7-sum">
+			<input>/systems/fbw/spoilers/speedbrake-7-8</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/raw-sum/spoiler-8-sum">
+			<input>/systems/fbw/spoilers/speedbrake-7-8</input>
+			<input>/systems/fbw/spoilers/partial-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+			<input>/systems/fbw/spoilers/ground-spoilers-3-4-5-6-7-8-9-10-11-12</input>
+		</summer>
+		<!-- spoiler sum - max deflection -->
+		<summer name="/systems/fbw/spoilers/over/spoiler-1">
+			<bias>-35</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-1-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-14">
+			<bias>-35</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-14-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-2">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-2-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-13">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-13-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-3">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-3-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-12">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-12-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-4">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-4-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-11">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-11-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-5">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-5-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-10">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-10-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-6">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-6-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-9">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-9-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-7">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-7-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/over/spoiler-8">
+			<bias>-50</bias>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-8-sum</input>
+		</summer>
+		<fcs_function name="/systems/fbw/spoilers/over/max">
+			<function>
+				<max>
+					<value>0</value>
+					<property>/systems/fbw/spoilers/over/spoiler-1</property>
+					<property>/systems/fbw/spoilers/over/spoiler-2</property>
+					<property>/systems/fbw/spoilers/over/spoiler-3</property>
+					<property>/systems/fbw/spoilers/over/spoiler-4</property>
+					<property>/systems/fbw/spoilers/over/spoiler-5</property>
+					<property>/systems/fbw/spoilers/over/spoiler-6</property>
+					<property>/systems/fbw/spoilers/over/spoiler-7</property>
+					<property>/systems/fbw/spoilers/over/spoiler-8</property>
+					<property>/systems/fbw/spoilers/over/spoiler-9</property>
+					<property>/systems/fbw/spoilers/over/spoiler-10</property>
+					<property>/systems/fbw/spoilers/over/spoiler-11</property>
+					<property>/systems/fbw/spoilers/over/spoiler-12</property>
+					<property>/systems/fbw/spoilers/over/spoiler-13</property>
+					<property>/systems/fbw/spoilers/over/spoiler-14</property>
+				</max>
+			</function>
+		</fcs_function>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-1">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-1-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-2">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-2-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-3">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-3-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-4">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-4-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-5">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-5-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-6">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-6-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-7">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-7-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-8">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-8-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-9">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-9-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-10">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-10-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-11">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-11-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-12">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-12-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-13">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-13-sum</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/sum/spoiler-14">
+			<input>-/systems/fbw/spoilers/over/max</input>
+			<input>/systems/fbw/spoilers/raw-sum/spoiler-14-sum</input>
+		</summer>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-1">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-1-14-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-1</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-14">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-1-14-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-14</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-2">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-2-13-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-2</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-13">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-2-13-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-13</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-3">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-3-12-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-3</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-12">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-3-12-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-12</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-4">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-4-11-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-4</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-11">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-4-11-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-11</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-5">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-5-10-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-5</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-10">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-5-10-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-10</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-6">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-6-9-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-6</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-9">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-6-9-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-9</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-7">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-7-8-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-7</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/cmd/spoiler-8">
+			<function>
+				<ifthen>
+					<property>/systems/fbw/spoilers/spoiler-7-8-fail</property>
+					<property>/systems/fbw/spoilers/balanced</property>
+					<property>/systems/fbw/spoilers/sum/spoiler-8</property>
+				</ifthen>
+			</function>
+			<clipto>
+				<max>100</max>
+				<min>0</min>
+			</clipto>
+		</fcs_function>
+		<switch name="/systems/fbw/spoilers/rate/spoiler-1-14">
+			<default value="/systems/fbw/spoilers/extension-rate" />
+			<test logic="AND" value="0">
+				/systems/fbw/spoilers/spoiler-1-14-fail eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/rate/spoiler-2-13">
+			<default value="/systems/fbw/spoilers/extension-rate" />
+			<test logic="AND" value="0">
+				/systems/fbw/spoilers/spoiler-2-13-fail eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/rate/spoiler-3-12">
+			<default value="/systems/fbw/spoilers/extension-rate" />
+			<test logic="AND" value="0">
+				/systems/fbw/spoilers/spoiler-3-12-fail eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/rate/spoiler-4-11">
+			<default value="/systems/fbw/spoilers/extension-rate" />
+			<test logic="AND" value="0">
+				/systems/fbw/spoilers/spoiler-4-11-fail eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/rate/spoiler-5-10">
+			<default value="/systems/fbw/spoilers/extension-rate" />
+			<test logic="AND" value="0">
+				/systems/fbw/spoilers/spoiler-5-10-fail eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/rate/spoiler-6-9">
+			<default value="/systems/fbw/spoilers/extension-rate" />
+			<test logic="AND" value="0">
+				/systems/fbw/spoilers/spoiler-6-9-fail eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/rate/spoiler-7-8">
+			<default value="/systems/fbw/spoilers/extension-rate" />
+			<test logic="AND" value="0">
+				/systems/fbw/spoilers/spoiler-7-8-fail eq 1
+			</test>
+		</switch>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-1">
+			<input>/systems/fbw/spoilers/cmd/spoiler-1</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-1-14</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-14">
+			<input>/systems/fbw/spoilers/cmd/spoiler-14</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-1-14</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-2">
+			<input>/systems/fbw/spoilers/cmd/spoiler-2</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-2-13</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-13">
+			<input>/systems/fbw/spoilers/cmd/spoiler-13</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-2-13</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-3">
+			<input>/systems/fbw/spoilers/cmd/spoiler-3</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-3-12</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-12">
+			<input>/systems/fbw/spoilers/cmd/spoiler-12</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-3-12</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-4">
+			<input>/systems/fbw/spoilers/cmd/spoiler-4</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-4-11</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-11">
+			<input>/systems/fbw/spoilers/cmd/spoiler-11</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-4-11</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-5">
+			<input>/systems/fbw/spoilers/cmd/spoiler-5</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-5-10</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-10">
+			<input>/systems/fbw/spoilers/cmd/spoiler-10</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-5-10</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-6">
+			<input>/systems/fbw/spoilers/cmd/spoiler-6</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-6-9</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-9">
+			<input>/systems/fbw/spoilers/cmd/spoiler-9</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-6-9</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-7">
+			<input>/systems/fbw/spoilers/cmd/spoiler-7</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-7-8</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/spoilers/positions/spoiler-8">
+			<input>/systems/fbw/spoilers/cmd/spoiler-8</input>
+			<rate_limit sense="incr">/systems/fbw/spoilers/rate/spoiler-7-8</rate_limit>
+			<rate_limit sense="decr">17</rate_limit>
+		</actuator>
+		<summer name="/systems/fbw/spoilers/fdm/left-sum">
+			<input>/systems/fbw/spoilers/positions/spoiler-1</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-2</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-3</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-4</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-5</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-6</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-7</input>
+		</summer>
+		<summer name="/systems/fbw/spoilers/fdm/right-sum">
+			<input>/systems/fbw/spoilers/positions/spoiler-8</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-9</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-10</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-11</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-12</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-13</input>
+			<input>/systems/fbw/spoilers/positions/spoiler-14</input>
+		</summer>
+		<fcs_function name="/systems/fbw/spoilers/fdm/symmetric-spoiler">
+			<function>
+				<quotient>
+					<min>
+						<property>/systems/fbw/spoilers/fdm/right-sum</property>
+						<property>/systems/fbw/spoilers/fdm/left-sum</property>
+					</min>
+					<value>320</value> <!-- 35 * 2 + 50 * 5 -->
+				</quotient>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/spoilers/fdm/roll-spoiler">
+			<function>
+				<quotient>
+					<difference>
+						<property>/systems/fbw/spoilers/fdm/right-sum</property>
+						<property>/systems/fbw/spoilers/fdm/left-sum</property>
+					</difference>
+					<value>320</value> <!-- 35 * 2 + 50 * 5 -->
+				</quotient>
+			</function>
+		</fcs_function>
+		<switch name="/systems/pfd/spoiler">
+			<default value="/controls/flight/speedbrake" />
+			<test logic="AND" value="1.5">
+				/systems/fbw/spoilers/full-extension eq 1
+			</test>
+		</switch>
+		<switch name="/systems/pfd/spoiler-scale">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/controls/flight/speedbrake gt 0
+				/controls/flight/speedbrake-armed eq 1
+			</test>
+		</switch>
 	</channel>
 </system>

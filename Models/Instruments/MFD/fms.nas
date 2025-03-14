@@ -120,6 +120,8 @@ var mfd = {
 			numeric_field.new(returned, group, 'perf_to_eo_accel', '/fms/perf/takeoff/eo-accel', {letters: 0, punctuation: 0, format: "%d", default: "1000", numeric: 1}),
 			numeric_field.new(returned, group, 'perf_to_trans', '/fms/perf/transition-altitude', {letters: 0, punctuation: 0, format: "%d", default: "18000", numeric: 1}),
 			numeric_field.new(returned, group, 'perf_to_flex_temp', '/fms/perf/takeoff/flex-temp', {letters: 0, punctuation: 0, format: "%d", default: "", numeric: 1}),
+			numeric_field.new(returned, group, 'perf_to_thr_red', '/fms/perf/takeoff/thr-red', {letters: 0, punctuation: 0, format: "%d", default: 1500, numeric: 1}),
+			numeric_field.new(returned, group, 'perf_to_accel', '/it-autoflight/settings/accel-ft', {letters: 0, punctuation: 0, format: "%d", default: 1500, numeric: 1}),
 			dropdown.new(returned, group, "perf_to_derate", '/fms/perf/takeoff/derate', {
 				options: ['4', '8', '12', '16', '20', '24'],
 				alias: {

@@ -130,7 +130,7 @@
 			<flaps>1</flaps>
 			<speed>190</speed>
 		</max-flap-extension-speed>
-		<vne>370</vne>
+		<vne>340</vne>
 		<max-gear-extension-speed>250</max-gear-extension-speed>
 		<max-positive-g>2.5</max-positive-g>
 		<max-negative-g>-1</max-negative-g>

@@ -214,11 +214,14 @@
 	</channel>
 	<property value="84000">/systems/fadec/limit/rated-thrust</property>
 	<property value="1">/systems/fadec/limit/takeoff/flex-activated</property>
+	<property value="0">/systems/fadec/limit/takeoff/dto-active</property>
+	<property value="0">/fms/perf/takeoff/flex-temp</property>
 	<channel name="takeoff thrust">
 		<switch name="/systems/fadec/limit/takeoff/flex-active">
 			<default value="0" />
-			<test logic="AND" value="1">
+			<test logic="AND" value="1"> <!-- gear/wow eq 0 line is just to disable it for now -->
 				gear/wow eq 1
+				gear/wow eq 0
 				/systems/fadec/limit/takeoff/flex-activated eq 1
 				/fms/perf/takeoff/thrust eq 1
 			</test>
@@ -712,6 +715,38 @@
 				</max>
 			</function>
 			<output>/it-autoflight/settings/autothrottle-max</output>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/min-throttle">
+			<function>
+				<min>
+					<property>/systems/fadec/throttle/man-throttle-angle-1</property>
+					<property>/systems/fadec/throttle/man-throttle-angle-2</property>
+				</min>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fadec/throttle/max-detent">
+			<function>
+				<floor>
+					<table>
+						<independentVar>/systems/fadec/throttle/max-throttle</independentVar>
+						<tableData>
+						0       1
+						0.03    1
+						0.03001 0
+						0.59999 0
+						0.6     2
+						0.65    2
+						0.65001 0
+						0.77999 0
+						0.78    3
+						0.83    3
+						0.83001 0
+						0.96999 0
+						0.97    4
+						</tableData>
+					</table>
+				</floor>
+			</function>
 		</fcs_function>
 		<lag_filter name="/systems/fadec/throttle/throttle-1">
 			<input>/controls/engines/engine/throttle</input>

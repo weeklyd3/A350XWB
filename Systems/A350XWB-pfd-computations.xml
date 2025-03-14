@@ -418,6 +418,18 @@
 				</quotient>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/pfd/heading-number">
+			<!-- the number at the center or slightly left of the heading tape -->
+			<function>
+				<quotient>
+					<difference>
+						<property>/systems/pfd/heading</property>
+						<property>/systems/pfd/heading-rounded</property>
+					</difference>
+					<value>10</value>
+				</quotient>
+			</function>
+		</fcs_function>
 		<fcs_function name="/systems/pfd/slip-skid">
 			<function>
 				<ifthen>
@@ -470,6 +482,90 @@
 				fcs/slat-cmd-norm eq fcs/slat-pos-norm
 			</test>
 		</switch>
+		<fcs_function name="/systems/pfd/fpd-angle">
+			<function>
+				<todegrees>
+					<atan2>
+						<product>
+							<property>/it-autoflight/internal/target-fpm</property>
+							<value>0.009874917709</value> <!-- fpm to knots -->
+						</product>
+						<property>/instrumentation/gps/indicated-ground-speed-kt</property>
+					</atan2>
+				</todegrees>
+			</function>
+		</fcs_function>
+		<switch name="/systems/pfd/loc-active">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/it-autoflight/output/lat eq 2
+			</test>
+		</switch>
+		<fcs_function name="/systems/pfd/fpd-lateral">
+			<function>
+				<max>
+					<min>
+						<sum>
+							<property>/it-autoflight/internal/drift-angle-deg</property>
+							<property>/it-autoflight/internal/heading-error-deg</property>
+							<product>
+								<property>/it-autoflight/internal/nav-heading-error-deg</property>
+								<property>/systems/pfd/loc-active</property>
+							</product>
+						</sum>
+						<sum>
+							<property>/it-autoflight/internal/drift-angle-deg</property>
+							<value>2</value>
+						</sum>
+					</min>
+					<difference>
+						<property>/it-autoflight/internal/drift-angle-deg</property>
+						<value>2</value>
+					</difference>
+				</max>
+			</function>
+		</fcs_function>
+		<fcs_function name="/sim/current-view/hud-scale-raw">
+			<function>
+				<quotient>
+					<difference>
+						<value>-30.1335</value>
+						<property>/sim/current-view/z-offset-m</property>
+					</difference>
+					<difference>
+						<value>-30.1335</value>
+						<value>-29.649</value>
+					</difference>
+				</quotient>
+			</function>
+		</fcs_function>
+		<fcs_function name="/sim/current-view/hud-scale-minus-one">
+			<function>
+				<difference>
+					<property>/sim/current-view/hud-scale-raw</property>
+					<value>1</value>
+				</difference>
+			</function>
+		</fcs_function>
+		<switch name="/sim/current-view/hud-scale-negative">
+			<default value="0" />
+			<test value="1">
+				/sim/current-view/hud-scale-minus-one lt 0
+			</test>
+		</switch>
+		<fcs_function name="/sim/current-view/hud-scale">
+			<function>
+				<product>
+					<ifthen>
+						<property>/sim/current-view/hud-scale-negative</property>
+						<value>-1</value>
+						<value>1</value>
+					</ifthen>
+					<abs><property>/sim/current-view/hud-scale-minus-one</property></abs>
+					<value>0.5</value>
+				</product>
+			</function>
+		</fcs_function>
 	</channel>
 	<channel name="managed speed">
 		<fcs_function name="/systems/pfd/speed-select">

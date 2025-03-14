@@ -1405,6 +1405,86 @@
 		<max>/it-autoflight/internal/max-vs</max>
 	</filter>
 
+	<logic>
+		<input>
+			<or>
+				<and>
+					<greater-than>
+						<property>/instrumentation/altimeter/indicated-altitude-ft</property>
+						<property>/it-autoflight/internal/alt</property>
+					</greater-than>
+					<or>
+						<and>
+							<equals>
+								<property>/it-autoflight/output/vert</property>
+								<value>1</value>
+							</equals>
+							<not>
+								<less-than>
+									<property>/it-autoflight/input/vs</property>
+									<value>0</value>
+								</less-than>
+							</not>
+						</and>
+						<equals>
+							<property>/it-autoflight/output/vert</property>
+							<value>4</value>
+						</equals>
+						<and>
+							<equals>
+								<property>/it-autoflight/output/vert</property>
+								<value>5</value>
+							</equals>
+							<not>
+								<less-than>
+									<property>/it-autoflight/input/fpa</property>
+									<value>0</value>
+								</less-than>
+							</not>
+						</and>
+					</or>
+				</and>
+				<and>
+					<less-than>
+						<property>/instrumentation/altimeter/indicated-altitude-ft</property>
+						<property>/it-autoflight/internal/alt</property>
+					</less-than>
+					<or>
+						<and>
+							<equals>
+								<property>/it-autoflight/output/vert</property>
+								<value>1</value>
+							</equals>
+							<not>
+								<greater-than>
+									<property>/it-autoflight/input/vs</property>
+									<value>0</value>
+								</greater-than>
+							</not>
+						</and>
+						<equals>
+							<property>/it-autoflight/output/vert</property>
+							<value>4</value>
+						</equals>
+						<and>
+							<equals>
+								<property>/it-autoflight/output/vert</property>
+								<value>5</value>
+							</equals>
+							<not>
+								<greater-than>
+									<property>/it-autoflight/input/fpa</property>
+									<value>0</value>
+								</greater-than>
+							</not>
+						</and>
+					</or>
+				</and>
+			</or>
+		</input>
+		<output>/it-autoflight/internal/alt-arm</output>
+	</logic>
+
 	<filter>
 		<name>Target Flight Level</name>
 		<type>gain</type>
@@ -2263,7 +2343,7 @@
 		<output>/it-autoflight/internal/out-of-trim</output>
 	</filter>
 	
-	<filter>
+	<!--<filter>
 		<name>System Command: Elevator Trim</name>
 		<type>noise-spike</type>
 		<initialize-to>output</initialize-to>
@@ -2328,7 +2408,7 @@
 				</table>
 			</expression>
 		</max-rate-of-change>
-	</filter>
+	</filter>-->
 	
 	<!-- Yaw Axis -->
 	<pi-simple-controller>

@@ -24,10 +24,6 @@
 	<property value="0">/systems/electrical/generators/gen-2b-fault</property>
 	<property value="1">/controls/electric/drive-2b</property>
 	<property value="0">/systems/electrical/generators/drive-2b-fault</property>
-	<property value="28">/systems/electrical/batteries/bat-1-voltage</property>
-	<property value="28">/systems/electrical/batteries/bat-emer-1-voltage</property>
-	<property value="28">/systems/electrical/batteries/bat-2-voltage</property>
-	<property value="28">/systems/electrical/batteries/bat-emer-2-voltage</property>
 	<property value="1">/controls/electric/bus-tie</property>
 	<property value="0">/controls/electric/side-isol</property>
 	<property value="1">/systems/electrical/voltage/ext-a</property>

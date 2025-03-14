@@ -596,6 +596,7 @@ YAW MOI_________3950000______23089847_______24848934
   <system file="A350XWB-fuel"/>
   <system file="A350XWB-engines" />
   <system file="A350XWB-electrical-ac" />
+  <system file="A350XWB-electrical-dc" />
   <system file="A350XWB-pfd-computations" />
   <system file="A350XWB-vd" />
   <!--system file="pushback" /> -->
@@ -780,7 +781,7 @@ YAW MOI_________3950000______23089847_______24848934
       </aerosurface_scale>
     </channel>
     <channel name="Flaps">
-      <kinematic name="Flaps Control">
+      <kinematic name="Flaps Control"> 
         <input>fcs/flap-cmd-norm-actual</input>
         <traverse>
           <setting>
@@ -984,7 +985,7 @@ YAW MOI_________3950000______23089847_______24848934
        <product>
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
-           <property>fcs/speedbrake-pos-norm</property>
+           <property>/systems/fbw/spoilers/fdm/symmetric-spoiler</property>
            <value>-0.1</value>
        </product>
     </function>
@@ -1073,7 +1074,7 @@ YAW MOI_________3950000______23089847_______24848934
          <product>
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
-           <property>fcs/speedbrake-pos-norm</property>
+           <property>/systems/fbw/spoilers/fdm/symmetric-spoiler</property>
            <value>0.02</value>
          </product>
     </function>
@@ -1167,6 +1168,17 @@ YAW MOI_________3950000______23089847_______24848934
           <property>metrics/bw-ft</property>
           <property>/systems/fbw/fdm-aileron</property>
           <value>0.1</value>
+       </product>
+    </function>
+
+    <function name="aero/moment/Roll_spoiler">
+       <description>Roll moment due to asymmetric spoiler deflection</description>
+       <product>
+          <property>aero/qbar-psf</property>
+          <property>metrics/Sw-sqft</property>
+          <property>metrics/bw-ft</property>
+          <property>/systems/fbw/spoilers/fdm/roll-spoiler</property>
+          <value>0.02</value>
        </product>
     </function>
 

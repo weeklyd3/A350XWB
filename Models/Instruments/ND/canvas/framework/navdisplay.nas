@@ -237,6 +237,7 @@ canvas.NavDisplay.newMFD = func(canvas_group, parent=nil, nd_options=nil, update
 		canvas.updatewp( activeWp.getValue() );
 	});
 
+	print('HIII creating navigation display');
 };
 
 canvas.NavDisplay.update_sub = func(){
@@ -332,7 +333,6 @@ canvas.NavDisplay.update_sub = func(){
 	}
 };
 canvas.NavDisplay.update_vd = func() {
-	#debug.dump(me.vd_switches);
 	var low = me.vd_switches.low.getValue();
 	var altitude = me.vd_switches.altitude.getValue();
 	var low_translation = me.vd_switches['low-displacement'].getValue();
@@ -352,16 +352,17 @@ canvas.NavDisplay.update_vd = func() {
 	me.symbols['vd_current_alt'].setTranslation(0, -airplane_symbol);
 	# update terrain
 	me.update_terrain();
-	if (size(me.terrain) != terrain_steps + 1) return print('whoa what???');
+	if (size(me.terrain) != (terrain_steps + 1)) return print('whoa what???');
 	var last_is_solid = me.terrain[0][1];
 	var last_path = me.page.createChild('path');
+	last_path.moveTo(230, 1273);
 	if (last_is_solid == 1) last_path.setColorFill([157 / 255, 50 / 255, 1 / 255]); # 9d3201
 	else if (last_is_solid == 2) last_path.setColorFill([0, 1, 0]);
 	else last_path.setColorFill([0, 1, 1]);
-	last_path.moveTo(230, 1273);
 	#last_path.hide();
 	var range = me.vd_switches.vert_range.getValue();
-	me.old_terrain_elements = me.terrain_elements;
+	var old_terrain_elements = [];
+	foreach (element; me.terrain_elements) append(old_terrain_elements, element);
 	me.terrain_elements = [];
 	for (var i = 0; i <= terrain_steps; i = i + 1) {
 		# draw terrain
@@ -374,7 +375,7 @@ canvas.NavDisplay.update_vd = func() {
 			var y_coordinate = 1273 - (me.terrain[i][0] - base_alt) / range * 250;
 			var solid = 2; # doesnt matter
 		}
-		if (i == (terrain_steps) or solid != last_is_solid) {
+		if (i == (terrain_steps) or (solid != last_is_solid)) {
 			last_path.lineTo((i) / terrain_steps * 665 + 230, y_coordinate);
 			last_path.lineTo((i) / terrain_steps * 665 + 230, 1273);
 			append(me.terrain_elements, last_path);
@@ -390,9 +391,8 @@ canvas.NavDisplay.update_vd = func() {
 		last_path.lineTo(x_coordinate, y_coordinate);
 		last_is_solid = solid;
 	}
-	if (!size(me.terrain_elements)) return print('HUH???');
-	if (me.terrain_elements == me.old_terrain_elements) return print('WHAT THE???');
-	foreach (element; me.old_terrain_elements) element.del();
+	foreach (element; old_terrain_elements) element.del();
+	if (size(me.terrain_elements) == 0) return print('HUH??? ' ~ size(me.terrain_elements));
 }
 var route_active = props.globals.getNode('/autopilot/route-manager/active');
 var track = props.globals.getNode('/orientation/track-deg');
@@ -692,8 +692,6 @@ canvas.NavDisplay.update = func() # FIXME: This stuff is still too aircraft spec
 	me.symbols["status.arpt"].setVisible( me.get_switch("toggle_airports") and me.in_mode("toggle_display_mode", ["MAP"]));
 	me.symbols["status.sta"].setVisible( me.get_switch("toggle_stations") and  me.in_mode("toggle_display_mode", ["MAP"]));
 
-	# update vertical display
-	me.update_vd();
 
 	# Okay, _how_ do we hook this up with FGPlot?
 	logprint(_MP_dbg_lvl, "Total ND update took "~((systime()-_time)*100)~"ms");

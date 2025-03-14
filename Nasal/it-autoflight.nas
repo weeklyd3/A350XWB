@@ -114,8 +114,8 @@ var Input = {
 	hdgCalc: 0,
 	kts: props.globals.initNode("/it-autoflight/input/kts", 250, "INT"),
 	ktsMach: props.globals.initNode("/it-autoflight/input/kts-mach", 0, "BOOL"),
-	lat: props.globals.initNode("/it-autoflight/input/lat", 5, "INT"),
-	latTemp: 5,
+	lat: props.globals.initNode("/it-autoflight/input/lat", 9, "INT"),
+	latTemp: 9,
 	mach: props.globals.initNode("/it-autoflight/input/mach", 0.5, "DOUBLE"),
 	machX1000: props.globals.initNode("/it-autoflight/input/mach-x1000", 500, "INT"),
 	pitch: props.globals.initNode("/it-autoflight/input/pitch", 0, "INT"),
@@ -128,8 +128,8 @@ var Input = {
 	trk: props.globals.initNode("/it-autoflight/input/trk", 0, "BOOL"),
 	trueCourse: props.globals.initNode("/it-autoflight/input/true-course", 0, "BOOL"),
 	trueCourseTemp: 0,
-	vert: props.globals.initNode("/it-autoflight/input/vert", 7, "INT"),
-	vertTemp: 7,
+	vert: props.globals.initNode("/it-autoflight/input/vert", 9, "INT"),
+	vertTemp: 9,
 	vs: props.globals.initNode("/it-autoflight/input/vs", 0, "INT"),
 	vsAbs: props.globals.initNode("/it-autoflight/input/vs-abs", 0, "INT"), # Set by property rule
 	vsFpa: props.globals.initNode("/it-autoflight/input/vs-fpa", 0, "BOOL"),
@@ -194,6 +194,7 @@ var Output = {
 	latTemp: 5,
 	lnavArm: props.globals.initNode("/it-autoflight/output/lnav-arm", 0, "BOOL"),
 	locArm: props.globals.initNode("/it-autoflight/output/loc-arm", 0, "BOOL"),
+	altArm: props.globals.getNode('/it-autoflight/internal/alt-arm'),
 	thrMode: props.globals.initNode("/it-autoflight/output/thr-mode", 2, "INT"),
 	vert: props.globals.initNode("/it-autoflight/output/vert", 7, "INT"),
 	vertTemp: 7,
@@ -260,6 +261,7 @@ var Gain = {
 var ITAF = {
 	init: func(t = 0) { # Not everything should be reset if the reset is type 1
 		Input.ktsMach.setBoolValue(0);
+		
 		if (t != 1) {
 			Input.alt.setValue(10000);
 			Input.bankLimitSw.setValue(0);
@@ -289,8 +291,8 @@ var ITAF = {
 		Input.pitchAbs.setValue(0);
 		Input.roll.setValue(0);
 		Input.rollAbs.setValue(0);
-		Input.lat.setValue(5);
-		Input.vert.setValue(7);
+		Input.lat.setValue(9);
+		Input.vert.setValue(9);
 		Input.toga.setBoolValue(0);
 		Output.ap1.setBoolValue(0);
 		Output.ap2.setBoolValue(0);
@@ -305,20 +307,20 @@ var ITAF = {
 		Output.locArm.setBoolValue(0);
 		Output.gsArm.setBoolValue(0);
 		Output.thrMode.setValue(2);
-		Output.lat.setValue(5);
-		Output.vert.setValue(7);
+		Output.lat.setValue(9);
+		Output.vert.setValue(9);
 		Internal.minVs.setValue(-500);
 		Internal.maxVs.setValue(500);
 		Internal.alt.setValue(10000);
 		Internal.altCaptureActive = 0;
-		Text.spd.setValue("PITCH");
-		Text.thr.setValue("THR LIM");
+		Text.spd.setValue("");
+		Text.thr.setValue("");
 		if (Settings.customFma.getBoolValue()) {
 			UpdateFma.thr();
 			UpdateFma.arm();
 		}
-		me.updateLatText("T/O");
-		me.updateVertText("T/O CLB");
+		me.updateLatText("");
+		me.updateVertText("");
 		loopTimer.start();
 		slowLoopTimer.start();
 	},
@@ -1135,6 +1137,7 @@ var ITAF = {
 				me.setLatMode(5);
 			}
 			me.setVertMode(7);
+			me.setLatMode(1);
 			me.updateVertText("T/O CLB");
 		}
 	},
@@ -1267,16 +1270,13 @@ setlistener("/it-autoflight/input/kts-mach", func() {
 	}
 }, 0, 0);
 
-setlistener("/systems/fadec/throttle/man-throttle-angle-1", func(throttle) {
+setlistener("/systems/fadec/throttle/max-throttle", func(throttle) {
 	if (throttle.getValue() == 0) {
 		ITAF.athrMaster(0);
 	}
 }, 0, 0);
-
-setlistener("/systems/fadec/throttle/man-throttle-angle-2", func(throttle) {
-	if (throttle.getValue() == 0) {
-		ITAF.athrMaster(0);
-	}
+setlistener('/systems/fadec/throttle/min-throttle', func(throttle) {
+	if (throttle.getValue() == 1) ITAF.takeoffGoAround();
 }, 0, 0);
 
 setlistener("/it-autoflight/input/toga", func() {
@@ -1412,6 +1412,23 @@ setlistener("/it-autoflight/input/hdg", func() {
 
 setlistener("/it-autoflight/internal/alt", func() {
 	setprop("/autopilot/settings/target-altitude-ft", getprop("/it-autoflight/internal/alt"));
+}, 0, 0);
+
+var wow = props.globals.getNode('/fdm/jsbsim/gear/wow');
+
+setlistener('/it-autoflight/output/apfd-on', func(node) {
+	var apfd_on = node.getValue();
+	if (wow.getValue()) return;
+	if (apfd_on) {
+		# now on, engage hdg/trk and vs/fpa
+		Input.lat.setValue(3);
+		if (Input.trk.getValue()) Input.vert.setValue(5);
+		else Input.vert.setValue(1);
+	} else {
+		# now off, clear all ap/fd modes
+		Input.vert.setValue(9);
+		Input.lat.setValue(9);
+	}
 }, 0, 0);
 
 var loopTimer = maketimer(0.1, ITAF, ITAF.loop);

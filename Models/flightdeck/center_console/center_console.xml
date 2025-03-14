@@ -77,6 +77,26 @@
 		</emission>
 	</animation>
 	<animation>
+		<type>material</type>
+		<object-name>ecam_elec_ac_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/ecam/elec_ac-active</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>ecam_elec_dc_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/ecam/elec_dc-active</factor-prop>
+		</emission>
+	</animation>
+	<animation>
 		<type>pick</type>
 		<object-name>Btn.A.156</object-name>
 		<action>
@@ -112,6 +132,32 @@
 				<command>property-assign</command>
 				<property>/instrumentation/ecam/active-page</property>
 				<value>bleed</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Btn.A.181</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/ecam/active-page</property>
+				<value>elec_ac</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Btn.A.182</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/ecam/active-page</property>
+				<value>elec_dc</value>
 			</binding>
 		</action>
 	</animation>

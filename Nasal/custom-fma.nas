@@ -14,7 +14,7 @@ var UpdateFma = {
 			"MACH": "MACH",
 			"IDLE": "THR IDLE",
 			"RETARD": "THR IDLE",
-			"THR LIM": "THR CLB"
+			"THR LIM": "THR REF"
 		}[Text.thr.getValue()];
 	},
 	arm: func() { # Called when armed modes change
