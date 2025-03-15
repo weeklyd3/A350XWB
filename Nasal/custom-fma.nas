@@ -26,8 +26,10 @@ var UpdateFma = {
 		me.latText = {
 			"T/O": "RWY",
 			"RLOU": "ROLL OUT",
+			"ROLLOUT": "ROLL OUT",
 			"HDG": "HDG",
 			"ALGN": "FLARE",
+			"ALIGN": "FLARE",
 			"LNAV": "NAV",
 			"LOC": "LOC"
 		}[Text.lat.getValue()];
@@ -48,3 +50,11 @@ var UpdateFma = {
 		}[Text.vert.getValue()];
 	},
 };
+setlistener("/systems/fadec/throttle/max-throttle", func(throttle) {
+	var thr = throttle.getValue();
+	if (itaf.Gear.wow0.getValue() and thr == 1) {
+		itaf.ITAF.takeoffGoAround();
+		itaf.ITAF.athrMaster(1);
+	}
+	if (thr == 0) itaf.ITAF.athrMaster(0);
+}, 0, 0);

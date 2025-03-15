@@ -1,23 +1,9 @@
 <?xml version="1.0"?>
 
-<!-- IT-AUTOFLIGHT: AUTOTHRUST -->
-<!-- Copyright (c) 2024 Josh Davidson (Octal450) -->
+<!-- IT Autoflight: Autothrust -->
+<!-- Copyright (c) 2025 Josh Davidson (Octal450) -->
 
 <PropertyList>
-	<predict-simple>
-		<name>predicted airspeed for captain</name>
-		<input>/instrumentation/airspeed-indicator/indicated-speed-kt</input>
-		<output>/instrumentation/airspeed-indicator/predicted-speed-kt</output>
-		<seconds>10</seconds>
-		<filter-gain>0.01</filter-gain>
-	</predict-simple>
-	<predict-simple>
-		<name>predicted airspeed for f/o</name>
-		<input>/instrumentation/airspeed-indicator[1]/indicated-speed-kt</input>
-		<output>/instrumentation/airspeed-indicator[1]/predicted-speed-kt</output>
-		<seconds>10</seconds>
-		<filter-gain>0.01</filter-gain>
-	</predict-simple>
 	
 	<filter>
 		<name>A/THR Knots Lag</name>
@@ -247,7 +233,7 @@
 		<input>
 			<condition>
 				<equals>
-					<property>/it-autoflight/mode/spd</property>
+					<property>/it-autoflight/text/spd</property>
 					<value>RETARD</value>
 				</equals>
 			</condition>
@@ -299,7 +285,7 @@
 				<or>
 					<and>
 						<equals>
-							<property>/it-autoflight/mode/spd</property>
+							<property>/it-autoflight/text/spd</property>
 							<value>RETARD</value>
 						</equals>
 						<or>
@@ -313,9 +299,13 @@
 							</equals>
 						</or>
 					</and>
-					<equals> <!-- Don't slow throttle in T/O or G/A -->
+					<equals> <!-- Don't slow throttle in T/O -->
 						<property>/it-autoflight/output/vert</property>
 						<value>7</value>
+					</equals>
+					<equals> <!-- Don't slow throttle in G/A -->
+						<property>/it-autoflight/output/vert</property>
+						<value>8</value>
 					</equals>
 				</or>
 			</condition>

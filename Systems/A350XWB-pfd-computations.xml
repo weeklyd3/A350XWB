@@ -506,12 +506,8 @@
 				<max>
 					<min>
 						<sum>
+							<property>/it-autoflight/fd/roll-bar</property>
 							<property>/it-autoflight/internal/drift-angle-deg</property>
-							<property>/it-autoflight/internal/heading-error-deg</property>
-							<product>
-								<property>/it-autoflight/internal/nav-heading-error-deg</property>
-								<property>/systems/pfd/loc-active</property>
-							</product>
 						</sum>
 						<sum>
 							<property>/it-autoflight/internal/drift-angle-deg</property>
@@ -630,4 +626,12 @@
 			</function>
 		</fcs_function>
 	</channel>
+	<property value="0">/systems/pfd/synthetic-runway/corner-1/pitch</property>
+	<property value="0">/systems/pfd/synthetic-runway/corner-1/yaw</property>
+	<property value="0">/systems/pfd/synthetic-runway/corner-2/pitch</property>
+	<property value="0">/systems/pfd/synthetic-runway/corner-2/yaw</property>
+	<property value="0">/systems/pfd/synthetic-runway/corner-3/pitch</property>
+	<property value="0">/systems/pfd/synthetic-runway/corner-3/yaw</property>
+	<property value="0">/systems/pfd/synthetic-runway/corner-4/pitch</property>
+	<property value="0">/systems/pfd/synthetic-runway/corner-4/yaw</property>
 </system>

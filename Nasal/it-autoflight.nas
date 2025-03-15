@@ -1,5 +1,5 @@
-# IT-AUTOFLIGHT System Controller V4.0.9
-# Copyright (c) 2024 Josh Davidson (Octal450)
+# IT Autoflight System Controller V4.1.0
+# Copyright (c) 2025 Josh Davidson (Octal450)
 
 setprop("/it-autoflight/config/tuning-mode", 0); # Not used by controller
 
@@ -9,6 +9,7 @@ var Controls = {
 	aileron: props.globals.getNode("/controls/flight/aileron", 1),
 	elevator: props.globals.getNode("/controls/flight/elevator", 1),
 	rudder: props.globals.getNode("/controls/flight/rudder", 1),
+	throttle: [],
 };
 
 var FPLN = {
@@ -42,6 +43,8 @@ var Gear = {
 };
 
 var Misc = {
+	canvasAlt: props.globals.getNode("/autopilot/settings/target-altitude-ft", 1),
+	canvasHdg: props.globals.getNode("/autopilot/settings/heading-bug-deg", 1),
 	efis0Trk: props.globals.getNode("/instrumentation/efis[0]/hdg-trk-selected", 1),
 	efis0True: props.globals.getNode("/instrumentation/efis[0]/mfd/true-north", 1),
 	efis1Trk: props.globals.getNode("/instrumentation/efis[1]/hdg-trk-selected", 1),
@@ -114,8 +117,8 @@ var Input = {
 	hdgCalc: 0,
 	kts: props.globals.initNode("/it-autoflight/input/kts", 250, "INT"),
 	ktsMach: props.globals.initNode("/it-autoflight/input/kts-mach", 0, "BOOL"),
-	lat: props.globals.initNode("/it-autoflight/input/lat", 9, "INT"),
-	latTemp: 9,
+	lat: props.globals.initNode("/it-autoflight/input/lat", 5, "INT"),
+	latTemp: 5,
 	mach: props.globals.initNode("/it-autoflight/input/mach", 0.5, "DOUBLE"),
 	machX1000: props.globals.initNode("/it-autoflight/input/mach-x1000", 500, "INT"),
 	pitch: props.globals.initNode("/it-autoflight/input/pitch", 0, "INT"),
@@ -128,8 +131,8 @@ var Input = {
 	trk: props.globals.initNode("/it-autoflight/input/trk", 0, "BOOL"),
 	trueCourse: props.globals.initNode("/it-autoflight/input/true-course", 0, "BOOL"),
 	trueCourseTemp: 0,
-	vert: props.globals.initNode("/it-autoflight/input/vert", 9, "INT"),
-	vertTemp: 9,
+	vert: props.globals.initNode("/it-autoflight/input/vert", 7, "INT"),
+	vertTemp: 7,
 	vs: props.globals.initNode("/it-autoflight/input/vs", 0, "INT"),
 	vsAbs: props.globals.initNode("/it-autoflight/input/vs-abs", 0, "INT"), # Set by property rule
 	vsFpa: props.globals.initNode("/it-autoflight/input/vs-fpa", 0, "BOOL"),
@@ -168,7 +171,7 @@ var Internal = {
 	takeoffHdg: props.globals.initNode("/it-autoflight/internal/takeoff-hdg", 0, "INT"),
 	takeoffHdgCalc: 0,
 	takeoffLvl: props.globals.initNode("/it-autoflight/internal/takeoff-lvl", 1, "BOOL"),
-	throttle: [props.globals.initNode("/it-autoflight/internal/throttle[0]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[1]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[2]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[3]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[4]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[5]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[6]", 0, "DOUBLE"), props.globals.initNode("/it-autoflight/internal/throttle[7]", 0, "DOUBLE")],
+	throttle: [],
 	vs: props.globals.initNode("/it-autoflight/internal/vert-speed-fpm", 0, "DOUBLE"),
 	vsTemp: 0,
 };
@@ -201,15 +204,16 @@ var Output = {
 };
 
 var Text = {
-	lat: props.globals.initNode("/it-autoflight/mode/lat", "T/O", "STRING"),
-	spd: props.globals.initNode("/it-autoflight/mode/spd", "PITCH", "STRING"),
-	thr: props.globals.initNode("/it-autoflight/mode/thr", "THR LIM", "STRING"),
-	vert: props.globals.initNode("/it-autoflight/mode/vert", "T/O CLB", "STRING"),
+	lat: props.globals.initNode("/it-autoflight/text/lat", "T/O", "STRING"),
+	spd: props.globals.initNode("/it-autoflight/text/spd", "PITCH", "STRING"),
+	thr: props.globals.initNode("/it-autoflight/text/thr", "THR LIM", "STRING"),
+	vert: props.globals.initNode("/it-autoflight/text/vert", "T/O CLB", "STRING"),
 	vertTemp: "T/O CLB",
 };
 
 var Settings = {
 	accelFt: props.globals.getNode("/it-autoflight/settings/accel-ft", 1),
+	alignFt: props.globals.getNode("/it-autoflight/settings/align-ft", 1),
 	autoBankLimitCalc: props.globals.getNode("/it-autoflight/settings/auto-bank-limit-calc", 1),
 	autolandWithoutAp: props.globals.getNode("/it-autoflight/settings/autoland-without-ap", 1),
 	autolandWithoutApTemp: 0,
@@ -261,7 +265,6 @@ var Gain = {
 var ITAF = {
 	init: func(t = 0) { # Not everything should be reset if the reset is type 1
 		Input.ktsMach.setBoolValue(0);
-		
 		if (t != 1) {
 			Input.alt.setValue(10000);
 			Input.bankLimitSw.setValue(0);
@@ -325,6 +328,8 @@ var ITAF = {
 		slowLoopTimer.start();
 	},
 	loop: func() {
+		Gear.wow1Temp = Gear.wow1.getBoolValue();
+		Gear.wow2Temp = Gear.wow2.getBoolValue();
 		Output.ap1Temp = Output.ap1.getBoolValue();
 		Output.ap2Temp = Output.ap2.getBoolValue();
 		Output.ap3Temp = Output.ap3.getBoolValue();
@@ -381,8 +386,6 @@ var ITAF = {
 			}
 		}
 		
-		Gear.wow1Temp = Gear.wow1.getBoolValue();
-		Gear.wow2Temp = Gear.wow2.getBoolValue();
 		Output.latTemp = Output.lat.getValue();
 		Output.vertTemp = Output.vert.getValue();
 		Text.vertTemp = Text.vert.getValue();
@@ -439,25 +442,30 @@ var ITAF = {
 		}
 		
 		# Autoland Logic
-		if ((Output.ap1Temp or Output.ap2Temp or Output.ap3Temp or Settings.autolandWithoutApTemp) and Settings.landEnable.getBoolValue()) {
+		if ((Output.ap1Temp or Output.ap2Temp or Output.ap3Temp) and (Settings.landEnable.getBoolValue() or 1)) { # Lateral ALIGN/ROLLOUT requires AP to function
 			if (Output.latTemp == 2) {
-				if (Position.gearAglFtTemp <= 150) {
+				if (Position.gearAglFtTemp <= Settings.alignFt.getValue()) {
 					me.setLatMode(4);
 				}
 			}
+		} else {
+			if (Output.latTemp == 4) {
+				me.activateLoc();
+			}
+		}
+		if ((Output.ap1Temp or Output.ap2Temp or Output.ap3Temp or Settings.autolandWithoutApTemp) and Settings.landEnable.getBoolValue()) {
 			if (Output.vertTemp == 2) {
-				if (Position.gearAglFtTemp <= 50 and Position.gearAglFtTemp >= 5) {
+				if (Position.gearAglFtTemp <= 60 and Position.gearAglFtTemp >= 5) {
 					me.setVertMode(6);
 				}
 			} else if (Output.vertTemp == 6) {
 				if (Gear.wow1Temp and Gear.wow2Temp and Text.vert.getValue() != "ROLLOUT") {
-					me.updateLatText("RLOU");
+					me.updateLatText("ROLLOUT");
 					me.updateVertText("ROLLOUT");
 				}
 			}
 		} else {
-			if (Output.latTemp == 4 or Output.vertTemp == 6) {
-				me.activateLoc();
+			if (Output.vertTemp == 6) {
 				me.activateGs();
 			}
 		}
@@ -666,14 +674,14 @@ var ITAF = {
 			}
 		} else {
 			if (!Settings.useControlsEngines.getBoolValue()) {
-				#setprop("/controls/engines/engine[0]/throttle", Internal.throttle[0].getValue());
-				#setprop("/controls/engines/engine[1]/throttle", Internal.throttle[1].getValue());
-				#setprop("/controls/engines/engine[2]/throttle", Internal.throttle[2].getValue());
-				#setprop("/controls/engines/engine[3]/throttle", Internal.throttle[3].getValue());
-				#setprop("/controls/engines/engine[4]/throttle", Internal.throttle[4].getValue());
-				#setprop("/controls/engines/engine[5]/throttle", Internal.throttle[5].getValue());
-				#setprop("/controls/engines/engine[6]/throttle", Internal.throttle[6].getValue());
-				#setprop("/controls/engines/engine[7]/throttle", Internal.throttle[7].getValue());
+				#Controls.throttle[0].setValue(Internal.throttle[0].getValue());
+				#Controls.throttle[1].setValue(Internal.throttle[1].getValue());
+				#Controls.throttle[2].setValue(Internal.throttle[2].getValue());
+				#Controls.throttle[3].setValue(Internal.throttle[3].getValue());
+				#Controls.throttle[4].setValue(Internal.throttle[4].getValue());
+				#Controls.throttle[5].setValue(Internal.throttle[5].getValue());
+				#Controls.throttle[6].setValue(Internal.throttle[6].getValue());
+				#Controls.throttle[7].setValue(Internal.throttle[7].getValue());
 			}
 			Output.athr.setBoolValue(0);
 		}
@@ -765,7 +773,7 @@ var ITAF = {
 			me.updateLocArm(0);
 			me.updateGsArm(0);
 			Output.lat.setValue(4);
-			me.updateLatText("ALGN");
+			me.updateLatText("ALIGN");
 		} else if (n == 5) { # T/O
 			me.updateLnavArm(0);
 			me.updateLocArm(0);
@@ -887,25 +895,22 @@ var ITAF = {
 			Output.vert.setValue(6);
 			me.updateVertText("FLARE");
 			me.updateThrustMode();
-		} else if (n == 7) { # T/O CLB or G/A CLB, text is set by TOGA selector
+		} else if (n == 7) { # T/O CLB
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
 			me.updateGsArm(0);
 			Output.vert.setValue(7);
+			me.updateVertText("T/O CLB");
 			Input.ktsMach.setBoolValue(0);
 			me.updateThrustMode();
-		} else if (n == 8) { # PITCH
-			if (abs(Input.altDiff) >= 25) {
-				Internal.flchActive = 0;
-				Internal.altCaptureActive = 0;
-				me.updateGsArm(0);
-				Output.vert.setValue(8);
-				me.updateVertText("PITCH");
-				me.syncPitch();
-				me.updateThrustMode();
-			} else {
-				me.updateGsArm(0);
-			}
+		} else if (n == 8) { # G/A CLB
+			Internal.flchActive = 0;
+			Internal.altCaptureActive = 0;
+			me.updateGsArm(0);
+			Output.vert.setValue(8);
+			me.updateVertText("G/A CLB");
+			Input.ktsMach.setBoolValue(0);
+			me.updateThrustMode();
 		} else if (n == 9) { # Blank
 			Internal.flchActive = 0;
 			Internal.altCaptureActive = 0;
@@ -915,6 +920,18 @@ var ITAF = {
 			me.updateThrustMode();
 			if (!Settings.disableFinal.getBoolValue()) {
 				Controls.elevator.setValue(0);
+			}
+		} else if (n == 10) { # PITCH
+			if (abs(Input.altDiff) >= 25) {
+				Internal.flchActive = 0;
+				Internal.altCaptureActive = 0;
+				me.updateGsArm(0);
+				Output.vert.setValue(10);
+				me.updateVertText("PITCH");
+				me.syncPitch();
+				me.updateThrustMode();
+			} else {
+				me.updateGsArm(0);
 			}
 		}
 	},
@@ -926,14 +943,16 @@ var ITAF = {
 			Text.thr.setValue("RETARD");
 			if (Gear.wow1.getBoolValue() or Gear.wow2.getBoolValue()) { # Disconnect A/THR on either main gear touch
 				me.athrMaster(0);
-				#setprop("/controls/engines/engine[0]/throttle", 0);
-				#setprop("/controls/engines/engine[1]/throttle", 0);
-				#setprop("/controls/engines/engine[2]/throttle", 0);
-				#setprop("/controls/engines/engine[3]/throttle", 0);
-				#setprop("/controls/engines/engine[4]/throttle", 0);
-				#setprop("/controls/engines/engine[5]/throttle", 0);
-				#setprop("/controls/engines/engine[6]/throttle", 0);
-				#setprop("/controls/engines/engine[7]/throttle", 0);
+				if (!Settings.useControlsEngines.getBoolValue()) {
+					Controls.throttle[0].setValue(Internal.throttle[0].getValue());
+					Controls.throttle[1].setValue(Internal.throttle[1].getValue());
+					Controls.throttle[2].setValue(Internal.throttle[2].getValue());
+					Controls.throttle[3].setValue(Internal.throttle[3].getValue());
+					Controls.throttle[4].setValue(Internal.throttle[4].getValue());
+					Controls.throttle[5].setValue(Internal.throttle[5].getValue());
+					Controls.throttle[6].setValue(Internal.throttle[6].getValue());
+					Controls.throttle[7].setValue(Internal.throttle[7].getValue());
+				}
 			}
 		} else if (Output.vertTemp == 4) {
 			if (Internal.alt.getValue() >= Position.indicatedAltitudeFt.getValue()) {
@@ -951,7 +970,7 @@ var ITAF = {
 					me.updateVertText("SPD DES");
 				}
 			}
-		} else if (Output.vertTemp == 7) {
+		} else if (Output.vertTemp == 7 or Output.vertTemp == 8) {
 			Output.thrMode.setValue(2);
 			Text.spd.setValue("PITCH");
 			Text.thr.setValue("THR LIM");
@@ -1022,7 +1041,7 @@ var ITAF = {
 		}
 	},
 	checkFlch: func(a) {
-		if (Position.gearAglFt.getValue() >= a and a != 0) {
+		if (!Gear.wow1.getBoolValue() and !Gear.wow2.getBoolValue() and Position.gearAglFt.getValue() >= a and a != 0) {
 			me.setVertMode(4);
 		}
 	},
@@ -1123,8 +1142,7 @@ var ITAF = {
 		Output.vertTemp = Output.vert.getValue();
 		if ((Output.vertTemp == 2 or Output.vertTemp == 6) and Velocities.indicatedAirspeedKt.getValue() >= 80) {
 			me.setLatMode(3);
-			me.setVertMode(7); # Must be before kicking AP off
-			me.updateVertText("G/A CLB");
+			me.setVertMode(8); # Must be before kicking AP off
 			me.syncKtsGa();
 			if (Gear.wow1.getBoolValue() or Gear.wow2.getBoolValue()) {
 				me.ap1Master(0);
@@ -1137,8 +1155,6 @@ var ITAF = {
 				me.setLatMode(5);
 			}
 			me.setVertMode(7);
-			me.setLatMode(1);
-			me.updateVertText("T/O CLB");
 		}
 	},
 	syncKts: func() {
@@ -1256,7 +1272,8 @@ setlistener("/it-autoflight/input/fd2", func() {
 });
 
 setlistener("/it-autoflight/input/kts-mach", func() {
-	if (Output.vert.getValue() == 7) { # Mach is not allowed in Mode 7, and don't sync
+	Output.vertTemp = Output.vert.getValue();
+	if (Output.vertTemp == 7 or Output.vertTemp == 8) { # Mach is not allowed in mode 7/8, and don't sync
 		if (Input.ktsMach.getBoolValue()) {
 			Input.ktsMach.setBoolValue(0);
 		}
@@ -1268,15 +1285,6 @@ setlistener("/it-autoflight/input/kts-mach", func() {
 			ITAF.syncKts();
 		}
 	}
-}, 0, 0);
-
-setlistener("/systems/fadec/throttle/max-throttle", func(throttle) {
-	if (throttle.getValue() == 0) {
-		ITAF.athrMaster(0);
-	}
-}, 0, 0);
-setlistener('/systems/fadec/throttle/min-throttle', func(throttle) {
-	if (throttle.getValue() == 1) ITAF.takeoffGoAround();
 }, 0, 0);
 
 setlistener("/it-autoflight/input/toga", func() {
@@ -1405,17 +1413,23 @@ setlistener("/sim/signals/fdm-initialized", func() {
 	ITAF.init();
 });
 
+for (var i = 0; i < 8; i = i + 1) { # We MUST use 8 throttles
+	append(Controls.throttle, props.globals.initNode("/controls/engines/engine[" ~ i ~ "]/throttle", 0, "DOUBLE"));
+	append(Internal.throttle, props.globals.initNode("/it-autoflight/internal/throttle[" ~ i ~ "]", 0, "DOUBLE"));
+}
+
 # For Canvas Nav Display.
 setlistener("/it-autoflight/input/hdg", func() {
-	setprop("/autopilot/settings/heading-bug-deg", getprop("/it-autoflight/input/hdg"));
+	Misc.canvasHdg.setValue(Input.hdg.getValue());
 }, 0, 0);
 
 setlistener("/it-autoflight/internal/alt", func() {
-	setprop("/autopilot/settings/target-altitude-ft", getprop("/it-autoflight/internal/alt"));
+	Misc.canvasAlt.setValue(Internal.alt.getValue());
 }, 0, 0);
 
-var wow = props.globals.getNode('/fdm/jsbsim/gear/wow');
-
+var loopTimer = maketimer(0.1, ITAF, ITAF.loop);
+var slowLoopTimer = maketimer(1, ITAF, ITAF.slowLoop);
+var wow = props.globals.getNode('/systems/fbw/mlg-wow');
 setlistener('/it-autoflight/output/apfd-on', func(node) {
 	var apfd_on = node.getValue();
 	if (wow.getValue()) return;

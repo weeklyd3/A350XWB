@@ -480,6 +480,7 @@
 		<settings>
 			<accel-ft type="double">1500</accel-ft> <!-- Acceleration AGL when T/O CLB
 			changes to SPD CLB, 0 to disable -->
+			<align-ft>60</align-ft>
 			<auto-bank-limit-calc type="bool">1</auto-bank-limit-calc> <!-- Disable to
 			add a custom auto bank limit schedule -->
 			<auto-system-reset type="bool">1</auto-system-reset> <!-- Automatically reset
