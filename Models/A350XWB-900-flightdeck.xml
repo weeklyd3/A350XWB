@@ -832,7 +832,7 @@
 	</animation>
 	
 	<!-- Flap lever -->
-	<animation>
+	<!--<animation>
 		<name>Flap lever pick</name>
 		<type>pick</type>
 		<object-name>flapselector</object-name>
@@ -840,10 +840,14 @@
 			<button>0</button>
 			<repeatable type="bool">false</repeatable>
 			<binding>
-				<command>nasal</command>
-				<script>
-				 controls.flapsDown(1);
-				</script>
+				<command>property-cycle</command>
+				<property>controls/flight/flaps</property>
+				<value>0.0</value>
+				<value>0.29</value>
+				<value>0.596</value>
+				<value>0.645</value>
+				<value>1</value>
+				<wrap>false</wrap>
 			</binding>
 		</action>
 		<action>
@@ -856,19 +860,19 @@
 				</script>
 			</binding>
 		</action>
-	</animation>
+	</animation>-->
 
 	<animation>
 		<name>Flap lever</name>
-		<type>rotate</type>
+		<type>knob</type>
 		<object-name>flapselector</object-name>
 		<property>controls/flight/flaps</property>
 		<interpolation>
 			<entry><ind>0.000</ind><dep>0</dep></entry>
-			<entry><ind>0.29</ind><dep>16</dep></entry>
-			<entry><ind>0.596</ind><dep>32</dep></entry>
-			<entry><ind>0.645</ind><dep>48</dep></entry>
-			<entry><ind>1.000</ind><dep>64</dep></entry>
+			<entry><ind>0.29</ind><dep>14</dep></entry>
+			<entry><ind>0.596</ind><dep>35</dep></entry>
+			<entry><ind>0.645</ind><dep>55</dep></entry>
+			<entry><ind>1.000</ind><dep>75</dep></entry>
 		</interpolation>
 		<axis>
 			<x>0</x>
@@ -879,6 +883,18 @@
 			<x-m>3.0779</x-m>
 			<z-m>1.4767</z-m>
 		</center>
+		<action>
+			<binding>
+				<command>property-cycle</command>
+				<property>controls/flight/flaps</property>
+				<value>1</value>
+				<value>0.645</value>
+				<value>0.596</value>
+				<value>0.29</value>
+				<value>0.0</value>
+				<wrap>false</wrap>
+			</binding>
+		</action>
 	</animation>
 	
 	<!-- Speedbrake lever -->
@@ -887,36 +903,84 @@
 		<type>pick</type>
 		<object-name>speed_brake</object-name>
 		<action>
-			<button>0</button>
+			<button>4</button>
 			<repeatable type="bool">false</repeatable>
 			<binding>
-				<command>property-adjust</command>
-				<property>controls/flight/speedbrake-lever</property>
-				<step type="int">1</step>
-				<max>3</max>
+				<command>property-assign</command>
+				<property>controls/flight/speedbrake-armed</property>
+				<value>0</value>
+			</binding>
+			<binding>
+				<command>property-cycle</command>
+				<property>controls/flight/speedbrake</property>
+				<value>0</value>
+				<value>0.5</value>
+				<value>1.0</value>
+				<wrap>false</wrap>
 			</binding>
 		</action>
 		<action>
-			<button>1</button>
+			<button>3</button>
 			<repeatable type="bool">false</repeatable>
 			<binding>
-				<command>property-adjust</command>
-				<property>controls/flight/speedbrake-lever</property>
-				<step type="int">-1</step>
-				<min>0</min>
+				<command>property-assign</command>
+				<property>controls/flight/speedbrake-armed</property>
+				<value>0</value>
+			</binding>
+			<binding>
+				<command>property-cycle</command>
+				<property>controls/flight/speedbrake</property>
+				<value>1.0</value>
+				<value>0.5</value>
+				<value>0.0</value>
+				<wrap>false</wrap>
+			</binding>
+		</action>
+		<action>
+			<button>0</button>
+			<repeatable type="bool">false</repeatable>
+			<binding>
+				<condition>
+					<equals>
+						<property>/controls/flight/speedbrake</property>
+						<value>0</value>
+					</equals>
+				</condition>
+				<command>property-toggle</command>
+				<property>/controls/flight/speedbrake-armed</property>
 			</binding>
 		</action>
 	</animation>
 
 	<animation>
+		<type>translate</type>
+		<object-name>speed_brake</object-name>
+		<axis>
+			<x1-m>3.08489</x1-m>
+			<y1-m>-0.096045</y1-m>
+			<z1-m>1.47733</z1-m>
+			<x2-m>3.01831</x2-m>
+			<y2-m>-0.096046</y2-m>
+			<z2-m>1.55643</z2-m>
+			<!--<x1-m>0</x1-m>
+			<y1-m>0</y1-m>
+			<z1-m>0</z1-m>
+			<x2-m>0</x2-m>
+			<y2-m>0</y2-m>
+			<z2-m>1</z2-m>-->
+		</axis>
+		<property>/controls/flight/speedbrake-armed</property>
+		<factor>0.02</factor>
+	</animation>
+	<animation>
 		<name>Gear lever rotate</name>
 		<type>rotate</type>
 		<object-name>speed_brake</object-name>
-		<property>controls/flight/speedbrake-lever</property>
+		<property>controls/flight/speedbrake</property>
 		<interpolation>
 			<entry><ind>0</ind><dep>-40</dep></entry>
-			<entry><ind>1</ind><dep>0.0</dep></entry>
-			<entry><ind>3</ind><dep>40</dep></entry>
+			<entry><ind>0.5</ind><dep>0.0</dep></entry>
+			<entry><ind>1</ind><dep>40</dep></entry>
 		</interpolation>
 		<axis>
 			<x>0</x>

@@ -545,3 +545,13 @@ var timer = maketimer(1, clear);
 timer.singleShot = 1;
 timer.start();
 var mfd_l = mfd.new('mfd1');
+var mfd_r = mfd.new('mfd2');
+setlistener('/systems/electrical/lower-du', func(node) {
+	if (node.getValue()) {
+		mfd_l.group.show();
+		mfd_r.group.show();
+	} else {
+		mfd_l.group.hide();
+		mfd_r.group.hide();
+	}
+}, 1, 0);

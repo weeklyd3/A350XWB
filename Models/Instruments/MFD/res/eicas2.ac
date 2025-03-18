@@ -3,7 +3,7 @@ MATERIAL "ac3dmat1" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0.737255 0.713726 0.72549  
 OBJECT world
 kids 1
 OBJECT poly
-name "poly000002"
+name "mfd2"
 loc 1.6424e-005 -0.0851298 -0.51126
 texture "eicas2.png"
 crease 45.000000

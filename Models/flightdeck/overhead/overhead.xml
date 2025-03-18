@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <PropertyList>
 
@@ -581,368 +581,638 @@
 			</binding>
 		</action>
 	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>bat1</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/controls/electric/batteries/bat-1</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>bat2</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/controls/electric/batteries/bat-2</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>bat1_emer</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/controls/electric/batteries/bat-emer-1</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>bat2_emer</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/controls/electric/batteries/bat-emer-2</property>
+			</binding>
+		</action>
+	</animation>
 	<!-- making only the stuff we want light up -->
 	<animation>
 		<type>select</type>
 		<object-name>eng1greenpump_off</object-name>
 		<condition>
-			<or>
-				<not><property>/engines/engine/green-pump</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/engines/engine/green-pump</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>eng2greenpump_off</object-name>
 		<condition>
-			<or>
-				<not><property>/engines/engine[1]/green-pump</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/engines/engine[1]/green-pump</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>eng1yellowpump_off</object-name>
 		<condition>
-			<or>
-				<not><property>/engines/engine/yellow-pump</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/engines/engine/yellow-pump</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>eng2yellowpump_off</object-name>
 		<condition>
-			<or>
-				<not><property>/engines/engine[1]/yellow-pump</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/engines/engine[1]/yellow-pump</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>eng1greenpump_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/engines/engine/green-pump-fault</property>
-					<property>/engines/engine/green-pump</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/engines/engine/green-pump-fault</property>
+						<property>/engines/engine/green-pump</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>eng2greenpump_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/engines/engine[1]/green-pump-fault</property>
-					<property>/engines/engine[1]/green-pump</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/engines/engine[1]/green-pump-fault</property>
+						<property>/engines/engine[1]/green-pump</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>eng1yellowpump_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/engines/engine/yellow-pump-fault</property>
-					<property>/engines/engine/yellow-pump</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/engines/engine/yellow-pump-fault</property>
+						<property>/engines/engine/yellow-pump</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>eng2yellowpump_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/engines/engine[1]/yellow-pump-fault</property>
-					<property>/engines/engine[1]/yellow-pump</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/engines/engine[1]/yellow-pump-fault</property>
+						<property>/engines/engine[1]/yellow-pump</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>apu_master_on</object-name>
 		<condition>
-			<or>
-				<property>/controls/apu/switch</property>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<property>/controls/apu/switch</property>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>apu_master_fault</object-name>
 		<condition>
-			<or>
-				<property>/systems/apu/fault</property>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<property>/systems/apu/fault</property>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>apu_start_on</object-name>
 		<condition>
-			<or>
-				<property>/controls/apu/starter</property>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<property>/controls/apu/starter</property>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>apu_start_avail</object-name>
 		<condition>
-			<or>
-				<property>/systems/apu/avail</property>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<property>/systems/apu/avail</property>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>apu_bleed_on</object-name>
 		<condition>
-			<or>
-				<property>/systems/apu/bleed</property>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<property>/systems/apu/bleed</property>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>apu_bleed_fault</object-name>
 		<condition>
-			<or>
-				<property>/systems/apu/bleed-fault</property>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<property>/systems/apu/bleed-fault</property>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>apu_gen_off</object-name>
 		<condition>
-			<or>
-				<not><property>/systems/apu/gen</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/systems/apu/gen</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>apu_gen_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/apu/gen-fault</property>
-					<property>/systems/apu/gen</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/apu/gen-fault</property>
+						<property>/systems/apu/gen</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>pack_1_off</object-name>
 		<condition>
-			<or>
-				<not><property>/systems/air/pack-1</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/systems/air/pack-1</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>pack_2_off</object-name>
 		<condition>
-			<or>
-				<not><property>/systems/air/pack-2</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/systems/air/pack-2</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>pack_1_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/apu/pack-1-fault</property>
-					<property>/systems/air/pack-1</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/apu/pack-1-fault</property>
+						<property>/systems/air/pack-1</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>pack_2_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/apu/pack-2-fault</property>
-					<property>/systems/air/pack-2</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/apu/pack-2-fault</property>
+						<property>/systems/air/pack-2</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>hot_air_1_off</object-name>
 		<condition>
-			<or>
-				<not><property>/systems/air/hot-air-1</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/systems/air/hot-air-1</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>hot_air_2_off</object-name>
 		<condition>
-			<or>
-				<not><property>/systems/air/hot-air-2</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/systems/air/hot-air-2</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>hot_air_1_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/apu/hot-air-1-fault</property>
-					<property>/systems/air/hot-air-1</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/apu/hot-air-1-fault</property>
+						<property>/systems/air/hot-air-1</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>hot_air_2_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/apu/hot-air-2-fault</property>
-					<property>/systems/air/hot-air-2</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/apu/hot-air-2-fault</property>
+						<property>/systems/air/hot-air-2</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>eng_1_bleed_off</object-name>
 		<condition>
-			<or>
-				<not><property>/engines/engine/bleed</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/engines/engine/bleed</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>eng_2_bleed_off</object-name>
 		<condition>
-			<or>
-				<not><property>/engines/engine[1]/bleed</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/engines/engine[1]/bleed</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>eng_1_bleed_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/engines/engine/bleed-fault</property>
-					<property>/engines/engine/bleed</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/engines/engine/bleed-fault</property>
+						<property>/engines/engine/bleed</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>eng_2_bleed_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/engines/engine[1]/bleed-fault</property>
-					<property>/engines/engine[1]/bleed</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/engines/engine[1]/bleed-fault</property>
+						<property>/engines/engine[1]/bleed</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>1a_gen_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<or>
-						<property>/systems/electrical/generators/gen-1a-fault</property>
-						<not><property>engines/engine/running</property></not>
-						<not><property>/controls/electric/drive-1a</property></not>
-					</or>
-					<property>/controls/electric/gen-1a</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<or>
+							<property>/systems/electrical/generators/gen-1a-fault</property>
+							<not>
+								<property>engines/engine/running</property>
+							</not>
+							<not>
+								<property>/controls/electric/drive-1a</property>
+							</not>
+						</or>
+						<property>/controls/electric/gen-1a</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>1a_gen_off</object-name>
 		<condition>
-			<or>
-				<not><property>/controls/electric/gen-1a</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/controls/electric/gen-1a</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>1a_drive_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/electrical/generators/drive-1a-fault</property>
-					<property>/controls/electric/drive-1a</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/electrical/generators/drive-1a-fault</property>
+						<property>/controls/electric/drive-1a</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>1a_drive_disc</object-name>
 		<condition>
-			<or>
-				<not><property>/controls/electric/drive-1a</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/controls/electric/drive-1a</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 
@@ -950,50 +1220,82 @@
 		<type>select</type>
 		<object-name>1b_gen_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<or>
-						<property>/systems/electrical/generators/gen-1b-fault</property>
-						<not><property>engines/engine/running</property></not>
-						<not><property>/controls/electric/drive-1b</property></not>
-					</or>
-					<property>/controls/electric/gen-1b</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<or>
+							<property>/systems/electrical/generators/gen-1b-fault</property>
+							<not>
+								<property>engines/engine/running</property>
+							</not>
+							<not>
+								<property>/controls/electric/drive-1b</property>
+							</not>
+						</or>
+						<property>/controls/electric/gen-1b</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>1b_gen_off</object-name>
 		<condition>
-			<or>
-				<not><property>/controls/electric/gen-1b</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/controls/electric/gen-1b</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>1b_drive_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/electrical/generators/drive-1b-fault</property>
-					<property>/controls/electric/drive-1b</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/electrical/generators/drive-1b-fault</property>
+						<property>/controls/electric/drive-1b</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>1b_drive_disc</object-name>
 		<condition>
-			<or>
-				<not><property>/controls/electric/drive-1b</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/controls/electric/drive-1b</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 
@@ -1001,50 +1303,82 @@
 		<type>select</type>
 		<object-name>2a_gen_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<or>
-						<property>/systems/electrical/generators/gen-2a-fault</property>
-						<not><property>engines/engine[1]/running</property></not>
-						<not><property>/controls/electric/drive-2a</property></not>
-					</or>
-					<property>/controls/electric/gen-2a</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<or>
+							<property>/systems/electrical/generators/gen-2a-fault</property>
+							<not>
+								<property>engines/engine[1]/running</property>
+							</not>
+							<not>
+								<property>/controls/electric/drive-2a</property>
+							</not>
+						</or>
+						<property>/controls/electric/gen-2a</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>2a_gen_off</object-name>
 		<condition>
-			<or>
-				<not><property>/controls/electric/gen-2a</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/controls/electric/gen-2a</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>2a_drive_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/electrical/generators/drive-2a-fault</property>
-					<property>/controls/electric/drive-2a</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/electrical/generators/drive-2a-fault</property>
+						<property>/controls/electric/drive-2a</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>2a_drive_disc</object-name>
 		<condition>
-			<or>
-				<not><property>/controls/electric/drive-2a</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/controls/electric/drive-2a</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 
@@ -1052,124 +1386,260 @@
 		<type>select</type>
 		<object-name>2b_gen_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<or>
-						<property>/systems/electrical/generators/gen-2b-fault</property>
-						<not><property>engines/engine[1]/running</property></not>
-						<not><property>/controls/electric/drive-2b</property></not>
-					</or>
-					<property>/controls/electric/gen-2b</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<or>
+							<property>/systems/electrical/generators/gen-2b-fault</property>
+							<not>
+								<property>engines/engine[1]/running</property>
+							</not>
+							<not>
+								<property>/controls/electric/drive-2b</property>
+							</not>
+						</or>
+						<property>/controls/electric/gen-2b</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>2b_gen_off</object-name>
 		<condition>
-			<or>
-				<not><property>/controls/electric/gen-2b</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/controls/electric/gen-2b</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>2b_drive_fault</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/electrical/generators/drive-2b-fault</property>
-					<property>/controls/electric/drive-2b</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/electrical/generators/drive-2b-fault</property>
+						<property>/controls/electric/drive-2b</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>2b_drive_disc</object-name>
 		<condition>
-			<or>
-				<not><property>/controls/electric/drive-2b</property></not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/controls/electric/drive-2b</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>ext_a_avail</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/electrical/voltage/ext-a-attached</property>
-					<not><property>/controls/electric/ext-a</property></not>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/electrical/voltage/ext-a-attached</property>
+						<not>
+							<property>/controls/electric/ext-a</property>
+						</not>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>ext_a_auto</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/electrical/voltage/ext-a-attached</property>
-					<property>/controls/electric/ext-a</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/electrical/voltage/ext-a-attached</property>
+						<property>/controls/electric/ext-a</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>ext_b_avail</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/electrical/voltage/ext-b-attached</property>
-					<not><property>/controls/electric/ext-b</property></not>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/electrical/voltage/ext-b-attached</property>
+						<not>
+							<property>/controls/electric/ext-b</property>
+						</not>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>ext_b_auto</object-name>
 		<condition>
-			<or>
-				<and>
-					<property>/systems/electrical/voltage/ext-b-attached</property>
-					<property>/controls/electric/ext-b</property>
-				</and>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<and>
+						<property>/systems/electrical/voltage/ext-b-attached</property>
+						<property>/controls/electric/ext-b</property>
+					</and>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>bus_tie_off</object-name>
 		<condition>
-			<or>
-				<not>
-					<property>/controls/electric/bus-tie</property>
-				</not>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not>
+						<property>/controls/electric/bus-tie</property>
+					</not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
 		<object-name>side_isol_on</object-name>
 		<condition>
-			<or>
-				<property>/controls/electric/side-isol</property>
-				<property>overhead/christmas-tree</property>
-			</or>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<property>/controls/electric/side-isol</property>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>bat1_off</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not><property>/controls/electric/batteries/bat-1</property></not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>bat2_off</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not><property>/controls/electric/batteries/bat-2</property></not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>bat1_emer_off</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not><property>/controls/electric/batteries/bat-emer-1</property></not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>bat2_emer_off</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
+				<or>
+					<not><property>/controls/electric/batteries/bat-emer-2</property></not>
+					<property>overhead/christmas-tree</property>
+				</or>
+			</and>
 		</condition>
 	</animation>
 	<!-- making all the stuff light up -->
@@ -1234,6 +1704,10 @@
 		<object-name>ext_b_auto</object-name>
 		<object-name>bus_tie_off</object-name>
 		<object-name>side_isol_on</object-name>
+		<object-name>bat1_emer_off</object-name>
+		<object-name>bat2_emer_off</object-name>
+		<object-name>bat1_off</object-name>
+		<object-name>bat2_off</object-name>
 		<emission>
 			<red>1</red>
 			<green>1</green>

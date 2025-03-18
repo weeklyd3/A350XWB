@@ -25,9 +25,9 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="pt"
      showgrid="false"
-     inkscape:zoom="4"
-     inkscape:cx="253.625"
-     inkscape:cy="164.125"
+     inkscape:zoom="0.25"
+     inkscape:cx="734"
+     inkscape:cy="1094"
      inkscape:window-width="1920"
      inkscape:window-height="1003"
      inkscape:window-x="0"
@@ -56,7 +56,7 @@
        id="rect19989"
        width="889.646"
        height="564.19598"
-       x="0"
+       x="1.9531251e-06"
        y="0" /><path
        style="display:inline;fill:#77818c;stroke:#666666;stroke-width:6;stroke-dasharray:none;paint-order:markers stroke fill"
        d="m 444.823,0 5e-4,564.19596"
@@ -538,10 +538,7 @@
            id="tspan4561"
            style="font-size:25px;fill:#00ff00;stroke-width:1.5"
            x="222.41174"
-           y="556.64496">00:00:00</tspan></text></g><path
-       style="display:inline;fill:none;stroke:#808080;stroke-width:1.125;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000"
-       d="m 444.82312,144.53902 h 444.8229"
-       id="path560" /><rect
+           y="556.64496">00:00:00</tspan></text></g><rect
        style="display:inline;fill:none;stroke:#808080;stroke-width:0.5;stroke-dasharray:none;paint-order:markers stroke fill"
        id="rect1338"
        width="65.79792"
@@ -575,4 +572,7 @@
          id="tspan399-6"
          style="font-size:16px;stroke-width:0.75;fill:#00ff00"
          x="244.44229"
-         y="28.143137">100.0%</tspan></text></g></svg>
+         y="28.143137">100.0%</tspan></text><path
+       style="display:inline;fill:none;stroke:#808080;stroke-width:1.125;stroke-opacity:1;paint-order:markers stroke fill;stop-color:#000000"
+       d="m 444.82312,144.53902 h 444.8229"
+       id="path560" /></g></svg>

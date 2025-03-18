@@ -40,6 +40,11 @@
 					<value>0.5</value>
 					<value>1.0</value>
 				</binding>
+				<binding>
+					<command>property-assign</command>
+					<property>controls/flight/speedbrake-armed</property>
+					<value>0</value>
+				</binding>
 			</key>
 			<key n="127">
 				<name>Delete</name>

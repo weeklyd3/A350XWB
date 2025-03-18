@@ -634,4 +634,12 @@
 	<property value="0">/systems/pfd/synthetic-runway/corner-3/yaw</property>
 	<property value="0">/systems/pfd/synthetic-runway/corner-4/pitch</property>
 	<property value="0">/systems/pfd/synthetic-runway/corner-4/yaw</property>
+	<channel name="qnh">
+		<switch name="/instrumentation/altimeter/setting-inhg">
+			<default value="/instrumentation/efis/qnh" />
+			<test logic="AND" value="29.9212553">
+				/instrumentation/efis/std eq 1
+			</test>
+		</switch>
+	</channel>
 </system>

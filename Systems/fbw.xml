@@ -444,7 +444,7 @@
 	<property value="0">/systems/fbw/spoilers/spoiler-5-10-fail</property>
 	<property value="0">/systems/fbw/spoilers/spoiler-6-9-fail</property>
 	<property value="0">/systems/fbw/spoilers/spoiler-7-8-fail</property>
-	<property value="1">/controls/flight/speedbrake-armed</property>
+	<property value="0">/controls/flight/speedbrake-armed</property>
 	<channel name="spoilers">
 		<summer name="/systems/fbw/mlg-wow">
 			<input>gear/unit[1]/WOW</input>

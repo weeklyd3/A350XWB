@@ -92,6 +92,7 @@ setlistener("/controls/flight/flaps", func(value) {
 		setprop("/fdm/jsbsim/fcs/flap-cmd-norm-actual", 1);
 	}
 }, 0, 0);
+setprop('/controls/engine-mode-switch', 1);
 setprop("/instrumentation/fcu/alt-increment", 1000);
 setprop("/instrumentation/fcu/alt-knob", 0);
 setprop("/instrumentation/fcu/spd-knob", 0);

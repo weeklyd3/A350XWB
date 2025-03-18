@@ -30,6 +30,49 @@ var change_qnh = func(positive) {
 }
 var increase_qnh = func() { change_qnh(1); };
 var decrease_qnh = func() { change_qnh(0); };
+var qnh_settings = [
+	{
+		std: props.globals.initNode('/instrumentation/efis/std', 0, "BOOL"), 
+		hpa: props.globals.initNode('/instrumentation/efis/hpa', 1, "BOOL"),
+		qnh: props.globals.initNode('/instrumentation/efis/qnh', 29.92, 'DOUBLE'),
+		qnh_hpa: props.globals.initNode('/instrumentation/efis/hpa-value', 1013, 'DOUBLE')
+	},
+	{
+		std: props.globals.initNode('/instrumentation/efis[1]/std', 0, "BOOL"), 
+		hpa: props.globals.initNode('/instrumentation/efis[1]/hpa', 1, "BOOL"),
+		qnh: props.globals.initNode('/instrumentation/efis[1]/qnh', 29.92, 'DOUBLE'),
+		qnh_hpa: props.globals.initNode('/instrumentation/efis[1]/hpa-value', 1013, 'DOUBLE')
+	}
+];
+var sync_qnh = 1;
+var inhg_to_hpa = 33.86389;
+var hpa_to_inhg = 1 / inhg_to_hpa;
+var qnh_std = func(number) {
+	qnh_settings[number].std.toggleBoolValue();
+};
+var hpa_inhg = func(number) {
+	if (qnh_settings[number].hpa.getValue()) {
+		# using hpa right now, change to inhg
+		var inhg = math.round(qnh_settings[number].qnh_hpa.getValue() * 100 * hpa_to_inhg) / 100;
+		qnh_settings[number].qnh.setValue(inhg);
+		qnh_settings[number].qnh_hpa.setValue(inhg_to_hpa * inhg);
+	} else {
+		# using inhg right now, change to hpa
+		var hpa = math.round(qnh_settings[number].qnh.getValue() * inhg_to_hpa);
+		qnh_settings[number].qnh.setValue(hpa * hpa_to_inhg);
+		qnh_settings[number].qnh_hpa.setValue(hpa);
+	}
+	qnh_settings[number].hpa.toggleBoolValue();
+};
+var qnh_edit = func(number, amount) {
+	if (qnh_settings[number].hpa.getValue()) {
+		qnh_settings[number].qnh_hpa.setValue(math.max(745, math.min(1100, qnh_settings[number].qnh_hpa.getValue() + amount)));
+		qnh_settings[number].qnh.setValue(qnh_settings[number].qnh_hpa.getValue() * hpa_to_inhg);
+	} else {
+		qnh_settings[number].qnh.setValue(math.max(22, math.min(32.48, qnh_settings[number].qnh.getValue() + amount * 0.01)));
+		qnh_settings[number].qnh_hpa.setValue(qnh_settings[number].qnh.getValue() * inhg_to_hpa);
+	}
+};
 #var fcu_canvas = canvas.new({
 #  "name": "FCU",   # The name is optional but allow for easier identification
 #  "size": [1024, 1024], # Size of the underlying texture (should be a power of 2, required) [Resolution]

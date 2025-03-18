@@ -9455,27 +9455,7 @@ refs 4
 11 0.051728 0.963055
 19 0.051728 0.963055
 18 0.051728 0.949194
-kids 2
-OBJECT poly
-name "bat1_fault"
-data 8
-Cube.001
-crease 40.0
-texture "lights.png"
-numvert 4
--1.14676 3.86136 0.15501
--1.14676 3.87158 0.15501
--1.14676 3.86136 0.13459
--1.14676 3.87158 0.13459
-numsurf 1
-SURF 0X0
-mat 1
-refs 4
-2 0.1 0.95
-3 0.1 1
-1 0 1
-0 0 0.95
-kids 0
+kids 1
 OBJECT poly
 name "bat1_off"
 data 8
@@ -9650,27 +9630,7 @@ refs 4
 11 0.051728 0.963055
 19 0.051728 0.963055
 18 0.051728 0.949194
-kids 2
-OBJECT poly
-name "bat1_emer_fault"
-data 8
-Cube.001
-crease 40.0
-texture "lights.png"
-numvert 4
--1.14676 3.86136 0.12364
--1.14676 3.87158 0.12364
--1.14676 3.86136 0.10321
--1.14676 3.87158 0.10321
-numsurf 1
-SURF 0X0
-mat 1
-refs 4
-2 0.1 0.95
-3 0.1 1
-1 0 1
-0 0 0.95
-kids 0
+kids 1
 OBJECT poly
 name "bat1_emer_off"
 data 8
@@ -9845,27 +9805,7 @@ refs 4
 11 0.051728 0.963055
 19 0.051728 0.963055
 18 0.051728 0.949194
-kids 2
-OBJECT poly
-name "bat2_fault"
-data 8
-Cube.001
-crease 40.0
-texture "lights.png"
-numvert 4
--1.14676 3.86136 0.09276
--1.14676 3.87158 0.09276
--1.14676 3.86136 0.07233
--1.14676 3.87158 0.07233
-numsurf 1
-SURF 0X0
-mat 1
-refs 4
-2 0.1 0.95
-3 0.1 1
-1 0 1
-0 0 0.95
-kids 0
+kids 1
 OBJECT poly
 name "bat2_off"
 data 8
@@ -10040,27 +9980,7 @@ refs 4
 11 0.051728 0.963055
 19 0.051728 0.963055
 18 0.051728 0.949194
-kids 2
-OBJECT poly
-name "bat2_emer_fault"
-data 8
-Cube.001
-crease 40.0
-texture "lights.png"
-numvert 4
--1.14676 3.86136 0.06138
--1.14676 3.87157 0.06138
--1.14676 3.86136 0.04096
--1.14676 3.87157 0.04096
-numsurf 1
-SURF 0X0
-mat 1
-refs 4
-2 0.1 0.95
-3 0.1 1
-1 0 1
-0 0 0.95
-kids 0
+kids 1
 OBJECT poly
 name "bat2_emer_off"
 data 8

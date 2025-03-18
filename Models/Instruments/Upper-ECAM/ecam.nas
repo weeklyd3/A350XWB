@@ -14,6 +14,7 @@ var ecam = {
 		var path = "Aircraft/A350XWB/Models/Instruments/Upper-ECAM/ecam.svg";
 		# create an image child
 		var group = display.createGroup('svg');
+		me.group = group;
 		canvas.parsesvg(group, path, {'font-mapper': func(doesnt, matter) { return 'ECAMFontRegular.ttf'; }});
 		foreach (elem; ["thr_text_l", "thr_needle_l", "donut_l", "thr_text_r", "thr_needle_r", "donut_r", "n1_left", "n1_right", "tat_temp", "sat_temp", "isa_temp", "utc", "egt_text_l", "egt_needle_l", "egt_text_r", "egt_needle_r", "thrust_limit", "thrust_limit_text"]) {
 			me.svg_items[elem] = group.getElementById(elem);
@@ -39,11 +40,18 @@ var ecam = {
 			thrust: props.globals.getNode('/systems/fadec/limit/thrust-limit'),
 			text: props.globals.getNode('/systems/fadec/limit/thrust-limit-text')
 		};
+		me.props.electric = {
+			dc_emer_1: props.globals.getNode('/systems/electrical/bus/dc-emer-1')
+		};
 		setlistener("instrumentation/clock/indicated-string", func(value) {
 			me.svg_items.utc.updateText(value.getValue());
 		});
 		var object = me;
 		me.ed_update_items = [
+			props.UpdateManager.FromHashValue('electric_dc_emer_1', 0.1, func(volts) {
+				if (volts > 20) object.group.show();
+				else object.group.hide();
+			}),
 			props.UpdateManager.FromHashValue('limit_thrust', 0.05, func(value) {
 				object.svg_items.thrust_limit.updateText(sprintf("%0.1f", value) ~ "%");
 			}),
@@ -274,7 +282,10 @@ var ecam = {
 			engine_2: {
 				running: props.globals.getNode('/engines/engine[1]/running')
 			}
-		}, ['elec_ac_gen_1a_label', 'elec_ac_gen_1a_text', 'elec_ac_gen_1a_off', 'elec_ac_gen_1a_stats', 'elec_ac_gen_1a_voltage', 'elec_ac_gen_1a_load', 'elec_ac_gen_1a_disc', 'elec_ac_gen_1a_connector', 'elec_ac_gen_1b_label', 'elec_ac_gen_1b_text', 'elec_ac_gen_1b_off', 'elec_ac_gen_1b_stats', 'elec_ac_gen_1b_voltage', 'elec_ac_gen_1b_load', 'elec_ac_gen_1b_disc', 'elec_ac_gen_1b_connector', 'elec_ac_gen_2a_label', 'elec_ac_gen_2a_text', 'elec_ac_gen_2a_off', 'elec_ac_gen_2a_stats', 'elec_ac_gen_2a_voltage', 'elec_ac_gen_2a_load', 'elec_ac_gen_2a_disc', 'elec_ac_gen_2a_connector', 'elec_ac_gen_2b_label', 'elec_ac_gen_2b_text', 'elec_ac_gen_2b_off', 'elec_ac_gen_2b_stats', 'elec_ac_gen_2b_voltage', 'elec_ac_gen_2b_load', 'elec_ac_gen_2b_disc', 'elec_ac_gen_2b_connector', 'elec_ac_1a_115_text', 'elec_ac_1a_230_text', 'elec_ac_1a_diamond', 'elec_ac_1b_115_text', 'elec_ac_1b_230_text', 'elec_ac_1b_diamond', 'elec_ac_2a_115_text', 'elec_ac_2a_230_text', 'elec_ac_2a_diamond', 'elec_ac_2b_115_text', 'elec_ac_2b_230_text', 'elec_ac_2b_diamond', 'elec_ac_bus_1a_1b_230', 'elec_ac_bus_2a_2b_230', 'elec_ac_apu_gen_contactor', 'elec_ac_apu_1a', 'elec_ac_apu_1b', 'elec_ac_apu_2b', 'elec_ac_apu_2a', 'elec_ac_1b_apu_1a', 'elec_ac_2b_apu_2a', 'elec_ac_1a_2b', 'elec_ac_1b_2a', 'elec_ac_1a_2b_1b', 'elec_ac_1b_2a_2b', 'elec_ac_1a_2b_1b_2a', 'elec_ac_ext_1a', 'elec_ac_ext_1b', 'elec_ac_ext_2a', 'elec_ac_ext_2b', 'elec_ac_ext_1_voltage', 'elec_ac_ext_2_voltage', 'elec_ac_ext_1_stats', 'elec_ac_ext_1_off', 'elec_ac_ext_2_stats', 'elec_ac_ext_2_off', 'elec_ac_ext_1_contactor', 'elec_ac_ext_2_contactor', 'elec_ac_ext_left','elec_ac_ext_right', 'elec_ac_ext_center', 'elec_ac_2b_emer_2', 'elec_ac_1b_emer_1', 'elec_ac_rat_voltage', 'elec_ac_rat', 'elec_ac_rat_1', 'elec_ac_rat_2', 'elec_ac_rat_contactor', 'elec_ac_emer_connector', 'elec_ac_ext_1', 'elec_ac_ext_2', 'elec_ac_ext_center_emer_1', 'elec_ac_ext_center_emer_2', 'elec_ac_emer_1_diamond', 'elec_ac_emer_1_115', 'elec_ac_emer_1_230', 'elec_ac_emer_2_diamond', 'elec_ac_emer_2_115', 'elec_ac_emer_2_230', 'elec_ac_apu_gen', 'elec_ac_apu_gen_off', 'elec_ac_apu_gen_stats', 'elec_ac_apu_gen_frequency', 'elec_ac_apu_gen_voltage', 'elec_ac_apu_gen_load'], ['elec_ac_gen_1a_voltage', 'elec_ac_gen_1a_load', 'elec_ac_gen_1b_voltage', 'elec_ac_gen_1b_load', 'elec_ac_gen_2a_voltage', 'elec_ac_gen_2a_load', 'elec_ac_gen_2b_voltage', 'elec_ac_gen_2b_load', 'elec_ac_ext_1_voltage', 'elec_ac_ext_2_voltage', 'elec_ac_rat_voltage', 'elec_ac_apu_gen_frequency', 'elec_ac_apu_gen_voltage', 'elec_ac_apu_gen_load'], [
+		}, 
+		['elec_ac_gen_1a_label', 'elec_ac_gen_1a_text', 'elec_ac_gen_1a_off', 'elec_ac_gen_1a_stats', 'elec_ac_gen_1a_voltage', 'elec_ac_gen_1a_load', 'elec_ac_gen_1a_disc', 'elec_ac_gen_1a_connector', 'elec_ac_gen_1b_label', 'elec_ac_gen_1b_text', 'elec_ac_gen_1b_off', 'elec_ac_gen_1b_stats', 'elec_ac_gen_1b_voltage', 'elec_ac_gen_1b_load', 'elec_ac_gen_1b_disc', 'elec_ac_gen_1b_connector', 'elec_ac_gen_2a_label', 'elec_ac_gen_2a_text', 'elec_ac_gen_2a_off', 'elec_ac_gen_2a_stats', 'elec_ac_gen_2a_voltage', 'elec_ac_gen_2a_load', 'elec_ac_gen_2a_disc', 'elec_ac_gen_2a_connector', 'elec_ac_gen_2b_label', 'elec_ac_gen_2b_text', 'elec_ac_gen_2b_off', 'elec_ac_gen_2b_stats', 'elec_ac_gen_2b_voltage', 'elec_ac_gen_2b_load', 'elec_ac_gen_2b_disc', 'elec_ac_gen_2b_connector', 'elec_ac_1a_115_text', 'elec_ac_1a_230_text', 'elec_ac_1a_diamond', 'elec_ac_1b_115_text', 'elec_ac_1b_230_text', 'elec_ac_1b_diamond', 'elec_ac_2a_115_text', 'elec_ac_2a_230_text', 'elec_ac_2a_diamond', 'elec_ac_2b_115_text', 'elec_ac_2b_230_text', 'elec_ac_2b_diamond', 'elec_ac_bus_1a_1b_230', 'elec_ac_bus_2a_2b_230', 'elec_ac_apu_gen_contactor', 'elec_ac_apu_1a', 'elec_ac_apu_1b', 'elec_ac_apu_2b', 'elec_ac_apu_2a', 'elec_ac_1b_apu_1a', 'elec_ac_2b_apu_2a', 'elec_ac_1a_2b', 'elec_ac_1b_2a', 'elec_ac_1a_2b_1b', 'elec_ac_1b_2a_2b', 'elec_ac_1a_2b_1b_2a', 'elec_ac_ext_1a', 'elec_ac_ext_1b', 'elec_ac_ext_2a', 'elec_ac_ext_2b', 'elec_ac_ext_1_voltage', 'elec_ac_ext_2_voltage', 'elec_ac_ext_1_stats', 'elec_ac_ext_1_off', 'elec_ac_ext_2_stats', 'elec_ac_ext_2_off', 'elec_ac_ext_1_contactor', 'elec_ac_ext_2_contactor', 'elec_ac_ext_left','elec_ac_ext_right', 'elec_ac_ext_center', 'elec_ac_2b_emer_2', 'elec_ac_1b_emer_1', 'elec_ac_rat_voltage', 'elec_ac_rat', 'elec_ac_rat_1', 'elec_ac_rat_2', 'elec_ac_rat_contactor', 'elec_ac_emer_connector', 'elec_ac_ext_1', 'elec_ac_ext_2', 'elec_ac_ext_center_emer_1', 'elec_ac_ext_center_emer_2', 'elec_ac_emer_1_diamond', 'elec_ac_emer_1_115', 'elec_ac_emer_1_230', 'elec_ac_emer_2_diamond', 'elec_ac_emer_2_115', 'elec_ac_emer_2_230', 'elec_ac_apu_gen', 'elec_ac_apu_gen_off', 'elec_ac_apu_gen_stats', 'elec_ac_apu_gen_frequency', 'elec_ac_apu_gen_voltage', 'elec_ac_apu_gen_load'], 
+		['elec_ac_gen_1a_voltage', 'elec_ac_gen_1a_load', 'elec_ac_gen_1b_voltage', 'elec_ac_gen_1b_load', 'elec_ac_gen_2a_voltage', 'elec_ac_gen_2a_load', 'elec_ac_gen_2b_voltage', 'elec_ac_gen_2b_load', 'elec_ac_ext_1_voltage', 'elec_ac_ext_2_voltage', 'elec_ac_rat_voltage', 'elec_ac_apu_gen_frequency', 'elec_ac_apu_gen_voltage', 'elec_ac_apu_gen_load'], 
+		[
 			["gen_1a_voltage", 0.5, 'format', {
 				element: 'elec_ac_gen_1a_voltage',
 				format: '%d'
@@ -732,8 +743,22 @@ var ecam = {
 			}],
 		]);
 		var elec_dc_page = ecam_sd_page.new(me, group, 'elec_dc', {
-
-		}, [], [], []);
+			bat_emer_2: {
+				switch: props.globals.getNode('/controls/electric/batteries/bat-emer-2'),
+				voltage: props.globals.getNode('/systems/electrical/batteries/bat-2-voltage'),
+				amps: props.globals.getNode('/systems/electrical/batteries/bat-2-amps')
+			}
+		}, ['elec_dc_bat_emer_2_off', 'elec_dc_bat_emer_2_stats'], [], 
+		[
+			['bat_emer_2_switch', 0.5, 'show', [{
+				element: 'elec_dc_bat_emer_2_stats', 
+				invert: 0
+			},
+			{
+				element: 'elec_dc_bat_emer_2_off', 
+				invert: 1
+			}]]
+		]);
 		#me.pages['hyd'] = hyd_page.new(display, group);
 		me.pages['apu'] = apu_page;
 		me.pages['elec_ac'] = elec_ac_page;

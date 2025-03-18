@@ -74,6 +74,8 @@ var pfd = {
 		# create an image child
 		var group = display.createGroup('svg');
 		var hud_group = hud.createGroup('svg');
+		returned.group = group;
+		returned.hud_group = hud_group;
 		canvas.parsesvg(hud_group, 'Aircraft/A350XWB/Models/Instruments/PFD2/hud.svg', {"font-mapper": returned.font_mapper});
 		canvas.parsesvg(group, path, {"font-mapper": returned.font_mapper});
 		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "fpv_group", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "pfd_heading_scale", "pfd_heading_scale_group", "bottom_mask_ground", "ball", "airspeed", "overspeed_barber_poles", "vls", "alpha_prot", "speed_selected", "speed_selected_1", "speed_selected_2", "mach", "airspeed_bottom_line", "speed_trend", "speed_trend_up", "speed_trend_down", "speed_trend_up_line", "speed_trend_down_line", "green_dot_speed", "te_flaps", "te_flaps_line", "le_flaps", "wing_scale", "wing_spoiler", "wing_spoiler_arm", "spoiler", "flaps_cmd_frame", "flaps_cmd", "flap_triangle_1", "flap_triangle_2", "flap_triangle_3", "flap_triangle_4", "slat_circle_1", "slat_circle_2", "park_brk", "gear_down", "gear_transit_down", "gear_transit_up", "ils", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "ils_ident", "ils_frequency", "ils_distance", "ils_distance_label", "ils_course_text_left", "ils_course_text_right", "ils_course_left", "ils_course_right", "ils_course_text", "ils_course", "hundred_numbers", "hundreds", "thousands", "thousands_zero", "ten_thousands", "alt_tape", "alt_fl", "alt_fl_selected", "alt_fl_selected_text", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "vs_needle", "vs_exact", "vs_text", "stall", "heading_tape", "heading_tens", "heading_tens_plus_1", "heading_tens_plus_2", "heading_tens_plus_3", "heading_tens_minus_1", "heading_tens_minus_2", "yaw_marker", "track_marker", "fma_1", "fma_1_man", "fma_1_athr_mode", "fma_1_man_mode", "fma_1_flex_box", "fma_1_orange_box", "fma_1_flex_temp", "fma_2_3", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "fma_2_vs_value", 'fma_5_fd', 'fma_5_athr', 'fma_5_ap']) {
@@ -130,7 +132,7 @@ var pfd = {
 		returned.timer = maketimer(1 / 18, returned, me.update);
 		returned.timer.start();
 		returned.svg_items.radioaltimeter.enableUpdate();
-		returned.create_props(returned.pfd_props);
+		returned.create_props(returned.pfd_props, property_number);
 		returned.fma = {
 			fma_5_athr: fma_line.new(group, 'fma_5_athr', 'A/THR', [1, 1, 1], 0),
 			fma_5_fd: fma_line.new(group, 'fma_5_fd', '1FD2', [1, 1, 1], 1),
@@ -147,6 +149,14 @@ var pfd = {
 				#returned.hud_svg_items.hud.setScale(scale, scale);
 			#	returned.hud_svg_items.hud.setTranslation(-(1 - scale) * 879 / 2, -(1 - scale) * 636 * 0.5);
 			#}),
+			props.UpdateManager.FromHashValue('hud_voltage', 0.1, func(voltage) {
+				if (voltage > 28) returned.hud_group.show();
+				else returned.hud_group.hide();
+			}),
+			props.UpdateManager.FromHashValue('pfd_voltage', 0.1, func(voltage) {
+				if (voltage > 20) returned.group.show();
+				else returned.group.hide();
+			}),
 			# attitude
 			props.UpdateManager.FromHashValue('attitude_roll', 0.025, func(roll) {
 				if (roll == nil) return;
@@ -621,7 +631,7 @@ var pfd = {
 		];
 		return returned;
 	},
-	create_props: func(hash) {
+	create_props: func(hash, number) {
 		hash.attitude = {
 			pitch: props.globals.getNode('/orientation/model/pitch-deg'),
 			roll: props.globals.getNode('/orientation/model/roll-deg'),
@@ -712,8 +722,12 @@ var pfd = {
 			park_brk: props.globals.getNode('/controls/gear/brake-parking')
 		};
 		hash.hud = {
-			scale: props.globals.getNode('/sim/current-view/hud-scale-raw')
+			scale: props.globals.getNode('/sim/current-view/hud-scale-raw'),
+			voltage: props.globals.getNode('/systems/electrical/bus/dc-' ~ sprintf("%d", number + 1))
 		};
+		hash.pfd = {
+			voltage: props.globals.getNode('/systems/electrical/bus/dc-emer-' ~ sprintf("%d", number + 1))
+		}
 	},
 	update: func() {
 		var pfd_props = me.pfd_props;

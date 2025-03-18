@@ -137,7 +137,7 @@ var canvas_nd_base = {
 			du5_test.setValue(0);
 		}
 		
-		if (getprop("/systems/electrical/bus/ac-ess-shed") >= 110 and getprop("/controls/lighting/DU/du2") > 0) {
+		if (getprop("/systems/electrical/bus/dc-emer-1") >= 20 and getprop("/controls/lighting/DU/du2") > 0) {
 			if (du2_test_time.getValue() + du2_test_amount.getValue() >= elapsedtime and cpt_du_xfr.getValue() != 1) {
 				ND_1.page.hide();
 				ND_1_test.page.show();
@@ -156,7 +156,7 @@ var canvas_nd_base = {
 			ND_1_test.page.hide();
 			ND_1.page.hide();
 		}
-		if (getprop("/systems/electrical/bus/ac2") >= 110 and getprop("/controls/lighting/DU/du5") > 0) {
+		if (getprop("/systems/electrical/bus/dc-emer-2") >= 20 and getprop("/controls/lighting/DU/du5") > 0) {
 			if (du5_test_time.getValue() + du5_test_amount.getValue() >= elapsedtime and fo_du_xfr.getValue() != 1) {
 				ND_2.page.hide();
 				ND_2_test.page.show();
@@ -195,6 +195,8 @@ var canvas_ND_1 = {
 		me.NDCpt = ND.new("instrumentation/efis", myCockpit_switches, "Airbus");
 		me.NDCpt.newMFD(canvas_group);
 		canvas.parsesvg(canvas_group, "Aircraft/A350XWB/Models/Instruments/ND/canvas/res/vsd.svg", {"font-mapper": font_mapper});
+		me.group = canvas_group;
+		m.group = canvas_group;
 		foreach (var symbol; vd_symbols.vector) me.NDCpt.symbols["vd_" ~ symbol] = canvas_group.getElementById("vd_" ~ symbol);
 		foreach (var symbol; vd_text.vector) {
 			me.NDCpt.symbols["vd_" ~ symbol].enableUpdate();
@@ -233,6 +235,8 @@ var canvas_ND_2 = {
 		me.NDFo = ND.new("instrumentation/efis[1]", myCockpit_switches, "Airbus");
 		me.NDFo.newMFD(canvas_group);
 		canvas.parsesvg(canvas_group, "Aircraft/A350XWB/Models/Instruments/ND/canvas/res/vsd.svg", {"font-mapper": font_mapper});
+		me.group = canvas_group;
+		m.group = canvas_group;
 		foreach (var symbol; vd_symbols.vector) me.NDFo.symbols["vd_" ~ symbol] = canvas_group.getElementById("vd_" ~ symbol);
 		foreach (var symbol; vd_text.vector) {
 			me.NDFo.symbols["vd_" ~ symbol].enableUpdate();

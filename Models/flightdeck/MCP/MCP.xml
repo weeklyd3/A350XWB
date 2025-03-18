@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <PropertyList>
 
@@ -40,1081 +40,1358 @@
 		</parameters>
 		<object-name>not</object-name>
 	</effect>
-<animation>
-  <type>pick</type>
-  <object-name>Cylinder.006</object-name>
-  <action>
-    <button>4</button>
-    <!--  scroll up -->
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-cycle</command>
-      <property>/instrumentation/efis/inputs/range-nm</property>
-      <value>10</value>
-      <value>20</value>
-      <value>40</value>
-      <value>80</value>
-      <value>160</value>
-      <value>320</value>
-    </binding>   
-  </action>
-</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Cylinder.006</object-name>
+		<action>
+			<button>4</button>
+			<!--  scroll up -->
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-cycle</command>
+				<property>/instrumentation/efis/inputs/range-nm</property>
+				<value>320</value>
+				<value>160</value>
+				<value>80</value>
+				<value>40</value>
+				<value>20</value>
+				<value>10</value>
+			</binding>
+		</action>
+	</animation>
 
-<animation>
-  <type>pick</type>
-  <object-name>Cylinder.006</object-name>
-  <action>
-    <button>3</button>
-    <!--  scroll up -->
-    <repeatable>false</repeatable>
-    <binding>
-      <command>property-cycle</command>
-      <property>/instrumentation/efis/inputs/range-nm</property>
-      <value>320</value>
-      <value>160</value>
-      <value>80</value>
-      <value>40</value>
-      <value>20</value>
-      <value>10</value>              
-    </binding>   
-  </action>
-</animation>
-<!-- captain qnh control -->
-<animation>
-  <type>pick</type>
-  <object-name>Cylinder.005</object-name>
-  <action>
-    <button>4</button>
-    <repeatable>false</repeatable>
-    <binding>
-      <command>nasal</command>    
-      <script>A350XWB.increase_qnh()</script>       
-    </binding>   
-  </action>
-  <action>
-    <button>3</button>
-    <repeatable>false</repeatable>
-    <binding>
-      <command>nasal</command>    
-      <script>A350XWB.decrease_qnh()</script>       
-    </binding>   
-  </action>
-</animation>
-<animation>
-  <type>pick</type>
-  <object-name>Cylinder.008</object-name>
-  <action>
-    <button>4</button>
-    <!--  scroll up -->
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-cycle</command>
-      <property>/instrumentation/efis[1]/inputs/range-nm</property>
-      <value>10</value>
-      <value>20</value>
-      <value>40</value>
-      <value>80</value>
-      <value>160</value>
-      <value>320</value>
-    </binding>   
-  </action>
-</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Cylinder.006</object-name>
+		<action>
+			<button>3</button>
+			<!--  scroll up -->
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-cycle</command>
+				<property>/instrumentation/efis/inputs/range-nm</property>
+				<value>10</value>
+				<value>20</value>
+				<value>40</value>
+				<value>80</value>
+				<value>160</value>
+				<value>320</value>
+			</binding>
+		</action>
+	</animation>
+	<!-- captain qnh control -->
+	<text>
+		<name>captain_qnh_inhg</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.275194</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">number-value</type>
+		<format type="string">%.02f</format>
+		<property>/instrumentation/efis/qnh</property>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-<animation>
-  <type>pick</type>
-  <object-name>Cylinder.008</object-name>
-  <action>
-    <button>3</button>
-    <!--  scroll up -->
-    <repeatable>false</repeatable>
-    <binding>
-      <command>property-cycle</command>
-      <property>/instrumentation/efis[1]/inputs/range-nm</property>
-      <value>320</value>
-      <value>160</value>
-      <value>80</value>
-      <value>40</value>
-      <value>20</value>
-      <value>10</value>              
-    </binding>   
-  </action>
-</animation>
-<animation>
-  <type>pick</type>
-  <object-name>Cylinder.012</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>
-    <binding>
-      <command>property-toggle</command>
-      <property>/it-autoflight/input/kts-mach</property>          
-    </binding>   
-  </action>
-</animation>
-<animation>
-  <type>pick</type>
-  <object-name>Cylinder.013</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>
-    <binding>
-      <command>property-toggle</command>
-      <property>/it-autoflight/input/true-course</property>          
-    </binding>   
-  </action>
-</animation>
-<animation>
-  <type>pick</type>
-  <object-name>Cylinder.019</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>
-    <binding>
-      <command>property-toggle</command>
-      <property>/it-autoflight/input/trk</property>          
-    </binding>
-  </action>
-</animation>
-<animation>
-  <type>pick</type>
-  <object-name>Btn.A.014</object-name>
-  <visible>true</visible>
-  <action>
-    <button>0</button>
-    <binding>
-      <command>property-toggle</command>
-      <property>/it-autoflight/input/ap1</property>
-    </binding>
-  </action>
-</animation>
-<animation>
-  <type>pick</type>
-  <object-name>Btn.A.015</object-name>
-  <visible>true</visible>
-  <action>
-    <button>0</button>
-    <binding>
-      <command>property-toggle</command>
-      <property>/it-autoflight/input/ap2</property>
-    </binding>
-  </action>
-</animation>
-<animation>
-  <type>pick</type>
-  <object-name>Btn.A.013</object-name>
-  <visible>true</visible>
-  <action>
-    <button>0</button>
-    <binding>
-      <command>property-toggle</command>
-      <property>/it-autoflight/input/athr</property>
-    </binding>
-  </action>
-</animation>
-<animation>
-  <type>pick</type>
-  <object-name>fdtoggle</object-name>
-  <visible>true</visible>
-  <action>
-    <button>0</button>
-    <binding>
-      <command>property-toggle</command>
-      <property>/it-autoflight/input/fd1</property>
-    </binding>
-    <binding>
-      <command>property-toggle</command>
-      <property>/it-autoflight/input/fd2</property>
-    </binding>
-  </action>
-</animation>
-<!-- make stuff light up, yay! -->
-<animation>
- <type>material</type> 
- <object-name>fdtogglelight</object-name>
- <emission>	
-  <red>0</red>	
-  <green>1</green>	
-  <blue>0</blue>
-  <factor-prop>/it-autoflight/input/fd1</factor-prop>
- </emission>
-</animation>
-<animation>
- <type>material</type> 
- <object-name>ap1light</object-name>
- <emission>	
-  <red>0</red>	
-  <green>1</green>	
-  <blue>0</blue>
-  <factor-prop>/it-autoflight/input/ap1</factor-prop>
- </emission>
-</animation>
-<animation>
- <type>material</type> 
- <object-name>ap2light</object-name>
- <emission>	
-  <red>0</red>	
-  <green>1</green>	
-  <blue>0</blue>
-  <factor-prop>/it-autoflight/input/ap2</factor-prop>
- </emission>
-</animation>
-<animation>
- <type>material</type> 
- <object-name>athrlight</object-name>
- <emission>	
-  <red>0</red>	
-  <green>1</green>	
-  <blue>0</blue>
-  <factor-prop>/it-autoflight/input/athr</factor-prop>
- </emission>
-</animation>
-<animation>
-  <type>material</type> 
-  <object-name>nd_labels</object-name>
-  <emission>	
-   <red>1</red>	
-   <green>1</green>	
-   <blue>1</blue>
-  </emission>
- </animation>
- <!-- text -->
- <text>
-  <name>fcu_spdmachtext</name>
-  <offsets>
-      <pitch-deg>0</pitch-deg>
-      <heading-deg>0</heading-deg>
-      <roll-deg>0</roll-deg>
-      <x-m>2.93594</x-m>
-      <y-m>-0.093411</y-m>
-      <z-m>1.60393</z-m>
-  </offsets>
-  <axis-alignment>yz-plane</axis-alignment>
-  <type type="string">literal</type>
-  <text type="string">SPD</text>
-  <layout>left-to-right</layout>
-  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
-  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
-  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.009</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>captain_qnh_hpa</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.275194</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">number-value</type>
+		<format type="string">%03.0f</format>
+		<property>/instrumentation/efis/hpa-value</property>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
-  <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
-  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
-  <max-height>0.006</max-height> <!-- the maximum height of the text -->
-  <max-width>1</max-width> <!-- the maximum width of the text -->
-  <font-resolution>
-      <width type="int">32</width>
-      <height type="int">32</height>
-  </font-resolution>
-  <alignment>center-top</alignment>
-</text>
-<text>
-  <name>fcu_spd</name>
-  <offsets>
-      <pitch-deg>0</pitch-deg>
-      <heading-deg>0</heading-deg>
-      <roll-deg>0</roll-deg>
-      <x-m>2.93594</x-m>
-      <y-m>-0.093092</y-m>
-      <z-m>1.5964</z-m>
-  </offsets>
-  <axis-alignment>yz-plane</axis-alignment>
-    <!-- The string value of a property -->
-    <type type="string">number-value</type>
-    <property type="string">/it-autoflight/input/kts</property>
-    <format type="string">%03.0f</format> <!-- the sprintf() format to display the value -->
-  <layout>left-to-right</layout>
-  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
-  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
-  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.009</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>captain_qnh_std</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.275194</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">Std</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
-  <character-size type="double">0.011</character-size> <!-- size (height) im meters -->
-  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
-  <max-height>0.006</max-height> <!-- the maximum height of the text -->
-  <max-width>1</max-width> <!-- the maximum width of the text -->
-  <font-resolution>
-      <width type="int">32</width>
-      <height type="int">32</height>
-  </font-resolution>
-  <alignment>center-top</alignment>
-</text>
-<text>
-  <name>fcu_mach</name>
-  <offsets>
-      <pitch-deg>0</pitch-deg>
-      <heading-deg>0</heading-deg>
-      <roll-deg>0</roll-deg>
-      <x-m>2.93594</x-m>
-      <y-m>-0.093092</y-m>
-      <z-m>1.5964</z-m>
-  </offsets>
-  <axis-alignment>yz-plane</axis-alignment>
-    <!-- The string value of a property -->
-    <type type="string">number-value</type>
-    <property type="string">/it-autoflight/input/mach-x100</property>
-    <format type="string">.%02.0f</format> <!-- the sprintf() format to display the value -->
-  <layout>left-to-right</layout>
-  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
-  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
-  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.009</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<animation>
+		<type>material</type>
+		<object-name>captain_qnh_hpa</object-name>
+		<object-name>captain_qnh_inhg</object-name>
+		<object-name>captain_qnh_std</object-name>
+		<emission>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</emission>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_qnh_inhg</object-name>
+		<condition>
+		<and>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>20</value>
+			</greater-than>
+			<equals>
+				<property>/instrumentation/efis/hpa</property>
+				<value>0</value>
+			</equals>
+			<not><property>/instrumentation/efis/std</property></not>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_qnh_hpa</object-name>
+		<condition>
+		<and>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>20</value>
+			</greater-than>
+			<equals>
+				<property>/instrumentation/efis/hpa</property>
+				<value>1</value>
+			</equals>
+			<not><property>/instrumentation/efis/std</property></not>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_qnh_std</object-name>
+		<condition>
+			<and>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>20</value>
+			</greater-than>
+			<equals>
+				<property>/instrumentation/efis/std</property>
+				<value>1</value>
+			</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>knob</type>
+		<object-name>capt_qnh_unit</object-name>
+		<property>/instrumentation/efis/hpa</property>
+		<axis>
+			<x1-m>2.94655</x1-m>
+			<y1-m>-0.275286</y1-m>
+			<z1-m>1.56238</z1-m>
+			<x2-m>-2.93524</x2-m>
+			<y2-m>-0.275286</y2-m>
+			<z2-m>1.56238</z2-m>
+		</axis>
+		<factor>60</factor>
+		<offset-deg>-30</offset-deg>
+		<!--<action>
+			<binding>
+				<command>property-adjust</command>
+				<property>/instrumentation/efis/hpa</property>
+				<factor>1</factor>
+				<min>0</min>
+				<max>1</max>
+				<wrap>false</wrap>
+			</binding>
+		</action>-->
+		<increase>
+            <binding>
+                <command>nasal</command>
+                <script>A350XWB.hpa_inhg(0);</script>
+           </binding>
+        </increase>
+	<decrease>
+            <binding>
+                <command>nasal</command>
+                <script>A350XWB.hpa_inhg(0);</script>
+           </binding>
+        </decrease>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Cylinder.005</object-name>
+		<action>
+			<button>4</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>A350XWB.qnh_edit(0, -1)</script>
+			</binding>
+		</action>
+		<action>
+			<button>3</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>A350XWB.qnh_edit(0, 1)</script>
+			</binding>
+		</action>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<condition>
+					<not><property>devices/status/keyboard/shift</property></not>
+				</condition>
+				<command>property-assign</command>
+				<property>/instrumentation/efis/std</property>
+				<value>1</value>
+			</binding>
+		</action>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<condition>
+					<property>devices/status/keyboard/shift</property>
+				</condition>
+				<command>property-assign</command>
+				<property>/instrumentation/efis/std</property>
+				<value>0</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Cylinder.008</object-name>
+		<action>
+			<button>4</button>
+			<!--  scroll up -->
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-cycle</command>
+				<property>/instrumentation/efis[1]/inputs/range-nm</property>
+				<value>320</value>
+				<value>160</value>
+				<value>80</value>
+				<value>40</value>
+				<value>20</value>
+				<value>10</value>
+			</binding>
+		</action>
+	</animation>
 
-  <font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
-  <character-size type="double">0.011</character-size> <!-- size (height) im meters -->
-  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
-  <max-height>0.006</max-height> <!-- the maximum height of the text -->
-  <max-width>1</max-width> <!-- the maximum width of the text -->
-  <font-resolution>
-      <width type="int">32</width>
-      <height type="int">32</height>
-  </font-resolution>
-  <alignment>center-top</alignment>
-</text>
-<text>
-  <name>fcu_hdgtext</name>
-  <offsets>
-      <pitch-deg>0</pitch-deg>
-      <heading-deg>0</heading-deg>
-      <roll-deg>0</roll-deg>
-      <x-m>2.93594</x-m>
-      <y-m>-0.04393</y-m>
-      <z-m>1.60393</z-m>
-  </offsets>
-  <axis-alignment>yz-plane</axis-alignment>
-  <type type="string">literal</type>
-  <text type="string">MAG HDG</text>
-  <layout>left-to-right</layout>
-  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
-  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
-  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+	<animation>
+		<type>pick</type>
+		<object-name>Cylinder.008</object-name>
+		<action>
+			<button>3</button>
+			<!--  scroll up -->
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-cycle</command>
+				<property>/instrumentation/efis[1]/inputs/range-nm</property>
+				<value>10</value>
+				<value>20</value>
+				<value>40</value>
+				<value>80</value>
+				<value>160</value>
+				<value>320</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Cylinder.012</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/it-autoflight/input/kts-mach</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Cylinder.013</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/it-autoflight/input/true-course</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Cylinder.019</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/it-autoflight/input/trk</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Btn.A.014</object-name>
+		<visible>true</visible>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>property-toggle</command>
+				<property>/it-autoflight/input/ap1</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Btn.A.015</object-name>
+		<visible>true</visible>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>property-toggle</command>
+				<property>/it-autoflight/input/ap2</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Btn.A.013</object-name>
+		<visible>true</visible>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>property-toggle</command>
+				<property>/it-autoflight/input/athr</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>fdtoggle</object-name>
+		<visible>true</visible>
+		<action>
+			<button>0</button>
+			<binding>
+				<command>property-toggle</command>
+				<property>/it-autoflight/input/fd1</property>
+			</binding>
+			<binding>
+				<command>property-toggle</command>
+				<property>/it-autoflight/input/fd2</property>
+			</binding>
+		</action>
+	</animation>
+	<!-- make stuff light up, yay! -->
+	<animation>
+		<type>material</type>
+		<object-name>fdtogglelight</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/it-autoflight/input/fd1</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>ap1light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/it-autoflight/input/ap1</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>ap2light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/it-autoflight/input/ap2</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>athrlight</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/it-autoflight/input/athr</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>nd_labels_capt</object-name>
+		<object-name>nd_labels_fo</object-name>
+		<emission>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</emission>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>nd_labels_capt</object-name>
+		<condition>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>20</value>
+			</greater-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>nd_labels_fo</object-name>
+		<condition>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-2</property>
+				<value>28</value>
+			</greater-than>
+		</condition>
+	</animation>
+	<!-- text -->
+	<text>
+		<name>fcu_spdmachtext</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.093411</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">SPD</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
-  <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
-  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
-  <max-height>0.006</max-height> <!-- the maximum height of the text -->
-  <max-width>1</max-width> <!-- the maximum width of the text -->
-  <font-resolution>
-      <width type="int">32</width>
-      <height type="int">32</height>
-  </font-resolution>
-  <alignment>center-top</alignment>
-</text>
-<text>
-  <name>fcu_hdg</name>
-  <offsets>
-      <pitch-deg>0</pitch-deg>
-      <heading-deg>0</heading-deg>
-      <roll-deg>0</roll-deg>
-      <x-m>2.93594</x-m>
-      <y-m>-0.047109</y-m>
-      <z-m>1.5964</z-m>
-  </offsets>
-  <axis-alignment>yz-plane</axis-alignment>
-    <!-- The string value of a property -->
-    <type type="string">number-value</type>
-    <property type="string">/it-autoflight/input/hdg</property>
-    <format type="string">%03.0f</format> <!-- the sprintf() format to display the value -->
-  <layout>left-to-right</layout>
-  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
-  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
-  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_spd</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.093092</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<!-- The string value of a property -->
+		<type type="string">number-value</type>
+		<property type="string">/it-autoflight/input/kts</property>
+		<format type="string">%03.0f</format> <!-- the sprintf() format to display the value -->
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
-  <character-size type="double">0.011</character-size> <!-- size (height) im meters -->
-  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
-  <max-height>0.006</max-height> <!-- the maximum height of the text -->
-  <max-width>1</max-width> <!-- the maximum width of the text -->
-  <font-resolution>
-      <width type="int">32</width>
-      <height type="int">32</height>
-  </font-resolution>
-  <alignment>center-top</alignment>
-</text>
-<text>
-  <name>fcu_hdgblank</name>
-  <offsets>
-      <pitch-deg>0</pitch-deg>
-      <heading-deg>0</heading-deg>
-      <roll-deg>0</roll-deg>
-      <x-m>2.93594</x-m>
-      <y-m>-0.047109</y-m>
-      <z-m>1.5964</z-m>
-  </offsets>
-  <axis-alignment>yz-plane</axis-alignment>
-    <!-- The string value of a property -->
-    <type type="string">literal</type>
-    <text type="string">---</text>
-  <layout>left-to-right</layout>
-  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
-  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
-  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_mach</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.093092</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<!-- The string value of a property -->
+		<type type="string">number-value</type>
+		<property type="string">/it-autoflight/input/mach-x100</property>
+		<format type="string">.%02.0f</format> <!-- the sprintf() format to display the value -->
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
-  <character-size type="double">0.011</character-size> <!-- size (height) im meters -->
-  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
-  <max-height>0.006</max-height> <!-- the maximum height of the text -->
-  <max-width>1</max-width> <!-- the maximum width of the text -->
-  <font-resolution>
-      <width type="int">32</width>
-      <height type="int">32</height>
-  </font-resolution>
-  <alignment>center-top</alignment>
-</text>
-<text>
-  <name>fcu_alttext</name>
-  <offsets>
-      <pitch-deg>0</pitch-deg>
-      <heading-deg>0</heading-deg>
-      <roll-deg>0</roll-deg>
-      <x-m>2.93594</x-m>
-      <y-m>0.044109</y-m>
-      <z-m>1.60393</z-m>
-  </offsets>
-  <axis-alignment>yz-plane</axis-alignment>
-  <type type="string">literal</type>
-  <text type="string">ALT</text>
-  <layout>left-to-right</layout>
-  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
-  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
-  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_hdgtext</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.04393</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">MAG HDG</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
-  <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
-  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
-  <max-height>0.006</max-height> <!-- the maximum height of the text -->
-  <max-width>1</max-width> <!-- the maximum width of the text -->
-  <font-resolution>
-      <width type="int">32</width>
-      <height type="int">32</height>
-  </font-resolution>
-  <alignment>center-top</alignment>
-</text>
-<text>
-  <name>fcu_alt</name>
-  <offsets>
-      <pitch-deg>0</pitch-deg>
-      <heading-deg>0</heading-deg>
-      <roll-deg>0</roll-deg>
-      <x-m>2.93594</x-m>
-      <y-m>0.047109</y-m>
-      <z-m>1.5964</z-m>
-  </offsets>
-  <axis-alignment>yz-plane</axis-alignment>
-    <!-- The string value of a property -->
-    <type type="string">number-value</type>
-    <property type="string">/it-autoflight/input/alt</property>
-    <format type="string">%05.0f</format> <!-- the sprintf() format to display the value -->
-  <layout>left-to-right</layout>
-  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
-  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
-  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_hdg</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.047109</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<!-- The string value of a property -->
+		<type type="string">number-value</type>
+		<property type="string">/it-autoflight/input/hdg</property>
+		<format type="string">%03.0f</format> <!-- the sprintf() format to display the value -->
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
-  <character-size type="double">0.011</character-size> <!-- size (height) im meters -->
-  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
-  <max-height>0.006</max-height> <!-- the maximum height of the text -->
-  <max-width>1</max-width> <!-- the maximum width of the text -->
-  <font-resolution>
-      <width type="int">32</width>
-      <height type="int">32</height>
-  </font-resolution>
-  <alignment>center-top</alignment>
-</text>
-<text>
-  <name>fcu_vstext</name>
-  <offsets>
-      <pitch-deg>0</pitch-deg>
-      <heading-deg>0</heading-deg>
-      <roll-deg>0</roll-deg>
-      <x-m>2.93594</x-m>
-      <y-m>0.093591</y-m>
-      <z-m>1.60393</z-m>
-  </offsets>
-  <axis-alignment>yz-plane</axis-alignment>
-  <type type="string">literal</type>
-  <text type="string">V/S</text>
-  <layout>left-to-right</layout>
-  <draw-text type="bool">true</draw-text> <!-- draw the text itself -->
-  <draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
-  <draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_hdgblank</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.047109</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<!-- The string value of a property -->
+		<type type="string">literal</type>
+		<text type="string">---</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
 
-  <font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
-  <character-size type="double">0.005</character-size> <!-- size (height) im meters -->
-  <character-aspect-ratio type="double">1.0</character-aspect-ratio>
-  <max-height>0.006</max-height> <!-- the maximum height of the text -->
-  <max-width>1</max-width> <!-- the maximum width of the text -->
-  <font-resolution>
-      <width type="int">32</width>
-      <height type="int">32</height>
-  </font-resolution>
-  <alignment>center-top</alignment>
-</text>
-<animation>
-  <type>material</type> 
-  <object-name>fcu_spdmachtext</object-name>
-  <object-name>fcu_spd</object-name>
-  <object-name>fcu_mach</object-name>
-  <object-name>fcu_hdgtext</object-name>
-  <object-name>fcu_hdg</object-name>
-  <object-name>fcu_hdgblank</object-name>
-  <object-name>fcu_alttext</object-name>
-  <object-name>fcu_alt</object-name>
-  <object-name>fcu_vstext</object-name>
-  <emission>
-      <red>1</red>
-      <green>1</green>
-      <blue>1</blue>
-  </emission>
- </animation>
- <animation>
-  <type>select</type>
-  <object-name>fcu_hdgblank</object-name>
-  <condition>
-    <and>
-      <not-equals>
-        <property>/it-autoflight/output/lat</property>
-        <value>0</value>
-      </not-equals>
-      <not-equals>
-        <property>/it-autoflight/output/lat</property>
-        <value>3</value>
-      </not-equals>
-      <not-equals>
-        <property>/it-autoflight/output/lat</property>
-        <value>9</value>
-      </not-equals>
-    </and>
-   </condition>
- </animation>
- <animation>
-  <type>select</type>
-  <object-name>fcu_hdg</object-name>
-  <condition>
-    <or>
-      <equals>
-        <property>/it-autoflight/output/lat</property>
-        <value>0</value>
-      </equals>
-      <equals>
-        <property>/it-autoflight/output/lat</property>
-        <value>3</value>
-      </equals>
-      <equals>
-        <property>/it-autoflight/output/lat</property>
-        <value>9</value>
-      </equals>
-    </or>
-   </condition>
- </animation>
- <animation>
-  <type>select</type>
-  <object-name>fcu_spd</object-name>
-  <condition>
-    <equals>
-      <property>/it-autoflight/input/kts-mach</property>
-      <value>0</value>
-    </equals>
-  </condition>
- </animation>
- <animation>
-  <type>select</type>
-  <object-name>fcu_mach</object-name>
-  <condition>
-    <equals>
-      <property>/it-autoflight/input/kts-mach</property>
-      <value>1</value>
-    </equals>
-  </condition>
- </animation>
- <animation>
-  <type>knob</type>
-  <object-name>alt_increment_knob</object-name>
-  <property>/instrumentation/fcu/alt-increment</property>
-  <axis>
-    <x1-m>-2.93524</x1-m>
-    <y1-m>0.045185</y1-m>
-    <z1-m>1.55843</z1-m>
-    <x2-m>2.93524</x2-m>
-    <y2-m>0.045185</y2-m>
-    <z2-m>1.55843</z2-m>
-  </axis>
-  <factor>-0.066666666666666667</factor>
-  <offset-deg>6.6666666666667</offset-deg>
-  <action>
-    <binding>
-      <command>property-adjust</command>
-      <property>/instrumentation/fcu/alt-increment</property>
-      <factor>900</factor>
-      <min>100</min>
-      <max>1000</max>
-      <wrap>false</wrap>
-    </binding>
-  </action>
-</animation>
-<animation>
-  <type>rotate</type>
-  <object-name>alt_knob</object-name>
-  <property>/instrumentation/fcu/alt-knob</property>
-  <factor>-11.25</factor>
-  <axis>
-    <x1-m>-2.93524</x1-m>
-    <y1-m>0.044929</y1-m>
-    <z1-m>1.55843</z1-m>
-    <x2-m>2.93524</x2-m>
-    <y2-m>0.044929</y2-m>
-    <z2-m>1.55843</z2-m>
-  </axis>
-</animation>
-<animation>
-  <type>pick</type>
-  <object-name>alt_knob</object-name>
-  <action>
-    <button>3</button>
-    <repeatable>false</repeatable>
-    <binding>
-      <command>nasal</command>
-      <script>A350XWB.change_alt(1);</script>
-    </binding>
-  </action>
-  <action>
-    <button>4</button>
-    <repeatable>false</repeatable>
-    <binding>
-      <command>nasal</command>
-      <script>A350XWB.change_alt(-1);</script>
-    </binding>
-  </action>
-</animation>
-<animation>
-  <type>rotate</type>
-  <object-name>spd_knob</object-name>
-  <property>/instrumentation/fcu/spd-knob</property>
-  <factor>-11.25</factor>
-  <axis>
-    <x1-m>-2.93524</x1-m>
-    <y1-m>-0.093092</y1-m>
-    <z1-m>1.55803</z1-m>
-    <x2-m>2.93524</x2-m>
-    <y2-m>-0.093092</y2-m>
-    <z2-m>1.55803</z2-m>
-  </axis>
-</animation>
-<animation>
-  <type>pick</type>
-  <object-name>spd_knob</object-name>
-  <action>
-    <button>3</button>
-    <repeatable>false</repeatable>
-    <binding>
-      <command>nasal</command>
-      <script>A350XWB.change_spd(1);</script>
-    </binding>
-  </action>
-  <action>
-    <button>4</button>
-    <repeatable>false</repeatable>
-    <binding>
-      <command>nasal</command>
-      <script>A350XWB.change_spd(-1);</script>
-    </binding>
-  </action>
-</animation>
-<animation>
-  <type>knob</type>
-  <object-name>hdg_knob</object-name>
-  <property>/instrumentation/fcu/alt-increment</property>
-  <axis>
-    <x1-m>-2.93524</x1-m>
-    <y1-m>-0.043926</y1-m>
-    <z1-m>1.55803</z1-m>
-    <x2-m>2.93524</x2-m>
-    <y2-m>-0.043926</y2-m>
-    <z2-m>1.55803</z2-m>
-  </axis>
-  <factor>-0.066666666666666667</factor>
-  <offset-deg>0</offset-deg>
-  <action>
-    <binding>
-      <command>property-adjust</command>
-      <property>/it-autoflight/input/hdg</property>
-      <factor>1</factor>
-      <min>0</min>
-      <max>360</max>
-      <wrap>true</wrap>
-    </binding>
-  </action>
-</animation>
- <!-- captain efis control -->
- <!-- pfd -->
- <animation>
-  <type>material</type>
-  <object-name>capt_ls_light</object-name>
-  <emission>
-    <red>0</red>
-    <blue>0</blue>
-    <green>1</green>
-    <factor-prop>/instrumentation/PFD_L/ls</factor-prop>
-  </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>capt_ls</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/PFD_L/ls</property>
-    </binding>   
-  </action>
-</animation>
-<animation>
-  <type>material</type>
-  <object-name>capt_vv_light</object-name>
-  <emission>
-    <red>0</red>
-    <blue>0</blue>
-    <green>1</green>
-    <factor-prop>/instrumentation/PFD_L/vv</factor-prop>
-  </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>capt_vv</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/PFD_L/vv</property>
-    </binding>   
-  </action>
-</animation>
- <!-- nd -->
- <animation>
-  <type>material</type>
-  <object-name>capt_nd_cstr_light</object-name>
-  <emission>	
-    <red>0</red>	
-    <green>1</green>	
-    <blue>0</blue>
-    <factor-prop>/instrumentation/efis/inputs/CSTR</factor-prop>
-   </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>capt_nd_cstr</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/efis/inputs/CSTR</property>
-    </binding>   
-  </action>
-</animation>
- <animation>
-  <type>material</type>
-  <object-name>capt_nd_wpt_light</object-name>
-  <emission>	
-    <red>0</red>	
-    <green>1</green>	
-    <blue>0</blue>
-    <factor-prop>/instrumentation/efis/inputs/wpt</factor-prop>
-   </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>capt_nd_wpt</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/efis/inputs/wpt</property>
-    </binding>   
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis/inputs/VORD</property>
-      <value>0</value>
-    </binding>  
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis/inputs/NDB</property>
-      <value>0</value>
-    </binding>  
-  </action>
-</animation>
-<animation>
-  <type>material</type>
-  <object-name>capt_nd_vord_light</object-name>
-  <emission>	
-    <red>0</red>	
-    <green>1</green>	
-    <blue>0</blue>
-    <factor-prop>/instrumentation/efis/inputs/VORD</factor-prop>
-   </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>capt_nd_vord</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/efis/inputs/VORD</property>
-    </binding>   
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis/inputs/wpt</property>
-      <value>0</value>
-    </binding>  
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis/inputs/NDB</property>
-      <value>0</value>
-    </binding>  
-  </action>
-</animation>
-<animation>
-  <type>material</type>
-  <object-name>capt_nd_ndb_light</object-name>
-  <emission>	
-    <red>0</red>	
-    <green>1</green>	
-    <blue>0</blue>
-    <factor-prop>/instrumentation/efis/inputs/NDB</factor-prop>
-   </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>capt_nd_ndb</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/efis/inputs/NDB</property>
-    </binding>   
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis/inputs/wpt</property>
-      <value>0</value>
-    </binding>  
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis/inputs/VORD</property>
-      <value>0</value>
-    </binding>  
-  </action>
-</animation>
-<animation>
-  <type>material</type>
-  <object-name>capt_nd_arpt_light</object-name>
-  <emission>	
-    <red>0</red>	
-    <green>1</green>	
-    <blue>0</blue>
-    <factor-prop>/instrumentation/efis/inputs/arpt</factor-prop>
-   </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>capt_nd_arpt</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/efis/inputs/arpt</property>
-    </binding>   
-  </action>
-</animation>
- <!-- first officer efis control -->
- <!-- pfd -->
- <animation>
-  <type>material</type>
-  <object-name>fo_ls_light</object-name>
-  <emission>
-    <red>0</red>
-    <blue>0</blue>
-    <green>1</green>
-    <factor-prop>/instrumentation/PFD_R/ls</factor-prop>
-  </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>fo_ls</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/PFD_R/ls</property>
-    </binding>   
-  </action>
-</animation>
-<animation>
-  <type>material</type>
-  <object-name>fo_vv_light</object-name>
-  <emission>
-    <red>0</red>
-    <blue>0</blue>
-    <green>1</green>
-    <factor-prop>/instrumentation/PFD_R/vv</factor-prop>
-  </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>fo_vv</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/PFD_R/vv</property>
-    </binding>   
-  </action>
-</animation>
- <!-- nd -->
- <animation>
-  <type>material</type>
-  <object-name>fo_nd_cstr_light</object-name>
-  <emission>	
-    <red>0</red>	
-    <green>1</green>	
-    <blue>0</blue>
-    <factor-prop>/instrumentation/efis[1]/inputs/CSTR</factor-prop>
-   </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>fo_nd_cstr</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/efis[1]/inputs/CSTR</property>
-    </binding>   
-  </action>
-</animation>
- <animation>
-  <type>material</type>
-  <object-name>fo_nd_wpt_light</object-name>
-  <emission>	
-    <red>0</red>	
-    <green>1</green>	
-    <blue>0</blue>
-    <factor-prop>/instrumentation/efis[1]/inputs/wpt</factor-prop>
-   </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>fo_nd_wpt</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/efis[1]/inputs/wpt</property>
-    </binding>   
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis[1]/inputs/VORD</property>
-      <value>0</value>
-    </binding>  
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis[1]/inputs/NDB</property>
-      <value>0</value>
-    </binding>  
-  </action>
-</animation>
-<animation>
-  <type>material</type>
-  <object-name>fo_nd_vord_light</object-name>
-  <emission>	
-    <red>0</red>	
-    <green>1</green>	
-    <blue>0</blue>
-    <factor-prop>/instrumentation/efis[1]/inputs/VORD</factor-prop>
-   </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>fo_nd_vord</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/efis[1]/inputs/VORD</property>
-    </binding>   
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis[1]/inputs/wpt</property>
-      <value>0</value>
-    </binding>  
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis[1]/inputs/NDB</property>
-      <value>0</value>
-    </binding>  
-  </action>
-</animation>
-<animation>
-  <type>material</type>
-  <object-name>fo_nd_ndb_light</object-name>
-  <emission>	
-    <red>0</red>	
-    <green>1</green>	
-    <blue>0</blue>
-    <factor-prop>/instrumentation/efis[1]/inputs/NDB</factor-prop>
-   </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>fo_nd_ndb</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/efis[1]/inputs/NDB</property>
-    </binding>   
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis[1]/inputs/wpt</property>
-      <value>0</value>
-    </binding>  
-    <binding>
-      <command>property-assign</command>
-      <property>/instrumentation/efis[1]/inputs/VORD</property>
-      <value>0</value>
-    </binding>  
-  </action>
-</animation>
-<animation>
-  <type>material</type>
-  <object-name>fo_nd_arpt_light</object-name>
-  <emission>	
-    <red>0</red>	
-    <green>1</green>	
-    <blue>0</blue>
-    <factor-prop>/instrumentation/efis[1]/inputs/arpt</factor-prop>
-   </emission>
- </animation>
- <animation>
-  <type>pick</type>
-  <object-name>fo_nd_arpt</object-name>
-  <action>
-    <button>0</button>
-    <repeatable>false</repeatable>   
-    <binding>
-      <command>property-toggle</command>
-      <property>/instrumentation/efis[1]/inputs/arpt</property>
-    </binding>   
-  </action>
-</animation>
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_alttext</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.044109</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">ALT</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_alt</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.047109</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<!-- The string value of a property -->
+		<type type="string">number-value</type>
+		<property type="string">/it-autoflight/input/alt</property>
+		<format type="string">%05.0f</format> <!-- the sprintf() format to display the value -->
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_vstext</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.093591</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">V/S</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<animation>
+		<type>material</type>
+		<object-name>fcu_spdmachtext</object-name>
+		<object-name>fcu_spd</object-name>
+		<object-name>fcu_mach</object-name>
+		<object-name>fcu_hdgtext</object-name>
+		<object-name>fcu_hdg</object-name>
+		<object-name>fcu_hdgblank</object-name>
+		<object-name>fcu_alttext</object-name>
+		<object-name>fcu_alt</object-name>
+		<object-name>fcu_vstext</object-name>
+		<emission>
+			<red>1</red>
+			<green>1</green>
+			<blue>1</blue>
+		</emission>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_alt</object-name>
+		<condition>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>28</value>
+			</greater-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_alttext</object-name>
+		<object-name>fcu_vstext</object-name>
+		<object-name>fcu_spdmachtext</object-name>
+		<object-name>fcu_hdgtext</object-name>
+		<condition>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>28</value>
+			</greater-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_hdgblank</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<not-equals>
+					<property>/it-autoflight/output/lat</property>
+					<value>0</value>
+				</not-equals>
+				<not-equals>
+					<property>/it-autoflight/output/lat</property>
+					<value>3</value>
+				</not-equals>
+				<not-equals>
+					<property>/it-autoflight/output/lat</property>
+					<value>9</value>
+				</not-equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_hdg</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<or>
+					<equals>
+						<property>/it-autoflight/output/lat</property>
+						<value>0</value>
+					</equals>
+					<equals>
+						<property>/it-autoflight/output/lat</property>
+						<value>3</value>
+					</equals>
+					<equals>
+						<property>/it-autoflight/output/lat</property>
+						<value>9</value>
+					</equals>
+				</or>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_spd</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/input/kts-mach</property>
+					<value>0</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_mach</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/input/kts-mach</property>
+					<value>1</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>knob</type>
+		<object-name>alt_increment_knob</object-name>
+		<property>/instrumentation/fcu/alt-increment</property>
+		<axis>
+			<x1-m>-2.93524</x1-m>
+			<y1-m>0.045185</y1-m>
+			<z1-m>1.55843</z1-m>
+			<x2-m>2.93524</x2-m>
+			<y2-m>0.045185</y2-m>
+			<z2-m>1.55843</z2-m>
+		</axis>
+		<factor>-0.066666666666666667</factor>
+		<offset-deg>6.6666666666667</offset-deg>
+		<action>
+			<binding>
+				<command>property-adjust</command>
+				<property>/instrumentation/fcu/alt-increment</property>
+				<factor>900</factor>
+				<min>100</min>
+				<max>1000</max>
+				<wrap>false</wrap>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>alt_knob</object-name>
+		<property>/instrumentation/fcu/alt-knob</property>
+		<factor>-11.25</factor>
+		<axis>
+			<x1-m>-2.93524</x1-m>
+			<y1-m>0.044929</y1-m>
+			<z1-m>1.55843</z1-m>
+			<x2-m>2.93524</x2-m>
+			<y2-m>0.044929</y2-m>
+			<z2-m>1.55843</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>alt_knob</object-name>
+		<action>
+			<button>3</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>A350XWB.change_alt(1);</script>
+			</binding>
+		</action>
+		<action>
+			<button>4</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>A350XWB.change_alt(-1);</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>spd_knob</object-name>
+		<property>/instrumentation/fcu/spd-knob</property>
+		<factor>-11.25</factor>
+		<axis>
+			<x1-m>-2.93524</x1-m>
+			<y1-m>-0.093092</y1-m>
+			<z1-m>1.55803</z1-m>
+			<x2-m>2.93524</x2-m>
+			<y2-m>-0.093092</y2-m>
+			<z2-m>1.55803</z2-m>
+		</axis>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>spd_knob</object-name>
+		<action>
+			<button>3</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>A350XWB.change_spd(1);</script>
+			</binding>
+		</action>
+		<action>
+			<button>4</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>A350XWB.change_spd(-1);</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>knob</type>
+		<object-name>hdg_knob</object-name>
+		<property>/instrumentation/fcu/alt-increment</property>
+		<axis>
+			<x1-m>-2.93524</x1-m>
+			<y1-m>-0.043926</y1-m>
+			<z1-m>1.55803</z1-m>
+			<x2-m>2.93524</x2-m>
+			<y2-m>-0.043926</y2-m>
+			<z2-m>1.55803</z2-m>
+		</axis>
+		<factor>-0.066666666666666667</factor>
+		<offset-deg>0</offset-deg>
+		<action>
+			<binding>
+				<command>property-adjust</command>
+				<property>/it-autoflight/input/hdg</property>
+				<factor>1</factor>
+				<min>0</min>
+				<max>360</max>
+				<wrap>true</wrap>
+			</binding>
+		</action>
+	</animation>
+	<!-- captain efis control -->
+	<!-- pfd -->
+	<animation>
+		<type>material</type>
+		<object-name>capt_ls_light</object-name>
+		<emission>
+			<red>0</red>
+			<blue>0</blue>
+			<green>1</green>
+			<factor-prop>/instrumentation/PFD_L/ls</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>capt_ls</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/PFD_L/ls</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>capt_vv_light</object-name>
+		<emission>
+			<red>0</red>
+			<blue>0</blue>
+			<green>1</green>
+			<factor-prop>/instrumentation/PFD_L/vv</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>capt_vv</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/PFD_L/vv</property>
+			</binding>
+		</action>
+	</animation>
+	<!-- nd -->
+	<animation>
+		<type>material</type>
+		<object-name>capt_nd_cstr_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/efis/inputs/CSTR</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>capt_nd_cstr</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis/inputs/CSTR</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>capt_nd_wpt_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/efis/inputs/wpt</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>capt_nd_wpt</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis/inputs/wpt</property>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis/inputs/VORD</property>
+				<value>0</value>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis/inputs/NDB</property>
+				<value>0</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>capt_nd_vord_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/efis/inputs/VORD</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>capt_nd_vord</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis/inputs/VORD</property>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis/inputs/wpt</property>
+				<value>0</value>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis/inputs/NDB</property>
+				<value>0</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>capt_nd_ndb_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/efis/inputs/NDB</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>capt_nd_ndb</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis/inputs/NDB</property>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis/inputs/wpt</property>
+				<value>0</value>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis/inputs/VORD</property>
+				<value>0</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>capt_nd_arpt_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/efis/inputs/arpt</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>capt_nd_arpt</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis/inputs/arpt</property>
+			</binding>
+		</action>
+	</animation>
+	<!-- first officer efis control -->
+	<!-- pfd -->
+	<animation>
+		<type>material</type>
+		<object-name>fo_ls_light</object-name>
+		<emission>
+			<red>0</red>
+			<blue>0</blue>
+			<green>1</green>
+			<factor-prop>/instrumentation/PFD_R/ls</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>fo_ls</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/PFD_R/ls</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>fo_vv_light</object-name>
+		<emission>
+			<red>0</red>
+			<blue>0</blue>
+			<green>1</green>
+			<factor-prop>/instrumentation/PFD_R/vv</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>fo_vv</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/PFD_R/vv</property>
+			</binding>
+		</action>
+	</animation>
+	<!-- nd -->
+	<animation>
+		<type>material</type>
+		<object-name>fo_nd_cstr_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/efis[1]/inputs/CSTR</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>fo_nd_cstr</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis[1]/inputs/CSTR</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>fo_nd_wpt_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/efis[1]/inputs/wpt</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>fo_nd_wpt</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis[1]/inputs/wpt</property>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis[1]/inputs/VORD</property>
+				<value>0</value>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis[1]/inputs/NDB</property>
+				<value>0</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>fo_nd_vord_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/efis[1]/inputs/VORD</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>fo_nd_vord</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis[1]/inputs/VORD</property>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis[1]/inputs/wpt</property>
+				<value>0</value>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis[1]/inputs/NDB</property>
+				<value>0</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>fo_nd_ndb_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/efis[1]/inputs/NDB</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>fo_nd_ndb</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis[1]/inputs/NDB</property>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis[1]/inputs/wpt</property>
+				<value>0</value>
+			</binding>
+			<binding>
+				<command>property-assign</command>
+				<property>/instrumentation/efis[1]/inputs/VORD</property>
+				<value>0</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>fo_nd_arpt_light</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+			<factor-prop>/instrumentation/efis[1]/inputs/arpt</factor-prop>
+		</emission>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>fo_nd_arpt</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis[1]/inputs/arpt</property>
+			</binding>
+		</action>
+	</animation>
 </PropertyList>

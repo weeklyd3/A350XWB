@@ -378,6 +378,7 @@ canvas.NavDisplay.update_vd = func() {
 		if (i == (terrain_steps) or (solid != last_is_solid)) {
 			last_path.lineTo((i) / terrain_steps * 665 + 230, y_coordinate);
 			last_path.lineTo((i) / terrain_steps * 665 + 230, 1273);
+			last_path.update();
 			append(me.terrain_elements, last_path);
 			if (i == (terrain_steps)) break;
 			last_path = me.page.createChild('path');
