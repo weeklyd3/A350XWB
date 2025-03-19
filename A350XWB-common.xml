@@ -469,12 +469,14 @@
 			<autoland>
 				<pitch-kp>0.0051</pitch-kp>
 				<yaw-kp>-0.05</yaw-kp>
+				<rudder-kp>-0.05</rudder-kp>
 			</autoland>
 			<rollout>
 				<roll-kp>-0.1</roll-kp>
 				<pitch-nose>0.1</pitch-nose>
 				<pitch-rate>-1.5</pitch-rate>
 				<yaw-kp>-0.02</yaw-kp>
+				<rudder-kp>-0.02</rudder-kp>
 			</rollout>
 		</config>
 		<settings>
@@ -516,8 +518,8 @@
 			<max-mach type="double">0.9</max-mach> <!-- Maxmimum target mach number -->
 			<retard-enable type="bool">1</retard-enable> <!-- AGL to enter Thrust Retard
 			mode -->
-			<retard-ft type="double">30</retard-ft> <!-- Enable Thrust Retard mode -->
-			<stall-aoa-deg type="double">15</stall-aoa-deg> <!-- Angle of attack where AP
+			<retard-ft type="double">50</retard-ft> <!-- Enable Thrust Retard mode -->
+			<stall-aoa-deg type="double">99</stall-aoa-deg> <!-- Angle of attack where AP
 			trips off -->
 			<takeoff-hdg-cap type="double">5</takeoff-hdg-cap> <!-- Maximum bank to
 			capture current hdg in T/O mode -->

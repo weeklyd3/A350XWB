@@ -95,6 +95,7 @@ var pfd = {
 			}
 		}
 		returned.synthetic_runway_item = nil;
+		returned.synthetic_runway_axis = nil;
 		foreach (elem; ['ra', 'heading', 'heading_minus_one', 'heading_plus_one', 'heading_plus_two', 'altitude_number', 'altitude_number_minus_one', 'altitude_number_plus_one', 'altitude_number_plus_two', 'vs_text', 'ils_ident', 'ils_frequency', 'ils_distance']) {
 			returned.hud_svg_items[elem].enableUpdate();
 		}
@@ -766,9 +767,17 @@ var pfd = {
 				new_synthetic_runway_item.lineTo(146.5 + notification.ils_synthetic_runway_8 * hud_heading_scale, 63.943 - notification.ils_synthetic_runway_7 * hud_pitch_scale);
 				new_synthetic_runway_item.lineTo(146.5 + notification.ils_synthetic_runway_2 * hud_heading_scale, 63.943 - notification.ils_synthetic_runway_1 * hud_pitch_scale);
 				new_synthetic_runway_item.update();
+				#var new_synthetic_runway_axis = me.hud_svg_items.runway_group.createChild('path');
+				#new_synthetic_runway_axis.setColor(0, 1, 0);
+				#new_synthetic_runway_axis.setStrokeLineWidth(0.75);
+				#new_synthetic_runway_axis.moveTo(146.5 + hud_heading_scale * (notification.ils_synthetic_runway_2 + notification.ils_synthetic_runway_4) / 2, 63.943 - hud_pitch_scale * (notification.ils_synthetic_runway_1 + notification.ils_synthetic_runway_3) / 2);
 			}
 			if (me.synthetic_runway_item) me.synthetic_runway_item.del();
-			if (selected_runway != nil) me.synthetic_runway_item = new_synthetic_runway_item;
+			#if (me.synthetic_runway_axis) me.synthetic_runway_axis.del();
+			if (selected_runway != nil) {
+				me.synthetic_runway_item = new_synthetic_runway_item;
+			#	me.synthetic_runway_axis = new_synthetic_runway_axis;
+			}
 		} else {
 			me.hud_svg_items.runway_group.hide();
 		}

@@ -81,6 +81,35 @@
 	</animation>
 	<!-- captain qnh control -->
 	<text>
+		<name>captain_qnhtext</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.284085</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">QNH</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
 		<name>captain_qnh_inhg</name>
 		<offsets>
 			<pitch-deg>0</pitch-deg>
@@ -141,6 +170,66 @@
 		<alignment>center-top</alignment>
 	</text>
 	<text>
+		<name>captain_qnh_inhg_presel</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.268277</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">number-value</type>
+		<format type="string">%.02f</format>
+		<property>/instrumentation/efis/qnh</property>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>captain_qnh_hpa_presel</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.268277</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">number-value</type>
+		<format type="string">%03.0f</format>
+		<property>/instrumentation/efis/hpa-value</property>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
 		<name>captain_qnh_std</name>
 		<offsets>
 			<pitch-deg>0</pitch-deg>
@@ -174,11 +263,27 @@
 		<object-name>captain_qnh_hpa</object-name>
 		<object-name>captain_qnh_inhg</object-name>
 		<object-name>captain_qnh_std</object-name>
+		<object-name>captain_qnhtext</object-name>
+		<object-name>captain_qnh_hpa_presel</object-name>
+		<object-name>captain_qnh_inhg_presel</object-name>
 		<emission>
 			<red>1</red>
 			<green>1</green>
 			<blue>1</blue>
 		</emission>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_qnhtext</object-name>
+		<condition>
+			<and>
+				<greater-than>
+				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>20</value>
+				</greater-than>
+				<not><property>/instrumentation/efis/std</property></not>
+			</and>
+		</condition>
 	</animation>
 	<animation>
 		<type>select</type>
@@ -194,6 +299,40 @@
 				<value>0</value>
 			</equals>
 			<not><property>/instrumentation/efis/std</property></not>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_qnh_inhg_presel</object-name>
+		<condition>
+		<and>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>20</value>
+			</greater-than>
+			<equals>
+				<property>/instrumentation/efis/hpa</property>
+				<value>0</value>
+			</equals>
+			<property>/instrumentation/efis/std</property>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_qnh_hpa_presel</object-name>
+		<condition>
+		<and>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>20</value>
+			</greater-than>
+			<equals>
+				<property>/instrumentation/efis/hpa</property>
+				<value>1</value>
+			</equals>
+			<property>/instrumentation/efis/std</property>
 			</and>
 		</condition>
 	</animation>
@@ -290,24 +429,8 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
-				<condition>
-					<not><property>devices/status/keyboard/shift</property></not>
-				</condition>
-				<command>property-assign</command>
+				<command>property-toggle</command>
 				<property>/instrumentation/efis/std</property>
-				<value>1</value>
-			</binding>
-		</action>
-		<action>
-			<button>0</button>
-			<repeatable>false</repeatable>
-			<binding>
-				<condition>
-					<property>devices/status/keyboard/shift</property>
-				</condition>
-				<command>property-assign</command>
-				<property>/instrumentation/efis/std</property>
-				<value>0</value>
 			</binding>
 		</action>
 	</animation>
