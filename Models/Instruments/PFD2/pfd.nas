@@ -106,9 +106,9 @@ var pfd = {
 		returned.hud_svg_items.vls.set('clip', 'rect(277.433, 400, 362.470, 318.596)');
 		returned.hud_svg_items.stall.set('clip', 'rect(277.433, 400, 362.470, 318.596)');
 		returned.hud_svg_items.alt_numbers.set('clip', 'rect(313.551, 552.992, 326.351, 544.892)');
-		returned.hud_svg_items.altitude_hundreds.set('clip', 'rect(305.983, 544.892, 324.017, 531.908)');
-		returned.hud_svg_items.altitude_thousands.set('clip', 'rect(305.983, 544.892, 324.017, 531.908)');
-		returned.hud_svg_items.altitude_ten_thousands.set('clip', 'rect(305.983, 544.892, 324.017, 533.908)');
+		returned.hud_svg_items.altitude_hundreds.set('clip', 'rect(315.983, 544.892, 324.017, 531.908)');
+		returned.hud_svg_items.altitude_thousands.set('clip', 'rect(315.983, 544.892, 324.017, 531.908)');
+		returned.hud_svg_items.altitude_ten_thousands.set('clip', 'rect(315.983, 544.892, 324.017, 525.532)');
 		returned.hud_svg_items.altitude.set('clip', 'rect(277.433, 552.876, 362.470,  531.422)');
 		returned.hud_svg_items.vs_needle.set('clip', 'rect(0, 575.532, 1000, 570)');
 		foreach (elem; ["alt_fl", "alt_fl_selected_text", "alt_below_1", "alt_above_1", "alt_above_2", 'qnh_setting', "vs_text", "mach", "ils_ident", "ils_frequency", "ils_distance", "ils_course_text_left", "ils_course_text_right", "fma_1_athr_mode", "fma_1_man_mode", "fma_1_flex_temp", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "fma_2_vs_value", "fma_5_ap", "speed_selected_1", "speed_selected_2", "heading_tens", "heading_tens_plus_1", "heading_tens_plus_2", "heading_tens_plus_3", "heading_tens_minus_1", "heading_tens_minus_2", "flaps_cmd"]) {
