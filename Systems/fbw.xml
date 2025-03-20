@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <system name="fbw">
-	<property value="-0.5">/systems/fbw/pitch-g-p</property>
-	<property value="-0.35">/systems/fbw/pitch-g-i</property>
+	<property value="-0.9">/systems/fbw/pitch-g-p</property>
+	<property value="-0.5">/systems/fbw/pitch-g-i</property>
 	<property value="-0.005">/systems/fbw/pitch-g-d</property>
 	<property value="0">/controls/flight/elevator[1]</property>
 	<property value="0">/controls/flight/aileron[1]</property>
@@ -452,7 +452,7 @@
 		</summer>
 		<switch name="/systems/fbw/tirespeed-72">
 			<default value="0" />
-			<test logic="AND" value="1"> <!-- 72 knots is 72 * 6076 / 3600 = 121.52 fps -->
+			<test logic="OR" value="1"> <!-- 72 knots is 72 * 6076 / 3600 = 121.52 fps -->
 				gear/unit[1]/wheel-speed-fps ge 121.52
 				gear/unit[2]/wheel-speed-fps ge 121.52
 			</test>

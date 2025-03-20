@@ -78,7 +78,7 @@ var pfd = {
 		returned.hud_group = hud_group;
 		canvas.parsesvg(hud_group, 'Aircraft/A350XWB/Models/Instruments/PFD2/hud.svg', {"font-mapper": returned.font_mapper});
 		canvas.parsesvg(group, path, {"font-mapper": returned.font_mapper});
-		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "fpv_group", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "pfd_heading_scale", "pfd_heading_scale_group", "bottom_mask_ground", "ball", "airspeed", "overspeed_barber_poles", "vls", "alpha_prot", "speed_selected", "speed_selected_1", "speed_selected_2", "mach", "airspeed_bottom_line", "speed_trend", "speed_trend_up", "speed_trend_down", "speed_trend_up_line", "speed_trend_down_line", "green_dot_speed", "te_flaps", "te_flaps_line", "le_flaps", "wing_scale", "wing_spoiler", "wing_spoiler_arm", "spoiler", "flaps_cmd_frame", "flaps_cmd", "flap_triangle_1", "flap_triangle_2", "flap_triangle_3", "flap_triangle_4", "slat_circle_1", "slat_circle_2", "park_brk", "gear_down", "gear_transit_down", "gear_transit_up", "ils", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "ils_ident", "ils_frequency", "ils_distance", "ils_distance_label", "ils_course_text_left", "ils_course_text_right", "ils_course_left", "ils_course_right", "ils_course_text", "ils_course", "hundred_numbers", "hundreds", "thousands", "thousands_zero", "ten_thousands", "alt_tape", "alt_fl", "alt_fl_selected", "alt_fl_selected_text", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "vs_needle", "vs_exact", "vs_text", "stall", "heading_tape", "heading_tens", "heading_tens_plus_1", "heading_tens_plus_2", "heading_tens_plus_3", "heading_tens_minus_1", "heading_tens_minus_2", "yaw_marker", "track_marker", "fma_1", "fma_1_man", "fma_1_athr_mode", "fma_1_man_mode", "fma_1_flex_box", "fma_1_orange_box", "fma_1_flex_temp", "fma_2_3", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "fma_2_vs_value", 'fma_5_fd', 'fma_5_athr', 'fma_5_ap']) {
+		foreach (elem; ["guides", "fdroll", "fdpitch", "fpv", "fpv_group", "ils_rollout", "radioaltimeter", "pitch_ladder", "horizon", "ahrs", "pfd_heading_scale", "pfd_heading_scale_group", "bottom_mask_ground", "ball", "airspeed", "overspeed_barber_poles", "vls", "alpha_prot", "speed_selected", "speed_selected_1", "speed_selected_2", "mach", "airspeed_bottom_line", "speed_trend", "speed_trend_up", "speed_trend_down", "speed_trend_up_line", "speed_trend_down_line", "green_dot_speed", "te_flaps", "te_flaps_line", "le_flaps", "wing_scale", "wing_spoiler", "wing_spoiler_arm", "spoiler", "flaps_cmd_frame", "flaps_cmd", "flap_triangle_1", "flap_triangle_2", "flap_triangle_3", "flap_triangle_4", "slat_circle_1", "slat_circle_2", "park_brk", "gear_down", "gear_transit_down", "gear_transit_up", "ils", "loc", "loc_left", "loc_right", "gs", "gs_up", "gs_down", "ils_ident", "ils_frequency", "ils_distance", "ils_distance_label", "ils_course_text_left", "ils_course_text_right", "ils_course_left", "ils_course_right", "ils_course_text", "ils_course", "hundred_numbers", "hundreds", "thousands", "thousands_zero", "ten_thousands", "alt_tape", "alt_fl", "alt_fl_selected", "alt_fl_selected_text", "alt_below_1", "alt_above_1", "alt_above_2", "moves_with_alt", "alt_ground_level", "qnh", "std", "qnh_setting", "vs_needle", "vs_exact", "vs_text", "stall", "heading_tape", "heading_tens", "heading_tens_plus_1", "heading_tens_plus_2", "heading_tens_plus_3", "heading_tens_minus_1", "heading_tens_minus_2", "yaw_marker", "track_marker", "fma_1", "fma_1_man", "fma_1_athr_mode", "fma_1_man_mode", "fma_1_flex_box", "fma_1_orange_box", "fma_1_flex_temp", "fma_2_3", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "fma_2_vs_value", 'fma_5_fd', 'fma_5_athr', 'fma_5_ap']) {
 			returned.svg_items[elem] = group.getElementById(elem);
 			if (group.getElementById(elem) == nil) {
 				setprop("/sim/messages/copilot", "pfd svg item " ~ elem ~ " does not exist!!!");
@@ -106,12 +106,12 @@ var pfd = {
 		returned.hud_svg_items.vls.set('clip', 'rect(277.433, 400, 362.470, 318.596)');
 		returned.hud_svg_items.stall.set('clip', 'rect(277.433, 400, 362.470, 318.596)');
 		returned.hud_svg_items.alt_numbers.set('clip', 'rect(313.551, 552.992, 326.351, 544.892)');
-		returned.hud_svg_items.altitude_hundreds.set('clip', 'rect(315.983, 544.892, 324.017, 531.908)');
-		returned.hud_svg_items.altitude_thousands.set('clip', 'rect(315.983, 544.892, 324.017, 531.908)');
-		returned.hud_svg_items.altitude_ten_thousands.set('clip', 'rect(315.983, 544.892, 324.017, 533.908)');
+		returned.hud_svg_items.altitude_hundreds.set('clip', 'rect(305.983, 544.892, 324.017, 531.908)');
+		returned.hud_svg_items.altitude_thousands.set('clip', 'rect(305.983, 544.892, 324.017, 531.908)');
+		returned.hud_svg_items.altitude_ten_thousands.set('clip', 'rect(305.983, 544.892, 324.017, 533.908)');
 		returned.hud_svg_items.altitude.set('clip', 'rect(277.433, 552.876, 362.470,  531.422)');
 		returned.hud_svg_items.vs_needle.set('clip', 'rect(0, 575.532, 1000, 570)');
-		foreach (elem; ["alt_fl", "alt_fl_selected_text", "alt_below_1", "alt_above_1", "alt_above_2", "vs_text", "mach", "ils_ident", "ils_frequency", "ils_distance", "ils_course_text_left", "ils_course_text_right", "fma_1_athr_mode", "fma_1_man_mode", "fma_1_flex_temp", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "fma_2_vs_value", "fma_5_ap", "speed_selected_1", "speed_selected_2", "heading_tens", "heading_tens_plus_1", "heading_tens_plus_2", "heading_tens_plus_3", "heading_tens_minus_1", "heading_tens_minus_2", "flaps_cmd"]) {
+		foreach (elem; ["alt_fl", "alt_fl_selected_text", "alt_below_1", "alt_above_1", "alt_above_2", 'qnh_setting', "vs_text", "mach", "ils_ident", "ils_frequency", "ils_distance", "ils_course_text_left", "ils_course_text_right", "fma_1_athr_mode", "fma_1_man_mode", "fma_1_flex_temp", "fma_2_top", "fma_3_top", "fma_2_middle", "fma_3_middle", "fma_2.5", "fma_2_vs_value", "fma_5_ap", "speed_selected_1", "speed_selected_2", "heading_tens", "heading_tens_plus_1", "heading_tens_plus_2", "heading_tens_plus_3", "heading_tens_minus_1", "heading_tens_minus_2", "flaps_cmd"]) {
 			returned.svg_items[elem] = group.getElementById(elem);
 			returned.svg_items[elem].enableUpdate();
 		}
@@ -304,6 +304,15 @@ var pfd = {
 				}
 				returned.svg_items.vs_text.updateText(sprintf("%02d", math.abs(vertical_speed) / 100));
 				returned.hud_svg_items.vs_text.updateText(sprintf("%02d", math.abs(vertical_speed) / 100));
+			}),
+			props.UpdateManager.FromHashValue('altitude_std', 0.5, func(std) {
+				if (std) {
+					returned.svg_items.std.show();
+					returned.svg_items.qnh.hide();
+				} else {
+					returned.svg_items.std.hide();
+					returned.svg_items.qnh.show();
+				}
 			}),
 			props.UpdateManager.FromHashList(['altitude_radio', 'attitude_pitch'], 0.1, func(pfd_hash) {
 				#var ra = (num(pfd_props.altitude.radio.getValue()) - 4);
@@ -666,7 +675,11 @@ var pfd = {
 			vs_needle: props.globals.getNode('/systems/pfd/vs-needle'),
 			vs_translate: props.globals.getNode('/systems/pfd/vs-text-translation'),
 			radio: props.globals.getNode('/instrumentation/altimeter/indicated-radio-altitude-ft'),
-			selected: props.globals.getNode('/it-autoflight/internal/alt')
+			selected: props.globals.getNode('/it-autoflight/internal/alt'),
+			std: props.globals.getNode('/instrumentation/efis/std'),
+			qnh: props.globals.getNode('/instrumentation/efis/qnh'),
+			hpa: props.globals.getNode('/instrumentation/efis/hpa'),
+			qnh_hpa: props.globals.getNode('/instrumentation/efis/hpa-value'),
 		};
 		hash.airspeed = {
 			indicated: props.globals.getNode('/instrumentation/airspeed-indicator/indicated-speed-kt'),
@@ -743,6 +756,16 @@ var pfd = {
 		notification.ls = me.properties.ls.getValue();
 		notification.vv = me.properties.vv.getValue();
 		foreach (item; me.update_items) item.update(notification);
+		# update qnh
+		var qnh_text = '';
+		if (notification.altitude_hpa) {
+			# in hectopascals
+			qnh_text = sprintf('%d', notification.altitude_qnh_hpa);
+		} else {
+			# in inhg
+			qnh_text = sprintf('%.02f', notification.altitude_qnh);
+		}
+		me.svg_items.qnh_setting.updateText(qnh_text);
 		# update synthetic runway
 		if (notification.ls) {
 			me.hud_svg_items.runway_group.show();

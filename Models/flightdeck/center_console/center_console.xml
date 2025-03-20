@@ -74,7 +74,7 @@
 	<animation>
 		<type>knob</type>
 		<object-name>engine_1_master</object-name>
-		<property>/controls/engines/engine/master-switch</property>
+		<property>/controls/engines/engine/cutoff</property>
 		<axis>
 			<x1-m>2.8954</x1-m>
 			<y1-m>0</y1-m>
@@ -83,13 +83,13 @@
 			<y2-m>-1</y2-m>
 			<z2-m>1.5006</z2-m>
 		</axis>
-		<factor>40</factor>
-		<offset-deg>-20</offset-deg>
+		<factor>-40</factor>
+		<offset-deg>20</offset-deg>
 		<action>
 			<binding>
 				<command>property-adjust</command>
-				<property>/controls/engines/engine/master-switch</property>
-				<factor>1</factor>
+				<property>/controls/engines/engine/cutoff</property>
+				<factor>-1</factor>
 				<min>0</min>
 				<max>1</max>
 				<wrap>false</wrap>
@@ -99,7 +99,7 @@
 	<animation>
 		<type>knob</type>
 		<object-name>engine_2_master</object-name>
-		<property>/controls/engines/engine[1]/master-switch</property>
+		<property>/controls/engines/engine[1]/cutoff</property>
 		<axis>
 			<x1-m>2.8954</x1-m>
 			<y1-m>0</y1-m>
@@ -108,13 +108,13 @@
 			<y2-m>-1</y2-m>
 			<z2-m>1.5006</z2-m>
 		</axis>
-		<factor>40</factor>
-		<offset-deg>-20</offset-deg>
+		<factor>-40</factor>
+		<offset-deg>20</offset-deg>
 		<action>
 			<binding>
 				<command>property-adjust</command>
-				<property>/controls/engines/engine[1]/master-switch</property>
-				<factor>1</factor>
+				<property>/controls/engines/engine[1]/cutoff</property>
+				<factor>-1</factor>
 				<min>0</min>
 				<max>1</max>
 				<wrap>false</wrap>

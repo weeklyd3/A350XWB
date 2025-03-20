@@ -87,6 +87,7 @@ var qnh_edit = func(number, amount) {
 #fcu_canvas.addPlacement({"node": "Cube.001"});*/
 # functions for knobs
 var alt_knob = props.globals.getNode('/instrumentation/fcu/alt-knob');
+var hdg_knob = props.globals.initNode('/instrumentation/fcu/hdg-knob', 0, 'INT');
 var alt_increment = props.globals.getNode('/instrumentation/fcu/alt-increment');
 var target_alt = props.globals.getNode('/it-autoflight/input/alt');
 var change_alt = func(amount) { # amount is 1 or -1

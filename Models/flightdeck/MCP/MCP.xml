@@ -50,6 +50,7 @@
 			<binding>
 				<command>property-cycle</command>
 				<property>/instrumentation/efis/inputs/range-nm</property>
+				<value>640</value>
 				<value>320</value>
 				<value>160</value>
 				<value>80</value>
@@ -76,8 +77,284 @@
 				<value>80</value>
 				<value>160</value>
 				<value>320</value>
+				<value>640</value>
 			</binding>
 		</action>
+	</animation>
+
+	<animation>
+		<type>pick</type>
+		<object-name>captain_nd_mode</object-name>
+		<action>
+			<button>4</button>
+			<!--  scroll up -->
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-cycle</command>
+				<property>/instrumentation/efis/nd/display-mode</property>
+				<value>PLAN</value>
+				<value>ARC</value>
+				<value>NAV</value>
+				<value>VOR</value>
+				<value>ILS</value>
+			</binding>
+		</action>
+		<action>
+			<button>3</button>
+			<!--  scroll up -->
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-cycle</command>
+				<property>/instrumentation/efis/nd/display-mode</property>
+				<value>ILS</value>
+				<value>VOR</value>
+				<value>NAV</value>
+				<value>ARC</value>
+				<value>PLAN</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>captain_nd_mode_light_ils</object-name>
+		<object-name>captain_nd_mode_light_vor</object-name>
+		<object-name>captain_nd_mode_light_arc</object-name>
+		<object-name>captain_nd_mode_light_nav</object-name>
+		<object-name>captain_nd_mode_light_plan</object-name>
+		<object-name>captain_nd_range_light_zoom</object-name>
+		<object-name>captain_nd_range_light_10</object-name>
+		<object-name>captain_nd_range_light_20</object-name>
+		<object-name>captain_nd_range_light_40</object-name>
+		<object-name>captain_nd_range_light_80</object-name>
+		<object-name>captain_nd_range_light_160</object-name>
+		<object-name>captain_nd_range_light_320</object-name>
+		<object-name>captain_nd_range_light_640</object-name>
+		<object-name>fo_nd_mode_light_ils</object-name>
+		<object-name>fo_nd_mode_light_vor</object-name>
+		<object-name>fo_nd_mode_light_arc</object-name>
+		<object-name>fo_nd_mode_light_nav</object-name>
+		<object-name>fo_nd_mode_light_plan</object-name>
+		<object-name>fo_nd_range_light_zoom</object-name>
+		<object-name>fo_nd_range_light_10</object-name>
+		<object-name>fo_nd_range_light_20</object-name>
+		<object-name>fo_nd_range_light_40</object-name>
+		<object-name>fo_nd_range_light_80</object-name>
+		<object-name>fo_nd_range_light_160</object-name>
+		<object-name>fo_nd_range_light_320</object-name>
+		<object-name>fo_nd_range_light_640</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_mode_light_ils</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/nd/display-mode</property>
+					<value>ILS</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_mode_light_vor</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/nd/display-mode</property>
+					<value>VOR</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_mode_light_nav</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/nd/display-mode</property>
+					<value>NAV</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_mode_light_arc</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/nd/display-mode</property>
+					<value>ARC</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_mode_light_plan</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/nd/display-mode</property>
+					<value>PLAN</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_range_light_zoom</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<less-than>
+					<property>/instrumentation/efis/inputs/range-nm</property>
+					<value>10</value>
+				</less-than>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_range_light_10</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/inputs/range-nm</property>
+					<value>10</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_range_light_20</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/inputs/range-nm</property>
+					<value>20</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_range_light_40</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/inputs/range-nm</property>
+					<value>40</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_range_light_80</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/inputs/range-nm</property>
+					<value>80</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+		<animation>
+		<type>select</type>
+		<object-name>captain_nd_range_light_160</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/inputs/range-nm</property>
+					<value>160</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_range_light_320</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/inputs/range-nm</property>
+					<value>320</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>captain_nd_range_light_640</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis/inputs/range-nm</property>
+					<value>640</value>
+				</equals>
+			</and>
+		</condition>
 	</animation>
 	<!-- captain qnh control -->
 	<text>
@@ -258,6 +535,185 @@
 		</font-resolution>
 		<alignment>center-top</alignment>
 	</text>
+	<!-- fo qnh control -->
+	<text>
+		<name>fo_qnhtext</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.264998</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">QNH</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fo_qnh_inhg</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.275196</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">number-value</type>
+		<format type="string">%.02f</format>
+		<property>/instrumentation/efis/qnh</property>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.009</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fo_qnh_hpa</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.275196</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">number-value</type>
+		<format type="string">%03.0f</format>
+		<property>/instrumentation/efis/hpa-value</property>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.009</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fo_qnh_inhg_presel</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.2809</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">number-value</type>
+		<format type="string">%.02f</format>
+		<property>/instrumentation/efis/qnh</property>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fo_qnh_hpa_presel</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.2809</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">number-value</type>
+		<format type="string">%03.0f</format>
+		<property>/instrumentation/efis/hpa-value</property>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fo_qnh_std</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.275196</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">Std</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.009</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
 	<animation>
 		<type>material</type>
 		<object-name>captain_qnh_hpa</object-name>
@@ -266,6 +722,12 @@
 		<object-name>captain_qnhtext</object-name>
 		<object-name>captain_qnh_hpa_presel</object-name>
 		<object-name>captain_qnh_inhg_presel</object-name>
+		<object-name>fo_qnh_hpa</object-name>
+		<object-name>fo_qnh_inhg</object-name>
+		<object-name>fo_qnh_std</object-name>
+		<object-name>fo_qnhtext</object-name>
+		<object-name>fo_qnh_hpa_presel</object-name>
+		<object-name>fo_qnh_inhg_presel</object-name>
 		<emission>
 			<red>1</red>
 			<green>1</green>
@@ -279,6 +741,19 @@
 			<and>
 				<greater-than>
 				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>20</value>
+				</greater-than>
+				<not><property>/instrumentation/efis/std</property></not>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_qnhtext</object-name>
+		<condition>
+			<and>
+				<greater-than>
+				<property>/systems/electrical/bus/dc-emer-2</property>
 				<value>20</value>
 				</greater-than>
 				<not><property>/instrumentation/efis/std</property></not>
@@ -304,11 +779,45 @@
 	</animation>
 	<animation>
 		<type>select</type>
+		<object-name>fo_qnh_inhg</object-name>
+		<condition>
+		<and>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-2</property>
+				<value>20</value>
+			</greater-than>
+			<equals>
+				<property>/instrumentation/efis/hpa</property>
+				<value>0</value>
+			</equals>
+			<not><property>/instrumentation/efis/std</property></not>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
 		<object-name>captain_qnh_inhg_presel</object-name>
 		<condition>
 		<and>
 			<greater-than>
 				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>20</value>
+			</greater-than>
+			<equals>
+				<property>/instrumentation/efis/hpa</property>
+				<value>0</value>
+			</equals>
+			<property>/instrumentation/efis/std</property>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_qnh_inhg_presel</object-name>
+		<condition>
+		<and>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-2</property>
 				<value>20</value>
 			</greater-than>
 			<equals>
@@ -338,6 +847,23 @@
 	</animation>
 	<animation>
 		<type>select</type>
+		<object-name>fo_qnh_hpa_presel</object-name>
+		<condition>
+		<and>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-2</property>
+				<value>20</value>
+			</greater-than>
+			<equals>
+				<property>/instrumentation/efis/hpa</property>
+				<value>1</value>
+			</equals>
+			<property>/instrumentation/efis/std</property>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
 		<object-name>captain_qnh_hpa</object-name>
 		<condition>
 		<and>
@@ -355,11 +881,44 @@
 	</animation>
 	<animation>
 		<type>select</type>
+		<object-name>fo_qnh_hpa</object-name>
+		<condition>
+		<and>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-2</property>
+				<value>20</value>
+			</greater-than>
+			<equals>
+				<property>/instrumentation/efis/hpa</property>
+				<value>1</value>
+			</equals>
+			<not><property>/instrumentation/efis/std</property></not>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
 		<object-name>captain_qnh_std</object-name>
 		<condition>
 			<and>
 			<greater-than>
 				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>20</value>
+			</greater-than>
+			<equals>
+				<property>/instrumentation/efis/std</property>
+				<value>1</value>
+			</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_qnh_std</object-name>
+		<condition>
+			<and>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-2</property>
 				<value>20</value>
 			</greater-than>
 			<equals>
@@ -435,6 +994,99 @@
 		</action>
 	</animation>
 	<animation>
+		<type>knob</type>
+		<object-name>fo_qnh_unit</object-name>
+		<property>/instrumentation/efis/hpa</property>
+		<axis>
+			<x1-m>2.94655</x1-m>
+			<y1-m>0.274766</y1-m>
+			<z1-m>1.56238</z1-m>
+			<x2-m>-2.93524</x2-m>
+			<y2-m>0.274766</y2-m>
+			<z2-m>1.56238</z2-m>
+		</axis>
+		<factor>60</factor>
+		<offset-deg>-30</offset-deg>
+		<!--<action>
+			<binding>
+				<command>property-adjust</command>
+				<property>/instrumentation/efis/hpa</property>
+				<factor>1</factor>
+				<min>0</min>
+				<max>1</max>
+				<wrap>false</wrap>
+			</binding>
+		</action>-->
+		<increase>
+            <binding>
+                <command>nasal</command>
+                <script>A350XWB.hpa_inhg(0);</script>
+           </binding>
+        </increase>
+	<decrease>
+            <binding>
+                <command>nasal</command>
+                <script>A350XWB.hpa_inhg(0);</script>
+           </binding>
+        </decrease>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Cylinder.005</object-name>
+		<action>
+			<button>4</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>A350XWB.qnh_edit(0, -1)</script>
+			</binding>
+		</action>
+		<action>
+			<button>3</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>A350XWB.qnh_edit(0, 1)</script>
+			</binding>
+		</action>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis/std</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>Cylinder.010</object-name>
+		<action>
+			<button>4</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>A350XWB.qnh_edit(0, -1)</script>
+			</binding>
+		</action>
+		<action>
+			<button>3</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>A350XWB.qnh_edit(0, 1)</script>
+			</binding>
+		</action>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>/instrumentation/efis/std</property>
+			</binding>
+		</action>
+	</animation>
+	<animation>
 		<type>pick</type>
 		<object-name>Cylinder.008</object-name>
 		<action>
@@ -444,6 +1096,7 @@
 			<binding>
 				<command>property-cycle</command>
 				<property>/instrumentation/efis[1]/inputs/range-nm</property>
+				<value>640</value>
 				<value>320</value>
 				<value>160</value>
 				<value>80</value>
@@ -470,9 +1123,252 @@
 				<value>80</value>
 				<value>160</value>
 				<value>320</value>
+				<value>640</value>
 			</binding>
 		</action>
 	</animation>
+
+		<animation>
+		<type>pick</type>
+		<object-name>fo_nd_mode</object-name>
+		<action>
+			<button>4</button>
+			<!--  scroll up -->
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-cycle</command>
+				<property>/instrumentation/efis[1]/nd/display-mode</property>
+				<value>PLAN</value>
+				<value>ARC</value>
+				<value>NAV</value>
+				<value>VOR</value>
+				<value>ILS</value>
+			</binding>
+		</action>
+		<action>
+			<button>3</button>
+			<!--  scroll up -->
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-cycle</command>
+				<property>/instrumentation/efis[1]/nd/display-mode</property>
+				<value>ILS</value>
+				<value>VOR</value>
+				<value>NAV</value>
+				<value>ARC</value>
+				<value>PLAN</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_mode_light_ils</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/nd/display-mode</property>
+					<value>ILS</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_mode_light_vor</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/nd/display-mode</property>
+					<value>VOR</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_mode_light_nav</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/nd/display-mode</property>
+					<value>NAV</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_mode_light_arc</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/nd/display-mode</property>
+					<value>ARC</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_mode_light_plan</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/nd/display-mode</property>
+					<value>PLAN</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_range_light_zoom</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<less-than>
+					<property>/instrumentation/efis[1]/inputs/range-nm</property>
+					<value>10</value>
+				</less-than>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_range_light_10</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/inputs/range-nm</property>
+					<value>10</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_range_light_20</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/inputs/range-nm</property>
+					<value>20</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_range_light_40</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/inputs/range-nm</property>
+					<value>40</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_range_light_80</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/inputs/range-nm</property>
+					<value>80</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+		<animation>
+		<type>select</type>
+		<object-name>fo_nd_range_light_160</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/inputs/range-nm</property>
+					<value>160</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_range_light_320</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/inputs/range-nm</property>
+					<value>320</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fo_nd_range_light_640</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/instrumentation/efis[1]/inputs/range-nm</property>
+					<value>640</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+
 	<animation>
 		<type>pick</type>
 		<object-name>Cylinder.012</object-name>
@@ -634,7 +1530,7 @@
 	</animation>
 	<!-- text -->
 	<text>
-		<name>fcu_spdmachtext</name>
+		<name>fcu_spdtext</name>
 		<offsets>
 			<pitch-deg>0</pitch-deg>
 			<heading-deg>0</heading-deg>
@@ -646,6 +1542,35 @@
 		<axis-alignment>yz-plane</axis-alignment>
 		<type type="string">literal</type>
 		<text type="string">SPD</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_machtext</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.093411</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">MACH</text>
 		<layout>left-to-right</layout>
 		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
 		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
@@ -736,7 +1661,65 @@
 		</offsets>
 		<axis-alignment>yz-plane</axis-alignment>
 		<type type="string">literal</type>
-		<text type="string">MAG HDG</text>
+		<text type="string">    HDG</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_trktext</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.04393</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">    TRK</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_truetext</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>-0.04393</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">TRU    </text>
 		<layout>left-to-right</layout>
 		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
 		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
@@ -875,6 +1858,160 @@
 		<alignment>center-top</alignment>
 	</text>
 	<text>
+		<name>fcu_vs_positive</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.091266</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<!-- The string value of a property -->
+		<type type="string">number-value</type>
+		<property type="string">/it-autoflight/input/vs</property>
+		<format type="string">+%01.0f</format> <!-- the sprintf() format to display the value -->
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_vs_negative</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.091266</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<!-- The string value of a property -->
+		<type type="string">number-value</type>
+		<property type="string">/it-autoflight/input/vs</property>
+		<format type="string">%01.0f</format> <!-- the sprintf() format to display the value -->
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_fpa_positive</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.091266</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<!-- The string value of a property -->
+		<type type="string">number-value</type>
+		<property type="string">/it-autoflight/input/fpa</property>
+		<format type="string">+%1.1f</format> <!-- the sprintf() format to display the value -->
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_fpa_negative</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.091266</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<!-- The string value of a property -->
+		<type type="string">number-value</type>
+		<property type="string">/it-autoflight/input/fpa</property>
+		<format type="string">%01.1f</format> <!-- the sprintf() format to display the value -->
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
+		<name>fcu_fpa_dashes</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.091266</y-m>
+			<z-m>1.5964</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<!-- The string value of a property -->
+		<type type="string">literal</type>
+		<text type="string">----</text> <!-- the sprintf() format to display the value -->
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>Airbus7Seg.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.011</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
+	<text>
 		<name>fcu_vstext</name>
 		<offsets>
 			<pitch-deg>0</pitch-deg>
@@ -903,17 +2040,55 @@
 		</font-resolution>
 		<alignment>center-top</alignment>
 	</text>
+	<text>
+		<name>fcu_fpatext</name>
+		<offsets>
+			<pitch-deg>0</pitch-deg>
+			<heading-deg>0</heading-deg>
+			<roll-deg>0</roll-deg>
+			<x-m>2.93594</x-m>
+			<y-m>0.093591</y-m>
+			<z-m>1.60393</z-m>
+		</offsets>
+		<axis-alignment>yz-plane</axis-alignment>
+		<type type="string">literal</type>
+		<text type="string">FPA</text>
+		<layout>left-to-right</layout>
+		<draw-text type="bool">true</draw-text> <!-- draw the text itself -->
+		<draw-alignment type="bool">false</draw-alignment> <!-- draw crosshair at object center -->
+		<draw-boundingbox type="bool">false</draw-boundingbox> <!-- draw a bounding box -->
+
+		<font>ECAMFontRegular.ttf</font> <!-- The font file name, relative to data/Fonts -->
+		<character-size type="double">0.005</character-size> <!-- size (height) im meters -->
+		<character-aspect-ratio type="double">1.0</character-aspect-ratio>
+		<max-height>0.006</max-height> <!-- the maximum height of the text -->
+		<max-width>1</max-width> <!-- the maximum width of the text -->
+		<font-resolution>
+			<width type="int">32</width>
+			<height type="int">32</height>
+		</font-resolution>
+		<alignment>center-top</alignment>
+	</text>
 	<animation>
 		<type>material</type>
-		<object-name>fcu_spdmachtext</object-name>
+		<object-name>fcu_spdtext</object-name>
+		<object-name>fcu_machtext</object-name>
 		<object-name>fcu_spd</object-name>
 		<object-name>fcu_mach</object-name>
 		<object-name>fcu_hdgtext</object-name>
 		<object-name>fcu_hdg</object-name>
+		<object-name>fcu_trktext</object-name>
+		<object-name>fcu_truetext</object-name>
 		<object-name>fcu_hdgblank</object-name>
 		<object-name>fcu_alttext</object-name>
 		<object-name>fcu_alt</object-name>
 		<object-name>fcu_vstext</object-name>
+		<object-name>fcu_fpatext</object-name>
+		<object-name>fcu_fpa_negative</object-name>
+		<object-name>fcu_fpa_positive</object-name>
+		<object-name>fcu_vs_positive</object-name>
+		<object-name>fcu_vs_negative</object-name>
+		<object-name>fcu_fpa_dashes</object-name>
 		<emission>
 			<red>1</red>
 			<green>1</green>
@@ -935,12 +2110,193 @@
 		<object-name>fcu_alttext</object-name>
 		<object-name>fcu_vstext</object-name>
 		<object-name>fcu_spdmachtext</object-name>
-		<object-name>fcu_hdgtext</object-name>
 		<condition>
 			<greater-than>
 				<property>/systems/electrical/bus/dc-emer-1</property>
 				<value>28</value>
 			</greater-than>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_vs_positive</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/input/vert</property>
+					<value>1</value>
+				</equals>
+				<greater-than-equals>
+					<property>/it-autoflight/input/vs</property>
+					<value>0</value>
+				</greater-than-equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_vs_negative</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/input/vert</property>
+					<value>1</value>
+				</equals>
+				<less-than>
+					<property>/it-autoflight/input/vs</property>
+					<value>0</value>
+				</less-than>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_fpa_positive</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/input/vert</property>
+					<value>5</value>
+				</equals>
+				<greater-than-equals>
+					<property>/it-autoflight/input/fpa</property>
+					<value>0</value>
+				</greater-than-equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_fpa_negative</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/input/vert</property>
+					<value>5</value>
+				</equals>
+				<less-than>
+					<property>/it-autoflight/input/fpa</property>
+					<value>0</value>
+				</less-than>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_fpa_dashes</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<not-equals>
+					<property>/it-autoflight/input/vert</property>
+					<value>5</value>
+				</not-equals>
+				<not-equals>
+					<property>/it-autoflight/input/vert</property>
+					<value>1</value>
+				</not-equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_spdtext</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/input/kts-mach</property>
+					<value>0</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_machtext</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/input/kts-mach</property>
+					<value>1</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_hdgtext</object-name>
+		<object-name>fcu_vstext</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/input/trk</property>
+					<value>0</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_trktext</object-name>
+		<object-name>fcu_fpatext</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/input/trk</property>
+					<value>1</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>fcu_truetext</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>28</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/input/true-course</property>
+					<value>1</value>
+				</equals>
+			</and>
 		</condition>
 	</animation>
 	<animation>
@@ -1083,6 +2439,18 @@
 				<script>A350XWB.change_alt(-1);</script>
 			</binding>
 		</action>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<condition>
+					<property>devices/status/keyboard/shift</property>
+				</condition>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/vert</property>
+				<value>4</value>
+			</binding>
+		</action>
 	</animation>
 	<animation>
 		<type>rotate</type>
@@ -1119,9 +2487,9 @@
 		</action>
 	</animation>
 	<animation>
-		<type>knob</type>
+		<type>rotate</type>
 		<object-name>hdg_knob</object-name>
-		<property>/instrumentation/fcu/alt-increment</property>
+		<property>/instrumentation/fcu/hdg-knob</property>
 		<axis>
 			<x1-m>-2.93524</x1-m>
 			<y1-m>-0.043926</y1-m>
@@ -1130,16 +2498,358 @@
 			<y2-m>-0.043926</y2-m>
 			<z2-m>1.55803</z2-m>
 		</axis>
-		<factor>-0.066666666666666667</factor>
+		<factor>-1</factor>
 		<offset-deg>0</offset-deg>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>hdg_knob</object-name>
 		<action>
+			<button>3</button>
+			<repeatable>false</repeatable>
 			<binding>
 				<command>property-adjust</command>
 				<property>/it-autoflight/input/hdg</property>
-				<factor>1</factor>
+				<step>1</step>
 				<min>0</min>
 				<max>360</max>
 				<wrap>true</wrap>
+			</binding>
+			<binding>
+				<command>property-adjust</command>
+				<property>/instrumentation/fcu/hdg-knob</property>
+				<step>11.25</step>
+			</binding>
+		</action>
+		<action>
+			<button>4</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-adjust</command>
+				<property>/it-autoflight/input/hdg</property>
+				<step>-1</step>
+				<min>0</min>
+				<max>360</max>
+				<wrap>true</wrap>
+			</binding>
+			<binding>
+				<command>property-adjust</command>
+				<property>/instrumentation/fcu/hdg-knob</property>
+				<step>-11.25</step>
+			</binding>
+		</action>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<condition>
+					<property>devices/status/keyboard/shift</property>
+				</condition>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/lat</property>
+				<value>3</value>
+			</binding>
+			<binding>
+				<condition>
+					<not><property>devices/status/keyboard/shift</property></not>
+				</condition>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/lat</property>
+				<value>1</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>material</type>
+		<object-name>apprlight.001</object-name>
+		<object-name>altlight.002</object-name>
+		<object-name>loclight.002</object-name>
+		<emission>
+			<red>0</red>
+			<green>1</green>
+			<blue>0</blue>
+		</emission>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>loclight.002</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<or>
+					<equals>
+						<property>/it-autoflight/output/loc-arm</property>
+						<value>1</value>
+					</equals>
+					<equals>
+						<property>/it-autoflight/output/lat</property>
+						<value>2</value>
+					</equals>
+				</or>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>apprlight.001</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<and>
+					<or>
+						<equals>
+							<property>/it-autoflight/output/loc-arm</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/lat</property>
+							<value>2</value>
+						</equals>
+					</or>
+					<or>
+						<equals>
+							<property>/it-autoflight/output/gs-arm</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/it-autoflight/output/vert</property>
+							<value>2</value>
+						</equals>
+					</or>
+				</and>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>select</type>
+		<object-name>altlight.002</object-name>
+		<condition>
+			<and>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>27.5</value>
+				</greater-than>
+				<equals>
+					<property>/it-autoflight/output/vert</property>
+					<value>0</value>
+				</equals>
+			</and>
+		</condition>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>alt_button</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/vert</property>
+				<value>0</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>loc_button</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>itaf.ITAF.toggleLocArm();</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>appr_button</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>nasal</command>
+				<script>itaf.ITAF.toggleApprArm();</script>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>hdg_knob</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<condition>
+					<not><property>/devices/status/keyboard/shift</property></not>
+				</condition>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/lat</property>
+				<value>1</value>
+			</binding>
+			<binding>
+				<condition>
+					<property>/devices/status/keyboard/shift</property>
+				</condition>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/lat</property>
+				<value>3</value>
+			</binding>
+		</action>
+	</animation>
+	<animation>
+		<type>pick</type>
+		<object-name>vs_knob</object-name>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<!--<condition>
+					<property>/devices/status/keyboard/shift</property>
+				</condition>-->
+				<command>property-assign</command>
+				<property>/it-autoflight/input/vs</property>
+				<value>0</value>
+			</binding>
+			<binding>
+				<!--<condition>
+					<property>/devices/status/keyboard/shift</property>
+				</condition>-->
+				<command>property-assign</command>
+				<property>/it-autoflight/input/fpa</property>
+				<value>0</value>
+			</binding>
+		</action>
+		<action>
+			<button>3</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<condition>
+					<and>
+						<not>
+							<property>/it-autoflight/input/trk</property>
+						</not>
+						<not>
+							<equals>
+								<property>/it-autoflight/input/vert</property>
+								<value>1</value>
+							</equals>
+						</not>
+					</and>
+				</condition>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/vert</property>
+				<value>1</value>
+			</binding>
+			<binding>
+				<condition>
+				<and>
+					<property>/it-autoflight/input/trk</property>
+					<not>
+							<equals>
+								<property>/it-autoflight/input/vert</property>
+								<value>5</value>
+							</equals>
+						</not></and>
+				</condition>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/vert</property>
+				<value>5</value>
+			</binding>
+			<binding>
+				<!--<condition>
+					<property>/devices/status/keyboard/shift</property>
+				</condition>-->
+				<condition>
+					<not><property>/it-autoflight/input/trk</property></not>
+				</condition>
+				<command>property-adjust</command>
+				<property>/it-autoflight/input/vs</property>
+				<step>100</step>
+				<min>-6000</min>
+				<max>6000</max>
+			</binding>
+			<binding>
+				<!--<condition>
+					<property>/devices/status/keyboard/shift</property>
+				</condition>-->
+				<condition>
+					<property>/it-autoflight/input/trk</property>
+				</condition>
+				<command>property-adjust</command>
+				<property>/it-autoflight/input/fpa</property>
+				<step>0.1</step>
+				<min>-9.9</min>
+				<max>9.9</max>
+			</binding>
+		</action>
+		<action>
+			<button>4</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<condition>
+					<and>
+						<not>
+							<property>/it-autoflight/input/trk</property>
+						</not>
+						<not>
+							<equals>
+								<property>/it-autoflight/input/vert</property>
+								<value>1</value>
+							</equals>
+						</not>
+					</and>
+				</condition>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/vert</property>
+				<value>1</value>
+			</binding>
+			<binding>
+				<condition>
+				<and>
+					<property>/it-autoflight/input/trk</property>
+					<not>
+							<equals>
+								<property>/it-autoflight/input/vert</property>
+								<value>5</value>
+							</equals>
+						</not></and>
+				</condition>
+				<command>property-assign</command>
+				<property>/it-autoflight/input/vert</property>
+				<value>5</value>
+			</binding>
+			<binding>
+				<!--<condition>
+					<property>/devices/status/keyboard/shift</property>
+				</condition>-->
+				<condition>
+					<not><property>/it-autoflight/input/trk</property></not>
+				</condition>
+				<command>property-adjust</command>
+				<property>/it-autoflight/input/vs</property>
+				<step>-100</step>
+				<min>-6000</min>
+				<max>6000</max>
+			</binding>
+			<binding>
+				<!--<condition>
+					<property>/devices/status/keyboard/shift</property>
+				</condition>-->
+				<condition>
+					<property>/it-autoflight/input/trk</property>
+				</condition>
+				<command>property-adjust</command>
+				<property>/it-autoflight/input/fpa</property>
+				<step>-0.1</step>
+				<min>-9.9</min>
+				<max>9.9</max>
 			</binding>
 		</action>
 	</animation>

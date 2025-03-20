@@ -442,7 +442,7 @@ var ITAF = {
 		}
 		
 		# Autoland Logic
-		if ((Output.ap1Temp or Output.ap2Temp or Output.ap3Temp) and (Settings.landEnable.getBoolValue() or 1)) { # Lateral ALIGN/ROLLOUT requires AP to function
+		if ((Output.ap1Temp or Output.ap2Temp or Output.ap3Temp or 1) and (Settings.landEnable.getBoolValue())) { # Lateral ALIGN/ROLLOUT requires AP to function
 			if (Output.latTemp == 2) {
 				if (Position.gearAglFtTemp <= Settings.alignFt.getValue()) {
 					me.setLatMode(4);
@@ -766,7 +766,8 @@ var ITAF = {
 			Output.lat.setValue(0);
 			me.updateLatText("HDG");
 			if (Output.vertTemp == 2 or Output.vertTemp == 6) { # Also cancel G/S or FLARE if active
-				me.setVertMode(1);
+				if (Input.trk.getValue()) me.setVertMode(5);
+				else me.setVertMode(1);
 			}
 		} else if (n == 4) { # ALIGN
 			me.updateLnavArm(0);
@@ -1155,6 +1156,7 @@ var ITAF = {
 				me.setLatMode(5);
 			}
 			me.setVertMode(7);
+			me.setLatMode(1);
 		}
 	},
 	syncKts: func() {
@@ -1165,7 +1167,7 @@ var ITAF = {
 	},
 	syncMach: func() {
 		Velocities.indicatedMachTemp = Velocities.indicatedMach.getValue();
-		Input.mach.setValue(math.clamp(math.round(Velocities.indicatedMachTemp, 0.001), 0.5, Settings.maxMach.getValue()));
+		Input.mach.setValue(math.clamp(math.round(Velocities.indicatedMachTemp, 0.01), 0.5, Settings.maxMach.getValue()));
 		Input.machX1000.setValue(math.clamp(math.round(Velocities.indicatedMachTemp * 1000), 500, Settings.maxMach.getValue() * 1000));
 	},
 	syncHdg: func() {
@@ -1219,6 +1221,31 @@ var ITAF = {
 		Output.locArm.setBoolValue(n);
 		if (Settings.customFma.getBoolValue()) {
 			UpdateFma.arm();
+		}
+	},
+	toggleLocArm: func() {
+		var arm = Output.locArm.getValue();
+		if (Output.lat.getValue() == 2) {
+			print('loc active!!!');
+			me.setLatMode(3);
+			return;
+		}
+		if (arm == 1) {
+			print('loc is armed - disarming!');
+			me.updateLocArm(0);
+		} else {
+			print('loc is disarmed!');
+			me.setLatMode(2);
+		}
+	},
+	toggleApprArm: func() {
+		var locArm = Output.locArm.getValue();
+		var gsArm = Output.gsArm.getValue();
+		if (!gsArm) {
+			me.setVertMode(2);
+			return;
+		} else {
+			me.setLatMode(3);
 		}
 	},
 	updateGsArm: func(n) {
