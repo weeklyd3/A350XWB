@@ -352,9 +352,11 @@ canvas.NavDisplay.update_vd = func() {
 	me.symbols['vd_current_alt'].setTranslation(0, -airplane_symbol);
 	# update terrain
 	me.update_terrain();
-	if (size(me.terrain) != (terrain_steps + 1)) return print('whoa what???');
+	#if (size(me.terrain) != (terrain_steps + 1)) return print('whoa what???');
 	var last_is_solid = me.terrain[0][1];
-	var last_path = me.page.createChild('path');
+	var path_clipping = 'rect(1023, 895, 1251, 230)';
+	var last_path = me.symbols['vd_terrain_group'].createChild('path');
+	last_path.set('clip', path_clipping);
 	last_path.moveTo(230, 1273);
 	if (last_is_solid == 1) last_path.setColorFill([157 / 255, 50 / 255, 1 / 255]); # 9d3201
 	else if (last_is_solid == 2) last_path.setColorFill([0, 1, 0]);
@@ -364,40 +366,46 @@ canvas.NavDisplay.update_vd = func() {
 	var old_terrain_elements = [];
 	foreach (element; me.terrain_elements) append(old_terrain_elements, element);
 	me.terrain_elements = [];
-	for (var i = 0; i <= terrain_steps; i = i + 1) {
+	var i = 0;
+	foreach (terrain; me.terrain) {
 		# draw terrain
 		if (i != (terrain_steps)) {
-			if (me.terrain[i][0] == nil) me.terrain[i] = [0, 2];
+			if (me.terrain[i][0] == nil) me.terrain[i] = [0, 2, me.terrain[i][2]];
 			var solid = me.terrain[i][1];
 			var y_coordinate = 1273 - (me.terrain[i][0] - base_alt) / range * 250;
 		} else {
-			if (me.terrain[i][0] == nil) me.terrain[i] = [0, 2];
+			if (me.terrain[i][0] == nil) me.terrain[i] = [0, 2, me.terrain[i][2]];
 			var y_coordinate = 1273 - (me.terrain[i][0] - base_alt) / range * 250;
 			var solid = 2; # doesnt matter
 		}
-		if (i == (terrain_steps) or (solid != last_is_solid)) {
-			last_path.lineTo((i) / terrain_steps * 665 + 230, y_coordinate);
-			last_path.lineTo((i) / terrain_steps * 665 + 230, 1273);
+		var x_coordinate = terrain[2] / me.vd_switches.vd_range.getValue() * 665 + 230;
+		if (i == (size(me.terrain) - 1) or (solid != last_is_solid)) {
+			last_path.lineTo(x_coordinate, y_coordinate);
+			last_path.lineTo(x_coordinate, 1273);
 			last_path.update();
 			append(me.terrain_elements, last_path);
 			if (i == (terrain_steps)) break;
-			last_path = me.page.createChild('path');
+			last_path = me.symbols['vd_terrain_group'].createChild('path');
+			last_path.set('clip', path_clipping);
 			#last_path.hide();
-			last_path.moveTo((i) / terrain_steps * 665 + 230, 1273);
+			last_path.moveTo(x_coordinate, 1273);
 			if (solid == 1) last_path.setColorFill([157 / 255, 50 / 255, 1 / 255]); # 9d3201
 			else if (solid == 2) last_path.setColorFill([0, 1, 0]);
 			else last_path.setColorFill([0, 1, 1]);
 		}
-		var x_coordinate = i / terrain_steps * 665 + 230;
+		
 		last_path.lineTo(x_coordinate, y_coordinate);
 		last_is_solid = solid;
+		i += 1;
 	}
 	foreach (element; old_terrain_elements) element.del();
 	if (size(me.terrain_elements) == 0) return print('HUH??? ' ~ size(me.terrain_elements));
 }
 var route_active = props.globals.getNode('/autopilot/route-manager/active');
-var track = props.globals.getNode('/orientation/track-deg');
-var terrain_steps = 20;
+var track = props.globals.getNode('/it-autoflight/internal/track-deg');
+var course = props.globals.getNode('/instrumentation/gps/desired-course-deg');
+var distance = props.globals.getNode('/instrumentation/gps/wp/wp[1]/distance-nm');
+var terrain_steps = 40;
 canvas.NavDisplay.flightplan = nil;
 # [elevation, is ground?]
 canvas.NavDisplay.terrain = [];
@@ -405,27 +413,62 @@ for (var i = 0; i <= terrain_steps; i += 1) append(canvas.NavDisplay.terrain, [0
 canvas.NavDisplay.terrain_path = nil;
 canvas.NavDisplay.terrain_elements = [];
 canvas.NavDisplay.update_terrain = func() {
-	if (me.flightplan == nil) me.flightplan = flightplan();
+	me.flightplan = flightplan();
 	var nd_range = me.vd_switches.range.getValue();
 	var vd_range = me.vd_switches.vd_range.getValue();
 	var pos = geo.aircraft_position();
 	var ref_coordinates = geo.Coord.new();
 	ref_coordinates.set(pos);
+	me.terrain = [];
 	if (route_active.getValue() and me.flightplan != nil) {
 		var next_waypoint = me.flightplan.currentWP();
-		#debug.dump(next_waypoint.index);
+		var distance_sampled = 0;
+		var distance_to_go = distance.getValue();
+		var step = distance_to_go / math.ceil(distance_to_go / (vd_range / terrain_steps));
+		var course_to_next = course.getValue();
+		var i = 0;
+		var waypoint_index = me.flightplan.currentWP().index;
+		while (distance_sampled < vd_range) {
+			if (distance_sampled != 0) ref_coordinates.apply_course_distance(course_to_next, step * 1852);
+			distance_sampled += step;
+			distance_to_go -= step;
+			var info = geodinfo(ref_coordinates.lat(), ref_coordinates.lon());
+			var terrain_array = [nil, 2, distance_sampled];
+			if (info == nil) {
+				terrain_array = [nil, 2, distance_sampled];
+			} else {
+				if (info[1] == nil) info[1] = {solid: 1};
+				terrain_array = [info[0] * (100 / 12 / 2.54), info[1].solid, distance_sampled];
+			}
+			append(me.terrain, terrain_array);
+			if (distance_to_go <= 0.01) {
+				# transition to new waypoint
+				waypoint_index += 1;
+				ref_coordinates.set_latlon(next_waypoint.wp_lat, next_waypoint.wp_lon);
+				var new_waypoint = me.flightplan.getWP(waypoint_index);
+				if (new_waypoint == nil) {
+					step = vd_range / terrain_steps;
+					distance_to_go = 1000;
+				} else {
+					distance_to_go = new_waypoint.leg_distance;
+					course_to_next = new_waypoint.leg_bearing;
+					step = distance_to_go / math.ceil(distance_to_go / (vd_range / terrain_steps));
+				}
+			}
+			i += 1;
+		}
 	} else {
 		var track_value = track.getValue();
 		# take cut along track
 		for (var i = 0; i <= terrain_steps; i += 1) {
 			var info = geodinfo(ref_coordinates.lat(), ref_coordinates.lon());
 			if (info == nil) {
-				me.terrain[i] = [nil, 2];
+				append(me.terrain, [nil, 2, i * vd_range / terrain_steps]);
 				continue;
 			}
 			if (info[1] == nil) info[1] = {solid: 1};
-			var terrain_array = [info[0] * (100 / 12 / 2.54), info[1].solid];
-			me.terrain[i] = terrain_array;
+			var terrain_array = [info[0] * (100 / 12 / 2.54), info[1].solid, i * vd_range / terrain_steps];
+			append(me.terrain, terrain_array);
 			ref_coordinates.apply_course_distance(track_value, vd_range * 1852 / terrain_steps);
 		}
 	}
