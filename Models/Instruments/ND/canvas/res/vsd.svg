@@ -25,9 +25,9 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="px"
      showgrid="false"
-     inkscape:zoom="1.0677758"
-     inkscape:cx="452.8104"
-     inkscape:cy="1289.1283"
+     inkscape:zoom="0.5338879"
+     inkscape:cx="392.40447"
+     inkscape:cy="1437.5677"
      inkscape:window-width="1920"
      inkscape:window-height="1003"
      inkscape:window-x="0"
@@ -49,6 +49,8 @@
        x="0"
        y="-68.472778"
        style="display:inline;stroke:#00ffff" />
+    <g
+       id="vd_terrain_group" />
     <path
        style="fill:none;stroke:#ffffff;stroke-width:2;stroke-dasharray:8, 8;stroke-dashoffset:0;paint-order:markers stroke fill;stop-color:#000000"
        d="m 230,1273.0003 v -250"

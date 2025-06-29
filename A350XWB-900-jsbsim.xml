@@ -604,7 +604,7 @@ YAW MOI_________3950000______23089847_______24848934
     <channel name="Pitch">
       <summer name="Pitch Trim Sum">
         <!--<input>fcs/elevator-cmd-norm</input>-->
-        <input>/systems/fbw/elevator</input>
+        <input>/systems/fbw/fdm-elevator</input>
         <input>fcs/pitch-trim-cmd-norm</input>
         <clipto>
           <min>-1</min>
@@ -654,7 +654,7 @@ YAW MOI_________3950000______23089847_______24848934
       </summer>-->
       <aerosurface_scale name="Left Aileron Control">
         <input>fcs/left-aileron-sum</input>
-        <gain>/systems/hydraulic/both-gain</gain>
+        <gain>0.02</gain>
         <range>
           <min>-15</min>
           <max>15</max>
@@ -672,7 +672,7 @@ YAW MOI_________3950000______23089847_______24848934
       </summer>-->
       <aerosurface_scale name="Right Aileron Control">
         <input>fcs/right-aileron-sum</input>
-        <gain>/systems/hydraulic/both-gain</gain>
+        <gain>0.02</gain>
         <range>
           <min>-15</min>
           <max>15</max>
@@ -1283,7 +1283,7 @@ YAW MOI_________3950000______23089847_______24848934
            <property>metrics/Sw-sqft</property>
            <property>metrics/bw-ft</property>
            <property>fcs/rudder-pos-rad</property>
-           <value>-0.1</value>
+           <value>-0.16</value>
        </product>
     </function>
 

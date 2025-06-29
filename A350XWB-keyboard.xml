@@ -104,14 +104,41 @@
 				<desc>set TOGA thrust</desc>
 				<repeatable type="bool">false</repeatable>
 				<binding>
+					<condition>
+						<not><property>devices/status/keyboard/shift</property></not>
+					</condition>
 					<command>property-assign</command>
 					<property>/controls/engines/engine/throttle</property>
 					<value>1</value>
 				</binding>
 				<binding>
+					<condition>
+						<not><property>devices/status/keyboard/shift</property></not>
+					</condition>
 					<command>property-assign</command>
 					<property>/controls/engines/engine[1]/throttle</property>
 					<value>1</value>
+				</binding>
+			</key>
+			<key n="70">
+				<name>shift-f</name>
+				<desc>set clb thrust</desc>
+				<repeatable type="bool">false</repeatable>
+				<binding>
+					<condition>
+						<property>devices/status/keyboard/shift</property>
+					</condition>
+					<command>property-assign</command>
+					<property>/controls/engines/engine/throttle</property>
+					<value>0.625</value>
+				</binding>
+				<binding>
+					<condition>
+						<property>devices/status/keyboard/shift</property>
+					</condition>
+					<command>property-assign</command>
+					<property>/controls/engines/engine[1]/throttle</property>
+					<value>0.625</value>
 				</binding>
 			</key>
 			<key n="101">

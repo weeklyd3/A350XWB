@@ -49,10 +49,10 @@
 		<input>
 			<or>
 				<and>
-					<greater-than>
+					<less-than>
 						<property>/instrumentation/altimeter/indicated-altitude-ft</property>
 						<property>/it-autoflight/internal/alt</property>
-					</greater-than>
+					</less-than>
 					<or>
 						<and>
 							<equals>
@@ -85,10 +85,10 @@
 					</or>
 				</and>
 				<and>
-					<less-than>
+					<greater-than>
 						<property>/instrumentation/altimeter/indicated-altitude-ft</property>
 						<property>/it-autoflight/internal/alt</property>
-					</less-than>
+					</greater-than>
 					<or>
 						<and>
 							<equals>

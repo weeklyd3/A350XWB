@@ -26,14 +26,14 @@
      inkscape:document-units="pt"
      showgrid="false"
      inkscape:zoom="0.99906609"
-     inkscape:cx="327.80614"
-     inkscape:cy="454.92486"
-     inkscape:window-width="1698"
-     inkscape:window-height="991"
-     inkscape:window-x="26"
-     inkscape:window-y="23"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="layer1" />
+     inkscape:cx="292.77342"
+     inkscape:cy="506.97347"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="fuelload" />
   <defs
      id="defs1841" />
   <g
@@ -53,7 +53,7 @@
          x="-4.4408921e-16"
          y="80"
          transform="translate(-25.751951,121.34033)"
-         style="display:none" />
+         style="display:inline" />
       <g
          id="zfw">
         <text

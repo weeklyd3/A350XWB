@@ -21,7 +21,8 @@ var mfd = {
 		returned.group = group;
 		var parse_options = {'font-mapper': func(doesnt, matter) { return 'ECAMFontRegular.ttf'; }};
 		canvas.parsesvg(group, path, parse_options);
-
+		if (name == 'mfd1') group.getElementById('mfd2_cursor').hide();
+		if (name == 'mfd2') group.getElementById('mfd1_cursor').hide();
 		var fms = group.getElementById('fms');
 		canvas.parsesvg(fms, page_prefix ~ "fms/init"           ~ ".svg", parse_options);
 		canvas.parsesvg(fms, page_prefix ~ "fms/fuelload"       ~ ".svg", parse_options);
@@ -30,8 +31,8 @@ var mfd = {
 		returned.setApp(returned, 'fms');
 		returned.setPage(returned, 'init');
 		foreach (item; ['cursor', 'mfd']) returned.svg_items[item] = group.getElementById(item);
-		returned.svg_items.cursor.addEventListener('mouseenter', func() { print('bruh'); });
-		returned.svg_items.cursor.addEventListener('mouseleave', func() { print('bruh leave'); });
+		#returned.svg_items.cursor.addEventListener('mouseenter', func() { print('bruh'); });
+		#returned.svg_items.cursor.addEventListener('mouseleave', func() { print('bruh leave'); });
 		display.addEventListener('click', func() {
 			if (returned.active == nil) return;
 			returned.active.blur(returned.active);
@@ -253,25 +254,34 @@ var field = {
 			ret.value = extra_options.get();
 			ret.prop = nil;
 		}
+		ret.input_value = default ~ "";
+		init_mfd_field_prop(ret);
 		ret.active = 0;
 		ret.options = new_options;
 		ret.update(ret, ret.value, ret.options.default);
-		ret.input_value = default ~ "";
 		return ret;
 	},
 	blur: func(ret) {
 		ret.active = 0;
 		var format = ret.options.format;
 		debug.dump(format);
+		field_input_values[ret.elementName] = ret.input_value;
 		if (format == nil) var formatted = ret.input_value;
 		else var formatted = sprintf(format, ret.input_value);
 		var default = ret.options.default;
 		if (ret.prop != nil) ret.prop.setValue(formatted);
 		else ret.options.set(ret.value);
-		ret.update(ret, formatted, ret.input_value);
+		#ret.update(ret, formatted, ret.input_value);
 		ret.frame.setColor(1, 1, 1);
 	},
 	selected: func(ret) {},
+	updated: func(value) {
+		me.input_value = field_input_values[me.elementName];
+		if (me.options.format == nil) var formatted = me.input_value;
+		else var formatted = sprintf(me.options.format, me.input_value);
+		me.value = formatted;
+		me.update(me, me.value, 1);
+	},
 	update: func(ret, formatted, input) {
 		#var format = ret.options.format;
 		#if (ret.options.numeric and value == "") value = "0";
@@ -348,10 +358,11 @@ var numeric_field = {
 			}
 			ret.value = ret.prop.getValue() ~ "";
 		}
+		ret.input_value = new_options.default ~ "";
+		init_mfd_field_prop(ret);
 		ret.active = 0;
 		ret.options = new_options;
-		ret.update(ret, ret.value);
-		ret.input_value = new_options.default ~ "";
+		ret.update(ret, ret.input_value);
 		return ret;
 	},
 	update: func(ret, value) {
@@ -362,19 +373,30 @@ var numeric_field = {
 			ret.text.setText(value ~ cursor_character);
 			return;
 		}
-		if (num(value) == nil) {
+		if (num(value) == nil or (value == '')) {
 			ret.text.hide();
 			ret.empty.show();
 			return;
+		} else {
+			ret.text.show();
+			ret.empty.hide();
 		}
 		if (ret.options.format) var formatted = sprintf(ret.options.format, value);
 		else var formatted = value;
+		print(me.elementName ~ ': formatted ' ~ formatted);
 		ret.text.setText(formatted);
 		return formatted;
+	},
+	updated: func(value) {
+		me.input_value = field_input_values[me.elementName];
+		print('[updating] - input value is ' ~ me.input_value);
+		me.value = value;
+		me.update(me, me.input_value);
 	},
 	blur: func(ret) {
 		ret.active = 0;
 		var formatted = ret.update(ret, ret.input_value);
+		field_input_values[ret.elementName] = ret.input_value;
 		if (formatted != nil and formatted != 'nil') ret.prop.setDoubleValue(formatted);
 		else {
 			if (num(ret.options.default) == nil) ret.prop.setDoubleValue(0);
@@ -431,6 +453,8 @@ var dropdown = {
 		ret.options = new_options;
 		ret.active = 0;
 		ret.value = ret.options.default;
+		ret.input_value = ret.value;
+		init_mfd_field_prop(ret);
 		var display_value = ret.value;
 		if (contains(extra_options, 'alias')) {
 			if (contains(extra_options.alias, ret.value)) display_value = extra_options.alias[ret.value];
@@ -445,6 +469,15 @@ var dropdown = {
 		ret.active = 0;
 		ret.option_list.hide();
 		ret.frame.setColor(1, 1, 1);
+	},
+	updated: func(value) {
+		me.value = value;
+		var display_value = value;
+		if (contains(me.options, 'alias')) {
+			if (contains(me.options.alias, me.value)) display_value = me.options.alias[me.value];
+		}
+		me.display_value = display_value;
+		me.text.updateText(string.uc(me.display_value ~ ""));
 	},
 	selected: func(ret) {
 		ret.option_list.show();
@@ -496,6 +529,7 @@ var radio = {
 		var default = new_options.default;
 		if (contains(new_options.alias, default)) default = new_options.alias[default];
 		if (ret.prop == nil) ret.prop = props.globals.initNode(prop, default);
+		
 		foreach (var opt; extra_options.options) {
 			ret.choices[opt] = group.getElementById(element ~ "_" ~ opt ~ "_button");
 			me.makeOption(ret, group, opt, extra_options);
@@ -503,6 +537,8 @@ var radio = {
 		ret.options = new_options;
 		ret.active = 0;
 		ret.value = ret.options.default;
+		ret.input_value = ret.value;
+		init_mfd_field_prop(ret);
 		ret.update(ret, group);
 		return ret;
 	},
@@ -513,6 +549,10 @@ var radio = {
 			if (option != object.value) button.hide();
 			else button.show();
 		}
+	},
+	updated: func(raw_value) {
+		me.value = field_input_values[me.elementName];
+		me.update(me, nil);
 	},
 	blur: func(ret) {
 		return;
@@ -525,6 +565,8 @@ var radio = {
 		option_element.addEventListener('click', func(ev) {
 			object.value = option;
 			var value = object.value;
+			object.input_value = value;
+			field_input_values[object.elementName] = object.input_value;
 			if (contains(object.new_options.alias, value)) value = object.new_options.alias[value];
 			object.prop.setValue(value);
 			object.update(object, group);
@@ -543,15 +585,57 @@ setprop('/autopilot/route-manager/route/num', 0);
 setprop('/autopilot/route-manager/departure/airport', '');
 var timer = maketimer(1, clear);
 timer.singleShot = 1;
-timer.start();
+#timer.start();
+var init_mfd_field_prop = func(field) {
+	var prop = field.prop;
+	var element = field.elementName;
+	field_input_values[element] = field.input_value;
+	if (!prop) return;
+	var path = prop.getPath();
+	if (!contains(field_properties, path)) field_properties[path] = [];
+	append(field_properties[path], field);
+};
+var init_mfd_field_props = func(prop) {
+	var fields = field_properties[prop];
+	setlistener(prop, func(value) {
+		foreach (field; fields) field.updated(value.getValue());
+	}, 0, 1);
+}
+var get_fpln_list = func() {
+	var plan = flightplan();
+	if (!plan) return;
+}
+var field_properties = {};
+var field_input_values = {};
 var mfd_l = mfd.new('mfd1');
 var mfd_r = mfd.new('mfd2');
+foreach (prop; keys(field_properties)) {
+	init_mfd_field_props(prop);
+}
+var flightplan_cleared = 0;
 setlistener('/systems/electrical/lower-du', func(node) {
 	if (node.getValue()) {
 		mfd_l.group.show();
 		mfd_r.group.show();
+		if (!flightplan_cleared) {
+			setprop("/autopilot/route-manager/departure/airport", '');
+			flightplan().departure = nil;
+			flightplan().clearAll();
+			flightplan_cleared = 1;
+			var plan = createFlightplan();
+			plan.deleteWP(0);
+			plan.clearAll();
+			var ppos = createWP(geo.aircraft_position().lat(), geo.aircraft_position().lon(), "PPOS");
+			plan.insertWP(ppos, 0);
+			plan.insertWP(createDiscontinuity(), 1);
+			plan.departure = nil;
+			plan.activate();
+		}
 	} else {
 		mfd_l.group.hide();
 		mfd_r.group.hide();
 	}
 }, 1, 0);
+setlistener('/sim/signals/fdm-initialized', func() {
+	flightplan().clearAll();
+}, 0, 0);

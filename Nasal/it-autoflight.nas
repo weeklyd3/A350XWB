@@ -1142,6 +1142,8 @@ var ITAF = {
 	takeoffGoAround: func() {
 		Output.vertTemp = Output.vert.getValue();
 		if ((Output.vertTemp == 2 or Output.vertTemp == 6) and Velocities.indicatedAirspeedKt.getValue() >= 80) {
+			Input.fd1.setValue(1);
+			Input.fd2.setValue(1);
 			me.setLatMode(3);
 			me.setVertMode(8); # Must be before kicking AP off
 			me.syncKtsGa();
@@ -1151,6 +1153,8 @@ var ITAF = {
 				me.ap3Master(0);
 			}
 		} else if (Gear.wow1.getBoolValue() or Gear.wow2.getBoolValue()) {
+			Input.fd1.setValue(1);
+			Input.fd2.setValue(1);
 			me.athrMaster(1);
 			if (Output.lat.getValue() != 5) { # Don't accidently disarm LNAV
 				me.setLatMode(5);
@@ -1459,7 +1463,13 @@ var slowLoopTimer = maketimer(1, ITAF, ITAF.slowLoop);
 var wow = props.globals.getNode('/systems/fbw/mlg-wow');
 setlistener('/it-autoflight/output/apfd-on', func(node) {
 	var apfd_on = node.getValue();
-	if (wow.getValue()) return;
+	if (wow.getValue()) {
+		if (!apfd_on) {
+			Input.vert.setValue(9);
+			Input.lat.setValue(9);
+		}
+		return;
+	}
 	if (apfd_on) {
 		# now on, engage hdg/trk and vs/fpa
 		Input.lat.setValue(3);

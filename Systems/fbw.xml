@@ -31,6 +31,276 @@
 			<c1>40</c1>
 		</lag_filter>
 	</channel>
+	<property value="1">/controls/fbw/prim-1</property>
+	<property value="1">/controls/fbw/prim-2</property>
+	<property value="1">/controls/fbw/prim-3</property>
+	<property value="1">/controls/fbw/sec-1</property>
+	<property value="1">/controls/fbw/sec-2</property>
+	<property value="1">/controls/fbw/sec-3</property>
+	<property value="0">/systems/fbw/computers/prim-1-fault</property>
+	<property value="0">/systems/fbw/computers/prim-2-fault</property>
+	<property value="0">/systems/fbw/computers/prim-3-fault</property>
+	<property value="0">/systems/fbw/computers/sec-1-fault</property>
+	<property value="0">/systems/fbw/computers/sec-2-fault</property>
+	<property value="0">/systems/fbw/computers/sec-3-fault</property>
+	<property value="0">/systems/fbw/law/number</property> <!-- 0 = normal, 1 = alternate, 2 =
+	direct -->
+	<channel name="flight control computers">
+		<switch name="/systems/fbw/law/normal">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/fbw/law/number eq 0
+			</test>
+		</switch>
+		<switch name="/systems/fbw/law/alternate">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/fbw/law/number eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/law/direct">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/fbw/law/number eq 2
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computers/prim-1">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/dc-emer-1 ge 20
+				/systems/fbw/computers/prim-1-fault eq 0
+				/controls/fbw/prim-1 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computers/prim-2">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/dc-emer-2 ge 20
+				/systems/fbw/computers/prim-2-fault eq 0
+				/controls/fbw/prim-2 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computers/prim-3">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/dc-1 ge 20
+				/systems/fbw/computers/prim-3-fault eq 0
+				/controls/fbw/prim-3 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computers/sec-1">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/dc-emer-1 ge 20
+				/systems/fbw/computers/sec-1-fault eq 0
+				/controls/fbw/sec-1 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computers/sec-2">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/dc-emer-2 ge 20
+				/systems/fbw/computers/sec-2-fault eq 0
+				/controls/fbw/sec-2 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computers/sec-3">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/bus/dc-1 ge 20
+				/systems/fbw/computers/sec-3-fault eq 0
+				/controls/fbw/sec-3 eq 1
+			</test>
+		</switch>
+	</channel>
+	<channel name="health">
+		<!-- computer states - see dsc-27-10-10 p 17/26 -->
+		<switch name="/systems/fbw/computer-surfaces/outer-ailerons-yellow">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/fbw/computers/sec-3 eq 1
+				/systems/fbw/computers/prim-3 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computer-surfaces/outer-ailerons-green">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/fbw/computers/sec-2 eq 1
+				/systems/fbw/computers/prim-2 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computer-surfaces/inner-ailerons">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/fbw/computers/sec-2 eq 1
+				/systems/fbw/computers/prim-2 eq 1
+				/systems/fbw/computers/sec-1 eq 1
+				/systems/fbw/computers/prim-1 eq 1
+			</test>
+		</switch>
+		<fcs_function name="/systems/fbw/aileron-droop-angle">
+			<function>
+				<table>
+					<independentVar>/velocities/airspeed-kt</independentVar>
+					<tableData>
+						0 1
+						50 0
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/hydraulics/green-health">
+			<function>
+				<table>
+					<independentVar>/systems/hydraulic/green-pressure</independentVar>
+					<!-- 2500 psi where things stop working is a guess... -->
+					<tableData>
+						2500 0
+						5000 1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/hydraulics/yellow-health">
+			<function>
+				<table>
+					<independentVar>/systems/hydraulic/yellow-pressure</independentVar>
+					<!-- 2500 psi where things stop working is a guess... -->
+					<tableData>
+						2500 0
+						5000 1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/hydraulics/eha-health">
+			<function>
+				<table>
+					<independentVar>/systems/electrical/bus/emer-1</independentVar>
+					<!-- 2500 psi where things stop working is a guess... -->
+					<tableData>
+						200 0
+						230 1
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/outer-aileron-range">
+			<!-- 1 = full motion, 0 = unable to move from droop angle -->
+			<function>
+				<max>
+					<property>/systems/fbw/hydraulics/yellow-health</property>
+					<property>/systems/fbw/hydraulics/green-health</property>
+				</max>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/outer-aileron-rate">
+			<function>
+				<max>
+					<product>
+						<property>/systems/fbw/hydraulics/yellow-health</property>
+						<property>/systems/fbw/computer-surfaces/outer-ailerons-yellow</property>
+					</product>
+					<product>
+						<property>/systems/fbw/hydraulics/green-health</property>
+						<property>/systems/fbw/computer-surfaces/outer-ailerons-green</property>
+					</product>
+				</max>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/inner-aileron-range">
+			<!-- 1 = full motion, 0 = unable to move from droop angle -->
+			<function>
+				<max>
+					<property>/systems/fbw/hydraulics/yellow-health</property>
+					<property>/systems/fbw/hydraulics/eha-health</property>
+				</max>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/inner-aileron-rate">
+			<function>
+				<product>
+					<property>/systems/fbw/inner-aileron-range</property>
+					<property>/systems/fbw/computer-surfaces/inner-ailerons</property>
+				</product>
+			</function>
+		</fcs_function>
+		<!-- these are the pair numbers given in the fcom. they are NOT the same
+			as the numbers in the spoilers section below! -->
+		<switch name="/systems/fbw/computer-surfaces/spoiler-pair-2-4-7">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/fbw/computers/sec-3 eq 1
+				/systems/fbw/computers/prim-3 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computer-surfaces/spoiler-pair-3-6">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/fbw/computers/sec-2 eq 1
+				/systems/fbw/computers/prim-2 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computer-surfaces/spoiler-pair-1-5">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/fbw/computers/sec-1 eq 1
+				/systems/fbw/computers/prim-1 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computer-surfaces/left-elevator">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/fbw/computers/sec-1 eq 1
+				/systems/fbw/computers/prim-1 eq 1
+				/systems/fbw/computers/sec-2 eq 1
+				/systems/fbw/computers/prim-2 eq 1
+			</test>
+		</switch>
+		<switch name="/systems/fbw/computer-surfaces/right-elevator">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/fbw/computers/sec-3 eq 1
+				/systems/fbw/computers/prim-3 eq 1
+				/systems/fbw/computers/sec-2 eq 1
+				/systems/fbw/computers/prim-2 eq 1
+			</test>
+		</switch>
+		<fcs_function name="/systems/fbw/left-elevator-range">
+			<!-- 1 = full motion, 0 = unable to move from droop angle -->
+			<function>
+				<max>
+					<property>/systems/fbw/hydraulics/green-health</property>
+					<property>/systems/fbw/hydraulics/eha-health</property>
+				</max>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/left-elevator-rate">
+			<function>
+				<product>
+					<property>/systems/fbw/left-elevator-range</property>
+					<property>/systems/fbw/computer-surfaces/left-elevator</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/right-elevator-range">
+			<!-- 1 = full motion, 0 = unable to move from droop angle -->
+			<function>
+				<max>
+					<property>/systems/fbw/hydraulics/yellow-health</property>
+					<property>/systems/fbw/hydraulics/eha-health</property>
+				</max>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/right-elevator-rate">
+			<function>
+				<product>
+					<property>/systems/fbw/right-elevator-range</property>
+					<property>/systems/fbw/computer-surfaces/right-elevator</property>
+				</product>
+			</function>
+		</fcs_function>
+	</channel>
 	<channel name="stuff">
 		<fcs_function name="/systems/fbw/aileron-with-deadband">
 			<function>
@@ -40,10 +310,10 @@
 					<table>
 						<independentVar>/systems/fbw/sidestick/aileron</independentVar>
 						<tableData>
-							-1      -1
-							-0.02   0
-							0.02    0
-							1       1
+							-1 -1
+							-0.02 0
+							0.02 0
+							1 1
 						</tableData>
 					</table>
 				</ifthen>
@@ -65,11 +335,11 @@
 					<table>
 						<independentVar>/orientation/roll-deg</independentVar>
 						<tableData>
-							-67    15
-							-33    0
-							0      0
-							33     0
-							67    -15
+							-67 15
+							-33 0
+							0 0
+							33 0
+							67 -15
 						</tableData>
 					</table>
 				</sum>
@@ -99,12 +369,12 @@
 		</switch>
 		<actuator name="/systems/fbw/aileron-direct-blend">
 			<input>/systems/fbw/aileron-direct</input>
-			<rate_limit>0.2</rate_limit>
+			<rate_limit>0.5</rate_limit>
 		</actuator>
 		<pid name="/systems/fbw/flight-aileron">
 			<input>/systems/fbw/roll-rate-error</input>
-			<kp>0.12</kp>
-			<ki>0.12</ki>
+			<kp>0.08</kp>
+			<ki>0.08</ki>
 			<kd>0.000</kd>
 			<trigger>/systems/fbw/aileron-trigger</trigger>
 			<output>/systems/fbw/aileron</output>
@@ -130,12 +400,14 @@
 			<function>
 				<product>
 					<table>
-						<independentVar>/instrumentation/airspeed-indicator/indicated-speed-kt</independentVar>
-						<!-- guess, only thing i know is that they aren't used above 250 knots -->
+						<independentVar>
+							/instrumentation/airspeed-indicator/indicated-speed-kt</independentVar>
+						<!-- guess, only thing i know is that they aren't
+						used above 250 knots -->
 						<tableData>
-							210       2
-							250       0
-							251       0
+							210 2
+							250 0
+							251 0
 						</tableData>
 					</table>
 					<property>/systems/fbw/aileron</property>
@@ -151,18 +423,18 @@
 						<independentVar lookup="column">fcs/slat-pos-norm</independentVar>
 						<independentVar lookup="row">fcs/flap-pos-norm</independentVar>
 						<tableData>
-							      0   0.29   1
-							0     0   0      0
-							0.29  0   0.5    0
-							0.596 0   0.5    0
-							0.645 0   0.5    0
-							1     0   0      0
+							0 0.29 1
+							0 0 0 0
+							0.29 0 0.5 0
+							0.596 0 0.5 0
+							0.645 0 0.5 0
+							1 0 0 0
 						</tableData>
 					</table>
 				</sum>
 			</function>
 		</fcs_function>
-		<fcs_function name="fcs/left-aileron-sum-cmd">
+		<fcs_function name="fcs/left-aileron-sum-cmd-no-droop">
 			<function>
 				<sum>
 					<property>/systems/fbw/symmetric-aileron</property>
@@ -170,11 +442,28 @@
 				</sum>
 			</function>
 		</fcs_function>
-		<actuator name="fcs/left-aileron-sum">
-			<input>fcs/left-aileron-sum-cmd</input>
-			<rate_limit>1</rate_limit>
+		<actuator name="fcs/left-aileron-sum-no-droop">
+			<input>fcs/left-aileron-sum-cmd-no-droop</input>
+			<rate_limit>/systems/fbw/inner-aileron-rate</rate_limit>
 		</actuator>
-		<fcs_function name="fcs/right-aileron-sum-cmd">
+		<fcs_function name="fcs/left-aileron-sum">
+			<function>
+				<sum>
+					<product>
+						<property>/systems/fbw/inner-aileron-range</property>
+						<property>fcs/left-aileron-sum-no-droop</property>
+					</product>
+					<product>
+						<sum>
+							<value>1</value>
+							<property>-/systems/fbw/inner-aileron-range</property>
+						</sum>
+						<property>/systems/fbw/aileron-droop-angle</property>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="fcs/right-aileron-sum-cmd-no-droop">
 			<function>
 				<sum>
 					<property>/systems/fbw/symmetric-aileron</property>
@@ -182,11 +471,28 @@
 				</sum>
 			</function>
 		</fcs_function>
-		<actuator name="fcs/right-aileron-sum">
-			<input>fcs/right-aileron-sum-cmd</input>
-			<rate_limit>1</rate_limit>
+		<actuator name="fcs/right-aileron-sum-no-droop">
+			<input>fcs/right-aileron-sum-cmd-no-droop</input>
+			<rate_limit>/systems/fbw/inner-aileron-rate</rate_limit>
 		</actuator>
-		<fcs_function name="fcs/left-outer-aileron-cmd-norm">
+		<fcs_function name="fcs/right-aileron-sum">
+			<function>
+				<sum>
+					<product>
+						<property>/systems/fbw/inner-aileron-range</property>
+						<property>fcs/right-aileron-sum-no-droop</property>
+					</product>
+					<product>
+						<sum>
+							<value>1</value>
+							<property>-/systems/fbw/inner-aileron-range</property>
+						</sum>
+						<property>/systems/fbw/aileron-droop-angle</property>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="fcs/left-outer-aileron-cmd-norm-no-droop">
 			<function>
 				<sum>
 					<property>/systems/fbw/symmetric-aileron</property>
@@ -198,17 +504,37 @@
 				<min>-1</min>
 			</clipto>
 		</fcs_function>
-		<actuator name="fcs/left-outer-aileron-pos-norm">
-			<input>fcs/left-outer-aileron-cmd-norm</input>
-			<rate_limit>1</rate_limit>
+		<actuator name="fcs/left-outer-aileron-pos-norm-no-droop">
+			<input>fcs/left-outer-aileron-cmd-norm-no-droop</input>
+			<rate_limit>/systems/fbw/outer-aileron-rate</rate_limit>
 		</actuator>
-		<fcs_function name="fcs/right-outer-aileron-cmd-norm">
+		<fcs_function name="fcs/left-outer-aileron-pos-norm">
+			<function>
+				<sum>
+					<product>
+						<property>/systems/fbw/outer-aileron-range</property>
+						<property>fcs/left-outer-aileron-pos-norm-no-droop</property>
+					</product>
+					<product>
+						<sum>
+							<value>1</value>
+							<product>
+								<value>-1</value>
+								<property>/systems/fbw/outer-aileron-range</property>
+							</product>
+						</sum>
+						<property>/systems/fbw/aileron-droop-angle</property>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="fcs/right-outer-aileron-cmd-norm-no-droop">
 			<function>
 				<sum>
 					<property>/systems/fbw/symmetric-aileron</property>
 					<product>
-						<property>/systems/fbw/outer-aileron</property>
 						<value>-1</value>
+						<property>/systems/fbw/outer-aileron</property>
 					</product>
 				</sum>
 			</function>
@@ -217,10 +543,30 @@
 				<min>-1</min>
 			</clipto>
 		</fcs_function>
-		<actuator name="fcs/right-outer-aileron-pos-norm">
-			<input>fcs/right-outer-aileron-cmd-norm</input>
-			<rate_limit>1</rate_limit>
+		<actuator name="fcs/right-outer-aileron-pos-norm-no-droop">
+			<input>fcs/right-outer-aileron-cmd-norm-no-droop</input>
+			<rate_limit>/systems/fbw/outer-aileron-rate</rate_limit>
 		</actuator>
+		<fcs_function name="fcs/right-outer-aileron-pos-norm">
+			<function>
+				<sum>
+					<product>
+						<property>/systems/fbw/outer-aileron-range</property>
+						<property>fcs/right-outer-aileron-pos-norm-no-droop</property>
+					</product>
+					<product>
+						<sum>
+							<value>1</value>
+							<product>
+								<value>-1</value>
+								<property>/systems/fbw/outer-aileron-range</property>
+							</product>
+						</sum>
+						<property>/systems/fbw/aileron-droop-angle</property>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
 		<fcs_function name="/systems/fbw/fdm-aileron">
 			<!-- difference between left aileron and right aileron -->
 			<function>
@@ -239,6 +585,8 @@
 				</quotient>
 			</function>
 		</fcs_function>
+	</channel>
+	<channel name="pitch">
 		<fcs_function name="/systems/fbw/alpha-margin">
 			<!-- how many more degrees of aoa will i let you pull? -->
 			<function>
@@ -255,19 +603,19 @@
 					<table>
 						<independentVar>/orientation/pitch-deg</independentVar>
 						<tableData>
-							25     2.5
-							30     1.0
-							31     0.2
-							35     0.0
+							25 2.5
+							30 1.0
+							31 0.2
+							35 0.0
 						</tableData>
 					</table>
 					<!-- aoa protection -->
 					<table>
 						<independentVar>/systems/fbw/alpha-margin</independentVar>
 						<tableData>
-							-1     0.0
-							0      1.0
-							3      2.5
+							-1 0.0
+							0 1.0
+							3 2.5
 						</tableData>
 					</table>
 				</min>
@@ -279,8 +627,8 @@
 				<table>
 					<independentVar>/orientation/pitch-deg</independentVar>
 					<tableData>
-						-15     1
-						-10     -1
+						-15 1
+						-10 -1
 					</tableData>
 				</table>
 			</function>
@@ -293,10 +641,10 @@
 					<table>
 						<independentVar>/systems/fbw/sidestick/elevator</independentVar>
 						<tableData>
-							-1      -1
-							-0.02   0
-							0.02    0
-							1       1
+							-1 -1
+							-0.02 0
+							0.02 0
+							1 1
 						</tableData>
 					</table>
 				</ifthen>
@@ -308,21 +656,24 @@
 					<min>
 						<property>/systems/fbw/pitch-g-protection-up</property>
 						<max>
-							<property>/systems/fbw/pitch-g-protection-down</property>
+							<property>
+								/systems/fbw/pitch-g-protection-down</property>
 							<table>
-								<independentVar>/systems/fbw/elevator-with-deadband</independentVar>
-								<!-- 1 = full forward, -1 = full back -->
+								<independentVar>
+									/systems/fbw/elevator-with-deadband</independentVar>
+								<!-- 1 = full forward, -1 = full
+								back -->
 								<tableData>
-								-1   2.5
-								0    1
-								1    -1
+									-1 2.5
+									0 1
+									1 -1
 								</tableData>
 							</table>
 						</max>
 					</min>
 					<value>-1</value>
 					<quotient>
-						<value>1</value>
+						<property>accelerations/Nz</property>
 						<cos>
 							<toradians>
 								<max>
@@ -330,7 +681,8 @@
 									<min>
 										<value>33</value>
 										<abs>
-											<property>/orientation/roll-deg</property>
+											<property>
+												/orientation/roll-deg</property>
 										</abs>
 									</min>
 								</max>
@@ -353,7 +705,8 @@
 						<value>108</value>
 						<quotient>
 							<quotient>
-								<property>/orientation/pitch-rate-degps</property>
+								<property>
+									/orientation/pitch-rate-degps</property>
 								<value>57.29577951</value>
 							</quotient>
 							<value>9.80665</value>
@@ -413,7 +766,7 @@
 			<input>/systems/fbw/direct</input>
 			<rate_limit>0.2</rate_limit>
 		</actuator>
-		<fcs_function name="/systems/fbw/elevator">
+		<fcs_function name="/systems/fbw/elevator-cmd">
 			<function>
 				<sum>
 					<product>
@@ -428,6 +781,59 @@
 						<property>/systems/fbw/g-elevator</property>
 					</product>
 				</sum>
+			</function>
+		</fcs_function>
+		<actuator name="/systems/fbw/left-elevator-no-droop">
+			<input>/systems/fbw/elevator-cmd</input>
+			<rate_limit>/systems/fbw/left-elevator-rate</rate_limit>
+		</actuator>
+		<actuator name="/systems/fbw/right-elevator-no-droop">
+			<input>/systems/fbw/elevator-cmd</input>
+			<rate_limit>/systems/fbw/right-elevator-rate</rate_limit>
+		</actuator>
+		<fcs_function name="/systems/fbw/left-elevator">
+			<function>
+				<sum>
+					<product>
+						<property>/systems/fbw/left-elevator-range</property>
+						<property>/systems/fbw/left-elevator-no-droop</property>
+					</product>
+					<product>
+						<sum>
+							<value>1</value>
+							<property>-/systems/fbw/left-elevator-range</property>
+						</sum>
+						<property>/systems/fbw/aileron-droop-angle</property>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/right-elevator">
+			<function>
+				<sum>
+					<product>
+						<property>/systems/fbw/right-elevator-range</property>
+						<property>/systems/fbw/right-elevator-no-droop</property>
+					</product>
+					<product>
+						<sum>
+							<value>1</value>
+							<property>-/systems/fbw/right-elevator-range</property>
+						</sum>
+						<property>/systems/fbw/aileron-droop-angle</property>
+					</product>
+				</sum>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/fbw/fdm-elevator">
+			<function>
+				<quotient>
+					<sum>
+						<property>/systems/fbw/left-elevator</property>
+						<property>/systems/fbw/right-elevator</property>
+					</sum>
+					<value>2</value>
+				</quotient>
 			</function>
 		</fcs_function>
 		<switch name="/systems/fbw/autotrim">
@@ -445,17 +851,82 @@
 	<property value="0">/systems/fbw/spoilers/spoiler-6-9-fail</property>
 	<property value="0">/systems/fbw/spoilers/spoiler-7-8-fail</property>
 	<property value="0">/controls/flight/speedbrake-armed</property>
+	<property value="0">/systems/fbw/spoilers/balanced</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-1</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-2</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-3</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-4</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-5</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-6</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-7</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-8</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-9</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-10</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-11</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-12</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-13</property>
+	<property value="0">/systems/fbw/spoilers/positions/spoiler-14</property>
 	<channel name="spoilers">
+		<switch name="/systems/fbw/spoilers/spoiler-1-14-fail">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/hydraulic/yellow-pressure le 2500
+				/systems/fbw/computer-surfaces/spoiler-pair-2-4-7 eq 0
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/spoiler-2-13-fail">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/hydraulic/green-pressure le 2500
+				/systems/fbw/computer-surfaces/spoiler-pair-3-6 eq 0
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/spoiler-3-12-fail">
+			<default value="0" />
+			<test logic="OR" value="1">
+				<test logic="AND">
+					/systems/hydraulic/green-pressure le 2500
+					/systems/electrical/bus/emer-1 le 200
+				</test>
+				/systems/fbw/computer-surfaces/spoiler-pair-1-5 eq 0
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/spoiler-4-11-fail">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/hydraulic/green-pressure le 2500
+				/systems/fbw/computer-surfaces/spoiler-pair-3-6 eq 0
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/spoiler-5-10-fail">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/hydraulic/green-pressure le 2500
+				/systems/fbw/computer-surfaces/spoiler-pair-1-5 eq 0
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/spoiler-6-9-fail">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/hydraulic/yellow-pressure le 2500
+				/systems/fbw/computer-surfaces/spoiler-pair-2-4-7 eq 0
+			</test>
+		</switch>
+		<switch name="/systems/fbw/spoilers/spoiler-7-8-fail">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/hydraulic/yellow-pressure le 2500
+				/systems/fbw/computer-surfaces/spoiler-pair-1-5 eq 0
+			</test>
+		</switch>
 		<summer name="/systems/fbw/mlg-wow">
 			<input>gear/unit[1]/WOW</input>
 			<input>gear/unit[2]/WOW</input>
 		</summer>
 		<switch name="/systems/fbw/tirespeed-72">
 			<default value="0" />
-			<test logic="OR" value="1"> <!-- 72 knots is 72 * 6076 / 3600 = 121.52 fps -->
-				gear/unit[1]/wheel-speed-fps ge 121.52
-				gear/unit[2]/wheel-speed-fps ge 121.52
-			</test>
+			<test logic="OR" value="1"> <!-- 72 knots is 72 * 6076 / 3600 = 121.52 fps --> gear/unit[1]/wheel-speed-fps ge 121.52
+				gear/unit[2]/wheel-speed-fps ge 121.52 </test>
 		</switch>
 		<switch name="/systems/fbw/spoilers/partial-extension">
 			<default value="0" />
@@ -491,10 +962,10 @@
 				<table>
 					<independentVar>/systems/fbw/aileron</independentVar>
 					<tableData>
-						-1        45
-						-0.2      5
-						0         0
-						1         0
+						-1 45
+						-0.2 5
+						0 0
+						1 0
 					</tableData>
 				</table>
 			</function>
@@ -504,10 +975,10 @@
 				<table>
 					<independentVar>/systems/fbw/aileron</independentVar>
 					<tableData>
-						-1       0
-						0        0
-						0.2      5
-						1        45
+						-1 0
+						0 0
+						0.2 5
+						1 45
 					</tableData>
 				</table>
 			</function>
@@ -517,10 +988,10 @@
 				<table>
 					<independentVar>/systems/fbw/aileron</independentVar>
 					<tableData>
-						-1        30
-						-0.2      5
-						0         0
-						1         0
+						-1 30
+						-0.2 5
+						0 0
+						1 0
 					</tableData>
 				</table>
 			</function>
@@ -530,10 +1001,10 @@
 				<table>
 					<independentVar>/systems/fbw/aileron</independentVar>
 					<tableData>
-						-1       0
-						0        0
-						0.2      5
-						1        30
+						-1 0
+						0 0
+						0.2 5
+						1 30
 					</tableData>
 				</table>
 			</function>
@@ -543,8 +1014,9 @@
 				<table> <!-- this is a guess -->
 					<independentVar>/velocities/airspeed-kt</independentVar>
 					<tableData>
-						0         15
-						250       1
+						0 0
+						5 15
+						250 1
 					</tableData>
 				</table>
 			</function>
@@ -555,26 +1027,26 @@
 					<table>
 						<independentVar>/controls/flight/speedbrake</independentVar>
 						<tableData>
-							0      0
-							0.5    0.75
-							1      1
+							0 0
+							0.5 0.75
+							1 1
 						</tableData>
 					</table>
 					<table> <!-- GUESS -->
 						<independentVar>accelerations/Nz</independentVar>
 						<tableData>
-						-0.5    0.2
-						0.3     1
-						1       1
-						1.7     1
-						2.5     0.2
+							-0.5 0.2
+							0.3 1
+							1 1
+							1.7 1
+							2.5 0.2
 						</tableData>
 					</table>
 					<table>
 						<independentVar>fcs/flap-pos-norm</independentVar>
 						<tableData>
-							0        1
-							0.296    0.5
+							0 1
+							0.296 0.5
 						</tableData>
 					</table>
 				</product>

@@ -2,6 +2,9 @@
 # Make sure you enable custom-fma in the config
 # Copyright (c) 2024 Josh Davidson (Octal450)
 
+var loc_star = props.globals.initNode('/systems/pfd/loc-star', 0, 'BOOL');
+var gs_star = props.globals.initNode('/systems/pfd/gs-star', 0, 'BOOL');
+
 var UpdateFma = {
 	latText: "",
 	thrText: "",
@@ -23,6 +26,9 @@ var UpdateFma = {
 		Output.gsArm.getBoolValue();
 	},
 	lat: func() { # Called when lateral mode changes
+		if (Text.lat.getValue() == 'LOC') {
+			loc_star.setBoolValue(1);
+		}
 		me.latText = {
 			"T/O": "RWY",
 			"RLOU": "ROLL OUT",
@@ -35,6 +41,9 @@ var UpdateFma = {
 		}[Text.lat.getValue()];
 	},
 	vert: func() { # Called when vertical mode changes
+		if (Text.vert.getValue() == 'G/S') {
+			gs_star.setBoolValue(1);
+		}
 		me.vertText = {
 			"T/O CLB": "SRS",
 			"ROLLOUT": "ROLL OUT",
@@ -52,7 +61,7 @@ var UpdateFma = {
 };
 setlistener("/systems/fadec/throttle/max-throttle", func(throttle) {
 	var thr = throttle.getValue();
-	if (itaf.Gear.wow0.getValue() and thr == 1) {
+	if (thr == 1) {
 		itaf.ITAF.takeoffGoAround();
 		itaf.ITAF.athrMaster(1);
 	}

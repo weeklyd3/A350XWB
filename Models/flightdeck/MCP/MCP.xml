@@ -146,6 +146,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
+			<factor-prop>/systems/electrical/outputs/mcp-lights</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -954,12 +955,22 @@
 		</action>-->
 		<increase>
             <binding>
+		<condition>
+			<greater-than>
+				<property>/systems/electrical/bus/dc-emer-1</property>
+				<value>20</value>
+			</greater-than>
+		</condition>
                 <command>nasal</command>
                 <script>A350XWB.hpa_inhg(0);</script>
            </binding>
         </increase>
 	<decrease>
             <binding>
+		<greater-than>
+			<property>/systems/electrical/bus/dc-emer-1</property>
+			<value>20</value>
+		</greater-than>
                 <command>nasal</command>
                 <script>A350XWB.hpa_inhg(0);</script>
            </binding>
@@ -972,6 +983,10 @@
 			<button>4</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
 				<command>nasal</command>
 				<script>A350XWB.qnh_edit(0, -1)</script>
 			</binding>
@@ -980,6 +995,10 @@
 			<button>3</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
 				<command>nasal</command>
 				<script>A350XWB.qnh_edit(0, 1)</script>
 			</binding>
@@ -988,6 +1007,10 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-1</property>
+					<value>20</value>
+				</greater-than>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis/std</property>
 			</binding>
@@ -1019,11 +1042,19 @@
 		</action>-->
 		<increase>
             <binding>
+		<greater-than>
+			<property>/systems/electrical/bus/dc-emer-2</property>
+			<value>20</value>
+		</greater-than>
                 <command>nasal</command>
                 <script>A350XWB.hpa_inhg(0);</script>
            </binding>
         </increase>
 	<decrease>
+		<greater-than>
+			<property>/systems/electrical/bus/dc-emer-2</property>
+			<value>20</value>
+		</greater-than>
             <binding>
                 <command>nasal</command>
                 <script>A350XWB.hpa_inhg(0);</script>
@@ -1037,6 +1068,10 @@
 			<button>4</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>20</value>
+				</greater-than>
 				<command>nasal</command>
 				<script>A350XWB.qnh_edit(0, -1)</script>
 			</binding>
@@ -1045,6 +1080,10 @@
 			<button>3</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>20</value>
+				</greater-than>
 				<command>nasal</command>
 				<script>A350XWB.qnh_edit(0, 1)</script>
 			</binding>
@@ -1053,6 +1092,10 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>20</value>
+				</greater-than>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis/std</property>
 			</binding>
@@ -1065,6 +1108,10 @@
 			<button>4</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>20</value>
+				</greater-than>
 				<command>nasal</command>
 				<script>A350XWB.qnh_edit(0, -1)</script>
 			</binding>
@@ -1073,6 +1120,10 @@
 			<button>3</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>20</value>
+				</greater-than>
 				<command>nasal</command>
 				<script>A350XWB.qnh_edit(0, 1)</script>
 			</binding>
@@ -1081,6 +1132,10 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>20</value>
+				</greater-than>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis/std</property>
 			</binding>
@@ -1094,6 +1149,10 @@
 			<!--  scroll up -->
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>20</value>
+				</greater-than>
 				<command>property-cycle</command>
 				<property>/instrumentation/efis[1]/inputs/range-nm</property>
 				<value>640</value>
@@ -1115,6 +1174,10 @@
 			<!--  scroll up -->
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>20</value>
+				</greater-than>
 				<command>property-cycle</command>
 				<property>/instrumentation/efis[1]/inputs/range-nm</property>
 				<value>10</value>
@@ -1136,6 +1199,10 @@
 			<!--  scroll up -->
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>20</value>
+				</greater-than>
 				<command>property-cycle</command>
 				<property>/instrumentation/efis[1]/nd/display-mode</property>
 				<value>PLAN</value>
@@ -1150,6 +1217,10 @@
 			<!--  scroll up -->
 			<repeatable>false</repeatable>
 			<binding>
+				<greater-than>
+					<property>/systems/electrical/bus/dc-emer-2</property>
+					<value>20</value>
+				</greater-than>
 				<command>property-cycle</command>
 				<property>/instrumentation/efis[1]/nd/display-mode</property>
 				<value>ILS</value>
@@ -1376,6 +1447,12 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-toggle</command>
 				<property>/it-autoflight/input/kts-mach</property>
 			</binding>
@@ -1388,6 +1465,12 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-toggle</command>
 				<property>/it-autoflight/input/true-course</property>
 			</binding>
@@ -1400,6 +1483,12 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-toggle</command>
 				<property>/it-autoflight/input/trk</property>
 			</binding>
@@ -1412,6 +1501,12 @@
 		<action>
 			<button>0</button>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-toggle</command>
 				<property>/it-autoflight/input/ap1</property>
 			</binding>
@@ -1424,6 +1519,12 @@
 		<action>
 			<button>0</button>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-toggle</command>
 				<property>/it-autoflight/input/ap2</property>
 			</binding>
@@ -1436,6 +1537,12 @@
 		<action>
 			<button>0</button>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-toggle</command>
 				<property>/it-autoflight/input/athr</property>
 			</binding>
@@ -1448,10 +1555,22 @@
 		<action>
 			<button>0</button>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-toggle</command>
 				<property>/it-autoflight/input/fd1</property>
 			</binding>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-toggle</command>
 				<property>/it-autoflight/input/fd2</property>
 			</binding>
@@ -1465,7 +1584,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/it-autoflight/input/fd1</factor-prop>
+			<factor-prop>/systems/electrical/outputs/fd-toggle-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -1475,7 +1594,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/it-autoflight/input/ap1</factor-prop>
+			<factor-prop>/systems/electrical/outputs/ap1-toggle-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -1485,7 +1604,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/it-autoflight/input/ap2</factor-prop>
+			<factor-prop>/systems/electrical/outputs/ap2-toggle-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -1495,7 +1614,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/it-autoflight/input/athr</factor-prop>
+			<factor-prop>/systems/electrical/outputs/athr-toggle-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -2397,6 +2516,12 @@
 		<offset-deg>6.6666666666667</offset-deg>
 		<action>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-adjust</command>
 				<property>/instrumentation/fcu/alt-increment</property>
 				<factor>900</factor>
@@ -2424,6 +2549,12 @@
 		<type>pick</type>
 		<object-name>alt_knob</object-name>
 		<action>
+			<condition>
+				<equals>
+					<property>/systems/electrical/outputs/mcp-lights</property>
+					<value>1</value>
+				</equals>
+			</condition>
 			<button>3</button>
 			<repeatable>false</repeatable>
 			<binding>
@@ -2432,6 +2563,12 @@
 			</binding>
 		</action>
 		<action>
+			<condition>
+				<equals>
+					<property>/systems/electrical/outputs/mcp-lights</property>
+					<value>1</value>
+				</equals>
+			</condition>
 			<button>4</button>
 			<repeatable>false</repeatable>
 			<binding>
@@ -2444,7 +2581,13 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<condition>
-					<property>devices/status/keyboard/shift</property>
+					<and>
+						<property>devices/status/keyboard/shift</property>
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
+					</and>
 				</condition>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/vert</property>
@@ -2473,6 +2616,12 @@
 			<button>3</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>nasal</command>
 				<script>A350XWB.change_spd(1);</script>
 			</binding>
@@ -2481,6 +2630,12 @@
 			<button>4</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>nasal</command>
 				<script>A350XWB.change_spd(-1);</script>
 			</binding>
@@ -2508,6 +2663,12 @@
 			<button>3</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-adjust</command>
 				<property>/it-autoflight/input/hdg</property>
 				<step>1</step>
@@ -2516,6 +2677,12 @@
 				<wrap>true</wrap>
 			</binding>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-adjust</command>
 				<property>/instrumentation/fcu/hdg-knob</property>
 				<step>11.25</step>
@@ -2525,6 +2692,12 @@
 			<button>4</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-adjust</command>
 				<property>/it-autoflight/input/hdg</property>
 				<step>-1</step>
@@ -2533,6 +2706,12 @@
 				<wrap>true</wrap>
 			</binding>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-adjust</command>
 				<property>/instrumentation/fcu/hdg-knob</property>
 				<step>-11.25</step>
@@ -2543,7 +2722,13 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<condition>
-					<property>devices/status/keyboard/shift</property>
+					<and>
+						<property>devices/status/keyboard/shift</property>
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
+					</and>
 				</condition>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/lat</property>
@@ -2551,7 +2736,13 @@
 			</binding>
 			<binding>
 				<condition>
-					<not><property>devices/status/keyboard/shift</property></not>
+					<and>
+						<not><property>devices/status/keyboard/shift</property></not>
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
+					</and>
 				</condition>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/lat</property>
@@ -2662,6 +2853,12 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>nasal</command>
 				<script>itaf.ITAF.toggleLocArm();</script>
 			</binding>
@@ -2674,6 +2871,12 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>nasal</command>
 				<script>itaf.ITAF.toggleApprArm();</script>
 			</binding>
@@ -2687,7 +2890,13 @@
 			<repeatable>false</repeatable>
 			<binding>
 				<condition>
-					<not><property>/devices/status/keyboard/shift</property></not>
+					<and>
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
+						<not><property>/devices/status/keyboard/shift</property></not>
+					</and>
 				</condition>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/lat</property>
@@ -2695,7 +2904,13 @@
 			</binding>
 			<binding>
 				<condition>
-					<property>/devices/status/keyboard/shift</property>
+					<and>
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
+						<property>/devices/status/keyboard/shift</property>
+					</and>
 				</condition>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/lat</property>
@@ -2713,6 +2928,12 @@
 				<!--<condition>
 					<property>/devices/status/keyboard/shift</property>
 				</condition>-->
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/vs</property>
 				<value>0</value>
@@ -2721,6 +2942,12 @@
 				<!--<condition>
 					<property>/devices/status/keyboard/shift</property>
 				</condition>-->
+				<condition>
+					<equals>
+						<property>/systems/electrical/outputs/mcp-lights</property>
+						<value>1</value>
+					</equals>
+				</condition>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/fpa</property>
 				<value>0</value>
@@ -2741,6 +2968,10 @@
 								<value>1</value>
 							</equals>
 						</not>
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
 					</and>
 				</condition>
 				<command>property-assign</command>
@@ -2756,7 +2987,13 @@
 								<property>/it-autoflight/input/vert</property>
 								<value>5</value>
 							</equals>
-						</not></and>
+						</not>
+
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
+					</and>
 				</condition>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/vert</property>
@@ -2767,7 +3004,13 @@
 					<property>/devices/status/keyboard/shift</property>
 				</condition>-->
 				<condition>
-					<not><property>/it-autoflight/input/trk</property></not>
+					<and>
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
+						<not><property>/it-autoflight/input/trk</property></not>
+					</and>
 				</condition>
 				<command>property-adjust</command>
 				<property>/it-autoflight/input/vs</property>
@@ -2780,7 +3023,13 @@
 					<property>/devices/status/keyboard/shift</property>
 				</condition>-->
 				<condition>
-					<property>/it-autoflight/input/trk</property>
+					<and>
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
+						<property>/it-autoflight/input/trk</property>
+					</and>
 				</condition>
 				<command>property-adjust</command>
 				<property>/it-autoflight/input/fpa</property>
@@ -2804,6 +3053,10 @@
 								<value>1</value>
 							</equals>
 						</not>
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
 					</and>
 				</condition>
 				<command>property-assign</command>
@@ -2819,7 +3072,13 @@
 								<property>/it-autoflight/input/vert</property>
 								<value>5</value>
 							</equals>
-						</not></and>
+						</not>
+
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
+					</and>
 				</condition>
 				<command>property-assign</command>
 				<property>/it-autoflight/input/vert</property>
@@ -2830,7 +3089,13 @@
 					<property>/devices/status/keyboard/shift</property>
 				</condition>-->
 				<condition>
+					<and>
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
 					<not><property>/it-autoflight/input/trk</property></not>
+					</and>
 				</condition>
 				<command>property-adjust</command>
 				<property>/it-autoflight/input/vs</property>
@@ -2843,7 +3108,13 @@
 					<property>/devices/status/keyboard/shift</property>
 				</condition>-->
 				<condition>
-					<property>/it-autoflight/input/trk</property>
+					<and>
+						<equals>
+							<property>/systems/electrical/outputs/mcp-lights</property>
+							<value>1</value>
+						</equals>
+						<property>/it-autoflight/input/trk</property>
+					</and>
 				</condition>
 				<command>property-adjust</command>
 				<property>/it-autoflight/input/fpa</property>
@@ -2862,7 +3133,7 @@
 			<red>0</red>
 			<blue>0</blue>
 			<green>1</green>
-			<factor-prop>/instrumentation/PFD_L/ls</factor-prop>
+			<factor-prop>/systems/electrical/outputs/capt-ls-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -2872,6 +3143,9 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/PFD_L/ls</property>
 			</binding>
@@ -2884,7 +3158,7 @@
 			<red>0</red>
 			<blue>0</blue>
 			<green>1</green>
-			<factor-prop>/instrumentation/PFD_L/vv</factor-prop>
+			<factor-prop>/systems/electrical/outputs/capt-vv-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -2894,6 +3168,9 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/PFD_L/vv</property>
 			</binding>
@@ -2907,7 +3184,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/instrumentation/efis/inputs/CSTR</factor-prop>
+			<factor-prop>/systems/electrical/outputs/capt-cstr-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -2917,6 +3194,9 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis/inputs/CSTR</property>
 			</binding>
@@ -2929,7 +3209,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/instrumentation/efis/inputs/wpt</factor-prop>
+			<factor-prop>/systems/electrical/outputs/capt-wpt-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -2939,15 +3219,24 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis/inputs/wpt</property>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis/inputs/VORD</property>
 				<value>0</value>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis/inputs/NDB</property>
 				<value>0</value>
@@ -2961,7 +3250,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/instrumentation/efis/inputs/VORD</factor-prop>
+			<factor-prop>/systems/electrical/outputs/capt-vord-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -2971,15 +3260,24 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis/inputs/VORD</property>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis/inputs/wpt</property>
 				<value>0</value>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis/inputs/NDB</property>
 				<value>0</value>
@@ -2993,7 +3291,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/instrumentation/efis/inputs/NDB</factor-prop>
+			<factor-prop>/systems/electrical/outputs/capt-ndb-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -3003,15 +3301,24 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis/inputs/NDB</property>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis/inputs/wpt</property>
 				<value>0</value>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis/inputs/VORD</property>
 				<value>0</value>
@@ -3025,7 +3332,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/instrumentation/efis/inputs/arpt</factor-prop>
+			<factor-prop>/systems/electrical/outputs/capt-arpt-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -3035,6 +3342,9 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis/inputs/arpt</property>
 			</binding>
@@ -3049,7 +3359,7 @@
 			<red>0</red>
 			<blue>0</blue>
 			<green>1</green>
-			<factor-prop>/instrumentation/PFD_R/ls</factor-prop>
+			<factor-prop>/systems/electrical/outputs/fo-ls-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -3059,6 +3369,9 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/PFD_R/ls</property>
 			</binding>
@@ -3071,7 +3384,7 @@
 			<red>0</red>
 			<blue>0</blue>
 			<green>1</green>
-			<factor-prop>/instrumentation/PFD_R/vv</factor-prop>
+			<factor-prop>/systems/electrical/outputs/fo-vv-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -3081,6 +3394,9 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/PFD_R/vv</property>
 			</binding>
@@ -3094,7 +3410,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/instrumentation/efis[1]/inputs/CSTR</factor-prop>
+			<factor-prop>/systems/electrical/outputs/fo-cstr-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -3104,6 +3420,9 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis[1]/inputs/CSTR</property>
 			</binding>
@@ -3116,7 +3435,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/instrumentation/efis[1]/inputs/wpt</factor-prop>
+			<factor-prop>/systems/electrical/outputs/fo-wpt-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -3126,15 +3445,24 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis[1]/inputs/wpt</property>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis[1]/inputs/VORD</property>
 				<value>0</value>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis[1]/inputs/NDB</property>
 				<value>0</value>
@@ -3148,7 +3476,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/instrumentation/efis[1]/inputs/VORD</factor-prop>
+			<factor-prop>/systems/electrical/outputs/fo-vord-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -3158,15 +3486,24 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis[1]/inputs/VORD</property>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis[1]/inputs/wpt</property>
 				<value>0</value>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis[1]/inputs/NDB</property>
 				<value>0</value>
@@ -3180,7 +3517,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/instrumentation/efis[1]/inputs/NDB</factor-prop>
+			<factor-prop>/systems/electrical/outputs/fo-ndb-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -3190,15 +3527,24 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis[1]/inputs/NDB</property>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis[1]/inputs/wpt</property>
 				<value>0</value>
 			</binding>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-assign</command>
 				<property>/instrumentation/efis[1]/inputs/VORD</property>
 				<value>0</value>
@@ -3212,7 +3558,7 @@
 			<red>0</red>
 			<green>1</green>
 			<blue>0</blue>
-			<factor-prop>/instrumentation/efis[1]/inputs/arpt</factor-prop>
+			<factor-prop>/systems/electrical/outputs/fo-arpt-light</factor-prop>
 		</emission>
 	</animation>
 	<animation>
@@ -3222,6 +3568,9 @@
 			<button>0</button>
 			<repeatable>false</repeatable>
 			<binding>
+				<condition>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</condition>
 				<command>property-toggle</command>
 				<property>/instrumentation/efis[1]/inputs/arpt</property>
 			</binding>

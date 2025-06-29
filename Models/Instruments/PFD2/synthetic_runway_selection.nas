@@ -1,5 +1,5 @@
 var nav1 = props.globals.getNode('/instrumentation/nav/frequencies/selected-mhz');
-
+var override = props.globals.initNode('/systems/pfd/synthetic-runway/override-airport', '', 'STRING');
 var previous_airport_id = '';
 var previous_frequency = 0;
 var selected_runway = nil;
@@ -9,8 +9,10 @@ var runway_corners_position = [[0, 0], [0, 0], [0, 0], [0, 0]];
 var runway_elevation = 0;
 var update_selected_runway = func() {
 	var nav1_frequency = nav1.getValue();
-	var info = airportinfo();
-	if (info.id == previous_airport_id and nav1_frequency == previous_frequency) return;
+	if (size(override.getValue()) >= 3) var info = airportinfo(override.getValue());
+	else var info = airportinfo();
+	var airport_id = info.id;
+	if (airport_id == previous_airport_id and nav1_frequency == previous_frequency) return;
 	previous_frequency = nav1_frequency;
 	debug.dump(previous_frequency);
 	previous_airport_id = info.id;

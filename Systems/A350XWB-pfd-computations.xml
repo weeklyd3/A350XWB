@@ -26,12 +26,42 @@
 				</table>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/pfd/vle">
+			<function>
+				<table>
+					<independentVar lookup="row">gear/gear-pos-norm</independentVar>
+					<tableData>
+					0      340
+					1      250
+					</tableData>
+				</table>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/mle">
+			<function>
+				<product>
+					<quotient>
+						<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+						<property>/instrumentation/airspeed-indicator/indicated-mach</property>
+					</quotient>
+					<table>
+						<independentVar lookup="row">gear/gear-pos-norm</independentVar>
+						<tableData>
+						0      0.89
+						1      0.55
+						</tableData>
+					</table>
+				</product>
+			</function>
+		</fcs_function>
 		<fcs_function name="/systems/pfd/max-speed">
 			<function>
 				<min>
 					<value>340</value>
 					<property>/systems/pfd/mmo</property>
 					<property>/systems/pfd/vfe</property>
+					<property>/systems/pfd/mle</property>
+					<property>/systems/pfd/vle</property>
 				</min>
 			</function>
 		</fcs_function>
@@ -563,6 +593,31 @@
 				</product>
 			</function>
 		</fcs_function>
+		<fcs_function name="/systems/pfd/two-second-timer">
+			<function>
+				<fmod>
+					<property>/sim/time/elapsed-sec</property>
+					<value>2</value>
+				</fmod>
+			</function>
+		</fcs_function>
+		<switch name="/systems/pfd/lvr-clb">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/instrumentation/altimeter/indicated-altitude-ft ge /fms/perf/takeoff/thr-red
+				/it-autoflight/output/athr eq 1
+				<test logic="OR">
+					/systems/fadec/throttle/athr eq 0
+					<test logic="AND">
+						/systems/fadec/throttle/display-throttle-angle-1 ne 0.625
+						/systems/fadec/throttle/display-throttle-angle-2 ne 0.625
+						/systems/fadec/throttle/display-throttle-angle-1 ne 0.805
+						/systems/fadec/throttle/display-throttle-angle-2 ne 0.805
+					</test>
+				</test>
+				/systems/pfd/two-second-timer ge 1
+			</test>
+		</switch>
 	</channel>
 	<channel name="managed speed">
 		<fcs_function name="/systems/pfd/speed-select">
@@ -594,6 +649,14 @@
 				<difference>
 					<property>/systems/pfd/target-speed</property>
 					<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+				</difference>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/pfd/altitude-delta">
+			<function>
+				<difference>
+					<property>/it-autoflight/internal/alt</property>
+					<property>/instrumentation/altimeter/indicated-altitude-ft</property>
 				</difference>
 			</function>
 		</fcs_function>
@@ -642,5 +705,87 @@
 				/instrumentation/efis/std eq 1
 			</test>
 		</switch>
+	</channel>
+	<channel name="gs* and loc* logic">
+		<switch name="/systems/pfd/timers/gs-timer-input">
+			<default value="-0.0125" />
+			<test value="/systems/pfd/timers/gs-timer" logic="OR">
+				/it-autoflight/output/vert ne 2
+			</test>
+		</switch>
+		<pid name="/systems/pfd/timers/gs-timer">
+			<input>/systems/pfd/timers/gs-timer-input</input>
+			<kp>0</kp>
+			<ki>-80</ki>
+			<kd>0</kd>
+		</pid>
+		<switch name="/systems/pfd/gs-established">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/instrumentation/nav/gs-needle-deflection-norm le 0.15
+				/instrumentation/nav/gs-needle-deflection-norm ge -0.15
+				/systems/pfd/timers/gs-timer ge 15
+			</test>
+		</switch>
+		<switch name="/systems/pfd/timers/loc-timer-input">
+			<default value="-0.0125" />
+			<test value="/systems/pfd/timers/loc-timer" logic="OR">
+				/it-autoflight/output/lat ne 2
+			</test>
+		</switch>
+		<pid name="/systems/pfd/timers/loc-timer">
+			<input>/systems/pfd/timers/loc-timer-input</input>
+			<kp>0</kp>
+			<ki>-80</ki>
+			<kd>0</kd>
+		</pid>
+		<switch name="/systems/pfd/loc-established">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/instrumentation/nav/heading-needle-deflection-norm le 0.1
+				/instrumentation/nav/heading-needle-deflection-norm ge -0.1
+				/systems/pfd/timers/loc-timer ge 10
+			</test>
+		</switch>
+	</channel>
+	<channel name="timers">
+		<switch name="/systems/pfd/timers/liftoff-timer-input">
+			<default value="-0.0125" />
+			<test value="/systems/pfd/timers/liftoff-timer" logic="OR">
+				/gear/gear/wow eq 1
+				/gear/gear[1]/wow eq 1
+				/gear/gear[2]/wow eq 1
+			</test>
+		</switch>
+		<pid name="/systems/pfd/timers/liftoff-timer">
+			<input>/systems/pfd/timers/liftoff-timer-input</input>
+			<kp>0</kp>
+			<ki>-80</ki>
+			<kd>0</kd>
+		</pid>
+		<switch name="/systems/pfd/timers/ecam-state-11-timer-input">
+			<default value="-0.0125" />
+			<test value="/systems/pfd/timers/ecam-state-11-timer" logic="OR">
+				/fms/ecam-flight-phase eq 11
+			</test>
+		</switch>
+		<pid name="/systems/pfd/timers/ecam-state-11-timer">
+			<input>/systems/pfd/timers/ecam-state-11-timer-input</input>
+			<kp>0</kp>
+			<ki>-80</ki>
+			<kd>0</kd>
+		</pid>
+		<switch name="/systems/pfd/timers/ecam-state-13-timer-input">
+			<default value="-0.0125" />
+			<test value="/systems/pfd/timers/ecam-state-13-timer" logic="OR">
+				/fms/ecam-flight-phase eq 13
+			</test>
+		</switch>
+		<pid name="/systems/pfd/timers/ecam-state-13-timer">
+			<input>/systems/pfd/timers/ecam-state-13-timer-input</input>
+			<kp>0</kp>
+			<ki>-80</ki>
+			<kd>0</kd>
+		</pid>
 	</channel>
 </system>

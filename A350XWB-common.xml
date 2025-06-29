@@ -285,6 +285,16 @@
 						</binding>
 					</item>
 					<item>
+						<label>Route Manager Dialog</label>
+						<binding>
+							<command>nasal</command>
+							<script>var route_dialog =
+								gui.Dialog.new("sim/gui/dialogs/ap_dialog/dialog",
+								"Aircraft/A350XWB/Systems/route-manager.xml");
+								route_dialog.open();</script>
+						</binding>
+					</item>
+					<item>
 						<name>pushback</name>
 						<label>Request for Pushback</label>
 						<binding>
@@ -461,6 +471,9 @@
 				<ti>0.5</ti>
 				<td>0.001</td>
 			</pitch>
+			<yaw>
+				<gain-factor>1.0</gain-factor> <!-- Yaw rate gain scaling factor for align/rollout -->
+			</yaw>
 			<cmd>
 				<alt>-5</alt>
 				<flch-accel>1.5</flch-accel>

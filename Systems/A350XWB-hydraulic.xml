@@ -20,8 +20,8 @@
 		<switch name="/systems/hydraulic/yellow-pressure-cmd">
 			<default value="0" />
 			<test logic="OR" value="5000">
-				/engines/engine/yellow-pump EQ 1
-				/engines/engine[1]/yellow-pump EQ 1
+				/systems/hydraulic/eng-1-yellow-pump EQ 1
+				/systems/hydraulic/eng-2-yellow-pump EQ 1
 			</test>
 		</switch>
 		<actuator name="/systems/hydraulic/yellow-pressure">
@@ -48,8 +48,8 @@
 		<switch name="/systems/hydraulic/green-pressure-cmd">
 			<default value="0" />
 			<test logic="OR" value="5000">
-				/engines/engine/green-pump EQ 1
-				/engines/engine[1]/green-pump EQ 1
+				/systems/hydraulic/eng-1-green-pump EQ 1
+				/systems/hydraulic/eng-2-green-pump EQ 1
 			</test>
 		</switch>
 		<actuator name="/systems/hydraulic/green-pressure">

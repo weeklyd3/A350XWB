@@ -12,23 +12,27 @@
     <load>
       var livery_update = aircraft.livery_update.new("Aircraft/A350XWB/Models/Liveries", 10);
       var model = cmdarg();
-   model.getNode("door[0]/position-x-m", 1).setValue(2.18686);
-   model.getNode("door[0]/position-y-m", 1).setValue(2.52946);
-   model.getNode("door[0]/position-z-m", 1).setValue(3.16475);
-   model.getNode("door[0]/jetway-hood-deg", 1).setValue(10);
-   var clear = func() {
-   var plan = createFlightplan();
-var ppos = createWP(geo.aircraft_position().lat(), geo.aircraft_position().lon(), "PPOS");
-plan.insertWP(ppos, 0);
-plan.activate();
-   };
-   print('trying to clear flightplan');
-props.globals.getNode('/autopilot/route-manager/route/wp').clearValue();
-setprop('/autopilot/route-manager/route/num', 0);
-setprop('/autopilot/route-manager/departure/airport', '')''
-var timer = maketimer(1, clear);
-timer.singleShot = 1;
-timer.start();
+      model.getNode("door[0]/position-x-m", 1).setValue(-25.95637);
+      model.getNode("door[0]/position-y-m", 1).setValue(-2.62199);
+      model.getNode("door[0]/position-z-m", 1).setValue(1.8675);
+      model.getNode("door[0]/jetway-hood-deg", 1).setValue(10);
+      model.getNode("door[1]/position-x-m", 1).setValue(-13.9077);
+      model.getNode("door[1]/position-y-m", 1).setValue(-3.00633);
+      model.getNode("door[1]/position-z-m", 1).setValue(1.8675);
+      model.getNode("door[1]/jetway-hood-deg", 1).setValue(10);
+      var clear = func() {
+      var plan = createFlightplan();
+      var ppos = createWP(geo.aircraft_position().lat(), geo.aircraft_position().lon(), "PPOS");
+      plan.insertWP(ppos, 0);
+      plan.activate();
+      };
+      print('trying to clear flightplan');
+      props.globals.getNode('/autopilot/route-manager/route/wp').clearValue();
+      setprop('/autopilot/route-manager/route/num', 0);
+      setprop('/autopilot/route-manager/departure/airport', '')''
+      var timer = maketimer(1, clear);
+      timer.singleShot = 1;
+      timer.start();
     </load>
     <unload>
       livery_update.stop();
@@ -715,7 +719,7 @@ timer.start();
     <type>rotate</type>
     <object-name>elevator.1</object-name>
     <!--<property>controls/flight/elevator</property>-->
-    <property>/systems/fbw/elevator</property>
+    <property>/systems/fbw/left-elevator</property>
     <interpolation>
       <entry><ind>1.0</ind><dep>25.0</dep></entry>
       <entry><ind>0.0</ind><dep>0.0</dep></entry>
@@ -735,7 +739,7 @@ timer.start();
     <type>rotate</type>
     <object-name>elevator.2</object-name>
     <!--<property>controls/flight/elevator</property>-->
-    <property>/systems/fbw/elevator</property>
+    <property>/systems/fbw/right-elevator</property>
     <interpolation>
       <entry><ind>1.0</ind><dep>-25.0</dep></entry>
       <entry><ind>0.0</ind><dep>0.0</dep></entry>

@@ -177,7 +177,7 @@ var canvas_nd_base = {
 		}
 	},
 };
-var vd_symbols = std.Vector.new(['alt_scale', 'current_alt']);
+var vd_symbols = std.Vector.new(['alt_scale', 'current_alt', 'terrain_group']);
 var vd_text = std.Vector.new([]);
 for (var i = 1; i <= 14; i += 1) {
 	vd_symbols.append('line_' ~ i);
@@ -234,6 +234,7 @@ var canvas_ND_2 = {
 		# here we make the ND:
 		me.NDFo = ND.new("instrumentation/efis[1]", myCockpit_switches, "Airbus");
 		me.NDFo.newMFD(canvas_group);
+		me.NDFo.is_fo = 1;
 		canvas.parsesvg(canvas_group, "Aircraft/A350XWB/Models/Instruments/ND/canvas/res/vsd.svg", {"font-mapper": font_mapper});
 		me.group = canvas_group;
 		m.group = canvas_group;

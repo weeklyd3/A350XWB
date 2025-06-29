@@ -89,4 +89,301 @@
 			</condition>
 		</transition>
 	</state-machine>
+	<state-machine>
+		<branch>/fms/ecam-flight-phase</branch>
+		<state>
+			<name>0</name>
+		</state>
+		<state>
+			<name>1</name>
+		</state>
+		<state>
+			<name>2</name>
+		</state>
+		<state>
+			<name>3</name>
+		</state>
+		<state>
+			<name>4</name>
+		</state>
+		<state>
+			<name>5</name>
+		</state>
+		<state>
+			<name>6</name>
+		</state>
+		<state>
+			<name>7</name>
+		</state>
+		<state>
+			<name>8</name>
+		</state>
+		<state>
+			<name>9</name>
+		</state>
+		<state>
+			<name>10</name>
+		</state>
+		<state>
+			<name>11</name>
+		</state>
+		<state>
+			<name>12</name>
+		</state>
+		<state>
+			<name>13</name>
+		</state>
+		<transition>
+			<name>power on</name>
+			<source>0</source>
+			<target>1</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<and>
+					<or>
+						<greater-than>
+							<property>/systems/electrical/bus/dc-1</property>
+							<value>20</value>
+						</greater-than>
+						<greater-than>
+							<property>/systems/electrical/bus/dc-2</property>
+							<value>20</value>
+						</greater-than>
+						<greater-than>
+							<property>/systems/electrical/bus/dc-emer-1</property>
+							<value>20</value>
+						</greater-than>
+						<greater-than>
+							<property>/systems/electrical/bus/dc-emer-1</property>
+							<value>20</value>
+						</greater-than>
+						<greater-than>
+							<property>/systems/electrical/bus/ac-1</property>
+							<value>200</value>
+						</greater-than>
+						<greater-than>
+							<property>/systems/electrical/bus/ac-2</property>
+							<value>200</value>
+						</greater-than>
+						<greater-than>
+							<property>/systems/electrical/bus/emer-1</property>
+							<value>200</value>
+						</greater-than>
+						<greater-than>
+							<property>/systems/electrical/bus/emer-1</property>
+							<value>200</value>
+						</greater-than>
+					</or>
+				</and>
+			</condition>
+		</transition>
+		<transition>
+			<name>engine start</name>
+			<source>1</source>
+			<target>2</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<and>
+					<or>
+						<equals>
+							<property>/engines/engine/running</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/engines/engine[1]/running</property>
+							<value>1</value>
+						</equals>
+					</or>
+				</and>
+			</condition>
+		</transition>
+		<transition>
+			<name>engine takeoff power</name>
+			<source>2</source>
+			<target>3</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<and>
+					<or>
+						<equals>
+							<property>/systems/fadec/throttle/display-throttle-angle-1</property>
+							<value>1</value>
+						</equals>
+						<equals>
+							<property>/systems/fadec/throttle/display-throttle-angle-2</property>
+							<value>1</value>
+						</equals>
+					</or>
+				</and>
+			</condition>
+		</transition>
+		<transition>
+			<name>80 kt</name>
+			<source>3</source>
+			<target>4</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<greater-than>
+					<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+					<value>80</value>
+				</greater-than>
+			</condition>
+		</transition>
+		<transition>
+			<name>v1</name>
+			<source>4</source>
+			<target>5</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<and>
+					<or>
+						<and>
+							<greater-than>
+								<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+								<property>/fms/perf/takeoff/v1</property>
+							</greater-than>
+							<greater-than>
+								<property>/fms/perf/takeoff/v1</property>
+								<value>0</value>
+							</greater-than>
+						</and>
+						<and>
+							<greater-than>
+								<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+								<value>120</value>
+							</greater-than>
+							<equals>
+								<property>/fms/perf/takeoff/v1</property>
+								<value>0</value>
+							</equals>
+						</and>
+					</or>
+				</and>
+			</condition>
+		</transition>
+		<transition>
+			<name>liftoff</name>
+			<source>0</source>
+			<source>1</source>
+			<source>5</source>
+			<target>6</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<and>
+					<not><property>/gear/gear/wow</property></not>
+					<not><property>/gear/gear[1]/wow</property></not>
+					<not><property>/gear/gear[2]/wow</property></not>
+				</and>
+			</condition>
+		</transition>
+		<transition>
+			<name>400 ft or 15 seconds</name>
+			<source>6</source>
+			<target>7</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<or>
+					<greater-than>
+						<property>/instrumentation/altimeter/indicated-radio-altitude-ft</property>
+						<value>400</value>
+					</greater-than>
+					<greater-than>
+						<property>/systems/pfd/timers/liftoff-timer</property>
+						<value>15</value>
+					</greater-than>
+				</or>
+			</condition>
+		</transition>
+		<transition>
+			<name>1500 ft or 120 seconds</name>
+			<source>7</source>
+			<target>8</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<or>
+					<greater-than>
+						<property>/instrumentation/altimeter/indicated-radio-altitude-ft</property>
+						<value>1500</value>
+					</greater-than>
+					<greater-than>
+						<property>/systems/pfd/timers/liftoff-timer</property>
+						<value>120</value>
+					</greater-than>
+				</or>
+			</condition>
+		</transition>
+		<transition>
+			<name>800 feet on approach</name>
+			<source>8</source>
+			<target>9</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<less-than>
+					<property>/instrumentation/altimeter/indicated-radio-altitude-ft</property>
+					<value>800</value>
+				</less-than>
+			</condition>
+		</transition>
+		<transition>
+			<name>touchdown</name>
+			<source>9</source>
+			<target>10</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<or>
+					<property>gear/gear/wow</property>
+					<property>gear/gear[1]/wow</property>
+					<property>gear/gear[2]/wow</property>
+				</or>
+			</condition>
+		</transition>
+		<transition>
+			<name>deceleration through 80 knots</name>
+			<source>10</source>
+			<target>11</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<less-than>
+					<property>/instrumentation/airspeed-indicator/indicated-speed-kt</property>
+					<value>80</value>
+				</less-than>
+			</condition>
+		</transition>
+		<transition>
+			<name>one minute after phase 11</name>
+			<source>11</source>
+			<target>12</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<greater-than>
+					<property>/systems/pfd/timers/ecam-state-11-timer</property>
+					<value>60</value>
+				</greater-than>
+			</condition>
+		</transition>
+		<transition>
+			<name>engine shutdown</name>
+			<source>12</source>
+			<target>13</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<and>
+					<not><property>/engines/engine/running</property></not>
+					<not><property>/engines/engine[1]/running</property></not>
+				</and>
+			</condition>
+		</transition>
+		<transition>
+			<name>5 minutes after engine shutdown</name>
+			<source>13</source>
+			<target>0</target>
+			<exclude-target type="bool">true</exclude-target>
+			<condition>
+				<greater-than>
+					<property>/systems/pfd/timers/ecam-state-13-timer</property>
+					<value>300</value>
+				</greater-than>
+			</condition>
+		</transition>
+	</state-machine>
 </PropertyList>

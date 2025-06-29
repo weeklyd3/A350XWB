@@ -6,6 +6,7 @@
 
 # Override FGDATA/Nasal/canvas/map/navdisplay.mfd
 
+var disable_fo = props.globals.getNode('/sim/disable-fo-screens');
 var default_hash = canvas.default_hash;
 var _MP_dbg_lvl = canvas._MP_dbg_lvl;
 var assert_m = canvas.assert_m;
@@ -333,6 +334,7 @@ canvas.NavDisplay.update_sub = func(){
 	}
 };
 canvas.NavDisplay.update_vd = func() {
+	if (disable_fo.getValue() and me.is_fo) return;
 	var low = me.vd_switches.low.getValue();
 	var altitude = me.vd_switches.altitude.getValue();
 	var low_translation = me.vd_switches['low-displacement'].getValue();
@@ -363,9 +365,7 @@ canvas.NavDisplay.update_vd = func() {
 	else last_path.setColorFill([0, 1, 1]);
 	#last_path.hide();
 	var range = me.vd_switches.vert_range.getValue();
-	var old_terrain_elements = [];
-	foreach (element; me.terrain_elements) append(old_terrain_elements, element);
-	me.terrain_elements = [];
+	while (size(me.terrain_elements)) pop(me.terrain_elements).del();
 	var i = 0;
 	foreach (terrain; me.terrain) {
 		# draw terrain
@@ -398,8 +398,6 @@ canvas.NavDisplay.update_vd = func() {
 		last_is_solid = solid;
 		i += 1;
 	}
-	foreach (element; old_terrain_elements) element.del();
-	if (size(me.terrain_elements) == 0) return print('HUH??? ' ~ size(me.terrain_elements));
 }
 var route_active = props.globals.getNode('/autopilot/route-manager/active');
 var track = props.globals.getNode('/it-autoflight/internal/track-deg');
@@ -474,8 +472,10 @@ canvas.NavDisplay.update_terrain = func() {
 	}
 };
 canvas.NavDisplay.terrain_profile = [];
+canvas.NavDisplay.is_fo = 0;
 canvas.NavDisplay.update = func() # FIXME: This stuff is still too aircraft specific, cannot easily be reused by other aircraft
 {
+	if (disable_fo.getValue() and me.is_fo) return;
 	var _time = systime();
 	# Disables WXR Live if it"s not enabled. The toggle_weather_live should be common to all 
 	# ND instances.

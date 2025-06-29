@@ -354,6 +354,190 @@
 	<channel name="ecam">
 
 	</channel>
+	<property value="0">/instrumentation/efis/inputs/CSTR</property>
+	<property value="0">/instrumentation/efis/inputs/wpt</property>
+	<property value="0">/instrumentation/efis/inputs/VORD</property>
+	<property value="0">/instrumentation/efis/inputs/NDB</property>
+	<property value="0">/instrumentation/efis/inputs/arpt</property>
+	<property value="0">/instrumentation/efis[1]/inputs/CSTR</property>
+	<property value="0">/instrumentation/efis[1]/inputs/wpt</property>
+	<property value="0">/instrumentation/efis[1]/inputs/VORD</property>
+	<property value="0">/instrumentation/efis[1]/inputs/NDB</property>
+	<property value="0">/instrumentation/efis[1]/inputs/arpt</property>
+
 	<channel name="outputs">
+		<switch name="/systems/electrical/outputs/mcp-lights">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/bus/dc-emer-1 ge 12
+				/systems/electrical/bus/dc-emer-2 ge 12
+			</test>
+		</switch>
+		<switch name="/systems/electrical/outputs/left-efis-lights">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/bus/dc-emer-1 ge 20
+			</test>
+		</switch>
+		<switch name="/systems/electrical/outputs/right-efis-lights">
+			<default value="0" />
+			<test logic="OR" value="1">
+				/systems/electrical/bus/dc-emer-2 ge 20
+			</test>
+		</switch>
+		<fcs_function name="/systems/electrical/outputs/fd-toggle-light">
+			<function>
+				<product>
+					<property>/it-autoflight/input/fd1</property>
+					<property>/systems/electrical/outputs/mcp-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/ap1-toggle-light">
+			<function>
+				<product>
+					<property>/it-autoflight/input/ap1</property>
+					<property>/systems/electrical/outputs/mcp-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/ap2-toggle-light">
+			<function>
+				<product>
+					<property>/it-autoflight/input/ap2</property>
+					<property>/systems/electrical/outputs/mcp-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/athr-toggle-light">
+			<function>
+				<product>
+					<property>/it-autoflight/input/athr</property>
+					<property>/systems/electrical/outputs/mcp-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/athr-toggle-light">
+			<function>
+				<product>
+					<property>/it-autoflight/input/athr</property>
+					<property>/systems/electrical/outputs/mcp-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/capt-ls-light">
+			<function>
+				<product>
+					<property>/instrumentation/PFD_L/ls</property>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/capt-vv-light">
+			<function>
+				<product>
+					<property>/instrumentation/PFD_L/vv</property>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/capt-cstr-light">
+			<function>
+				<product>
+					<property>/instrumentation/efis/inputs/CSTR</property>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/capt-wpt-light">
+			<function>
+				<product>
+					<property>/instrumentation/efis/inputs/wpt</property>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/capt-vord-light">
+			<function>
+				<product>
+					<property>/instrumentation/efis/inputs/VORD</property>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/capt-ndb-light">
+			<function>
+				<product>
+					<property>/instrumentation/efis/inputs/NDB</property>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/capt-arpt-light">
+			<function>
+				<product>
+					<property>/instrumentation/efis/inputs/arpt</property>
+					<property>/systems/electrical/outputs/left-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+
+		<!-- and again -->
+		<fcs_function name="/systems/electrical/outputs/fo-ls-light">
+			<function>
+				<product>
+					<property>/instrumentation/PFD_R/ls</property>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/fo-vv-light">
+			<function>
+				<product>
+					<property>/instrumentation/PFD_R/vv</property>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/fo-cstr-light">
+			<function>
+				<product>
+					<property>/instrumentation/efis[1]/inputs/CSTR</property>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/fo-wpt-light">
+			<function>
+				<product>
+					<property>/instrumentation/efis[1]/inputs/wpt</property>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/fo-vord-light">
+			<function>
+				<product>
+					<property>/instrumentation/efis[1]/inputs/VORD</property>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/fo-ndb-light">
+			<function>
+				<product>
+					<property>/instrumentation/efis[1]/inputs/NDB</property>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
+		<fcs_function name="/systems/electrical/outputs/fo-arpt-light">
+			<function>
+				<product>
+					<property>/instrumentation/efis[1]/inputs/arpt</property>
+					<property>/systems/electrical/outputs/right-efis-lights</property>
+				</product>
+			</function>
+		</fcs_function>
 	</channel>
 </system>
