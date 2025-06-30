@@ -24,6 +24,15 @@
 			<test logic="AND" value="1">
 				/controls/apu/starter EQ 1
 				/systems/apu/flap GE 0.95
+				<test logic="OR">
+					/systems/electrical/bus/emer-1 ge 200
+					/systems/electrical/bus/emer-2 ge 200
+					/systems/electrical/bus/ac-1a ge 200
+					/systems/electrical/bus/ac-1b ge 200
+					/systems/electrical/bus/ac-2a ge 200
+					/systems/electrical/bus/ac-2b ge 200
+					/systems/electrical/batteries/counter ge 2
+				</test>
 			</test>
 		</switch>
 		<switch name="/systems/apu/cmd-n">

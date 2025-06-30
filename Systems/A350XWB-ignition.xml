@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="A350XWB-ignition">
+	<property value="0">/controls/engines/autostart</property><!--
+	<property value="0">/controls/engines/engine/master</property>
+	<property value="0">/controls/engines/engine[1]/master</property>-->
+	<channel name="ignition">
+		<switch name="/engines/engine/ignition-ready">
+			<default value="0" />
+			<test logic="AND" value="1">
+				<test logic="OR">
+					/systems/air/eng-1-bleed-on eq 1
+					/systems/air/eng-2-bleed-on eq 1
+					/systems/apu/bleed-cmd eq 1
+					/controls/engines/autostart eq 1
+				</test>
+				<test logic="OR">
+					/systems/electrical/bus/dc-emer-1 ge 25
+					/systems/electrical/bus/dc-emer-2 ge 25
+					/controls/engines/autostart eq 1
+				</test>
+			</test>
+		</switch>
+		<switch name="/engines/engine/start-ready">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/engine-mode-switch eq 2
+				/engines/engine/ignition-ready eq 1
+				/controls/engines/engine/master eq 1
+				/engines/engine/running eq 0
+			</test>
+		</switch>
+		<switch name="/engines/engine[1]/start-ready">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/controls/engine-mode-switch eq 2
+				/engines/engine/ignition-ready eq 1
+				/controls/engines/engine[1]/master eq 1
+				/engines/engine[1]/running eq 0
+			</test>
+		</switch>
+	</channel>
+</system>

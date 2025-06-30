@@ -354,6 +354,38 @@
 	<channel name="ecam">
 
 	</channel>
+	<channel name="battery counters">
+		<switch name="/systems/electrical/batteries/bat-1-ok">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/batteries/bat-1-voltage ge 24
+			</test>
+		</switch>
+		<switch name="/systems/electrical/batteries/bat-emer-1-ok">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/batteries/bat-emer-1-voltage ge 24
+			</test>
+		</switch>
+		<switch name="/systems/electrical/batteries/bat-2-ok">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/batteries/bat-2-voltage ge 24
+			</test>
+		</switch>
+		<switch name="/systems/electrical/batteries/bat-emer-2-ok">
+			<default value="0" />
+			<test logic="AND" value="1">
+				/systems/electrical/batteries/bat-emer-2-voltage ge 24
+			</test>
+		</switch>
+		<summer name="/systems/electrical/batteries/counter">
+			<input>/systems/electrical/batteries/bat-1-ok</input>
+			<input>/systems/electrical/batteries/bat-emer-1-ok</input>
+			<input>/systems/electrical/batteries/bat-2-ok</input>
+			<input>/systems/electrical/batteries/bat-emer-2-ok</input>
+		</summer>
+	</channel>
 	<property value="0">/instrumentation/efis/inputs/CSTR</property>
 	<property value="0">/instrumentation/efis/inputs/wpt</property>
 	<property value="0">/instrumentation/efis/inputs/VORD</property>
